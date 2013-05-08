@@ -10,7 +10,7 @@
 //#define IMPRIME(STR) {};
 #define IMPRIME(STR) printf("%s    # %s \n", STR, token);
 
-int nl = 1;  
+int nl = 1;
 
 %}
 
@@ -26,19 +26,19 @@ comentario "(*".*"*)"
 
 %%
 
-{pulo_linha} {nl++;} 
+{pulo_linha} {nl++;}
 
 {descarte}
 
 {comentario}
 
-program { simbolo  = simb_program;  
+program { simbolo  = simb_program;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME("program ");
           return PROGRAM;
  }
 
-var      { simbolo = simb_var;  
+var      { simbolo = simb_var;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME("var  ");
           return VAR;
@@ -56,68 +56,98 @@ end { simbolo = simb_end;
           return T_END;
  }
 
-:= { simbolo = simb_atribuicao;  
+:= { simbolo = simb_atribuicao;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" atribuicao  ");
-          return ATRIBUICAO;  
+          return ATRIBUICAO;
  }
 
-\; { simbolo = simb_ponto_e_virgula;  
+\; { simbolo = simb_ponto_e_virgula;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" pt_virgula  ");
           return PONTO_E_VIRGULA;
  }
 
-\: { simbolo = simb_dois_pontos;  
+\: { simbolo = simb_dois_pontos;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" dois pontos ");
           return DOIS_PONTOS;
  }
 
-\, { simbolo = simb_virgula;  
+\, { simbolo = simb_virgula;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" virgula  ");
           return VIRGULA;
  }
 
 
-\. { simbolo = simb_ponto;  
+\. { simbolo = simb_ponto;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" ponto  ");
-          return PONTO; 
+          return PONTO;
     }
 
-\(  { simbolo = simb_abre_parenteses;  
+\(  { simbolo = simb_abre_parenteses;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" abre_parenteses  ");
           return ABRE_PARENTESES;
     }
 
-\)  { simbolo = simb_fecha_parenteses;  
+\)  { simbolo = simb_fecha_parenteses;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" fecha_parenteses ");
           return FECHA_PARENTESES;
  }
 
-{ident} { simbolo = simb_identificador; 
+{ident} { simbolo = simb_identificador;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" ident  ");
           return IDENT;
         }
 
-\while  { simbolo = simb_enquanto;  
+{numero} { simbolo = simb_numero;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" numero  ");
+          return NUMERO;
+        }
+
+\+  { simbolo = simb_soma;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" soma ");
+          return SOMA;
+ }
+
+\-  { simbolo = simb_subtracao;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" subtracao ");
+          return SUBTRACAO;
+ }
+
+\*  { simbolo = simb_multiplicacao;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" multiplicacao ");
+          return MULTIPLICACAO;
+ }
+
+\/  { simbolo = simb_divisao;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" divisao ");
+          return DIVISAO;
+ }
+
+\while  { simbolo = simb_enquanto;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" enquanto ");
           return ENQUANTO;
  }
 
-\if  { simbolo = simb_se;  
+\if  { simbolo = simb_se;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" se ");
           return SE;
  }
 
-\else  { simbolo = simb_senao;  
+\else  { simbolo = simb_senao;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" senao ");
           return SENAO;
