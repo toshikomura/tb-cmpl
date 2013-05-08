@@ -105,6 +105,23 @@ end { simbolo = simb_end;
           return IDENT;
         }
 
+\while  { simbolo = simb_enquanto;  
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" enquanto ");
+          return ENQUANTO;
+ }
+
+\if  { simbolo = simb_se;  
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" se ");
+          return SE;
+ }
+
+\else  { simbolo = simb_senao;  
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" senao ");
+          return SENAO;
+ }
 
 %%
 
