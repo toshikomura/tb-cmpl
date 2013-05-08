@@ -51,9 +51,14 @@
      VAR = 267,
      IDENT = 268,
      ATRIBUICAO = 269,
-     ENQUANTO = 270,
-     SE = 271,
-     SENAO = 272
+     NUMERO = 270,
+     SOMA = 271,
+     SUBTRACAO = 272,
+     MULTIPLICACAO = 273,
+     DIVISAO = 274,
+     ENQUANTO = 275,
+     SE = 276,
+     SENAO = 277
    };
 #endif
 
