@@ -50,7 +50,10 @@
      T_END = 266,
      VAR = 267,
      IDENT = 268,
-     ATRIBUICAO = 269
+     ATRIBUICAO = 269,
+     ENQUANTO = 270,
+     SE = 271,
+     SENAO = 272
    };
 #endif
 

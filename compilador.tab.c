@@ -119,7 +119,10 @@ int num_vars;
      T_END = 266,
      VAR = 267,
      IDENT = 268,
-     ATRIBUICAO = 269
+     ATRIBUICAO = 269,
+     ENQUANTO = 270,
+     SE = 271,
+     SENAO = 272
    };
 #endif
 
@@ -137,7 +140,7 @@ typedef int YYSTYPE;
 
 
 /* Line 264 of yacc.c  */
-#line 141 "compilador.tab.c"
+#line 144 "compilador.tab.c"
 
 #ifdef short
 # undef short
@@ -355,7 +358,7 @@ union yyalloc
 #define YYLAST   24
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  15
+#define YYNTOKENS  18
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  17
 /* YYNRULES -- Number of rules.  */
@@ -365,7 +368,7 @@ union yyalloc
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   269
+#define YYMAXUTOK   272
 
 #define YYTRANSLATE(YYX)						\
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -399,7 +402,8 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11,    12,    13,    14
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15,    16,    17
 };
 
 #if YYDEBUG
@@ -415,20 +419,20 @@ static const yytype_uint8 yyprhs[] =
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
-      16,     0,    -1,    -1,    17,     3,    13,     4,    29,     5,
-       7,    18,     9,    -1,    -1,    20,    19,    30,    -1,    21,
-      -1,    -1,    22,    12,    23,    -1,    -1,    23,    24,    -1,
-      24,    -1,    -1,    -1,    25,    28,     8,    27,    26,     7,
-      -1,    13,    -1,    28,     6,    13,    -1,    13,    -1,    29,
-       6,    13,    -1,    13,    -1,    10,    31,    11,    -1,    -1
+      19,     0,    -1,    -1,    20,     3,    13,     4,    32,     5,
+       7,    21,     9,    -1,    -1,    23,    22,    33,    -1,    24,
+      -1,    -1,    25,    12,    26,    -1,    -1,    26,    27,    -1,
+      27,    -1,    -1,    -1,    28,    31,     8,    30,    29,     7,
+      -1,    13,    -1,    31,     6,    13,    -1,    13,    -1,    32,
+       6,    13,    -1,    13,    -1,    10,    34,    11,    -1,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    23,    23,    23,    35,    34,    44,    48,    48,    49,
-      52,    53,    56,    59,    56,    64,    67,    69,    72,    73,
-      77,    79
+       0,    24,    24,    24,    36,    35,    45,    49,    49,    50,
+      53,    54,    57,    60,    57,    65,    68,    70,    73,    74,
+      78,    80
 };
 #endif
 
@@ -439,10 +443,11 @@ static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "PROGRAM", "ABRE_PARENTESES",
   "FECHA_PARENTESES", "VIRGULA", "PONTO_E_VIRGULA", "DOIS_PONTOS", "PONTO",
-  "T_BEGIN", "T_END", "VAR", "IDENT", "ATRIBUICAO", "$accept", "programa",
-  "$@1", "bloco", "$@2", "parte_declara_vars", "var", "$@3",
-  "declara_vars", "declara_var", "$@4", "$@5", "tipo", "lista_id_var",
-  "lista_idents", "comando_composto", "comandos", 0
+  "T_BEGIN", "T_END", "VAR", "IDENT", "ATRIBUICAO", "ENQUANTO", "SE",
+  "SENAO", "$accept", "programa", "$@1", "bloco", "$@2",
+  "parte_declara_vars", "var", "$@3", "declara_vars", "declara_var", "$@4",
+  "$@5", "tipo", "lista_id_var", "lista_idents", "comando_composto",
+  "comandos", 0
 };
 #endif
 
@@ -452,16 +457,16 @@ static const char *const yytname[] =
 static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,   268,   269
+     265,   266,   267,   268,   269,   270,   271,   272
 };
 # endif
 
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    15,    17,    16,    19,    18,    20,    22,    21,    21,
-      23,    23,    25,    26,    24,    27,    28,    28,    29,    29,
-      30,    31
+       0,    18,    20,    19,    22,    21,    23,    25,    24,    24,
+      26,    26,    28,    29,    27,    30,    31,    31,    32,    32,
+      33,    34
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
@@ -531,10 +536,10 @@ static const yytype_int8 yycheck[] =
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,    16,    17,     0,     3,    13,     4,    13,    29,     5,
-       6,     7,    13,    18,    20,    21,    22,     9,    19,    12,
-      10,    30,    23,    24,    25,    31,    24,    13,    28,    11,
-       6,     8,    13,    13,    27,    26,     7
+       0,    19,    20,     0,     3,    13,     4,    13,    32,     5,
+       6,     7,    13,    21,    23,    24,    25,     9,    22,    12,
+      10,    33,    26,    27,    28,    34,    27,    13,    31,    11,
+       6,     8,    13,    13,    30,    29,     7
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1348,7 +1353,7 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 23 "compilador.y"
+#line 24 "compilador.y"
     { 
              geraCodigo (NULL, "INPP"); 
              ;}
@@ -1357,7 +1362,7 @@ yyreduce:
   case 3:
 
 /* Line 1455 of yacc.c  */
-#line 28 "compilador.y"
+#line 29 "compilador.y"
     {
              geraCodigo (NULL, "PARA"); 
              ;}
@@ -1366,7 +1371,7 @@ yyreduce:
   case 4:
 
 /* Line 1455 of yacc.c  */
-#line 35 "compilador.y"
+#line 36 "compilador.y"
     { 
               ;}
     break;
@@ -1374,21 +1379,21 @@ yyreduce:
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 48 "compilador.y"
+#line 49 "compilador.y"
     { ;}
     break;
 
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 56 "compilador.y"
+#line 57 "compilador.y"
     { ;}
     break;
 
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 59 "compilador.y"
+#line 60 "compilador.y"
     { /* AMEM */
               ;}
     break;
@@ -1396,21 +1401,21 @@ yyreduce:
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 68 "compilador.y"
+#line 69 "compilador.y"
     { /* insere última vars na tabela de símbolos */ ;}
     break;
 
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 69 "compilador.y"
+#line 70 "compilador.y"
     { /* insere vars na tabela de símbolos */;}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 1414 "compilador.tab.c"
+#line 1419 "compilador.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1622,7 +1627,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 83 "compilador.y"
+#line 84 "compilador.y"
 
 
 main (int argc, char** argv) {
