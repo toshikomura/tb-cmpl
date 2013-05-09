@@ -451,8 +451,8 @@ static const yytype_uint8 yyrline[] =
 {
        0,    26,    26,    26,    38,    37,    47,    51,    51,    52,
       55,    56,    59,    62,    59,    67,    70,    72,    75,    76,
-      80,    83,    84,    87,    88,    89,    90,    91,    93,    94,
-      95,    96,    98,    99,   100,   101,   103,   104,   105,   106
+      80,    83,    84,    87,    89,    95,   101,   107,   114,   120,
+     126,   132,   139,   145,   151,   157,   164,   170,   176,   182
 };
 #endif
 
@@ -1463,10 +1463,186 @@ yyreduce:
     { /* insere vars na tabela de símbolos */;}
     break;
 
+  case 24:
+
+/* Line 1455 of yacc.c  */
+#line 90 "compilador.y"
+    {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "SOMA");
+            ;}
+    break;
+
+  case 25:
+
+/* Line 1455 of yacc.c  */
+#line 96 "compilador.y"
+    {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "SOMA");
+            ;}
+    break;
+
+  case 26:
+
+/* Line 1455 of yacc.c  */
+#line 102 "compilador.y"
+    {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "SOMA");
+            ;}
+    break;
+
+  case 27:
+
+/* Line 1455 of yacc.c  */
+#line 108 "compilador.y"
+    {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "SOMA");
+            ;}
+    break;
+
+  case 28:
+
+/* Line 1455 of yacc.c  */
+#line 115 "compilador.y"
+    {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "SUBT");
+            ;}
+    break;
+
+  case 29:
+
+/* Line 1455 of yacc.c  */
+#line 121 "compilador.y"
+    {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "SUBT");
+            ;}
+    break;
+
+  case 30:
+
+/* Line 1455 of yacc.c  */
+#line 127 "compilador.y"
+    {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "SUBT");
+            ;}
+    break;
+
+  case 31:
+
+/* Line 1455 of yacc.c  */
+#line 133 "compilador.y"
+    {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "SUBT");
+            ;}
+    break;
+
+  case 32:
+
+/* Line 1455 of yacc.c  */
+#line 140 "compilador.y"
+    {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "MULT");
+            ;}
+    break;
+
+  case 33:
+
+/* Line 1455 of yacc.c  */
+#line 146 "compilador.y"
+    {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "MULT");
+            ;}
+    break;
+
+  case 34:
+
+/* Line 1455 of yacc.c  */
+#line 152 "compilador.y"
+    {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "MULT");
+            ;}
+    break;
+
+  case 35:
+
+/* Line 1455 of yacc.c  */
+#line 158 "compilador.y"
+    {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "MULT");
+            ;}
+    break;
+
+  case 36:
+
+/* Line 1455 of yacc.c  */
+#line 165 "compilador.y"
+    {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "DIVI");
+            ;}
+    break;
+
+  case 37:
+
+/* Line 1455 of yacc.c  */
+#line 171 "compilador.y"
+    {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "DIVI");
+            ;}
+    break;
+
+  case 38:
+
+/* Line 1455 of yacc.c  */
+#line 177 "compilador.y"
+    {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "DIVI");
+            ;}
+    break;
+
+  case 39:
+
+/* Line 1455 of yacc.c  */
+#line 183 "compilador.y"
+    {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "DIVI");
+            ;}
+    break;
+
 
 
 /* Line 1455 of yacc.c  */
-#line 1470 "compilador.tab.c"
+#line 1646 "compilador.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1678,7 +1854,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 110 "compilador.y"
+#line 191 "compilador.y"
 
 
 main (int argc, char** argv) {
