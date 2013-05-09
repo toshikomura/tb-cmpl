@@ -43,26 +43,29 @@ Gramática
 
    19 comando_composto: T_BEGIN comandos T_END
 
-   20 comandos: comandos expressao
-   21         | expressao
+   20 comandos: comandos atribuicao
+   21         | atribuicao
 
-   22 expressao: IDENT ATRIBUICAO IDENT PONTO_E_VIRGULA
-   23          | IDENT ATRIBUICAO IDENT SOMA IDENT PONTO_E_VIRGULA
-   24          | IDENT ATRIBUICAO NUMERO SOMA NUMERO PONTO_E_VIRGULA
-   25          | IDENT ATRIBUICAO NUMERO SOMA IDENT PONTO_E_VIRGULA
-   26          | IDENT ATRIBUICAO IDENT SOMA NUMERO PONTO_E_VIRGULA
-   27          | IDENT ATRIBUICAO IDENT SUBTRACAO IDENT PONTO_E_VIRGULA
-   28          | IDENT ATRIBUICAO NUMERO SUBTRACAO NUMERO PONTO_E_VIRGULA
-   29          | IDENT ATRIBUICAO NUMERO SUBTRACAO IDENT PONTO_E_VIRGULA
-   30          | IDENT ATRIBUICAO IDENT SUBTRACAO NUMERO PONTO_E_VIRGULA
-   31          | IDENT ATRIBUICAO IDENT MULTIPLICACAO IDENT PONTO_E_VIRGULA
-   32          | IDENT ATRIBUICAO NUMERO MULTIPLICACAO NUMERO PONTO_E_VIRGULA
-   33          | IDENT ATRIBUICAO NUMERO MULTIPLICACAO IDENT PONTO_E_VIRGULA
-   34          | IDENT ATRIBUICAO IDENT MULTIPLICACAO NUMERO PONTO_E_VIRGULA
-   35          | IDENT ATRIBUICAO IDENT DIVISAO IDENT PONTO_E_VIRGULA
-   36          | IDENT ATRIBUICAO NUMERO DIVISAO NUMERO PONTO_E_VIRGULA
-   37          | IDENT ATRIBUICAO NUMERO DIVISAO IDENT PONTO_E_VIRGULA
-   38          | IDENT ATRIBUICAO IDENT DIVISAO NUMERO PONTO_E_VIRGULA
+   22 atribuicao: IDENT ATRIBUICAO IDENT PONTO_E_VIRGULA
+   23           | IDENT ATRIBUICAO NUMERO PONTO_E_VIRGULA
+   24           | expressao
+
+   25 expressao: IDENT ATRIBUICAO IDENT SOMA IDENT PONTO_E_VIRGULA
+   26          | IDENT ATRIBUICAO NUMERO SOMA NUMERO PONTO_E_VIRGULA
+   27          | IDENT ATRIBUICAO NUMERO SOMA IDENT PONTO_E_VIRGULA
+   28          | IDENT ATRIBUICAO IDENT SOMA NUMERO PONTO_E_VIRGULA
+   29          | IDENT ATRIBUICAO IDENT SUBTRACAO IDENT PONTO_E_VIRGULA
+   30          | IDENT ATRIBUICAO NUMERO SUBTRACAO NUMERO PONTO_E_VIRGULA
+   31          | IDENT ATRIBUICAO NUMERO SUBTRACAO IDENT PONTO_E_VIRGULA
+   32          | IDENT ATRIBUICAO IDENT SUBTRACAO NUMERO PONTO_E_VIRGULA
+   33          | IDENT ATRIBUICAO IDENT MULTIPLICACAO IDENT PONTO_E_VIRGULA
+   34          | IDENT ATRIBUICAO NUMERO MULTIPLICACAO NUMERO PONTO_E_VIRGULA
+   35          | IDENT ATRIBUICAO NUMERO MULTIPLICACAO IDENT PONTO_E_VIRGULA
+   36          | IDENT ATRIBUICAO IDENT MULTIPLICACAO NUMERO PONTO_E_VIRGULA
+   37          | IDENT ATRIBUICAO IDENT DIVISAO IDENT PONTO_E_VIRGULA
+   38          | IDENT ATRIBUICAO NUMERO DIVISAO NUMERO PONTO_E_VIRGULA
+   39          | IDENT ATRIBUICAO NUMERO DIVISAO IDENT PONTO_E_VIRGULA
+   40          | IDENT ATRIBUICAO IDENT DIVISAO NUMERO PONTO_E_VIRGULA
 
 
 Terminais, com as regras onde eles aparecem
@@ -73,21 +76,22 @@ PROGRAM (258) 2
 ABRE_PARENTESES (259) 2
 FECHA_PARENTESES (260) 2
 VIRGULA (261) 15 17
-PONTO_E_VIRGULA (262) 2 13 22 23 24 25 26 27 28 29 30 31 32 33 34 35
-    36 37 38
+PONTO_E_VIRGULA (262) 2 13 22 23 25 26 27 28 29 30 31 32 33 34 35 36
+    37 38 39 40
 DOIS_PONTOS (263) 13
 PONTO (264) 2
 T_BEGIN (265) 19
 T_END (266) 19
 VAR (267) 7
-IDENT (268) 2 14 15 16 17 18 22 23 24 25 26 27 28 29 30 31 32 33 34
-    35 36 37 38
-ATRIBUICAO (269) 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38
-NUMERO (270) 24 25 26 28 29 30 32 33 34 36 37 38
-SOMA (271) 23 24 25 26
-SUBTRACAO (272) 27 28 29 30
-MULTIPLICACAO (273) 31 32 33 34
-DIVISAO (274) 35 36 37 38
+IDENT (268) 2 14 15 16 17 18 22 23 25 26 27 28 29 30 31 32 33 34 35
+    36 37 38 39 40
+ATRIBUICAO (269) 22 23 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39
+    40
+NUMERO (270) 23 26 27 28 30 31 32 34 35 36 38 39 40
+SOMA (271) 25 26 27 28
+SUBTRACAO (272) 29 30 31 32
+MULTIPLICACAO (273) 33 34 35 36
+DIVISAO (274) 37 38 39 40
 ENQUANTO (275)
 SE (276)
 SENAO (277)
@@ -129,9 +133,11 @@ comando_composto (38)
     à esquerda: 19, à direita: 4
 comandos (39)
     à esquerda: 20 21, à direita: 19 20
-expressao (40)
-    à esquerda: 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38,
-    à direita: 20 21
+atribuicao (40)
+    à esquerda: 22 23 24, à direita: 20 21
+expressao (41)
+    à esquerda: 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40, à direita:
+    24
 
 
 estado 0
@@ -301,8 +307,9 @@ estado 20
 
     IDENT  deslocar, e ir ao estado 25
 
-    comandos   ir ao estado 26
-    expressao  ir ao estado 27
+    comandos    ir ao estado 26
+    atribuicao  ir ao estado 27
+    expressao   ir ao estado 28
 
 
 estado 21
@@ -320,7 +327,7 @@ estado 22
     IDENT     reduzir usando a regra 11 ($@4)
     $padrão  reduzir usando a regra 7 (var)
 
-    declara_var  ir ao estado 28
+    declara_var  ir ao estado 29
     $@4          ir ao estado 24
 
 
@@ -335,208 +342,211 @@ estado 24
 
    13 declara_var: $@4 . lista_id_var DOIS_PONTOS tipo $@5 PONTO_E_VIRGULA
 
-    IDENT  deslocar, e ir ao estado 29
+    IDENT  deslocar, e ir ao estado 30
 
-    lista_id_var  ir ao estado 30
+    lista_id_var  ir ao estado 31
 
 
 estado 25
 
-   22 expressao: IDENT . ATRIBUICAO IDENT PONTO_E_VIRGULA
-   23          | IDENT . ATRIBUICAO IDENT SOMA IDENT PONTO_E_VIRGULA
-   24          | IDENT . ATRIBUICAO NUMERO SOMA NUMERO PONTO_E_VIRGULA
-   25          | IDENT . ATRIBUICAO NUMERO SOMA IDENT PONTO_E_VIRGULA
-   26          | IDENT . ATRIBUICAO IDENT SOMA NUMERO PONTO_E_VIRGULA
-   27          | IDENT . ATRIBUICAO IDENT SUBTRACAO IDENT PONTO_E_VIRGULA
-   28          | IDENT . ATRIBUICAO NUMERO SUBTRACAO NUMERO PONTO_E_VIRGULA
-   29          | IDENT . ATRIBUICAO NUMERO SUBTRACAO IDENT PONTO_E_VIRGULA
-   30          | IDENT . ATRIBUICAO IDENT SUBTRACAO NUMERO PONTO_E_VIRGULA
-   31          | IDENT . ATRIBUICAO IDENT MULTIPLICACAO IDENT PONTO_E_VIRGULA
-   32          | IDENT . ATRIBUICAO NUMERO MULTIPLICACAO NUMERO PONTO_E_VIRGULA
-   33          | IDENT . ATRIBUICAO NUMERO MULTIPLICACAO IDENT PONTO_E_VIRGULA
-   34          | IDENT . ATRIBUICAO IDENT MULTIPLICACAO NUMERO PONTO_E_VIRGULA
-   35          | IDENT . ATRIBUICAO IDENT DIVISAO IDENT PONTO_E_VIRGULA
-   36          | IDENT . ATRIBUICAO NUMERO DIVISAO NUMERO PONTO_E_VIRGULA
-   37          | IDENT . ATRIBUICAO NUMERO DIVISAO IDENT PONTO_E_VIRGULA
-   38          | IDENT . ATRIBUICAO IDENT DIVISAO NUMERO PONTO_E_VIRGULA
+   22 atribuicao: IDENT . ATRIBUICAO IDENT PONTO_E_VIRGULA
+   23           | IDENT . ATRIBUICAO NUMERO PONTO_E_VIRGULA
+   25 expressao: IDENT . ATRIBUICAO IDENT SOMA IDENT PONTO_E_VIRGULA
+   26          | IDENT . ATRIBUICAO NUMERO SOMA NUMERO PONTO_E_VIRGULA
+   27          | IDENT . ATRIBUICAO NUMERO SOMA IDENT PONTO_E_VIRGULA
+   28          | IDENT . ATRIBUICAO IDENT SOMA NUMERO PONTO_E_VIRGULA
+   29          | IDENT . ATRIBUICAO IDENT SUBTRACAO IDENT PONTO_E_VIRGULA
+   30          | IDENT . ATRIBUICAO NUMERO SUBTRACAO NUMERO PONTO_E_VIRGULA
+   31          | IDENT . ATRIBUICAO NUMERO SUBTRACAO IDENT PONTO_E_VIRGULA
+   32          | IDENT . ATRIBUICAO IDENT SUBTRACAO NUMERO PONTO_E_VIRGULA
+   33          | IDENT . ATRIBUICAO IDENT MULTIPLICACAO IDENT PONTO_E_VIRGULA
+   34          | IDENT . ATRIBUICAO NUMERO MULTIPLICACAO NUMERO PONTO_E_VIRGULA
+   35          | IDENT . ATRIBUICAO NUMERO MULTIPLICACAO IDENT PONTO_E_VIRGULA
+   36          | IDENT . ATRIBUICAO IDENT MULTIPLICACAO NUMERO PONTO_E_VIRGULA
+   37          | IDENT . ATRIBUICAO IDENT DIVISAO IDENT PONTO_E_VIRGULA
+   38          | IDENT . ATRIBUICAO NUMERO DIVISAO NUMERO PONTO_E_VIRGULA
+   39          | IDENT . ATRIBUICAO NUMERO DIVISAO IDENT PONTO_E_VIRGULA
+   40          | IDENT . ATRIBUICAO IDENT DIVISAO NUMERO PONTO_E_VIRGULA
 
-    ATRIBUICAO  deslocar, e ir ao estado 31
+    ATRIBUICAO  deslocar, e ir ao estado 32
 
 
 estado 26
 
    19 comando_composto: T_BEGIN comandos . T_END
-   20 comandos: comandos . expressao
+   20 comandos: comandos . atribuicao
 
-    T_END  deslocar, e ir ao estado 32
+    T_END  deslocar, e ir ao estado 33
     IDENT  deslocar, e ir ao estado 25
 
-    expressao  ir ao estado 33
+    atribuicao  ir ao estado 34
+    expressao   ir ao estado 28
 
 
 estado 27
 
-   21 comandos: expressao .
+   21 comandos: atribuicao .
 
     $padrão  reduzir usando a regra 21 (comandos)
 
 
 estado 28
 
+   24 atribuicao: expressao .
+
+    $padrão  reduzir usando a regra 24 (atribuicao)
+
+
+estado 29
+
     9 declara_vars: declara_vars declara_var .
 
     $padrão  reduzir usando a regra 9 (declara_vars)
 
 
-estado 29
+estado 30
 
    16 lista_id_var: IDENT .
 
     $padrão  reduzir usando a regra 16 (lista_id_var)
 
 
-estado 30
+estado 31
 
    13 declara_var: $@4 lista_id_var . DOIS_PONTOS tipo $@5 PONTO_E_VIRGULA
    15 lista_id_var: lista_id_var . VIRGULA IDENT
 
-    VIRGULA      deslocar, e ir ao estado 34
-    DOIS_PONTOS  deslocar, e ir ao estado 35
-
-
-estado 31
-
-   22 expressao: IDENT ATRIBUICAO . IDENT PONTO_E_VIRGULA
-   23          | IDENT ATRIBUICAO . IDENT SOMA IDENT PONTO_E_VIRGULA
-   24          | IDENT ATRIBUICAO . NUMERO SOMA NUMERO PONTO_E_VIRGULA
-   25          | IDENT ATRIBUICAO . NUMERO SOMA IDENT PONTO_E_VIRGULA
-   26          | IDENT ATRIBUICAO . IDENT SOMA NUMERO PONTO_E_VIRGULA
-   27          | IDENT ATRIBUICAO . IDENT SUBTRACAO IDENT PONTO_E_VIRGULA
-   28          | IDENT ATRIBUICAO . NUMERO SUBTRACAO NUMERO PONTO_E_VIRGULA
-   29          | IDENT ATRIBUICAO . NUMERO SUBTRACAO IDENT PONTO_E_VIRGULA
-   30          | IDENT ATRIBUICAO . IDENT SUBTRACAO NUMERO PONTO_E_VIRGULA
-   31          | IDENT ATRIBUICAO . IDENT MULTIPLICACAO IDENT PONTO_E_VIRGULA
-   32          | IDENT ATRIBUICAO . NUMERO MULTIPLICACAO NUMERO PONTO_E_VIRGULA
-   33          | IDENT ATRIBUICAO . NUMERO MULTIPLICACAO IDENT PONTO_E_VIRGULA
-   34          | IDENT ATRIBUICAO . IDENT MULTIPLICACAO NUMERO PONTO_E_VIRGULA
-   35          | IDENT ATRIBUICAO . IDENT DIVISAO IDENT PONTO_E_VIRGULA
-   36          | IDENT ATRIBUICAO . NUMERO DIVISAO NUMERO PONTO_E_VIRGULA
-   37          | IDENT ATRIBUICAO . NUMERO DIVISAO IDENT PONTO_E_VIRGULA
-   38          | IDENT ATRIBUICAO . IDENT DIVISAO NUMERO PONTO_E_VIRGULA
-
-    IDENT   deslocar, e ir ao estado 36
-    NUMERO  deslocar, e ir ao estado 37
+    VIRGULA      deslocar, e ir ao estado 35
+    DOIS_PONTOS  deslocar, e ir ao estado 36
 
 
 estado 32
+
+   22 atribuicao: IDENT ATRIBUICAO . IDENT PONTO_E_VIRGULA
+   23           | IDENT ATRIBUICAO . NUMERO PONTO_E_VIRGULA
+   25 expressao: IDENT ATRIBUICAO . IDENT SOMA IDENT PONTO_E_VIRGULA
+   26          | IDENT ATRIBUICAO . NUMERO SOMA NUMERO PONTO_E_VIRGULA
+   27          | IDENT ATRIBUICAO . NUMERO SOMA IDENT PONTO_E_VIRGULA
+   28          | IDENT ATRIBUICAO . IDENT SOMA NUMERO PONTO_E_VIRGULA
+   29          | IDENT ATRIBUICAO . IDENT SUBTRACAO IDENT PONTO_E_VIRGULA
+   30          | IDENT ATRIBUICAO . NUMERO SUBTRACAO NUMERO PONTO_E_VIRGULA
+   31          | IDENT ATRIBUICAO . NUMERO SUBTRACAO IDENT PONTO_E_VIRGULA
+   32          | IDENT ATRIBUICAO . IDENT SUBTRACAO NUMERO PONTO_E_VIRGULA
+   33          | IDENT ATRIBUICAO . IDENT MULTIPLICACAO IDENT PONTO_E_VIRGULA
+   34          | IDENT ATRIBUICAO . NUMERO MULTIPLICACAO NUMERO PONTO_E_VIRGULA
+   35          | IDENT ATRIBUICAO . NUMERO MULTIPLICACAO IDENT PONTO_E_VIRGULA
+   36          | IDENT ATRIBUICAO . IDENT MULTIPLICACAO NUMERO PONTO_E_VIRGULA
+   37          | IDENT ATRIBUICAO . IDENT DIVISAO IDENT PONTO_E_VIRGULA
+   38          | IDENT ATRIBUICAO . NUMERO DIVISAO NUMERO PONTO_E_VIRGULA
+   39          | IDENT ATRIBUICAO . NUMERO DIVISAO IDENT PONTO_E_VIRGULA
+   40          | IDENT ATRIBUICAO . IDENT DIVISAO NUMERO PONTO_E_VIRGULA
+
+    IDENT   deslocar, e ir ao estado 37
+    NUMERO  deslocar, e ir ao estado 38
+
+
+estado 33
 
    19 comando_composto: T_BEGIN comandos T_END .
 
     $padrão  reduzir usando a regra 19 (comando_composto)
 
 
-estado 33
+estado 34
 
-   20 comandos: comandos expressao .
+   20 comandos: comandos atribuicao .
 
     $padrão  reduzir usando a regra 20 (comandos)
 
 
-estado 34
+estado 35
 
    15 lista_id_var: lista_id_var VIRGULA . IDENT
 
-    IDENT  deslocar, e ir ao estado 38
-
-
-estado 35
-
-   13 declara_var: $@4 lista_id_var DOIS_PONTOS . tipo $@5 PONTO_E_VIRGULA
-
     IDENT  deslocar, e ir ao estado 39
-
-    tipo  ir ao estado 40
 
 
 estado 36
 
-   22 expressao: IDENT ATRIBUICAO IDENT . PONTO_E_VIRGULA
-   23          | IDENT ATRIBUICAO IDENT . SOMA IDENT PONTO_E_VIRGULA
-   26          | IDENT ATRIBUICAO IDENT . SOMA NUMERO PONTO_E_VIRGULA
-   27          | IDENT ATRIBUICAO IDENT . SUBTRACAO IDENT PONTO_E_VIRGULA
-   30          | IDENT ATRIBUICAO IDENT . SUBTRACAO NUMERO PONTO_E_VIRGULA
-   31          | IDENT ATRIBUICAO IDENT . MULTIPLICACAO IDENT PONTO_E_VIRGULA
-   34          | IDENT ATRIBUICAO IDENT . MULTIPLICACAO NUMERO PONTO_E_VIRGULA
-   35          | IDENT ATRIBUICAO IDENT . DIVISAO IDENT PONTO_E_VIRGULA
-   38          | IDENT ATRIBUICAO IDENT . DIVISAO NUMERO PONTO_E_VIRGULA
+   13 declara_var: $@4 lista_id_var DOIS_PONTOS . tipo $@5 PONTO_E_VIRGULA
 
-    PONTO_E_VIRGULA  deslocar, e ir ao estado 41
-    SOMA             deslocar, e ir ao estado 42
-    SUBTRACAO        deslocar, e ir ao estado 43
-    MULTIPLICACAO    deslocar, e ir ao estado 44
-    DIVISAO          deslocar, e ir ao estado 45
+    IDENT  deslocar, e ir ao estado 40
+
+    tipo  ir ao estado 41
 
 
 estado 37
 
-   24 expressao: IDENT ATRIBUICAO NUMERO . SOMA NUMERO PONTO_E_VIRGULA
-   25          | IDENT ATRIBUICAO NUMERO . SOMA IDENT PONTO_E_VIRGULA
-   28          | IDENT ATRIBUICAO NUMERO . SUBTRACAO NUMERO PONTO_E_VIRGULA
-   29          | IDENT ATRIBUICAO NUMERO . SUBTRACAO IDENT PONTO_E_VIRGULA
-   32          | IDENT ATRIBUICAO NUMERO . MULTIPLICACAO NUMERO PONTO_E_VIRGULA
-   33          | IDENT ATRIBUICAO NUMERO . MULTIPLICACAO IDENT PONTO_E_VIRGULA
-   36          | IDENT ATRIBUICAO NUMERO . DIVISAO NUMERO PONTO_E_VIRGULA
-   37          | IDENT ATRIBUICAO NUMERO . DIVISAO IDENT PONTO_E_VIRGULA
+   22 atribuicao: IDENT ATRIBUICAO IDENT . PONTO_E_VIRGULA
+   25 expressao: IDENT ATRIBUICAO IDENT . SOMA IDENT PONTO_E_VIRGULA
+   28          | IDENT ATRIBUICAO IDENT . SOMA NUMERO PONTO_E_VIRGULA
+   29          | IDENT ATRIBUICAO IDENT . SUBTRACAO IDENT PONTO_E_VIRGULA
+   32          | IDENT ATRIBUICAO IDENT . SUBTRACAO NUMERO PONTO_E_VIRGULA
+   33          | IDENT ATRIBUICAO IDENT . MULTIPLICACAO IDENT PONTO_E_VIRGULA
+   36          | IDENT ATRIBUICAO IDENT . MULTIPLICACAO NUMERO PONTO_E_VIRGULA
+   37          | IDENT ATRIBUICAO IDENT . DIVISAO IDENT PONTO_E_VIRGULA
+   40          | IDENT ATRIBUICAO IDENT . DIVISAO NUMERO PONTO_E_VIRGULA
 
-    SOMA           deslocar, e ir ao estado 46
-    SUBTRACAO      deslocar, e ir ao estado 47
-    MULTIPLICACAO  deslocar, e ir ao estado 48
-    DIVISAO        deslocar, e ir ao estado 49
+    PONTO_E_VIRGULA  deslocar, e ir ao estado 42
+    SOMA             deslocar, e ir ao estado 43
+    SUBTRACAO        deslocar, e ir ao estado 44
+    MULTIPLICACAO    deslocar, e ir ao estado 45
+    DIVISAO          deslocar, e ir ao estado 46
 
 
 estado 38
+
+   23 atribuicao: IDENT ATRIBUICAO NUMERO . PONTO_E_VIRGULA
+   26 expressao: IDENT ATRIBUICAO NUMERO . SOMA NUMERO PONTO_E_VIRGULA
+   27          | IDENT ATRIBUICAO NUMERO . SOMA IDENT PONTO_E_VIRGULA
+   30          | IDENT ATRIBUICAO NUMERO . SUBTRACAO NUMERO PONTO_E_VIRGULA
+   31          | IDENT ATRIBUICAO NUMERO . SUBTRACAO IDENT PONTO_E_VIRGULA
+   34          | IDENT ATRIBUICAO NUMERO . MULTIPLICACAO NUMERO PONTO_E_VIRGULA
+   35          | IDENT ATRIBUICAO NUMERO . MULTIPLICACAO IDENT PONTO_E_VIRGULA
+   38          | IDENT ATRIBUICAO NUMERO . DIVISAO NUMERO PONTO_E_VIRGULA
+   39          | IDENT ATRIBUICAO NUMERO . DIVISAO IDENT PONTO_E_VIRGULA
+
+    PONTO_E_VIRGULA  deslocar, e ir ao estado 47
+    SOMA             deslocar, e ir ao estado 48
+    SUBTRACAO        deslocar, e ir ao estado 49
+    MULTIPLICACAO    deslocar, e ir ao estado 50
+    DIVISAO          deslocar, e ir ao estado 51
+
+
+estado 39
 
    15 lista_id_var: lista_id_var VIRGULA IDENT .
 
     $padrão  reduzir usando a regra 15 (lista_id_var)
 
 
-estado 39
+estado 40
 
    14 tipo: IDENT .
 
     $padrão  reduzir usando a regra 14 (tipo)
 
 
-estado 40
+estado 41
 
    13 declara_var: $@4 lista_id_var DOIS_PONTOS tipo . $@5 PONTO_E_VIRGULA
 
     $padrão  reduzir usando a regra 12 ($@5)
 
-    $@5  ir ao estado 50
-
-
-estado 41
-
-   22 expressao: IDENT ATRIBUICAO IDENT PONTO_E_VIRGULA .
-
-    $padrão  reduzir usando a regra 22 (expressao)
+    $@5  ir ao estado 52
 
 
 estado 42
 
-   23 expressao: IDENT ATRIBUICAO IDENT SOMA . IDENT PONTO_E_VIRGULA
-   26          | IDENT ATRIBUICAO IDENT SOMA . NUMERO PONTO_E_VIRGULA
+   22 atribuicao: IDENT ATRIBUICAO IDENT PONTO_E_VIRGULA .
 
-    IDENT   deslocar, e ir ao estado 51
-    NUMERO  deslocar, e ir ao estado 52
+    $padrão  reduzir usando a regra 22 (atribuicao)
 
 
 estado 43
 
-   27 expressao: IDENT ATRIBUICAO IDENT SUBTRACAO . IDENT PONTO_E_VIRGULA
-   30          | IDENT ATRIBUICAO IDENT SUBTRACAO . NUMERO PONTO_E_VIRGULA
+   25 expressao: IDENT ATRIBUICAO IDENT SOMA . IDENT PONTO_E_VIRGULA
+   28          | IDENT ATRIBUICAO IDENT SOMA . NUMERO PONTO_E_VIRGULA
 
     IDENT   deslocar, e ir ao estado 53
     NUMERO  deslocar, e ir ao estado 54
@@ -544,8 +554,8 @@ estado 43
 
 estado 44
 
-   31 expressao: IDENT ATRIBUICAO IDENT MULTIPLICACAO . IDENT PONTO_E_VIRGULA
-   34          | IDENT ATRIBUICAO IDENT MULTIPLICACAO . NUMERO PONTO_E_VIRGULA
+   29 expressao: IDENT ATRIBUICAO IDENT SUBTRACAO . IDENT PONTO_E_VIRGULA
+   32          | IDENT ATRIBUICAO IDENT SUBTRACAO . NUMERO PONTO_E_VIRGULA
 
     IDENT   deslocar, e ir ao estado 55
     NUMERO  deslocar, e ir ao estado 56
@@ -553,8 +563,8 @@ estado 44
 
 estado 45
 
-   35 expressao: IDENT ATRIBUICAO IDENT DIVISAO . IDENT PONTO_E_VIRGULA
-   38          | IDENT ATRIBUICAO IDENT DIVISAO . NUMERO PONTO_E_VIRGULA
+   33 expressao: IDENT ATRIBUICAO IDENT MULTIPLICACAO . IDENT PONTO_E_VIRGULA
+   36          | IDENT ATRIBUICAO IDENT MULTIPLICACAO . NUMERO PONTO_E_VIRGULA
 
     IDENT   deslocar, e ir ao estado 57
     NUMERO  deslocar, e ir ao estado 58
@@ -562,8 +572,8 @@ estado 45
 
 estado 46
 
-   24 expressao: IDENT ATRIBUICAO NUMERO SOMA . NUMERO PONTO_E_VIRGULA
-   25          | IDENT ATRIBUICAO NUMERO SOMA . IDENT PONTO_E_VIRGULA
+   37 expressao: IDENT ATRIBUICAO IDENT DIVISAO . IDENT PONTO_E_VIRGULA
+   40          | IDENT ATRIBUICAO IDENT DIVISAO . NUMERO PONTO_E_VIRGULA
 
     IDENT   deslocar, e ir ao estado 59
     NUMERO  deslocar, e ir ao estado 60
@@ -571,264 +581,280 @@ estado 46
 
 estado 47
 
-   28 expressao: IDENT ATRIBUICAO NUMERO SUBTRACAO . NUMERO PONTO_E_VIRGULA
-   29          | IDENT ATRIBUICAO NUMERO SUBTRACAO . IDENT PONTO_E_VIRGULA
+   23 atribuicao: IDENT ATRIBUICAO NUMERO PONTO_E_VIRGULA .
+
+    $padrão  reduzir usando a regra 23 (atribuicao)
+
+
+estado 48
+
+   26 expressao: IDENT ATRIBUICAO NUMERO SOMA . NUMERO PONTO_E_VIRGULA
+   27          | IDENT ATRIBUICAO NUMERO SOMA . IDENT PONTO_E_VIRGULA
 
     IDENT   deslocar, e ir ao estado 61
     NUMERO  deslocar, e ir ao estado 62
 
 
-estado 48
+estado 49
 
-   32 expressao: IDENT ATRIBUICAO NUMERO MULTIPLICACAO . NUMERO PONTO_E_VIRGULA
-   33          | IDENT ATRIBUICAO NUMERO MULTIPLICACAO . IDENT PONTO_E_VIRGULA
+   30 expressao: IDENT ATRIBUICAO NUMERO SUBTRACAO . NUMERO PONTO_E_VIRGULA
+   31          | IDENT ATRIBUICAO NUMERO SUBTRACAO . IDENT PONTO_E_VIRGULA
 
     IDENT   deslocar, e ir ao estado 63
     NUMERO  deslocar, e ir ao estado 64
 
 
-estado 49
+estado 50
 
-   36 expressao: IDENT ATRIBUICAO NUMERO DIVISAO . NUMERO PONTO_E_VIRGULA
-   37          | IDENT ATRIBUICAO NUMERO DIVISAO . IDENT PONTO_E_VIRGULA
+   34 expressao: IDENT ATRIBUICAO NUMERO MULTIPLICACAO . NUMERO PONTO_E_VIRGULA
+   35          | IDENT ATRIBUICAO NUMERO MULTIPLICACAO . IDENT PONTO_E_VIRGULA
 
     IDENT   deslocar, e ir ao estado 65
     NUMERO  deslocar, e ir ao estado 66
 
 
-estado 50
-
-   13 declara_var: $@4 lista_id_var DOIS_PONTOS tipo $@5 . PONTO_E_VIRGULA
-
-    PONTO_E_VIRGULA  deslocar, e ir ao estado 67
-
-
 estado 51
 
-   23 expressao: IDENT ATRIBUICAO IDENT SOMA IDENT . PONTO_E_VIRGULA
+   38 expressao: IDENT ATRIBUICAO NUMERO DIVISAO . NUMERO PONTO_E_VIRGULA
+   39          | IDENT ATRIBUICAO NUMERO DIVISAO . IDENT PONTO_E_VIRGULA
 
-    PONTO_E_VIRGULA  deslocar, e ir ao estado 68
+    IDENT   deslocar, e ir ao estado 67
+    NUMERO  deslocar, e ir ao estado 68
 
 
 estado 52
 
-   26 expressao: IDENT ATRIBUICAO IDENT SOMA NUMERO . PONTO_E_VIRGULA
+   13 declara_var: $@4 lista_id_var DOIS_PONTOS tipo $@5 . PONTO_E_VIRGULA
 
     PONTO_E_VIRGULA  deslocar, e ir ao estado 69
 
 
 estado 53
 
-   27 expressao: IDENT ATRIBUICAO IDENT SUBTRACAO IDENT . PONTO_E_VIRGULA
+   25 expressao: IDENT ATRIBUICAO IDENT SOMA IDENT . PONTO_E_VIRGULA
 
     PONTO_E_VIRGULA  deslocar, e ir ao estado 70
 
 
 estado 54
 
-   30 expressao: IDENT ATRIBUICAO IDENT SUBTRACAO NUMERO . PONTO_E_VIRGULA
+   28 expressao: IDENT ATRIBUICAO IDENT SOMA NUMERO . PONTO_E_VIRGULA
 
     PONTO_E_VIRGULA  deslocar, e ir ao estado 71
 
 
 estado 55
 
-   31 expressao: IDENT ATRIBUICAO IDENT MULTIPLICACAO IDENT . PONTO_E_VIRGULA
+   29 expressao: IDENT ATRIBUICAO IDENT SUBTRACAO IDENT . PONTO_E_VIRGULA
 
     PONTO_E_VIRGULA  deslocar, e ir ao estado 72
 
 
 estado 56
 
-   34 expressao: IDENT ATRIBUICAO IDENT MULTIPLICACAO NUMERO . PONTO_E_VIRGULA
+   32 expressao: IDENT ATRIBUICAO IDENT SUBTRACAO NUMERO . PONTO_E_VIRGULA
 
     PONTO_E_VIRGULA  deslocar, e ir ao estado 73
 
 
 estado 57
 
-   35 expressao: IDENT ATRIBUICAO IDENT DIVISAO IDENT . PONTO_E_VIRGULA
+   33 expressao: IDENT ATRIBUICAO IDENT MULTIPLICACAO IDENT . PONTO_E_VIRGULA
 
     PONTO_E_VIRGULA  deslocar, e ir ao estado 74
 
 
 estado 58
 
-   38 expressao: IDENT ATRIBUICAO IDENT DIVISAO NUMERO . PONTO_E_VIRGULA
+   36 expressao: IDENT ATRIBUICAO IDENT MULTIPLICACAO NUMERO . PONTO_E_VIRGULA
 
     PONTO_E_VIRGULA  deslocar, e ir ao estado 75
 
 
 estado 59
 
-   25 expressao: IDENT ATRIBUICAO NUMERO SOMA IDENT . PONTO_E_VIRGULA
+   37 expressao: IDENT ATRIBUICAO IDENT DIVISAO IDENT . PONTO_E_VIRGULA
 
     PONTO_E_VIRGULA  deslocar, e ir ao estado 76
 
 
 estado 60
 
-   24 expressao: IDENT ATRIBUICAO NUMERO SOMA NUMERO . PONTO_E_VIRGULA
+   40 expressao: IDENT ATRIBUICAO IDENT DIVISAO NUMERO . PONTO_E_VIRGULA
 
     PONTO_E_VIRGULA  deslocar, e ir ao estado 77
 
 
 estado 61
 
-   29 expressao: IDENT ATRIBUICAO NUMERO SUBTRACAO IDENT . PONTO_E_VIRGULA
+   27 expressao: IDENT ATRIBUICAO NUMERO SOMA IDENT . PONTO_E_VIRGULA
 
     PONTO_E_VIRGULA  deslocar, e ir ao estado 78
 
 
 estado 62
 
-   28 expressao: IDENT ATRIBUICAO NUMERO SUBTRACAO NUMERO . PONTO_E_VIRGULA
+   26 expressao: IDENT ATRIBUICAO NUMERO SOMA NUMERO . PONTO_E_VIRGULA
 
     PONTO_E_VIRGULA  deslocar, e ir ao estado 79
 
 
 estado 63
 
-   33 expressao: IDENT ATRIBUICAO NUMERO MULTIPLICACAO IDENT . PONTO_E_VIRGULA
+   31 expressao: IDENT ATRIBUICAO NUMERO SUBTRACAO IDENT . PONTO_E_VIRGULA
 
     PONTO_E_VIRGULA  deslocar, e ir ao estado 80
 
 
 estado 64
 
-   32 expressao: IDENT ATRIBUICAO NUMERO MULTIPLICACAO NUMERO . PONTO_E_VIRGULA
+   30 expressao: IDENT ATRIBUICAO NUMERO SUBTRACAO NUMERO . PONTO_E_VIRGULA
 
     PONTO_E_VIRGULA  deslocar, e ir ao estado 81
 
 
 estado 65
 
-   37 expressao: IDENT ATRIBUICAO NUMERO DIVISAO IDENT . PONTO_E_VIRGULA
+   35 expressao: IDENT ATRIBUICAO NUMERO MULTIPLICACAO IDENT . PONTO_E_VIRGULA
 
     PONTO_E_VIRGULA  deslocar, e ir ao estado 82
 
 
 estado 66
 
-   36 expressao: IDENT ATRIBUICAO NUMERO DIVISAO NUMERO . PONTO_E_VIRGULA
+   34 expressao: IDENT ATRIBUICAO NUMERO MULTIPLICACAO NUMERO . PONTO_E_VIRGULA
 
     PONTO_E_VIRGULA  deslocar, e ir ao estado 83
 
 
 estado 67
 
+   39 expressao: IDENT ATRIBUICAO NUMERO DIVISAO IDENT . PONTO_E_VIRGULA
+
+    PONTO_E_VIRGULA  deslocar, e ir ao estado 84
+
+
+estado 68
+
+   38 expressao: IDENT ATRIBUICAO NUMERO DIVISAO NUMERO . PONTO_E_VIRGULA
+
+    PONTO_E_VIRGULA  deslocar, e ir ao estado 85
+
+
+estado 69
+
    13 declara_var: $@4 lista_id_var DOIS_PONTOS tipo $@5 PONTO_E_VIRGULA .
 
     $padrão  reduzir usando a regra 13 (declara_var)
 
 
-estado 68
-
-   23 expressao: IDENT ATRIBUICAO IDENT SOMA IDENT PONTO_E_VIRGULA .
-
-    $padrão  reduzir usando a regra 23 (expressao)
-
-
-estado 69
-
-   26 expressao: IDENT ATRIBUICAO IDENT SOMA NUMERO PONTO_E_VIRGULA .
-
-    $padrão  reduzir usando a regra 26 (expressao)
-
-
 estado 70
 
-   27 expressao: IDENT ATRIBUICAO IDENT SUBTRACAO IDENT PONTO_E_VIRGULA .
-
-    $padrão  reduzir usando a regra 27 (expressao)
-
-
-estado 71
-
-   30 expressao: IDENT ATRIBUICAO IDENT SUBTRACAO NUMERO PONTO_E_VIRGULA .
-
-    $padrão  reduzir usando a regra 30 (expressao)
-
-
-estado 72
-
-   31 expressao: IDENT ATRIBUICAO IDENT MULTIPLICACAO IDENT PONTO_E_VIRGULA .
-
-    $padrão  reduzir usando a regra 31 (expressao)
-
-
-estado 73
-
-   34 expressao: IDENT ATRIBUICAO IDENT MULTIPLICACAO NUMERO PONTO_E_VIRGULA .
-
-    $padrão  reduzir usando a regra 34 (expressao)
-
-
-estado 74
-
-   35 expressao: IDENT ATRIBUICAO IDENT DIVISAO IDENT PONTO_E_VIRGULA .
-
-    $padrão  reduzir usando a regra 35 (expressao)
-
-
-estado 75
-
-   38 expressao: IDENT ATRIBUICAO IDENT DIVISAO NUMERO PONTO_E_VIRGULA .
-
-    $padrão  reduzir usando a regra 38 (expressao)
-
-
-estado 76
-
-   25 expressao: IDENT ATRIBUICAO NUMERO SOMA IDENT PONTO_E_VIRGULA .
+   25 expressao: IDENT ATRIBUICAO IDENT SOMA IDENT PONTO_E_VIRGULA .
 
     $padrão  reduzir usando a regra 25 (expressao)
 
 
-estado 77
+estado 71
 
-   24 expressao: IDENT ATRIBUICAO NUMERO SOMA NUMERO PONTO_E_VIRGULA .
-
-    $padrão  reduzir usando a regra 24 (expressao)
-
-
-estado 78
-
-   29 expressao: IDENT ATRIBUICAO NUMERO SUBTRACAO IDENT PONTO_E_VIRGULA .
-
-    $padrão  reduzir usando a regra 29 (expressao)
-
-
-estado 79
-
-   28 expressao: IDENT ATRIBUICAO NUMERO SUBTRACAO NUMERO PONTO_E_VIRGULA .
+   28 expressao: IDENT ATRIBUICAO IDENT SOMA NUMERO PONTO_E_VIRGULA .
 
     $padrão  reduzir usando a regra 28 (expressao)
 
 
-estado 80
+estado 72
 
-   33 expressao: IDENT ATRIBUICAO NUMERO MULTIPLICACAO IDENT PONTO_E_VIRGULA .
+   29 expressao: IDENT ATRIBUICAO IDENT SUBTRACAO IDENT PONTO_E_VIRGULA .
 
-    $padrão  reduzir usando a regra 33 (expressao)
+    $padrão  reduzir usando a regra 29 (expressao)
 
 
-estado 81
+estado 73
 
-   32 expressao: IDENT ATRIBUICAO NUMERO MULTIPLICACAO NUMERO PONTO_E_VIRGULA .
+   32 expressao: IDENT ATRIBUICAO IDENT SUBTRACAO NUMERO PONTO_E_VIRGULA .
 
     $padrão  reduzir usando a regra 32 (expressao)
 
 
-estado 82
+estado 74
 
-   37 expressao: IDENT ATRIBUICAO NUMERO DIVISAO IDENT PONTO_E_VIRGULA .
+   33 expressao: IDENT ATRIBUICAO IDENT MULTIPLICACAO IDENT PONTO_E_VIRGULA .
+
+    $padrão  reduzir usando a regra 33 (expressao)
+
+
+estado 75
+
+   36 expressao: IDENT ATRIBUICAO IDENT MULTIPLICACAO NUMERO PONTO_E_VIRGULA .
+
+    $padrão  reduzir usando a regra 36 (expressao)
+
+
+estado 76
+
+   37 expressao: IDENT ATRIBUICAO IDENT DIVISAO IDENT PONTO_E_VIRGULA .
 
     $padrão  reduzir usando a regra 37 (expressao)
 
 
+estado 77
+
+   40 expressao: IDENT ATRIBUICAO IDENT DIVISAO NUMERO PONTO_E_VIRGULA .
+
+    $padrão  reduzir usando a regra 40 (expressao)
+
+
+estado 78
+
+   27 expressao: IDENT ATRIBUICAO NUMERO SOMA IDENT PONTO_E_VIRGULA .
+
+    $padrão  reduzir usando a regra 27 (expressao)
+
+
+estado 79
+
+   26 expressao: IDENT ATRIBUICAO NUMERO SOMA NUMERO PONTO_E_VIRGULA .
+
+    $padrão  reduzir usando a regra 26 (expressao)
+
+
+estado 80
+
+   31 expressao: IDENT ATRIBUICAO NUMERO SUBTRACAO IDENT PONTO_E_VIRGULA .
+
+    $padrão  reduzir usando a regra 31 (expressao)
+
+
+estado 81
+
+   30 expressao: IDENT ATRIBUICAO NUMERO SUBTRACAO NUMERO PONTO_E_VIRGULA .
+
+    $padrão  reduzir usando a regra 30 (expressao)
+
+
+estado 82
+
+   35 expressao: IDENT ATRIBUICAO NUMERO MULTIPLICACAO IDENT PONTO_E_VIRGULA .
+
+    $padrão  reduzir usando a regra 35 (expressao)
+
+
 estado 83
 
-   36 expressao: IDENT ATRIBUICAO NUMERO DIVISAO NUMERO PONTO_E_VIRGULA .
+   34 expressao: IDENT ATRIBUICAO NUMERO MULTIPLICACAO NUMERO PONTO_E_VIRGULA .
 
-    $padrão  reduzir usando a regra 36 (expressao)
+    $padrão  reduzir usando a regra 34 (expressao)
+
+
+estado 84
+
+   39 expressao: IDENT ATRIBUICAO NUMERO DIVISAO IDENT PONTO_E_VIRGULA .
+
+    $padrão  reduzir usando a regra 39 (expressao)
+
+
+estado 85
+
+   38 expressao: IDENT ATRIBUICAO NUMERO DIVISAO NUMERO PONTO_E_VIRGULA .
+
+    $padrão  reduzir usando a regra 38 (expressao)
