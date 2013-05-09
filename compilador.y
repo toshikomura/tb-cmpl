@@ -85,25 +85,106 @@ comandos: comandos expressao
 ;
 
 expressao: IDENT ATRIBUICAO IDENT PONTO_E_VIRGULA
+
             | IDENT ATRIBUICAO IDENT SOMA IDENT PONTO_E_VIRGULA
+            {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "SOMA");
+            }
             | IDENT ATRIBUICAO NUMERO SOMA NUMERO PONTO_E_VIRGULA
+            {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "SOMA");
+            }
             | IDENT ATRIBUICAO NUMERO SOMA IDENT PONTO_E_VIRGULA
+            {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "SOMA");
+            }
             | IDENT ATRIBUICAO IDENT SOMA NUMERO PONTO_E_VIRGULA
+            {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "SOMA");
+            }
 
             | IDENT ATRIBUICAO IDENT SUBTRACAO IDENT PONTO_E_VIRGULA
+            {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "SUBT");
+            }
             | IDENT ATRIBUICAO NUMERO SUBTRACAO NUMERO PONTO_E_VIRGULA
+            {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "SUBT");
+            }
             | IDENT ATRIBUICAO NUMERO SUBTRACAO IDENT PONTO_E_VIRGULA
+            {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "SUBT");
+            }
             | IDENT ATRIBUICAO IDENT SUBTRACAO NUMERO PONTO_E_VIRGULA
+            {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "SUBT");
+            }
 
             | IDENT ATRIBUICAO IDENT MULTIPLICACAO IDENT PONTO_E_VIRGULA
+            {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "MULT");
+            }
             | IDENT ATRIBUICAO NUMERO MULTIPLICACAO NUMERO PONTO_E_VIRGULA
+            {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "MULT");
+            }
             | IDENT ATRIBUICAO NUMERO MULTIPLICACAO IDENT PONTO_E_VIRGULA
+            {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "MULT");
+            }
             | IDENT ATRIBUICAO IDENT MULTIPLICACAO NUMERO PONTO_E_VIRGULA
+            {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "MULT");
+            }
 
             | IDENT ATRIBUICAO IDENT DIVISAO IDENT PONTO_E_VIRGULA
+            {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "DIVI");
+            }
             | IDENT ATRIBUICAO NUMERO DIVISAO NUMERO PONTO_E_VIRGULA
+            {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CTCT");
+            geraCodigo (NULL, "DIVI");
+            }
             | IDENT ATRIBUICAO NUMERO DIVISAO IDENT PONTO_E_VIRGULA
+            {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "DIVI");
+            }
             | IDENT ATRIBUICAO IDENT DIVISAO NUMERO PONTO_E_VIRGULA
+            {
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "CRCT");
+            geraCodigo (NULL, "DIVI");
+            }
 ;
 
 
