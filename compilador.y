@@ -80,13 +80,16 @@ lista_idents: lista_idents VIRGULA IDENT
 comando_composto: T_BEGIN comandos T_END
 ;
 
-comandos: comandos expressao
+comandos:   comandos atribuicao
+            | atribuicao
+;
+
+atribuicao: IDENT ATRIBUICAO IDENT PONTO_E_VIRGULA
+            | IDENT ATRIBUICAO NUMERO PONTO_E_VIRGULA
             | expressao
 ;
 
-expressao: IDENT ATRIBUICAO IDENT PONTO_E_VIRGULA
-
-            | IDENT ATRIBUICAO IDENT SOMA IDENT PONTO_E_VIRGULA
+expressao:  IDENT ATRIBUICAO IDENT SOMA IDENT PONTO_E_VIRGULA
             {
             geraCodigo (NULL, "CRCT");
             geraCodigo (NULL, "CRCT");
