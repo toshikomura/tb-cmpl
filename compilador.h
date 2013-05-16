@@ -23,6 +23,23 @@ typedef enum simbolos {
 } simbolos;
 
 
+/* -------------------------------------------------------------------
+ * Tabela de simbolos
+ * ------------------------------------------------------------------- */
+
+typedef struct endereco_lexico {
+    int nivel;
+    int rotulo;
+} endereco_lexico;
+
+typedef struct tabela_simbolos {
+    char *simbolo;
+    char *tipo;
+    char *categoria;
+    int qtd_parametros;
+    endereco_lexico endereco;
+} tabela_simbolos;
+
 
 /* -------------------------------------------------------------------
  * variáveis globais
@@ -37,6 +54,3 @@ extern int nl;
 
 simbolos simbolo, relacao;
 char token[TAM_TOKEN];
-
-
-
