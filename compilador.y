@@ -10,6 +10,7 @@
 #include <string.h>
 #include "compilador.h"
 
+char dados[9999];
 int num_vars;
 void yyerror (char const *);
 
@@ -116,7 +117,8 @@ expressao_fator: IDENT
             }
             | NUMERO
             {
-            geraCodigo (NULL, "CRCT");
+            sprintf ( dados, "CRCT %d", atoi( token) );
+            geraCodigo (NULL, dados);
             }
             | expressao_fraca SOMA expressao_fraca
             {
