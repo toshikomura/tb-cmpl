@@ -7,4 +7,5 @@ begin
   m := 2 * m;
   m := n / 2;
   a := m - n;
+  n := ( 1 + m ) * 3;
 end.
