@@ -11,6 +11,7 @@
 #include "compilador.h"
 
 int num_vars;
+void yyerror (char const *);
 
 %}
 
@@ -192,6 +193,12 @@ expressao:  IDENT ATRIBUICAO IDENT SOMA IDENT PONTO_E_VIRGULA
 
 
 %%
+
+void yyerror (char const *message)
+{
+    fputs (message, stderr);
+    fputc ('\n', stderr);
+}
 
 main (int argc, char** argv) {
    FILE* fp;
