@@ -141,10 +141,40 @@ end { simbolo = simb_end;
           return ENQUANTO;
  }
 
+\for  { simbolo = simb_para;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" para ");
+          return PARA;
+ }
+
+\do  { simbolo = simb_faca;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" faca ");
+          return FACA;
+ }
+
+\repeat  { simbolo = simb_repita;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" repita ");
+          return REPITA;
+ }
+
+\until  { simbolo = simb_ate;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" ate ");
+          return ATE;
+ }
+
 \if  { simbolo = simb_se;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" se ");
           return SE;
+ }
+
+\then  { simbolo = simb_entao;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" entao ");
+          return ENTAO;
  }
 
 \else  { simbolo = simb_senao;
