@@ -74,13 +74,14 @@
 #include <string.h>
 #include "compilador.h"
 
+char dados[9999];
 int num_vars;
 void yyerror (char const *);
 
 
 
 /* Line 268 of yacc.c  */
-#line 84 "compilador.tab.c"
+#line 85 "compilador.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -149,7 +150,7 @@ typedef int YYSTYPE;
 
 
 /* Line 343 of yacc.c  */
-#line 153 "compilador.tab.c"
+#line 154 "compilador.tab.c"
 
 #ifdef short
 # undef short
@@ -451,10 +452,10 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    27,    27,    27,    39,    38,    48,    52,    52,    53,
-      56,    57,    60,    63,    60,    68,    71,    73,    76,    77,
-      81,    84,    85,    88,    91,    95,    99,   102,   106,   110,
-     113,   117,   121,   125,   129,   133,   137
+       0,    28,    28,    28,    40,    39,    49,    53,    53,    54,
+      57,    58,    61,    64,    61,    69,    72,    74,    77,    78,
+      82,    85,    86,    89,    92,    96,   100,   103,   107,   111,
+     114,   118,   123,   127,   131,   135,   139
 };
 #endif
 
@@ -1425,7 +1426,7 @@ yyreduce:
         case 2:
 
 /* Line 1806 of yacc.c  */
-#line 27 "compilador.y"
+#line 28 "compilador.y"
     {
              geraCodigo (NULL, "INPP");
              }
@@ -1434,7 +1435,7 @@ yyreduce:
   case 3:
 
 /* Line 1806 of yacc.c  */
-#line 32 "compilador.y"
+#line 33 "compilador.y"
     {
              geraCodigo (NULL, "PARA");
              }
@@ -1443,7 +1444,7 @@ yyreduce:
   case 4:
 
 /* Line 1806 of yacc.c  */
-#line 39 "compilador.y"
+#line 40 "compilador.y"
     {
               }
     break;
@@ -1451,21 +1452,21 @@ yyreduce:
   case 7:
 
 /* Line 1806 of yacc.c  */
-#line 52 "compilador.y"
+#line 53 "compilador.y"
     { }
     break;
 
   case 12:
 
 /* Line 1806 of yacc.c  */
-#line 60 "compilador.y"
+#line 61 "compilador.y"
     { }
     break;
 
   case 13:
 
 /* Line 1806 of yacc.c  */
-#line 63 "compilador.y"
+#line 64 "compilador.y"
     { /* AMEM */
               }
     break;
@@ -1473,21 +1474,21 @@ yyreduce:
   case 16:
 
 /* Line 1806 of yacc.c  */
-#line 72 "compilador.y"
+#line 73 "compilador.y"
     { /* insere última vars na tabela de símbolos */ }
     break;
 
   case 17:
 
 /* Line 1806 of yacc.c  */
-#line 73 "compilador.y"
+#line 74 "compilador.y"
     { /* insere vars na tabela de símbolos */}
     break;
 
   case 24:
 
 /* Line 1806 of yacc.c  */
-#line 92 "compilador.y"
+#line 93 "compilador.y"
     {
             geraCodigo (NULL, "SOMA");
             }
@@ -1496,7 +1497,7 @@ yyreduce:
   case 25:
 
 /* Line 1806 of yacc.c  */
-#line 96 "compilador.y"
+#line 97 "compilador.y"
     {
             geraCodigo (NULL, "SUBT");
             }
@@ -1505,7 +1506,7 @@ yyreduce:
   case 27:
 
 /* Line 1806 of yacc.c  */
-#line 103 "compilador.y"
+#line 104 "compilador.y"
     {
             geraCodigo (NULL, "MULT");
             }
@@ -1514,7 +1515,7 @@ yyreduce:
   case 28:
 
 /* Line 1806 of yacc.c  */
-#line 107 "compilador.y"
+#line 108 "compilador.y"
     {
             geraCodigo (NULL, "DIVI");
             }
@@ -1523,7 +1524,7 @@ yyreduce:
   case 30:
 
 /* Line 1806 of yacc.c  */
-#line 114 "compilador.y"
+#line 115 "compilador.y"
     {
             geraCodigo (NULL, "CRVL");
             }
@@ -1532,16 +1533,17 @@ yyreduce:
   case 31:
 
 /* Line 1806 of yacc.c  */
-#line 118 "compilador.y"
+#line 119 "compilador.y"
     {
-            geraCodigo (NULL, "CRCT");
+            sprintf ( dados, "CRCT %d", atoi( token) );
+            geraCodigo (NULL, dados);
             }
     break;
 
   case 32:
 
 /* Line 1806 of yacc.c  */
-#line 122 "compilador.y"
+#line 124 "compilador.y"
     {
             geraCodigo (NULL, "SOMA");
             }
@@ -1550,7 +1552,7 @@ yyreduce:
   case 33:
 
 /* Line 1806 of yacc.c  */
-#line 126 "compilador.y"
+#line 128 "compilador.y"
     {
             geraCodigo (NULL, "SUBT");
             }
@@ -1559,7 +1561,7 @@ yyreduce:
   case 34:
 
 /* Line 1806 of yacc.c  */
-#line 130 "compilador.y"
+#line 132 "compilador.y"
     {
             geraCodigo (NULL, "MULT");
             }
@@ -1568,7 +1570,7 @@ yyreduce:
   case 35:
 
 /* Line 1806 of yacc.c  */
-#line 134 "compilador.y"
+#line 136 "compilador.y"
     {
             geraCodigo (NULL, "DIVI");
             }
@@ -1577,7 +1579,7 @@ yyreduce:
 
 
 /* Line 1806 of yacc.c  */
-#line 1581 "compilador.tab.c"
+#line 1583 "compilador.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1808,7 +1810,7 @@ yyreturn:
 
 
 /* Line 2067 of yacc.c  */
-#line 140 "compilador.y"
+#line 142 "compilador.y"
 
 
 void yyerror (char const *message)
