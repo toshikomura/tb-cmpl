@@ -85,112 +85,57 @@ comandos:   comandos atribuicao
             | atribuicao
 ;
 
-atribuicao: IDENT ATRIBUICAO IDENT PONTO_E_VIRGULA
-            | IDENT ATRIBUICAO NUMERO PONTO_E_VIRGULA
-            | expressao
+atribuicao: IDENT ATRIBUICAO expressao_fraca PONTO_E_VIRGULA
 ;
 
-expressao:  IDENT ATRIBUICAO IDENT SOMA IDENT PONTO_E_VIRGULA
+expressao_fraca: expressao_fraca SOMA expressao_forte
             {
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "CRCT");
             geraCodigo (NULL, "SOMA");
             }
-            | IDENT ATRIBUICAO NUMERO SOMA NUMERO PONTO_E_VIRGULA
+            | expressao_fraca SUBTRACAO expressao_forte
             {
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "CTCT");
-            geraCodigo (NULL, "SOMA");
-            }
-            | IDENT ATRIBUICAO NUMERO SOMA IDENT PONTO_E_VIRGULA
-            {
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "CTCT");
-            geraCodigo (NULL, "SOMA");
-            }
-            | IDENT ATRIBUICAO IDENT SOMA NUMERO PONTO_E_VIRGULA
-            {
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "CTCT");
-            geraCodigo (NULL, "SOMA");
-            }
-
-            | IDENT ATRIBUICAO IDENT SUBTRACAO IDENT PONTO_E_VIRGULA
-            {
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "CTCT");
             geraCodigo (NULL, "SUBT");
             }
-            | IDENT ATRIBUICAO NUMERO SUBTRACAO NUMERO PONTO_E_VIRGULA
-            {
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "SUBT");
-            }
-            | IDENT ATRIBUICAO NUMERO SUBTRACAO IDENT PONTO_E_VIRGULA
-            {
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "CTCT");
-            geraCodigo (NULL, "SUBT");
-            }
-            | IDENT ATRIBUICAO IDENT SUBTRACAO NUMERO PONTO_E_VIRGULA
-            {
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "CTCT");
-            geraCodigo (NULL, "SUBT");
-            }
-
-            | IDENT ATRIBUICAO IDENT MULTIPLICACAO IDENT PONTO_E_VIRGULA
-            {
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "MULT");
-            }
-            | IDENT ATRIBUICAO NUMERO MULTIPLICACAO NUMERO PONTO_E_VIRGULA
-            {
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "CTCT");
-            geraCodigo (NULL, "MULT");
-            }
-            | IDENT ATRIBUICAO NUMERO MULTIPLICACAO IDENT PONTO_E_VIRGULA
-            {
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "CTCT");
-            geraCodigo (NULL, "MULT");
-            }
-            | IDENT ATRIBUICAO IDENT MULTIPLICACAO NUMERO PONTO_E_VIRGULA
-            {
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "MULT");
-            }
-
-            | IDENT ATRIBUICAO IDENT DIVISAO IDENT PONTO_E_VIRGULA
-            {
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "CTCT");
-            geraCodigo (NULL, "DIVI");
-            }
-            | IDENT ATRIBUICAO NUMERO DIVISAO NUMERO PONTO_E_VIRGULA
-            {
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "CTCT");
-            geraCodigo (NULL, "DIVI");
-            }
-            | IDENT ATRIBUICAO NUMERO DIVISAO IDENT PONTO_E_VIRGULA
-            {
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "DIVI");
-            }
-            | IDENT ATRIBUICAO IDENT DIVISAO NUMERO PONTO_E_VIRGULA
-            {
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "CRCT");
-            geraCodigo (NULL, "DIVI");
-            }
+            | expressao_forte
 ;
 
+expressao_forte: expressao_forte MULTIPLICACAO expressao_fator
+            {
+            geraCodigo (NULL, "MULT");
+            }
+            | expressao_forte DIVISAO expressao_forte
+            {
+            geraCodigo (NULL, "DIVI");
+            }
+            | expressao_fator
+;
+
+expressao_fator: IDENT
+            {
+            geraCodigo (NULL, "CRVL");
+            }
+            | NUMERO
+            {
+            geraCodigo (NULL, "CRCT");
+            }
+            | expressao_fraca SOMA expressao_fraca
+            {
+            geraCodigo (NULL, "SOMA");
+            }
+            | expressao_fraca SUBTRACAO expressao_fraca
+            {
+            geraCodigo (NULL, "SUBT");
+            }
+            | expressao_fraca MULTIPLICACAO expressao_fraca
+            {
+            geraCodigo (NULL, "MULT");
+            }
+            | expressao_fraca DIVISAO expressao_fraca
+            {
+            geraCodigo (NULL, "DIVI");
+            }
+            | ABRE_PARENTESES expressao_fraca FECHA_PARENTESES
+;
 
 %%
 
