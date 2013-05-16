@@ -125,8 +125,13 @@ void yyerror (char const *);
      MULTIPLICACAO = 273,
      DIVISAO = 274,
      ENQUANTO = 275,
-     SE = 276,
-     SENAO = 277
+     PARA = 276,
+     FACA = 277,
+     REPITA = 278,
+     ATE = 279,
+     SE = 280,
+     ENTAO = 281,
+     SENAO = 282
    };
 #endif
 
@@ -144,7 +149,7 @@ typedef int YYSTYPE;
 
 
 /* Line 343 of yacc.c  */
-#line 148 "compilador.tab.c"
+#line 153 "compilador.tab.c"
 
 #ifdef short
 # undef short
@@ -366,7 +371,7 @@ union yyalloc
 #define YYLAST   58
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  23
+#define YYNTOKENS  28
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  21
 /* YYNRULES -- Number of rules.  */
@@ -376,7 +381,7 @@ union yyalloc
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   277
+#define YYMAXUTOK   282
 
 #define YYTRANSLATE(YYX)						\
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -411,7 +416,8 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17,    18,    19,    20,    21,    22
+      15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
+      25,    26,    27
 };
 
 #if YYDEBUG
@@ -428,18 +434,18 @@ static const yytype_uint8 yyprhs[] =
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
-      24,     0,    -1,    -1,    25,     3,    13,     4,    37,     5,
-       7,    26,     9,    -1,    -1,    28,    27,    38,    -1,    29,
-      -1,    -1,    30,    12,    31,    -1,    -1,    31,    32,    -1,
-      32,    -1,    -1,    -1,    33,    36,     8,    35,    34,     7,
-      -1,    13,    -1,    36,     6,    13,    -1,    13,    -1,    37,
-       6,    13,    -1,    13,    -1,    10,    39,    11,    -1,    39,
-      40,    -1,    40,    -1,    13,    14,    41,     7,    -1,    41,
-      16,    42,    -1,    41,    17,    42,    -1,    42,    -1,    42,
-      18,    43,    -1,    42,    19,    42,    -1,    43,    -1,    13,
-      -1,    15,    -1,    41,    16,    41,    -1,    41,    17,    41,
-      -1,    41,    18,    41,    -1,    41,    19,    41,    -1,     4,
-      41,     5,    -1
+      29,     0,    -1,    -1,    30,     3,    13,     4,    42,     5,
+       7,    31,     9,    -1,    -1,    33,    32,    43,    -1,    34,
+      -1,    -1,    35,    12,    36,    -1,    -1,    36,    37,    -1,
+      37,    -1,    -1,    -1,    38,    41,     8,    40,    39,     7,
+      -1,    13,    -1,    41,     6,    13,    -1,    13,    -1,    42,
+       6,    13,    -1,    13,    -1,    10,    44,    11,    -1,    44,
+      45,    -1,    45,    -1,    13,    14,    46,     7,    -1,    46,
+      16,    47,    -1,    46,    17,    47,    -1,    47,    -1,    47,
+      18,    48,    -1,    47,    19,    47,    -1,    48,    -1,    13,
+      -1,    15,    -1,    46,    16,    46,    -1,    46,    17,    46,
+      -1,    46,    18,    46,    -1,    46,    19,    46,    -1,     4,
+      46,     5,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
@@ -460,11 +466,12 @@ static const char *const yytname[] =
   "$end", "error", "$undefined", "PROGRAM", "ABRE_PARENTESES",
   "FECHA_PARENTESES", "VIRGULA", "PONTO_E_VIRGULA", "DOIS_PONTOS", "PONTO",
   "T_BEGIN", "T_END", "VAR", "IDENT", "ATRIBUICAO", "NUMERO", "SOMA",
-  "SUBTRACAO", "MULTIPLICACAO", "DIVISAO", "ENQUANTO", "SE", "SENAO",
-  "$accept", "programa", "$@1", "bloco", "$@2", "parte_declara_vars",
-  "var", "$@3", "declara_vars", "declara_var", "$@4", "$@5", "tipo",
-  "lista_id_var", "lista_idents", "comando_composto", "comandos",
-  "atribuicao", "expressao_fraca", "expressao_forte", "expressao_fator", 0
+  "SUBTRACAO", "MULTIPLICACAO", "DIVISAO", "ENQUANTO", "PARA", "FACA",
+  "REPITA", "ATE", "SE", "ENTAO", "SENAO", "$accept", "programa", "$@1",
+  "bloco", "$@2", "parte_declara_vars", "var", "$@3", "declara_vars",
+  "declara_var", "$@4", "$@5", "tipo", "lista_id_var", "lista_idents",
+  "comando_composto", "comandos", "atribuicao", "expressao_fraca",
+  "expressao_forte", "expressao_fator", 0
 };
 #endif
 
@@ -475,17 +482,17 @@ static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
-     275,   276,   277
+     275,   276,   277,   278,   279,   280,   281,   282
 };
 # endif
 
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    23,    25,    24,    27,    26,    28,    30,    29,    29,
-      31,    31,    33,    34,    32,    35,    36,    36,    37,    37,
-      38,    39,    39,    40,    41,    41,    41,    42,    42,    42,
-      43,    43,    43,    43,    43,    43,    43
+       0,    28,    30,    29,    32,    31,    33,    35,    34,    34,
+      36,    36,    38,    39,    37,    40,    41,    41,    42,    42,
+      43,    44,    44,    45,    46,    46,    46,    47,    47,    47,
+      48,    48,    48,    48,    48,    48,    48
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
@@ -575,13 +582,13 @@ static const yytype_uint8 yycheck[] =
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,    24,    25,     0,     3,    13,     4,    13,    37,     5,
-       6,     7,    13,    26,    28,    29,    30,     9,    27,    12,
-      10,    38,    31,    32,    33,    13,    39,    40,    32,    13,
-      36,    14,    11,    40,     6,     8,     4,    13,    15,    41,
-      42,    43,    13,    13,    35,    41,     7,    16,    17,    18,
-      19,    18,    19,    34,     5,    41,    42,    41,    42,    41,
-      41,    41,    43,    42,     7
+       0,    29,    30,     0,     3,    13,     4,    13,    42,     5,
+       6,     7,    13,    31,    33,    34,    35,     9,    32,    12,
+      10,    43,    36,    37,    38,    13,    44,    45,    37,    13,
+      41,    14,    11,    45,     6,     8,     4,    13,    15,    46,
+      47,    48,    13,    13,    40,    46,     7,    16,    17,    18,
+      19,    18,    19,    39,     5,    46,    47,    46,    47,    46,
+      46,    46,    48,    47,     7
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1570,7 +1577,7 @@ yyreduce:
 
 
 /* Line 1806 of yacc.c  */
-#line 1574 "compilador.tab.c"
+#line 1581 "compilador.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

@@ -55,8 +55,13 @@
      MULTIPLICACAO = 273,
      DIVISAO = 274,
      ENQUANTO = 275,
-     SE = 276,
-     SENAO = 277
+     PARA = 276,
+     FACA = 277,
+     REPITA = 278,
+     ATE = 279,
+     SE = 280,
+     ENTAO = 281,
+     SENAO = 282
    };
 #endif
 

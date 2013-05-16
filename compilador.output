@@ -1,7 +1,12 @@
 Terminais não utilizados na gramática
 
    ENQUANTO
+   PARA
+   FACA
+   REPITA
+   ATE
    SE
+   ENTAO
    SENAO
 
 
@@ -98,53 +103,58 @@ SUBTRACAO (272) 24 32
 MULTIPLICACAO (273) 26 33
 DIVISAO (274) 27 34
 ENQUANTO (275)
-SE (276)
-SENAO (277)
+PARA (276)
+FACA (277)
+REPITA (278)
+ATE (279)
+SE (280)
+ENTAO (281)
+SENAO (282)
 
 
 Não-terminais com as regras onde eles aparecem
 
-$accept (23)
+$accept (28)
     à esquerda: 0
-programa (24)
+programa (29)
     à esquerda: 2, à direita: 0
-$@1 (25)
+$@1 (30)
     à esquerda: 1, à direita: 2
-bloco (26)
+bloco (31)
     à esquerda: 4, à direita: 2
-$@2 (27)
+$@2 (32)
     à esquerda: 3, à direita: 4
-parte_declara_vars (28)
+parte_declara_vars (33)
     à esquerda: 5, à direita: 4
-var (29)
+var (34)
     à esquerda: 7 8, à direita: 5
-$@3 (30)
+$@3 (35)
     à esquerda: 6, à direita: 7
-declara_vars (31)
+declara_vars (36)
     à esquerda: 9 10, à direita: 7 9
-declara_var (32)
+declara_var (37)
     à esquerda: 13, à direita: 9 10
-$@4 (33)
+$@4 (38)
     à esquerda: 11, à direita: 13
-$@5 (34)
+$@5 (39)
     à esquerda: 12, à direita: 13
-tipo (35)
+tipo (40)
     à esquerda: 14, à direita: 13
-lista_id_var (36)
+lista_id_var (41)
     à esquerda: 15 16, à direita: 13 15
-lista_idents (37)
+lista_idents (42)
     à esquerda: 17 18, à direita: 2 17
-comando_composto (38)
+comando_composto (43)
     à esquerda: 19, à direita: 4
-comandos (39)
+comandos (44)
     à esquerda: 20 21, à direita: 19 20
-atribuicao (40)
+atribuicao (45)
     à esquerda: 22, à direita: 20 21
-expressao_fraca (41)
+expressao_fraca (46)
     à esquerda: 23 24 25, à direita: 22 23 24 31 32 33 34 35
-expressao_forte (42)
+expressao_forte (47)
     à esquerda: 26 27 28, à direita: 23 24 25 26 27
-expressao_fator (43)
+expressao_fator (48)
     à esquerda: 29 30 31 32 33 34 35, à direita: 26 28
 
 
