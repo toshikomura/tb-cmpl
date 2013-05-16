@@ -19,7 +19,7 @@ typedef enum simbolos {
   simb_ponto, simb_virgula, simb_ponto_e_virgula, simb_dois_pontos,
   simb_atribuicao, simb_abre_parenteses, simb_fecha_parenteses,
   simb_soma, simb_subtracao, simb_multiplicacao, simb_divisao,
-  simb_enquanto, simb_se, simb_senao,
+  simb_enquanto, simb_para, simb_faca, simb_repita, simb_ate, simb_se, simb_entao, simb_senao,
 } simbolos;
 
 
