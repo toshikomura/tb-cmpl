@@ -1,4 +1,5 @@
      INPP
+     AMEM 2
      CRCT 1
      CRVL
      CRCT 1
@@ -18,4 +19,5 @@
      SOMA
      CRCT 3
      MULT
+     DMEM 2
      PARA

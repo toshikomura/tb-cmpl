@@ -75,7 +75,7 @@
 #include "compilador.h"
 
 char dados[9999];
-int num_vars;
+int num_vars = 0;
 void yyerror (char const *);
 
 
@@ -453,9 +453,9 @@ static const yytype_int8 yyrhs[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    28,    28,    28,    40,    39,    49,    53,    53,    54,
-      57,    58,    61,    64,    61,    69,    72,    74,    77,    78,
-      82,    85,    86,    89,    92,    96,   100,   103,   107,   111,
-     114,   118,   123,   127,   131,   135,   139
+      57,    58,    61,    64,    61,    71,    74,    78,    84,    85,
+      89,    96,    97,   100,   103,   107,   111,   114,   118,   122,
+     125,   129,   134,   138,   142,   146,   150
 };
 #endif
 
@@ -1468,27 +1468,43 @@ yyreduce:
 /* Line 1806 of yacc.c  */
 #line 64 "compilador.y"
     { /* AMEM */
+              sprintf ( dados, "AMEM %d", num_vars);
+              geraCodigo( NULL, dados);
               }
     break;
 
   case 16:
 
 /* Line 1806 of yacc.c  */
-#line 73 "compilador.y"
-    { /* insere última vars na tabela de símbolos */ }
+#line 75 "compilador.y"
+    { /* insere última vars na tabela de símbolos */
+            num_vars++;
+            }
     break;
 
   case 17:
 
 /* Line 1806 of yacc.c  */
-#line 74 "compilador.y"
-    { /* insere vars na tabela de símbolos */}
+#line 79 "compilador.y"
+    { /* insere vars na tabela de símbolos */
+            num_vars++;
+            }
+    break;
+
+  case 20:
+
+/* Line 1806 of yacc.c  */
+#line 90 "compilador.y"
+    {
+            sprintf ( dados, "DMEM %d", num_vars);
+            geraCodigo( NULL, dados);
+            }
     break;
 
   case 24:
 
 /* Line 1806 of yacc.c  */
-#line 93 "compilador.y"
+#line 104 "compilador.y"
     {
             geraCodigo (NULL, "SOMA");
             }
@@ -1497,7 +1513,7 @@ yyreduce:
   case 25:
 
 /* Line 1806 of yacc.c  */
-#line 97 "compilador.y"
+#line 108 "compilador.y"
     {
             geraCodigo (NULL, "SUBT");
             }
@@ -1506,7 +1522,7 @@ yyreduce:
   case 27:
 
 /* Line 1806 of yacc.c  */
-#line 104 "compilador.y"
+#line 115 "compilador.y"
     {
             geraCodigo (NULL, "MULT");
             }
@@ -1515,7 +1531,7 @@ yyreduce:
   case 28:
 
 /* Line 1806 of yacc.c  */
-#line 108 "compilador.y"
+#line 119 "compilador.y"
     {
             geraCodigo (NULL, "DIVI");
             }
@@ -1524,7 +1540,7 @@ yyreduce:
   case 30:
 
 /* Line 1806 of yacc.c  */
-#line 115 "compilador.y"
+#line 126 "compilador.y"
     {
             geraCodigo (NULL, "CRVL");
             }
@@ -1533,9 +1549,9 @@ yyreduce:
   case 31:
 
 /* Line 1806 of yacc.c  */
-#line 119 "compilador.y"
+#line 130 "compilador.y"
     {
-            sprintf ( dados, "CRCT %d", atoi( token) );
+            sprintf ( dados, "CRCT %s", token);
             geraCodigo (NULL, dados);
             }
     break;
@@ -1543,7 +1559,7 @@ yyreduce:
   case 32:
 
 /* Line 1806 of yacc.c  */
-#line 124 "compilador.y"
+#line 135 "compilador.y"
     {
             geraCodigo (NULL, "SOMA");
             }
@@ -1552,7 +1568,7 @@ yyreduce:
   case 33:
 
 /* Line 1806 of yacc.c  */
-#line 128 "compilador.y"
+#line 139 "compilador.y"
     {
             geraCodigo (NULL, "SUBT");
             }
@@ -1561,7 +1577,7 @@ yyreduce:
   case 34:
 
 /* Line 1806 of yacc.c  */
-#line 132 "compilador.y"
+#line 143 "compilador.y"
     {
             geraCodigo (NULL, "MULT");
             }
@@ -1570,7 +1586,7 @@ yyreduce:
   case 35:
 
 /* Line 1806 of yacc.c  */
-#line 136 "compilador.y"
+#line 147 "compilador.y"
     {
             geraCodigo (NULL, "DIVI");
             }
@@ -1579,7 +1595,7 @@ yyreduce:
 
 
 /* Line 1806 of yacc.c  */
-#line 1583 "compilador.tab.c"
+#line 1599 "compilador.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1810,7 +1826,7 @@ yyreturn:
 
 
 /* Line 2067 of yacc.c  */
-#line 142 "compilador.y"
+#line 153 "compilador.y"
 
 
 void yyerror (char const *message)
@@ -1838,6 +1854,7 @@ main (int argc, char** argv) {
 /* -------------------------------------------------------------------
  *  Inicia a Tabela de Símbolos
  * ------------------------------------------------------------------- */
+  tb_simb = malloc( sizeof( tabela_simbolos) * 1000);
 
    yyin=fp;
    yyparse();
