@@ -51,16 +51,23 @@ int imprimeErro ( char* erro ) {
 }
 
 /* Função que procura um simbolo na tabela de simbolos */
-/* Retorna verdadeiro se encontra (1) */
-/* Retorna falso se não encontra (0) */
-int procura_simb ( char *simb ) {
+/* Se encontra retorna o nivel e deslocamento */
+/* Se não encontra retorna NULL */
+int *procura_simb ( char *simb ) {
     int i;
+    int *pos_mem;
 
     for ( i = 0; i < 100; i++){
-        if ( strcmp ( tb_simb[i].simbolo, simb ) == 0 )
-            return 1;
+        if ( strcmp ( tb_simb[i].simbolo, simb ) == 0 ){
+            pos_mem = malloc( sizeof (int) * 2);
+            pos_mem[0] = tb_simb[i].nivel_lexico;
+            pos_mem[1] = tb_simb[i].desloc;
+
+            return pos_mem;
+        }
     }
-    return 0;
+
+    return pos_mem;
 }
 
 /* Função que gera próximo rotulo */
