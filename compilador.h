@@ -54,3 +54,5 @@ extern int nl;
 
 simbolos simbolo, relacao;
 char token[TAM_TOKEN];
+
+tabela_simbolos *tb_simb;
