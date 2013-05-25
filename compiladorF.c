@@ -25,6 +25,11 @@
 /* Arquivo MEPA */
 FILE* fp=NULL;
 
+char *rotulo;
+
+/* Indica qual é o rotulo */
+int valor_rotulo;
+
 /* Função que gera código MEPA */
 void geraCodigo (char* rot, char* comando) {
 
@@ -52,8 +57,19 @@ int procura_simb ( char *simb ) {
     int i;
 
     for ( i = 0; i < 100; i++){
-        if ( strcmp ( tb_simb[i].simbolo, simb ) == 9 )
+        if ( strcmp ( tb_simb[i].simbolo, simb ) == 0 )
             return 1;
     }
     return 0;
+}
+
+/* Função que gera próximo rotulo */
+void gera_Proximo_Rotulo () {
+
+    if ( rotulo == NULL){
+        rotulo = malloc( sizeof (char) * TAM_ROTULO);
+        valor_rotulo = 0;
+    }
+    sprintf( rotulo, "R%d", valor_rotulo);
+    valor_rotulo++;
 }
