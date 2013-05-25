@@ -19,7 +19,7 @@ int num_vars_inicial = 0;
 int nivel_lexico = 0;
 int desloc = 0;
 int *end_simb;
-int j;
+int percorre_vars;
 
 /* Função para corrigir erro de versões */
 void yyerror (char const *);
@@ -84,8 +84,8 @@ declara_var : {
 
 tipo        : IDENT
             {
-                for( j = num_vars_inicial; j < num_vars; j++){
-                    sprintf ( tb_simb[ j ].tipo, "%s", token);
+                for( percorre_vars = num_vars_inicial; percorre_vars < num_vars; percorre_vars++){
+                    sprintf ( tb_simb[ percorre_vars ].tipo, "%s", token);
                 }
             }
 ;
