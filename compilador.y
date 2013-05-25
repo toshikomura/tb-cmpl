@@ -12,10 +12,14 @@
 
 /* Variáveis globais incluidas */
 char dados[TAM_DADOS];
+char dados_aux1[TAM_DADOS];
+char dados_aux2[TAM_DADOS];
 int num_vars = 0;
 int num_vars_inicial = 0;
 int nivel_lexico = 0;
 int desloc = 0;
+int *end_simb;
+int j;
 
 /* Função para corrigir erro de versões */
 void yyerror (char const *);
@@ -80,7 +84,6 @@ declara_var : {
 
 tipo        : IDENT
             {
-            int j;
                 for( j = num_vars_inicial; j < num_vars; j++){
                     sprintf ( tb_simb[ j ].tipo, "%s", token);
                 }
@@ -128,11 +131,20 @@ comandos:   comandos atribuicao
 
 atribuicao: IDENT
             {
-            if ( ! procura_simb( token ) ){
+            end_simb = procura_simb( token );
+            if ( end_simb == NULL ){
                 sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
                 imprimeErro( dados );
             }
+            printf("simbolo %s nivel %d desloc %d\n", token, end_simb[0], end_simb[1]);
             } ATRIBUICAO expressao_fraca PONTO_E_VIRGULA
+            {
+            sprintf( dados_aux1, "%d, ", end_simb[0]);
+            sprintf( dados_aux2, "%d", end_simb[1]);
+            strcat( dados_aux1, dados_aux2);
+            sprintf( dados, "ARMZ %s", dados_aux1);
+            geraCodigo( NULL, dados );
+            }
 ;
 
 repeticao: ENQUANTO
