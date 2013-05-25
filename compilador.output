@@ -10,15 +10,15 @@ Terminals unused in grammar
    SENAO
 
 
-State 40 conflicts: 2 shift/reduce
-State 55 conflicts: 4 shift/reduce
-State 56 conflicts: 2 shift/reduce, 6 reduce/reduce
+State 44 conflicts: 2 shift/reduce
 State 57 conflicts: 4 shift/reduce
 State 58 conflicts: 2 shift/reduce, 6 reduce/reduce
 State 59 conflicts: 4 shift/reduce
-State 60 conflicts: 4 shift/reduce
-State 62 conflicts: 4 reduce/reduce
-State 63 conflicts: 2 shift/reduce, 4 reduce/reduce
+State 60 conflicts: 2 shift/reduce, 6 reduce/reduce
+State 61 conflicts: 4 shift/reduce
+State 62 conflicts: 4 shift/reduce
+State 64 conflicts: 4 reduce/reduce
+State 65 conflicts: 2 shift/reduce, 4 reduce/reduce
 
 
 Grammar
@@ -62,23 +62,25 @@ Grammar
    20 comandos: comandos atribuicao
    21         | atribuicao
 
-   22 atribuicao: IDENT ATRIBUICAO expressao_fraca PONTO_E_VIRGULA
+   22 $@6: /* empty */
 
-   23 expressao_fraca: expressao_fraca SOMA expressao_forte
-   24                | expressao_fraca SUBTRACAO expressao_forte
-   25                | expressao_forte
+   23 atribuicao: IDENT $@6 ATRIBUICAO expressao_fraca PONTO_E_VIRGULA
 
-   26 expressao_forte: expressao_forte MULTIPLICACAO expressao_fator
-   27                | expressao_forte DIVISAO expressao_forte
-   28                | expressao_fator
+   24 expressao_fraca: expressao_fraca SOMA expressao_forte
+   25                | expressao_fraca SUBTRACAO expressao_forte
+   26                | expressao_forte
 
-   29 expressao_fator: IDENT
-   30                | NUMERO
-   31                | expressao_fraca SOMA expressao_fraca
-   32                | expressao_fraca SUBTRACAO expressao_fraca
-   33                | expressao_fraca MULTIPLICACAO expressao_fraca
-   34                | expressao_fraca DIVISAO expressao_fraca
-   35                | ABRE_PARENTESES expressao_fraca FECHA_PARENTESES
+   27 expressao_forte: expressao_forte MULTIPLICACAO expressao_fator
+   28                | expressao_forte DIVISAO expressao_forte
+   29                | expressao_fator
+
+   30 expressao_fator: IDENT
+   31                | NUMERO
+   32                | expressao_fraca SOMA expressao_fraca
+   33                | expressao_fraca SUBTRACAO expressao_fraca
+   34                | expressao_fraca MULTIPLICACAO expressao_fraca
+   35                | expressao_fraca DIVISAO expressao_fraca
+   36                | ABRE_PARENTESES expressao_fraca FECHA_PARENTESES
 
 
 Terminals, with rules where they appear
@@ -86,22 +88,22 @@ Terminals, with rules where they appear
 $end (0) 0
 error (256)
 PROGRAM (258) 2
-ABRE_PARENTESES (259) 2 35
-FECHA_PARENTESES (260) 2 35
+ABRE_PARENTESES (259) 2 36
+FECHA_PARENTESES (260) 2 36
 VIRGULA (261) 15 17
-PONTO_E_VIRGULA (262) 2 13 22
+PONTO_E_VIRGULA (262) 2 13 23
 DOIS_PONTOS (263) 13
 PONTO (264) 2
 T_BEGIN (265) 19
 T_END (266) 19
 VAR (267) 7
-IDENT (268) 2 14 15 16 17 18 22 29
-ATRIBUICAO (269) 22
-NUMERO (270) 30
-SOMA (271) 23 31
-SUBTRACAO (272) 24 32
-MULTIPLICACAO (273) 26 33
-DIVISAO (274) 27 34
+IDENT (268) 2 14 15 16 17 18 23 30
+ATRIBUICAO (269) 23
+NUMERO (270) 31
+SOMA (271) 24 32
+SUBTRACAO (272) 25 33
+MULTIPLICACAO (273) 27 34
+DIVISAO (274) 28 35
 ENQUANTO (275)
 PARA (276)
 FACA (277)
@@ -149,13 +151,15 @@ comando_composto (43)
 comandos (44)
     on left: 20 21, on right: 19 20
 atribuicao (45)
-    on left: 22, on right: 20 21
-expressao_fraca (46)
-    on left: 23 24 25, on right: 22 23 24 31 32 33 34 35
-expressao_forte (47)
-    on left: 26 27 28, on right: 23 24 25 26 27
-expressao_fator (48)
-    on left: 29 30 31 32 33 34 35, on right: 26 28
+    on left: 23, on right: 20 21
+$@6 (46)
+    on left: 22, on right: 23
+expressao_fraca (47)
+    on left: 24 25 26, on right: 23 24 25 32 33 34 35 36
+expressao_forte (48)
+    on left: 27 28 29, on right: 24 25 26 27 28
+expressao_fator (49)
+    on left: 30 31 32 33 34 35 36, on right: 27 29
 
 
 state 0
@@ -366,9 +370,11 @@ state 24
 
 state 25
 
-   22 atribuicao: IDENT . ATRIBUICAO expressao_fraca PONTO_E_VIRGULA
+   23 atribuicao: IDENT . $@6 ATRIBUICAO expressao_fraca PONTO_E_VIRGULA
 
-    ATRIBUICAO  shift, and go to state 31
+    $default  reduce using rule 22 ($@6)
+
+    $@6  go to state 31
 
 
 state 26
@@ -414,15 +420,9 @@ state 30
 
 state 31
 
-   22 atribuicao: IDENT ATRIBUICAO . expressao_fraca PONTO_E_VIRGULA
+   23 atribuicao: IDENT $@6 . ATRIBUICAO expressao_fraca PONTO_E_VIRGULA
 
-    ABRE_PARENTESES  shift, and go to state 36
-    IDENT            shift, and go to state 37
-    NUMERO           shift, and go to state 38
-
-    expressao_fraca  go to state 39
-    expressao_forte  go to state 40
-    expressao_fator  go to state 41
+    ATRIBUICAO  shift, and go to state 36
 
 
 state 32
@@ -443,285 +443,258 @@ state 34
 
    15 lista_id_var: lista_id_var VIRGULA . IDENT
 
-    IDENT  shift, and go to state 42
+    IDENT  shift, and go to state 37
 
 
 state 35
 
    13 declara_var: $@4 lista_id_var DOIS_PONTOS . tipo $@5 PONTO_E_VIRGULA
 
-    IDENT  shift, and go to state 43
+    IDENT  shift, and go to state 38
 
-    tipo  go to state 44
+    tipo  go to state 39
 
 
 state 36
 
-   35 expressao_fator: ABRE_PARENTESES . expressao_fraca FECHA_PARENTESES
+   23 atribuicao: IDENT $@6 ATRIBUICAO . expressao_fraca PONTO_E_VIRGULA
 
-    ABRE_PARENTESES  shift, and go to state 36
-    IDENT            shift, and go to state 37
-    NUMERO           shift, and go to state 38
+    ABRE_PARENTESES  shift, and go to state 40
+    IDENT            shift, and go to state 41
+    NUMERO           shift, and go to state 42
 
-    expressao_fraca  go to state 45
-    expressao_forte  go to state 40
-    expressao_fator  go to state 41
+    expressao_fraca  go to state 43
+    expressao_forte  go to state 44
+    expressao_fator  go to state 45
 
 
 state 37
-
-   29 expressao_fator: IDENT .
-
-    $default  reduce using rule 29 (expressao_fator)
-
-
-state 38
-
-   30 expressao_fator: NUMERO .
-
-    $default  reduce using rule 30 (expressao_fator)
-
-
-state 39
-
-   22 atribuicao: IDENT ATRIBUICAO expressao_fraca . PONTO_E_VIRGULA
-   23 expressao_fraca: expressao_fraca . SOMA expressao_forte
-   24                | expressao_fraca . SUBTRACAO expressao_forte
-   31 expressao_fator: expressao_fraca . SOMA expressao_fraca
-   32                | expressao_fraca . SUBTRACAO expressao_fraca
-   33                | expressao_fraca . MULTIPLICACAO expressao_fraca
-   34                | expressao_fraca . DIVISAO expressao_fraca
-
-    PONTO_E_VIRGULA  shift, and go to state 46
-    SOMA             shift, and go to state 47
-    SUBTRACAO        shift, and go to state 48
-    MULTIPLICACAO    shift, and go to state 49
-    DIVISAO          shift, and go to state 50
-
-
-state 40
-
-   25 expressao_fraca: expressao_forte .
-   26 expressao_forte: expressao_forte . MULTIPLICACAO expressao_fator
-   27                | expressao_forte . DIVISAO expressao_forte
-
-    MULTIPLICACAO  shift, and go to state 51
-    DIVISAO        shift, and go to state 52
-
-    MULTIPLICACAO  [reduce using rule 25 (expressao_fraca)]
-    DIVISAO        [reduce using rule 25 (expressao_fraca)]
-    $default       reduce using rule 25 (expressao_fraca)
-
-
-state 41
-
-   28 expressao_forte: expressao_fator .
-
-    $default  reduce using rule 28 (expressao_forte)
-
-
-state 42
 
    15 lista_id_var: lista_id_var VIRGULA IDENT .
 
     $default  reduce using rule 15 (lista_id_var)
 
 
-state 43
+state 38
 
    14 tipo: IDENT .
 
     $default  reduce using rule 14 (tipo)
 
 
-state 44
+state 39
 
    13 declara_var: $@4 lista_id_var DOIS_PONTOS tipo . $@5 PONTO_E_VIRGULA
 
     $default  reduce using rule 12 ($@5)
 
-    $@5  go to state 53
+    $@5  go to state 46
+
+
+state 40
+
+   36 expressao_fator: ABRE_PARENTESES . expressao_fraca FECHA_PARENTESES
+
+    ABRE_PARENTESES  shift, and go to state 40
+    IDENT            shift, and go to state 41
+    NUMERO           shift, and go to state 42
+
+    expressao_fraca  go to state 47
+    expressao_forte  go to state 44
+    expressao_fator  go to state 45
+
+
+state 41
+
+   30 expressao_fator: IDENT .
+
+    $default  reduce using rule 30 (expressao_fator)
+
+
+state 42
+
+   31 expressao_fator: NUMERO .
+
+    $default  reduce using rule 31 (expressao_fator)
+
+
+state 43
+
+   23 atribuicao: IDENT $@6 ATRIBUICAO expressao_fraca . PONTO_E_VIRGULA
+   24 expressao_fraca: expressao_fraca . SOMA expressao_forte
+   25                | expressao_fraca . SUBTRACAO expressao_forte
+   32 expressao_fator: expressao_fraca . SOMA expressao_fraca
+   33                | expressao_fraca . SUBTRACAO expressao_fraca
+   34                | expressao_fraca . MULTIPLICACAO expressao_fraca
+   35                | expressao_fraca . DIVISAO expressao_fraca
+
+    PONTO_E_VIRGULA  shift, and go to state 48
+    SOMA             shift, and go to state 49
+    SUBTRACAO        shift, and go to state 50
+    MULTIPLICACAO    shift, and go to state 51
+    DIVISAO          shift, and go to state 52
+
+
+state 44
+
+   26 expressao_fraca: expressao_forte .
+   27 expressao_forte: expressao_forte . MULTIPLICACAO expressao_fator
+   28                | expressao_forte . DIVISAO expressao_forte
+
+    MULTIPLICACAO  shift, and go to state 53
+    DIVISAO        shift, and go to state 54
+
+    MULTIPLICACAO  [reduce using rule 26 (expressao_fraca)]
+    DIVISAO        [reduce using rule 26 (expressao_fraca)]
+    $default       reduce using rule 26 (expressao_fraca)
 
 
 state 45
 
-   23 expressao_fraca: expressao_fraca . SOMA expressao_forte
-   24                | expressao_fraca . SUBTRACAO expressao_forte
-   31 expressao_fator: expressao_fraca . SOMA expressao_fraca
-   32                | expressao_fraca . SUBTRACAO expressao_fraca
-   33                | expressao_fraca . MULTIPLICACAO expressao_fraca
-   34                | expressao_fraca . DIVISAO expressao_fraca
-   35                | ABRE_PARENTESES expressao_fraca . FECHA_PARENTESES
+   29 expressao_forte: expressao_fator .
 
-    FECHA_PARENTESES  shift, and go to state 54
-    SOMA              shift, and go to state 47
-    SUBTRACAO         shift, and go to state 48
-    MULTIPLICACAO     shift, and go to state 49
-    DIVISAO           shift, and go to state 50
+    $default  reduce using rule 29 (expressao_forte)
 
 
 state 46
 
-   22 atribuicao: IDENT ATRIBUICAO expressao_fraca PONTO_E_VIRGULA .
+   13 declara_var: $@4 lista_id_var DOIS_PONTOS tipo $@5 . PONTO_E_VIRGULA
 
-    $default  reduce using rule 22 (atribuicao)
+    PONTO_E_VIRGULA  shift, and go to state 55
 
 
 state 47
 
-   23 expressao_fraca: expressao_fraca SOMA . expressao_forte
-   31 expressao_fator: expressao_fraca SOMA . expressao_fraca
+   24 expressao_fraca: expressao_fraca . SOMA expressao_forte
+   25                | expressao_fraca . SUBTRACAO expressao_forte
+   32 expressao_fator: expressao_fraca . SOMA expressao_fraca
+   33                | expressao_fraca . SUBTRACAO expressao_fraca
+   34                | expressao_fraca . MULTIPLICACAO expressao_fraca
+   35                | expressao_fraca . DIVISAO expressao_fraca
+   36                | ABRE_PARENTESES expressao_fraca . FECHA_PARENTESES
 
-    ABRE_PARENTESES  shift, and go to state 36
-    IDENT            shift, and go to state 37
-    NUMERO           shift, and go to state 38
-
-    expressao_fraca  go to state 55
-    expressao_forte  go to state 56
-    expressao_fator  go to state 41
+    FECHA_PARENTESES  shift, and go to state 56
+    SOMA              shift, and go to state 49
+    SUBTRACAO         shift, and go to state 50
+    MULTIPLICACAO     shift, and go to state 51
+    DIVISAO           shift, and go to state 52
 
 
 state 48
 
-   24 expressao_fraca: expressao_fraca SUBTRACAO . expressao_forte
-   32 expressao_fator: expressao_fraca SUBTRACAO . expressao_fraca
+   23 atribuicao: IDENT $@6 ATRIBUICAO expressao_fraca PONTO_E_VIRGULA .
 
-    ABRE_PARENTESES  shift, and go to state 36
-    IDENT            shift, and go to state 37
-    NUMERO           shift, and go to state 38
-
-    expressao_fraca  go to state 57
-    expressao_forte  go to state 58
-    expressao_fator  go to state 41
+    $default  reduce using rule 23 (atribuicao)
 
 
 state 49
 
-   33 expressao_fator: expressao_fraca MULTIPLICACAO . expressao_fraca
+   24 expressao_fraca: expressao_fraca SOMA . expressao_forte
+   32 expressao_fator: expressao_fraca SOMA . expressao_fraca
 
-    ABRE_PARENTESES  shift, and go to state 36
-    IDENT            shift, and go to state 37
-    NUMERO           shift, and go to state 38
+    ABRE_PARENTESES  shift, and go to state 40
+    IDENT            shift, and go to state 41
+    NUMERO           shift, and go to state 42
 
-    expressao_fraca  go to state 59
-    expressao_forte  go to state 40
-    expressao_fator  go to state 41
+    expressao_fraca  go to state 57
+    expressao_forte  go to state 58
+    expressao_fator  go to state 45
 
 
 state 50
 
-   34 expressao_fator: expressao_fraca DIVISAO . expressao_fraca
+   25 expressao_fraca: expressao_fraca SUBTRACAO . expressao_forte
+   33 expressao_fator: expressao_fraca SUBTRACAO . expressao_fraca
 
-    ABRE_PARENTESES  shift, and go to state 36
-    IDENT            shift, and go to state 37
-    NUMERO           shift, and go to state 38
+    ABRE_PARENTESES  shift, and go to state 40
+    IDENT            shift, and go to state 41
+    NUMERO           shift, and go to state 42
 
-    expressao_fraca  go to state 60
-    expressao_forte  go to state 40
-    expressao_fator  go to state 41
+    expressao_fraca  go to state 59
+    expressao_forte  go to state 60
+    expressao_fator  go to state 45
 
 
 state 51
 
-   26 expressao_forte: expressao_forte MULTIPLICACAO . expressao_fator
+   34 expressao_fator: expressao_fraca MULTIPLICACAO . expressao_fraca
 
-    ABRE_PARENTESES  shift, and go to state 36
-    IDENT            shift, and go to state 37
-    NUMERO           shift, and go to state 38
+    ABRE_PARENTESES  shift, and go to state 40
+    IDENT            shift, and go to state 41
+    NUMERO           shift, and go to state 42
 
     expressao_fraca  go to state 61
-    expressao_forte  go to state 40
-    expressao_fator  go to state 62
+    expressao_forte  go to state 44
+    expressao_fator  go to state 45
 
 
 state 52
 
-   27 expressao_forte: expressao_forte DIVISAO . expressao_forte
+   35 expressao_fator: expressao_fraca DIVISAO . expressao_fraca
 
-    ABRE_PARENTESES  shift, and go to state 36
-    IDENT            shift, and go to state 37
-    NUMERO           shift, and go to state 38
+    ABRE_PARENTESES  shift, and go to state 40
+    IDENT            shift, and go to state 41
+    NUMERO           shift, and go to state 42
 
-    expressao_fraca  go to state 61
-    expressao_forte  go to state 63
-    expressao_fator  go to state 41
+    expressao_fraca  go to state 62
+    expressao_forte  go to state 44
+    expressao_fator  go to state 45
 
 
 state 53
 
-   13 declara_var: $@4 lista_id_var DOIS_PONTOS tipo $@5 . PONTO_E_VIRGULA
+   27 expressao_forte: expressao_forte MULTIPLICACAO . expressao_fator
 
-    PONTO_E_VIRGULA  shift, and go to state 64
+    ABRE_PARENTESES  shift, and go to state 40
+    IDENT            shift, and go to state 41
+    NUMERO           shift, and go to state 42
+
+    expressao_fraca  go to state 63
+    expressao_forte  go to state 44
+    expressao_fator  go to state 64
 
 
 state 54
 
-   35 expressao_fator: ABRE_PARENTESES expressao_fraca FECHA_PARENTESES .
+   28 expressao_forte: expressao_forte DIVISAO . expressao_forte
 
-    $default  reduce using rule 35 (expressao_fator)
+    ABRE_PARENTESES  shift, and go to state 40
+    IDENT            shift, and go to state 41
+    NUMERO           shift, and go to state 42
+
+    expressao_fraca  go to state 63
+    expressao_forte  go to state 65
+    expressao_fator  go to state 45
 
 
 state 55
 
-   23 expressao_fraca: expressao_fraca . SOMA expressao_forte
-   24                | expressao_fraca . SUBTRACAO expressao_forte
-   31 expressao_fator: expressao_fraca . SOMA expressao_fraca
-   31                | expressao_fraca SOMA expressao_fraca .
-   32                | expressao_fraca . SUBTRACAO expressao_fraca
-   33                | expressao_fraca . MULTIPLICACAO expressao_fraca
-   34                | expressao_fraca . DIVISAO expressao_fraca
+   13 declara_var: $@4 lista_id_var DOIS_PONTOS tipo $@5 PONTO_E_VIRGULA .
 
-    SOMA           shift, and go to state 47
-    SUBTRACAO      shift, and go to state 48
-    MULTIPLICACAO  shift, and go to state 49
-    DIVISAO        shift, and go to state 50
-
-    SOMA           [reduce using rule 31 (expressao_fator)]
-    SUBTRACAO      [reduce using rule 31 (expressao_fator)]
-    MULTIPLICACAO  [reduce using rule 31 (expressao_fator)]
-    DIVISAO        [reduce using rule 31 (expressao_fator)]
-    $default       reduce using rule 31 (expressao_fator)
+    $default  reduce using rule 13 (declara_var)
 
 
 state 56
 
-   23 expressao_fraca: expressao_fraca SOMA expressao_forte .
-   25                | expressao_forte .
-   26 expressao_forte: expressao_forte . MULTIPLICACAO expressao_fator
-   27                | expressao_forte . DIVISAO expressao_forte
+   36 expressao_fator: ABRE_PARENTESES expressao_fraca FECHA_PARENTESES .
 
-    MULTIPLICACAO  shift, and go to state 51
-    DIVISAO        shift, and go to state 52
-
-    FECHA_PARENTESES  reduce using rule 23 (expressao_fraca)
-    FECHA_PARENTESES  [reduce using rule 25 (expressao_fraca)]
-    PONTO_E_VIRGULA   reduce using rule 23 (expressao_fraca)
-    PONTO_E_VIRGULA   [reduce using rule 25 (expressao_fraca)]
-    SOMA              reduce using rule 23 (expressao_fraca)
-    SOMA              [reduce using rule 25 (expressao_fraca)]
-    SUBTRACAO         reduce using rule 23 (expressao_fraca)
-    SUBTRACAO         [reduce using rule 25 (expressao_fraca)]
-    MULTIPLICACAO     [reduce using rule 23 (expressao_fraca)]
-    MULTIPLICACAO     [reduce using rule 25 (expressao_fraca)]
-    DIVISAO           [reduce using rule 23 (expressao_fraca)]
-    DIVISAO           [reduce using rule 25 (expressao_fraca)]
-    $default          reduce using rule 23 (expressao_fraca)
+    $default  reduce using rule 36 (expressao_fator)
 
 
 state 57
 
-   23 expressao_fraca: expressao_fraca . SOMA expressao_forte
-   24                | expressao_fraca . SUBTRACAO expressao_forte
-   31 expressao_fator: expressao_fraca . SOMA expressao_fraca
-   32                | expressao_fraca . SUBTRACAO expressao_fraca
-   32                | expressao_fraca SUBTRACAO expressao_fraca .
-   33                | expressao_fraca . MULTIPLICACAO expressao_fraca
-   34                | expressao_fraca . DIVISAO expressao_fraca
+   24 expressao_fraca: expressao_fraca . SOMA expressao_forte
+   25                | expressao_fraca . SUBTRACAO expressao_forte
+   32 expressao_fator: expressao_fraca . SOMA expressao_fraca
+   32                | expressao_fraca SOMA expressao_fraca .
+   33                | expressao_fraca . SUBTRACAO expressao_fraca
+   34                | expressao_fraca . MULTIPLICACAO expressao_fraca
+   35                | expressao_fraca . DIVISAO expressao_fraca
 
-    SOMA           shift, and go to state 47
-    SUBTRACAO      shift, and go to state 48
-    MULTIPLICACAO  shift, and go to state 49
-    DIVISAO        shift, and go to state 50
+    SOMA           shift, and go to state 49
+    SUBTRACAO      shift, and go to state 50
+    MULTIPLICACAO  shift, and go to state 51
+    DIVISAO        shift, and go to state 52
 
     SOMA           [reduce using rule 32 (expressao_fator)]
     SUBTRACAO      [reduce using rule 32 (expressao_fator)]
@@ -732,43 +705,43 @@ state 57
 
 state 58
 
-   24 expressao_fraca: expressao_fraca SUBTRACAO expressao_forte .
-   25                | expressao_forte .
-   26 expressao_forte: expressao_forte . MULTIPLICACAO expressao_fator
-   27                | expressao_forte . DIVISAO expressao_forte
+   24 expressao_fraca: expressao_fraca SOMA expressao_forte .
+   26                | expressao_forte .
+   27 expressao_forte: expressao_forte . MULTIPLICACAO expressao_fator
+   28                | expressao_forte . DIVISAO expressao_forte
 
-    MULTIPLICACAO  shift, and go to state 51
-    DIVISAO        shift, and go to state 52
+    MULTIPLICACAO  shift, and go to state 53
+    DIVISAO        shift, and go to state 54
 
     FECHA_PARENTESES  reduce using rule 24 (expressao_fraca)
-    FECHA_PARENTESES  [reduce using rule 25 (expressao_fraca)]
+    FECHA_PARENTESES  [reduce using rule 26 (expressao_fraca)]
     PONTO_E_VIRGULA   reduce using rule 24 (expressao_fraca)
-    PONTO_E_VIRGULA   [reduce using rule 25 (expressao_fraca)]
+    PONTO_E_VIRGULA   [reduce using rule 26 (expressao_fraca)]
     SOMA              reduce using rule 24 (expressao_fraca)
-    SOMA              [reduce using rule 25 (expressao_fraca)]
+    SOMA              [reduce using rule 26 (expressao_fraca)]
     SUBTRACAO         reduce using rule 24 (expressao_fraca)
-    SUBTRACAO         [reduce using rule 25 (expressao_fraca)]
+    SUBTRACAO         [reduce using rule 26 (expressao_fraca)]
     MULTIPLICACAO     [reduce using rule 24 (expressao_fraca)]
-    MULTIPLICACAO     [reduce using rule 25 (expressao_fraca)]
+    MULTIPLICACAO     [reduce using rule 26 (expressao_fraca)]
     DIVISAO           [reduce using rule 24 (expressao_fraca)]
-    DIVISAO           [reduce using rule 25 (expressao_fraca)]
+    DIVISAO           [reduce using rule 26 (expressao_fraca)]
     $default          reduce using rule 24 (expressao_fraca)
 
 
 state 59
 
-   23 expressao_fraca: expressao_fraca . SOMA expressao_forte
-   24                | expressao_fraca . SUBTRACAO expressao_forte
-   31 expressao_fator: expressao_fraca . SOMA expressao_fraca
-   32                | expressao_fraca . SUBTRACAO expressao_fraca
-   33                | expressao_fraca . MULTIPLICACAO expressao_fraca
-   33                | expressao_fraca MULTIPLICACAO expressao_fraca .
-   34                | expressao_fraca . DIVISAO expressao_fraca
+   24 expressao_fraca: expressao_fraca . SOMA expressao_forte
+   25                | expressao_fraca . SUBTRACAO expressao_forte
+   32 expressao_fator: expressao_fraca . SOMA expressao_fraca
+   33                | expressao_fraca . SUBTRACAO expressao_fraca
+   33                | expressao_fraca SUBTRACAO expressao_fraca .
+   34                | expressao_fraca . MULTIPLICACAO expressao_fraca
+   35                | expressao_fraca . DIVISAO expressao_fraca
 
-    SOMA           shift, and go to state 47
-    SUBTRACAO      shift, and go to state 48
-    MULTIPLICACAO  shift, and go to state 49
-    DIVISAO        shift, and go to state 50
+    SOMA           shift, and go to state 49
+    SUBTRACAO      shift, and go to state 50
+    MULTIPLICACAO  shift, and go to state 51
+    DIVISAO        shift, and go to state 52
 
     SOMA           [reduce using rule 33 (expressao_fator)]
     SUBTRACAO      [reduce using rule 33 (expressao_fator)]
@@ -779,18 +752,43 @@ state 59
 
 state 60
 
-   23 expressao_fraca: expressao_fraca . SOMA expressao_forte
-   24                | expressao_fraca . SUBTRACAO expressao_forte
-   31 expressao_fator: expressao_fraca . SOMA expressao_fraca
-   32                | expressao_fraca . SUBTRACAO expressao_fraca
-   33                | expressao_fraca . MULTIPLICACAO expressao_fraca
-   34                | expressao_fraca . DIVISAO expressao_fraca
-   34                | expressao_fraca DIVISAO expressao_fraca .
+   25 expressao_fraca: expressao_fraca SUBTRACAO expressao_forte .
+   26                | expressao_forte .
+   27 expressao_forte: expressao_forte . MULTIPLICACAO expressao_fator
+   28                | expressao_forte . DIVISAO expressao_forte
 
-    SOMA           shift, and go to state 47
-    SUBTRACAO      shift, and go to state 48
-    MULTIPLICACAO  shift, and go to state 49
-    DIVISAO        shift, and go to state 50
+    MULTIPLICACAO  shift, and go to state 53
+    DIVISAO        shift, and go to state 54
+
+    FECHA_PARENTESES  reduce using rule 25 (expressao_fraca)
+    FECHA_PARENTESES  [reduce using rule 26 (expressao_fraca)]
+    PONTO_E_VIRGULA   reduce using rule 25 (expressao_fraca)
+    PONTO_E_VIRGULA   [reduce using rule 26 (expressao_fraca)]
+    SOMA              reduce using rule 25 (expressao_fraca)
+    SOMA              [reduce using rule 26 (expressao_fraca)]
+    SUBTRACAO         reduce using rule 25 (expressao_fraca)
+    SUBTRACAO         [reduce using rule 26 (expressao_fraca)]
+    MULTIPLICACAO     [reduce using rule 25 (expressao_fraca)]
+    MULTIPLICACAO     [reduce using rule 26 (expressao_fraca)]
+    DIVISAO           [reduce using rule 25 (expressao_fraca)]
+    DIVISAO           [reduce using rule 26 (expressao_fraca)]
+    $default          reduce using rule 25 (expressao_fraca)
+
+
+state 61
+
+   24 expressao_fraca: expressao_fraca . SOMA expressao_forte
+   25                | expressao_fraca . SUBTRACAO expressao_forte
+   32 expressao_fator: expressao_fraca . SOMA expressao_fraca
+   33                | expressao_fraca . SUBTRACAO expressao_fraca
+   34                | expressao_fraca . MULTIPLICACAO expressao_fraca
+   34                | expressao_fraca MULTIPLICACAO expressao_fraca .
+   35                | expressao_fraca . DIVISAO expressao_fraca
+
+    SOMA           shift, and go to state 49
+    SUBTRACAO      shift, and go to state 50
+    MULTIPLICACAO  shift, and go to state 51
+    DIVISAO        shift, and go to state 52
 
     SOMA           [reduce using rule 34 (expressao_fator)]
     SUBTRACAO      [reduce using rule 34 (expressao_fator)]
@@ -799,62 +797,77 @@ state 60
     $default       reduce using rule 34 (expressao_fator)
 
 
-state 61
-
-   23 expressao_fraca: expressao_fraca . SOMA expressao_forte
-   24                | expressao_fraca . SUBTRACAO expressao_forte
-   31 expressao_fator: expressao_fraca . SOMA expressao_fraca
-   32                | expressao_fraca . SUBTRACAO expressao_fraca
-   33                | expressao_fraca . MULTIPLICACAO expressao_fraca
-   34                | expressao_fraca . DIVISAO expressao_fraca
-
-    SOMA           shift, and go to state 47
-    SUBTRACAO      shift, and go to state 48
-    MULTIPLICACAO  shift, and go to state 49
-    DIVISAO        shift, and go to state 50
-
-
 state 62
 
-   26 expressao_forte: expressao_forte MULTIPLICACAO expressao_fator .
-   28                | expressao_fator .
+   24 expressao_fraca: expressao_fraca . SOMA expressao_forte
+   25                | expressao_fraca . SUBTRACAO expressao_forte
+   32 expressao_fator: expressao_fraca . SOMA expressao_fraca
+   33                | expressao_fraca . SUBTRACAO expressao_fraca
+   34                | expressao_fraca . MULTIPLICACAO expressao_fraca
+   35                | expressao_fraca . DIVISAO expressao_fraca
+   35                | expressao_fraca DIVISAO expressao_fraca .
 
-    SOMA           reduce using rule 26 (expressao_forte)
-    SOMA           [reduce using rule 28 (expressao_forte)]
-    SUBTRACAO      reduce using rule 26 (expressao_forte)
-    SUBTRACAO      [reduce using rule 28 (expressao_forte)]
-    MULTIPLICACAO  reduce using rule 26 (expressao_forte)
-    MULTIPLICACAO  [reduce using rule 28 (expressao_forte)]
-    DIVISAO        reduce using rule 26 (expressao_forte)
-    DIVISAO        [reduce using rule 28 (expressao_forte)]
-    $default       reduce using rule 26 (expressao_forte)
+    SOMA           shift, and go to state 49
+    SUBTRACAO      shift, and go to state 50
+    MULTIPLICACAO  shift, and go to state 51
+    DIVISAO        shift, and go to state 52
+
+    SOMA           [reduce using rule 35 (expressao_fator)]
+    SUBTRACAO      [reduce using rule 35 (expressao_fator)]
+    MULTIPLICACAO  [reduce using rule 35 (expressao_fator)]
+    DIVISAO        [reduce using rule 35 (expressao_fator)]
+    $default       reduce using rule 35 (expressao_fator)
 
 
 state 63
 
-   25 expressao_fraca: expressao_forte .
-   26 expressao_forte: expressao_forte . MULTIPLICACAO expressao_fator
-   27                | expressao_forte . DIVISAO expressao_forte
-   27                | expressao_forte DIVISAO expressao_forte .
+   24 expressao_fraca: expressao_fraca . SOMA expressao_forte
+   25                | expressao_fraca . SUBTRACAO expressao_forte
+   32 expressao_fator: expressao_fraca . SOMA expressao_fraca
+   33                | expressao_fraca . SUBTRACAO expressao_fraca
+   34                | expressao_fraca . MULTIPLICACAO expressao_fraca
+   35                | expressao_fraca . DIVISAO expressao_fraca
 
+    SOMA           shift, and go to state 49
+    SUBTRACAO      shift, and go to state 50
     MULTIPLICACAO  shift, and go to state 51
     DIVISAO        shift, and go to state 52
-
-    FECHA_PARENTESES  reduce using rule 27 (expressao_forte)
-    PONTO_E_VIRGULA   reduce using rule 27 (expressao_forte)
-    SOMA              reduce using rule 25 (expressao_fraca)
-    SOMA              [reduce using rule 27 (expressao_forte)]
-    SUBTRACAO         reduce using rule 25 (expressao_fraca)
-    SUBTRACAO         [reduce using rule 27 (expressao_forte)]
-    MULTIPLICACAO     [reduce using rule 25 (expressao_fraca)]
-    MULTIPLICACAO     [reduce using rule 27 (expressao_forte)]
-    DIVISAO           [reduce using rule 25 (expressao_fraca)]
-    DIVISAO           [reduce using rule 27 (expressao_forte)]
-    $default          reduce using rule 25 (expressao_fraca)
 
 
 state 64
 
-   13 declara_var: $@4 lista_id_var DOIS_PONTOS tipo $@5 PONTO_E_VIRGULA .
+   27 expressao_forte: expressao_forte MULTIPLICACAO expressao_fator .
+   29                | expressao_fator .
 
-    $default  reduce using rule 13 (declara_var)
+    SOMA           reduce using rule 27 (expressao_forte)
+    SOMA           [reduce using rule 29 (expressao_forte)]
+    SUBTRACAO      reduce using rule 27 (expressao_forte)
+    SUBTRACAO      [reduce using rule 29 (expressao_forte)]
+    MULTIPLICACAO  reduce using rule 27 (expressao_forte)
+    MULTIPLICACAO  [reduce using rule 29 (expressao_forte)]
+    DIVISAO        reduce using rule 27 (expressao_forte)
+    DIVISAO        [reduce using rule 29 (expressao_forte)]
+    $default       reduce using rule 27 (expressao_forte)
+
+
+state 65
+
+   26 expressao_fraca: expressao_forte .
+   27 expressao_forte: expressao_forte . MULTIPLICACAO expressao_fator
+   28                | expressao_forte . DIVISAO expressao_forte
+   28                | expressao_forte DIVISAO expressao_forte .
+
+    MULTIPLICACAO  shift, and go to state 53
+    DIVISAO        shift, and go to state 54
+
+    FECHA_PARENTESES  reduce using rule 28 (expressao_forte)
+    PONTO_E_VIRGULA   reduce using rule 28 (expressao_forte)
+    SOMA              reduce using rule 26 (expressao_fraca)
+    SOMA              [reduce using rule 28 (expressao_forte)]
+    SUBTRACAO         reduce using rule 26 (expressao_fraca)
+    SUBTRACAO         [reduce using rule 28 (expressao_forte)]
+    MULTIPLICACAO     [reduce using rule 26 (expressao_fraca)]
+    MULTIPLICACAO     [reduce using rule 28 (expressao_forte)]
+    DIVISAO           [reduce using rule 26 (expressao_fraca)]
+    DIVISAO           [reduce using rule 28 (expressao_forte)]
+    $default          reduce using rule 26 (expressao_fraca)
