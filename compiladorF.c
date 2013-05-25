@@ -22,7 +22,10 @@
  *  variáveis globais
  * ------------------------------------------------------------------- */
 
+/* Arquivo MEPA */
 FILE* fp=NULL;
+
+/* Função que gera código MEPA */
 void geraCodigo (char* rot, char* comando) {
 
   if (fp == NULL) {
@@ -36,11 +39,15 @@ void geraCodigo (char* rot, char* comando) {
   }
 }
 
+/* Função que imprime erros de compilação */
 int imprimeErro ( char* erro ) {
   fprintf (stderr, "Erro na linha %d - %s\n", nl, erro);
   exit(-1);
 }
 
+/* Função que procura um simbolo na tabela de simbolos */
+/* Retorna verdadeiro se encontra (1) */
+/* Retorna falso se não encontra (0) */
 int procura_simb ( char *simb ) {
     int i;
 

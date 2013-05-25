@@ -10,11 +10,14 @@
 #include <string.h>
 #include "compilador.h"
 
+/* Variáveis globais incluidas */
 char dados[9999];
 int num_vars = 0;
 int num_vars_inicial = 0;
 int nivel = 0;
 int deslocamento = 0;
+
+/* Função para corrigir erro de versões */
 void yyerror (char const *);
 
 %}
@@ -209,6 +212,7 @@ main (int argc, char** argv) {
    yyin=fp;
    yyparse();
 
+/* Impressão da tabela de simbolos */
     int i;
     printf("\n\nTABELA DE SIMBOLOS\n\n");
     for(i=0;i<10;i++){

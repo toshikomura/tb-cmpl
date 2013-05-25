@@ -74,17 +74,20 @@
 #include <string.h>
 #include "compilador.h"
 
+/* Variáveis globais incluidas */
 char dados[9999];
 int num_vars = 0;
 int num_vars_inicial = 0;
 int nivel = 0;
 int deslocamento = 0;
+
+/* Função para corrigir erro de versões */
 void yyerror (char const *);
 
 
 
 /* Line 268 of yacc.c  */
-#line 88 "compilador.tab.c"
+#line 91 "compilador.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -153,7 +156,7 @@ typedef int YYSTYPE;
 
 
 /* Line 343 of yacc.c  */
-#line 157 "compilador.tab.c"
+#line 160 "compilador.tab.c"
 
 #ifdef short
 # undef short
@@ -455,10 +458,10 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    31,    31,    31,    43,    42,    52,    56,    56,    57,
-      60,    61,    64,    69,    64,    76,    85,    94,   105,   106,
-     110,   117,   118,   122,   121,   130,   134,   138,   141,   145,
-     149,   152,   156,   161,   165,   169,   173,   177
+       0,    34,    34,    34,    46,    45,    55,    59,    59,    60,
+      63,    64,    67,    72,    67,    79,    88,    97,   108,   109,
+     113,   120,   121,   125,   124,   133,   137,   141,   144,   148,
+     152,   155,   159,   164,   168,   172,   176,   180
 };
 #endif
 
@@ -1431,7 +1434,7 @@ yyreduce:
         case 2:
 
 /* Line 1806 of yacc.c  */
-#line 31 "compilador.y"
+#line 34 "compilador.y"
     {
              geraCodigo (NULL, "INPP");
              }
@@ -1440,7 +1443,7 @@ yyreduce:
   case 3:
 
 /* Line 1806 of yacc.c  */
-#line 36 "compilador.y"
+#line 39 "compilador.y"
     {
              geraCodigo (NULL, "PARA");
              }
@@ -1449,7 +1452,7 @@ yyreduce:
   case 4:
 
 /* Line 1806 of yacc.c  */
-#line 43 "compilador.y"
+#line 46 "compilador.y"
     {
               }
     break;
@@ -1457,14 +1460,14 @@ yyreduce:
   case 7:
 
 /* Line 1806 of yacc.c  */
-#line 56 "compilador.y"
+#line 59 "compilador.y"
     { }
     break;
 
   case 12:
 
 /* Line 1806 of yacc.c  */
-#line 64 "compilador.y"
+#line 67 "compilador.y"
     {
               num_vars_inicial = num_vars;
               }
@@ -1473,7 +1476,7 @@ yyreduce:
   case 13:
 
 /* Line 1806 of yacc.c  */
-#line 69 "compilador.y"
+#line 72 "compilador.y"
     { /* AMEM */
               sprintf ( dados, "AMEM %d", num_vars);
               geraCodigo( NULL, dados);
@@ -1483,7 +1486,7 @@ yyreduce:
   case 15:
 
 /* Line 1806 of yacc.c  */
-#line 77 "compilador.y"
+#line 80 "compilador.y"
     {
             int j;
                 for( j = num_vars_inicial; j < num_vars; j++){
@@ -1495,7 +1498,7 @@ yyreduce:
   case 16:
 
 /* Line 1806 of yacc.c  */
-#line 86 "compilador.y"
+#line 89 "compilador.y"
     { /* insere última vars na tabela de símbolos */
             sprintf ( tb_simb[ num_vars ].simbolo, "%s", token);
             sprintf ( tb_simb[ num_vars ].categoria, "%s", "var_simples");
@@ -1509,7 +1512,7 @@ yyreduce:
   case 17:
 
 /* Line 1806 of yacc.c  */
-#line 95 "compilador.y"
+#line 98 "compilador.y"
     { /* insere vars na tabela de símbolos */
             sprintf ( tb_simb[ num_vars ].simbolo, "%s", token);
             sprintf ( tb_simb[ num_vars ].categoria, "%s", "var_simples");
@@ -1523,7 +1526,7 @@ yyreduce:
   case 20:
 
 /* Line 1806 of yacc.c  */
-#line 111 "compilador.y"
+#line 114 "compilador.y"
     {
             sprintf ( dados, "DMEM %d", num_vars);
             geraCodigo( NULL, dados);
@@ -1533,7 +1536,7 @@ yyreduce:
   case 23:
 
 /* Line 1806 of yacc.c  */
-#line 122 "compilador.y"
+#line 125 "compilador.y"
     {
             if ( ! procura_simb( token ) ){
                 sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
@@ -1545,7 +1548,7 @@ yyreduce:
   case 25:
 
 /* Line 1806 of yacc.c  */
-#line 131 "compilador.y"
+#line 134 "compilador.y"
     {
             geraCodigo (NULL, "SOMA");
             }
@@ -1554,7 +1557,7 @@ yyreduce:
   case 26:
 
 /* Line 1806 of yacc.c  */
-#line 135 "compilador.y"
+#line 138 "compilador.y"
     {
             geraCodigo (NULL, "SUBT");
             }
@@ -1563,7 +1566,7 @@ yyreduce:
   case 28:
 
 /* Line 1806 of yacc.c  */
-#line 142 "compilador.y"
+#line 145 "compilador.y"
     {
             geraCodigo (NULL, "MULT");
             }
@@ -1572,7 +1575,7 @@ yyreduce:
   case 29:
 
 /* Line 1806 of yacc.c  */
-#line 146 "compilador.y"
+#line 149 "compilador.y"
     {
             geraCodigo (NULL, "DIVI");
             }
@@ -1581,7 +1584,7 @@ yyreduce:
   case 31:
 
 /* Line 1806 of yacc.c  */
-#line 153 "compilador.y"
+#line 156 "compilador.y"
     {
             geraCodigo (NULL, "CRVL");
             }
@@ -1590,7 +1593,7 @@ yyreduce:
   case 32:
 
 /* Line 1806 of yacc.c  */
-#line 157 "compilador.y"
+#line 160 "compilador.y"
     {
             sprintf ( dados, "CRCT %s", token);
             geraCodigo (NULL, dados);
@@ -1600,7 +1603,7 @@ yyreduce:
   case 33:
 
 /* Line 1806 of yacc.c  */
-#line 162 "compilador.y"
+#line 165 "compilador.y"
     {
             geraCodigo (NULL, "SOMA");
             }
@@ -1609,7 +1612,7 @@ yyreduce:
   case 34:
 
 /* Line 1806 of yacc.c  */
-#line 166 "compilador.y"
+#line 169 "compilador.y"
     {
             geraCodigo (NULL, "SUBT");
             }
@@ -1618,7 +1621,7 @@ yyreduce:
   case 35:
 
 /* Line 1806 of yacc.c  */
-#line 170 "compilador.y"
+#line 173 "compilador.y"
     {
             geraCodigo (NULL, "MULT");
             }
@@ -1627,7 +1630,7 @@ yyreduce:
   case 36:
 
 /* Line 1806 of yacc.c  */
-#line 174 "compilador.y"
+#line 177 "compilador.y"
     {
             geraCodigo (NULL, "DIVI");
             }
@@ -1636,7 +1639,7 @@ yyreduce:
 
 
 /* Line 1806 of yacc.c  */
-#line 1640 "compilador.tab.c"
+#line 1643 "compilador.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1867,7 +1870,7 @@ yyreturn:
 
 
 /* Line 2067 of yacc.c  */
-#line 180 "compilador.y"
+#line 183 "compilador.y"
 
 
 void yyerror (char const *message)
@@ -1900,6 +1903,7 @@ main (int argc, char** argv) {
    yyin=fp;
    yyparse();
 
+/* Impressão da tabela de simbolos */
     int i;
     printf("\n\nTABELA DE SIMBOLOS\n\n");
     for(i=0;i<10;i++){
