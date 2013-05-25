@@ -11,7 +11,7 @@
 #include "compilador.h"
 
 /* Variáveis globais incluidas */
-char dados[9999];
+char dados[TAM_DADOS];
 int num_vars = 0;
 int num_vars_inicial = 0;
 int nivel_lexico = 0;
@@ -37,6 +37,8 @@ programa    :{
              PROGRAM IDENT
              ABRE_PARENTESES lista_idents FECHA_PARENTESES PONTO_E_VIRGULA
              bloco PONTO {
+             sprintf ( dados, "DMEM %d", num_vars);
+             geraCodigo( NULL, dados);
              geraCodigo (NULL, "PARA");
              }
 ;
@@ -112,13 +114,16 @@ lista_idents: lista_idents VIRGULA IDENT
 
 comando_composto: T_BEGIN comandos T_END
             {
-            sprintf ( dados, "DMEM %d", num_vars);
-            geraCodigo( NULL, dados);
+
             }
 ;
 
 comandos:   comandos atribuicao
+            | comandos repeticao
+            | comandos condicao
             | atribuicao
+            | repeticao
+            | condicao
 ;
 
 atribuicao: IDENT
@@ -129,6 +134,18 @@ atribuicao: IDENT
             }
             } ATRIBUICAO expressao_fraca PONTO_E_VIRGULA
 ;
+
+repeticao: ENQUANTO
+            {
+            gera_Proximo_Rotulo();
+            geraCodigo( rotulo, "NADA");
+            } ABRE_PARENTESES expressao_fraca FECHA_PARENTESES FACA comando_composto PONTO_E_VIRGULA
+            {
+            gera_Proximo_Rotulo();
+            geraCodigo( rotulo, "NADA");
+            }
+
+condicao: SE ABRE_PARENTESES expressao_fraca FECHA_PARENTESES ENTAO comando_composto
 
 expressao_fraca: expressao_fraca SOMA expressao_forte
             {
@@ -207,7 +224,7 @@ main (int argc, char** argv) {
 /* -------------------------------------------------------------------
  *  Inicia a Tabela de Símbolos
  * ------------------------------------------------------------------- */
-  tb_simb = malloc( sizeof( tabela_simbolos) * 1000);
+  tb_simb = malloc( sizeof( tabela_simbolos) * TAM_TB_SIMB);
 
    yyin=fp;
    yyparse();
@@ -215,7 +232,7 @@ main (int argc, char** argv) {
 /* Impressão da tabela de simbolos */
     int i;
     printf("\n\nTABELA DE SIMBOLOS\n\n");
-    for(i=0;i<10;i++){
+    for( i = 0; i < TAM_TB_SIMB ; i++ ){
         printf( "| %s | %s | %d | %d | %s |\n", tb_simb[i].simbolo, tb_simb[i].categoria, tb_simb[i].nivel_lexico, tb_simb[i].desloc, tb_simb[i].tipo);
     }
 
