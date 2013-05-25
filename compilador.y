@@ -11,7 +11,7 @@
 #include "compilador.h"
 
 char dados[9999];
-int num_vars;
+int num_vars = 0;
 void yyerror (char const *);
 
 %}
@@ -62,6 +62,8 @@ declara_var : { }
               lista_id_var DOIS_PONTOS
               tipo
               { /* AMEM */
+              sprintf ( dados, "AMEM %d", num_vars);
+              geraCodigo( NULL, dados);
               }
               PONTO_E_VIRGULA
 ;
@@ -70,8 +72,13 @@ tipo        : IDENT
 ;
 
 lista_id_var: lista_id_var VIRGULA IDENT
-              { /* insere última vars na tabela de símbolos */ }
-            | IDENT { /* insere vars na tabela de símbolos */}
+            { /* insere última vars na tabela de símbolos */
+            num_vars++;
+            }
+            | IDENT
+            { /* insere vars na tabela de símbolos */
+            num_vars++;
+            }
 ;
 
 lista_idents: lista_idents VIRGULA IDENT
@@ -80,6 +87,10 @@ lista_idents: lista_idents VIRGULA IDENT
 
 
 comando_composto: T_BEGIN comandos T_END
+            {
+            sprintf ( dados, "DMEM %d", num_vars);
+            geraCodigo( NULL, dados);
+            }
 ;
 
 comandos:   comandos atribuicao
@@ -117,7 +128,7 @@ expressao_fator: IDENT
             }
             | NUMERO
             {
-            sprintf ( dados, "CRCT %d", atoi( token) );
+            sprintf ( dados, "CRCT %s", token);
             geraCodigo (NULL, dados);
             }
             | expressao_fraca SOMA expressao_fraca
@@ -166,6 +177,7 @@ main (int argc, char** argv) {
 /* -------------------------------------------------------------------
  *  Inicia a Tabela de Símbolos
  * ------------------------------------------------------------------- */
+  tb_simb = malloc( sizeof( tabela_simbolos) * 1000);
 
    yyin=fp;
    yyparse();
