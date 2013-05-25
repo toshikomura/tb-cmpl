@@ -1,2 +1,24 @@
      INPP
      AMEM 2
+     CRCT 1
+     CRVL
+     CRCT 1
+     CRCT 1
+     SOMA
+     CRCT 2
+     CRVL
+     MULT
+     CRVL
+     CRCT 2
+     DIVI
+     CRCT 1
+     CRVL
+     SOMA
+     CRCT 3
+     MULT
+R0: NADA 
+     CRVL
+     CRVL
+R1: NADA 
+     DMEM 2
+     PARA
