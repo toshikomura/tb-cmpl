@@ -12,6 +12,9 @@
 
 char dados[9999];
 int num_vars = 0;
+int num_vars_inicial = 0;
+int nivel = 0;
+int deslocamento = 0;
 void yyerror (char const *);
 
 %}
@@ -58,7 +61,9 @@ declara_vars: declara_vars declara_var
             | declara_var
 ;
 
-declara_var : { }
+declara_var : {
+              num_vars_inicial = num_vars;
+              }
               lista_id_var DOIS_PONTOS
               tipo
               { /* AMEM */
@@ -69,14 +74,30 @@ declara_var : { }
 ;
 
 tipo        : IDENT
+            {
+            int j;
+                for( j = num_vars_inicial; j < num_vars; j++){
+                    sprintf ( tb_simb[ j ].tipo, "%s", token);
+                }
+            }
 ;
 
 lista_id_var: lista_id_var VIRGULA IDENT
             { /* insere última vars na tabela de símbolos */
+            sprintf ( tb_simb[ num_vars ].simbolo, "%s", token);
+            sprintf ( tb_simb[ num_vars ].categoria, "%s", "var_simples");
+            tb_simb[ num_vars ].nivel = nivel;
+            tb_simb[ num_vars ].deslocamento = deslocamento;
+            deslocamento++;
             num_vars++;
             }
             | IDENT
             { /* insere vars na tabela de símbolos */
+            sprintf ( tb_simb[ num_vars ].simbolo, "%s", token);
+            sprintf ( tb_simb[ num_vars ].categoria, "%s", "var_simples");
+            tb_simb[ num_vars ].nivel = nivel;
+            tb_simb[ num_vars ].deslocamento = deslocamento;
+            deslocamento++;
             num_vars++;
             }
 ;
@@ -182,6 +203,10 @@ main (int argc, char** argv) {
    yyin=fp;
    yyparse();
 
+    int i;
+    for(i=0;i<10;i++){
+        printf( "| %s | %s | %d | %d | %s |\n", tb_simb[i].simbolo, tb_simb[i].categoria, tb_simb[i].nivel, tb_simb[i].deslocamento, tb_simb[i].tipo);
+    }
+
    return 0;
 }
-
