@@ -27,17 +27,13 @@ typedef enum simbolos {
  * Tabela de simbolos
  * ------------------------------------------------------------------- */
 
-typedef struct endereco_lexico {
-    int nivel;
-    int rotulo;
-} endereco_lexico;
-
 typedef struct tabela_simbolos {
-    char *simbolo;
-    char *tipo;
-    char *categoria;
+    char simbolo[50];
+    char tipo[20];
+    char categoria[20];
     int qtd_parametros;
-    endereco_lexico endereco;
+    int nivel;
+    int deslocamento;
 } tabela_simbolos;
 
 
