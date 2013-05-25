@@ -20,3 +20,12 @@ Projeto Base do Compilador prof Bruno Muller.
 
   Observar que ele verifica se existe um comando e uma expressao ou somente uma expressao.
   E que no caso um comando, no momento, só pode ser uma expressao.
+
+3 - Incluido possibilidade de inserir mais de um elemento no comando MEPA através da
+função geraCodigo(), utilizando a função sprintf() para concatenar strings.
+
+4 - Incluido tabela de simbolos, criando a struct no header e alocando a tabela no
+compilador.
+
+5 - Incluido verificação no momento de atribuição, verificando se a variável foi
+declarada.
