@@ -118,7 +118,13 @@ comandos:   comandos atribuicao
             | atribuicao
 ;
 
-atribuicao: IDENT ATRIBUICAO expressao_fraca PONTO_E_VIRGULA
+atribuicao: IDENT
+            {
+            if ( ! procura_simb( token ) ){
+                sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
+                imprimeErro( dados );
+            }
+            } ATRIBUICAO expressao_fraca PONTO_E_VIRGULA
 ;
 
 expressao_fraca: expressao_fraca SOMA expressao_forte
@@ -204,6 +210,7 @@ main (int argc, char** argv) {
    yyparse();
 
     int i;
+    printf("\n\nTABELA DE SIMBOLOS\n\n");
     for(i=0;i<10;i++){
         printf( "| %s | %s | %d | %d | %s |\n", tb_simb[i].simbolo, tb_simb[i].categoria, tb_simb[i].nivel, tb_simb[i].deslocamento, tb_simb[i].tipo);
     }
