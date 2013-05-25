@@ -40,3 +40,13 @@ int imprimeErro ( char* erro ) {
   fprintf (stderr, "Erro na linha %d - %s\n", nl, erro);
   exit(-1);
 }
+
+int procura_simb ( char *simb ) {
+    int i;
+
+    for ( i = 0; i < 100; i++){
+        if ( strcmp ( tb_simb[i].simbolo, simb ) == 9 )
+            return 1;
+    }
+    return 0;
+}
