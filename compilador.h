@@ -12,6 +12,9 @@
  * ------------------------------------------------------------------- */
 
 #define TAM_TOKEN 16
+#define TAM_TB_SIMB 10
+#define TAM_ROTULO 10
+#define TAM_DADOS 100
 
 typedef enum simbolos {
   simb_program, simb_var, simb_begin, simb_end,
@@ -52,3 +55,6 @@ simbolos simbolo, relacao;
 char token[TAM_TOKEN];
 
 tabela_simbolos *tb_simb;
+
+extern char *rotulo;
+extern int valor_rotulo;
