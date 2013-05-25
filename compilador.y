@@ -14,8 +14,8 @@
 char dados[9999];
 int num_vars = 0;
 int num_vars_inicial = 0;
-int nivel = 0;
-int deslocamento = 0;
+int nivel_lexico = 0;
+int desloc = 0;
 
 /* Função para corrigir erro de versões */
 void yyerror (char const *);
@@ -89,18 +89,18 @@ lista_id_var: lista_id_var VIRGULA IDENT
             { /* insere última vars na tabela de símbolos */
             sprintf ( tb_simb[ num_vars ].simbolo, "%s", token);
             sprintf ( tb_simb[ num_vars ].categoria, "%s", "var_simples");
-            tb_simb[ num_vars ].nivel = nivel;
-            tb_simb[ num_vars ].deslocamento = deslocamento;
-            deslocamento++;
+            tb_simb[ num_vars ].nivel_lexico = nivel_lexico;
+            tb_simb[ num_vars ].desloc = desloc;
+            desloc++;
             num_vars++;
             }
             | IDENT
             { /* insere vars na tabela de símbolos */
             sprintf ( tb_simb[ num_vars ].simbolo, "%s", token);
             sprintf ( tb_simb[ num_vars ].categoria, "%s", "var_simples");
-            tb_simb[ num_vars ].nivel = nivel;
-            tb_simb[ num_vars ].deslocamento = deslocamento;
-            deslocamento++;
+            tb_simb[ num_vars ].nivel_lexico = nivel_lexico;
+            tb_simb[ num_vars ].desloc = desloc;
+            desloc++;
             num_vars++;
             }
 ;
@@ -216,7 +216,7 @@ main (int argc, char** argv) {
     int i;
     printf("\n\nTABELA DE SIMBOLOS\n\n");
     for(i=0;i<10;i++){
-        printf( "| %s | %s | %d | %d | %s |\n", tb_simb[i].simbolo, tb_simb[i].categoria, tb_simb[i].nivel, tb_simb[i].deslocamento, tb_simb[i].tipo);
+        printf( "| %s | %s | %d | %d | %s |\n", tb_simb[i].simbolo, tb_simb[i].categoria, tb_simb[i].nivel_lexico, tb_simb[i].desloc, tb_simb[i].tipo);
     }
 
    return 0;

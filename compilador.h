@@ -32,8 +32,8 @@ typedef struct tabela_simbolos {
     char tipo[20];
     char categoria[20];
     int qtd_parametros;
-    int nivel;
-    int deslocamento;
+    int nivel_lexico;
+    int desloc;
 } tabela_simbolos;
 
 
