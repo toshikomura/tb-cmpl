@@ -57,4 +57,5 @@ char token[TAM_TOKEN];
 tabela_simbolos *tb_simb;
 
 extern char *rotulo;
+extern char *rotulo2;
 extern int valor_rotulo;
