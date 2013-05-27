@@ -26,6 +26,7 @@
 FILE* fp=NULL;
 
 char *rotulo;
+char *rotulo2;
 
 /* Indica qual é o rotulo */
 int valor_rotulo;
@@ -75,6 +76,7 @@ void gera_Proximo_Rotulo () {
 
     if ( rotulo == NULL){
         rotulo = malloc( sizeof (char) * TAM_ROTULO);
+        rotulo2 = malloc( sizeof (char) * TAM_ROTULO);
         valor_rotulo = 0;
     }
     sprintf( rotulo, "R%d", valor_rotulo);
