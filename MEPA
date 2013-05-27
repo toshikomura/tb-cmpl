@@ -24,8 +24,11 @@
      ARMZ 0, 1
 R0: NADA 
      CRVL
+     CMIG
+     DSVF R1
      CRVL
      ARMZ 0, 1
+     DSVS R0
 R1: NADA 
      DMEM 2
      PARA
