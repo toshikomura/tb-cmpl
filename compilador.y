@@ -151,9 +151,17 @@ repeticao: ENQUANTO
             {
             gera_Proximo_Rotulo();
             geraCodigo( rotulo, "NADA");
-            } ABRE_PARENTESES expressao_fraca FECHA_PARENTESES FACA comando_composto PONTO_E_VIRGULA
+            } ABRE_PARENTESES expressao_fraca
             {
+            geraCodigo( NULL, "CMIG");
+            strcpy( rotulo2, rotulo);
             gera_Proximo_Rotulo();
+            sprintf( dados, "DSVF %s", rotulo);
+            geraCodigo( NULL, dados);
+            } FECHA_PARENTESES FACA comando_composto PONTO_E_VIRGULA
+            {
+            sprintf( dados, "DSVS %s", rotulo2);
+            geraCodigo( NULL, dados);
             geraCodigo( rotulo, "NADA");
             }
 
