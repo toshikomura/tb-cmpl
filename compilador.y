@@ -137,7 +137,7 @@ atribuicao: IDENT
                 imprimeErro( dados );
             }
             printf("simbolo %s nivel %d desloc %d\n", token, end_simb[0], end_simb[1]);
-            } ATRIBUICAO expressao_fraca PONTO_E_VIRGULA
+            } ATRIBUICAO expressao_aritmetica PONTO_E_VIRGULA
             {
             sprintf( dados_aux1, "%d, ", end_simb[0]);
             sprintf( dados_aux2, "%d", end_simb[1]);
@@ -151,7 +151,7 @@ repeticao: ENQUANTO
             {
             gera_Proximo_Rotulo();
             geraCodigo( rotulo, "NADA");
-            } ABRE_PARENTESES expressao_fraca
+            } ABRE_PARENTESES expressao_aritmetica
             {
             geraCodigo( NULL, "CMIG");
             strcpy( rotulo2, rotulo);
@@ -165,24 +165,24 @@ repeticao: ENQUANTO
             geraCodigo( rotulo, "NADA");
             }
 
-condicao: SE ABRE_PARENTESES expressao_fraca FECHA_PARENTESES ENTAO comando_composto
+condicao: SE ABRE_PARENTESES expressao_aritmetica FECHA_PARENTESES ENTAO comando_composto
 
-expressao_fraca: expressao_fraca SOMA expressao_forte
+expressao_aritmetica: expressao_aritmetica SOMA expressao_termo
             {
             geraCodigo (NULL, "SOMA");
             }
-            | expressao_fraca SUBTRACAO expressao_forte
+            | expressao_aritmetica SUBTRACAO expressao_termo
             {
             geraCodigo (NULL, "SUBT");
             }
-            | expressao_forte
+            | expressao_termo
 ;
 
-expressao_forte: expressao_forte MULTIPLICACAO expressao_fator
+expressao_termo: expressao_termo MULTIPLICACAO expressao_fator
             {
             geraCodigo (NULL, "MULT");
             }
-            | expressao_forte DIVISAO expressao_forte
+            | expressao_termo DIVISAO expressao_fator
             {
             geraCodigo (NULL, "DIVI");
             }
@@ -198,23 +198,7 @@ expressao_fator: IDENT
             sprintf ( dados, "CRCT %s", token);
             geraCodigo (NULL, dados);
             }
-            | expressao_fraca SOMA expressao_fraca
-            {
-            geraCodigo (NULL, "SOMA");
-            }
-            | expressao_fraca SUBTRACAO expressao_fraca
-            {
-            geraCodigo (NULL, "SUBT");
-            }
-            | expressao_fraca MULTIPLICACAO expressao_fraca
-            {
-            geraCodigo (NULL, "MULT");
-            }
-            | expressao_fraca DIVISAO expressao_fraca
-            {
-            geraCodigo (NULL, "DIVI");
-            }
-            | ABRE_PARENTESES expressao_fraca FECHA_PARENTESES
+            | ABRE_PARENTESES expressao_aritmetica FECHA_PARENTESES
 ;
 
 %%
