@@ -116,43 +116,43 @@ end { simbolo = simb_end;
 {igual} { simbolo = simb_igual;
           strncpy ( token , yytext, TAM_TOKEN);
           IMPRIME(" igual ");
-          return COMPARA_IGUAL;
+          return IGUAL;
  }
 
 {diferente} { simbolo = simb_diferente;
           strncpy ( token , yytext, TAM_TOKEN);
           IMPRIME(" diferente ");
-          return COMPARA_DIFERENTE;
+          return DIFERENTE;
  }
 
 {maior} { simbolo = simb_maior;
           strncpy ( token , yytext, TAM_TOKEN);
           IMPRIME(" maior ");
-          return COMPARA_MAIOR;
+          return MAIOR;
  }
 
 {menor} { simbolo = simb_menor;
           strncpy ( token , yytext, TAM_TOKEN);
           IMPRIME(" menor ");
-          return COMPARA_MENOR;
+          return MENOR;
  }
 
 {nao} { simbolo = simb_nao;
           strncpy ( token , yytext, TAM_TOKEN);
           IMPRIME(" nao ");
-          return COMPARA_NAO;
+          return NAO;
  }
 
 {e} { simbolo = simb_e;
           strncpy ( token , yytext, TAM_TOKEN);
           IMPRIME(" e ");
-          return COMPARA_E;
+          return E;
  }
 
 {ou} { simbolo = simb_ou;
           strncpy ( token , yytext, TAM_TOKEN);
           IMPRIME(" ou ");
-          return COMPARA_OU;
+          return OU;
  }
 
 {numero} { simbolo = simb_numero;

@@ -54,14 +54,21 @@
      SUBTRACAO = 272,
      MULTIPLICACAO = 273,
      DIVISAO = 274,
-     ENQUANTO = 275,
-     PARA = 276,
-     FACA = 277,
-     REPITA = 278,
-     ATE = 279,
-     SE = 280,
-     ENTAO = 281,
-     SENAO = 282
+     IGUAL = 275,
+     DIFERENTE = 276,
+     MAIOR = 277,
+     MENOR = 278,
+     NAO = 279,
+     E = 280,
+     OU = 281,
+     ENQUANTO = 282,
+     PARA = 283,
+     FACA = 284,
+     REPITA = 285,
+     ATE = 286,
+     SE = 287,
+     ENTAO = 288,
+     SENAO = 289
    };
 #endif
 
