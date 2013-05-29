@@ -31,6 +31,7 @@ void yyerror (char const *);
 %token T_BEGIN T_END VAR IDENT ATRIBUICAO
 %token NUMERO
 %token SOMA SUBTRACAO MULTIPLICACAO DIVISAO
+%token IGUAL DIFERENTE MAIOR MENOR NAO E OU
 %token ENQUANTO PARA FACA REPITA ATE SE ENTAO SENAO
 
 %%
@@ -151,7 +152,7 @@ repeticao: ENQUANTO
             {
             gera_Proximo_Rotulo();
             geraCodigo( rotulo, "NADA");
-            } ABRE_PARENTESES expressao_aritmetica
+            } ABRE_PARENTESES expressao_booleana_geral
             {
             geraCodigo( NULL, "CMIG");
             strcpy( rotulo2, rotulo);
@@ -165,7 +166,7 @@ repeticao: ENQUANTO
             geraCodigo( rotulo, "NADA");
             }
 
-condicao: SE ABRE_PARENTESES expressao_aritmetica FECHA_PARENTESES ENTAO comando_composto
+condicao: SE ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES ENTAO comando_composto
 
 expressao_aritmetica: expressao_aritmetica SOMA expressao_termo
             {
@@ -199,6 +200,26 @@ expressao_fator: IDENT
             geraCodigo (NULL, dados);
             }
             | ABRE_PARENTESES expressao_aritmetica FECHA_PARENTESES
+;
+
+expressao_booleana_geral: expressao_booleana
+            | NAO expressao_booleana
+
+expressao_booleana: expressao_booleana IGUAL expressao_fator2
+            | expressao_booleana DIFERENTE expressao_fator2
+            | expressao_booleana MAIOR expressao_fator2
+            | expressao_booleana MAIOR IGUAL expressao_fator2
+            | expressao_booleana MENOR expressao_fator2
+            | expressao_booleana MENOR IGUAL expressao_fator2
+            | expressao_booleana E expressao_fator2
+            | expressao_booleana OU expressao_fator2
+            | expressao_booleana NAO E expressao_fator2
+            | expressao_fator2
+;
+
+expressao_fator2: IDENT
+            | NUMERO
+            | ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES
 ;
 
 %%
