@@ -1,0 +1,265 @@
+<section>
+  <header id="cabec">
+    <h3>CI211 - Construção de Compiladores</h3>
+    <h4> Versão Primeiro Semestre de 2013 </h4>
+  </header>
+ 
+  <article id="topico">
+    <header id="partes">
+      <strong> Ementa </strong>
+    <ul>
+      <li> Gramáticas. Autômatos. Computabilidade. Análise
+      léxica. Análise sintática. Geração de código. Recuperação de
+      erro. Compiladores de compiladores. </li>
+    </ul>
+    </header>
+    
+  </article>
+
+  <article  id="topico">
+    <header id="partes">
+      <strong> Organização </strong>
+    </header>
+    <strong>Primeira Parte: </strong>
+    <ul>
+      <li>Analisador Léxico </li>
+      <li>Introdução ao Analisador Sintático e ao Semântico </li>
+      <li>Geração de Código
+        <ul>
+          <li>Expressões</li>
+          <li>Comandos Repetitivos</li>
+          <li>  Comandos Iterativos</li>
+          <li>  Procedimentos</li>
+          <li> Funções. </li>
+        </ul>
+      </li>
+      <li> Exercícios para a primeira parte </li>
+      <ul>
+        <li> Livro do Tomasz (referência [1]), página 135, 
+             Exercícios: 1, 11, 12, 13, 14, 17, 18, 19, 21.
+        </li>
+      </ul>
+    </ul>
+
+    <strong>Segunda Parte: </strong>
+    <ul>
+      <li>Analisador Sintático Descendente Recursivo (LL(1))</li>
+      <li>Analisador Sintático Ascendente (SLR(0), SLR(1))</li>
+    </ul>
+
+    <strong>Trabalho </strong>
+    <ul>
+      <li>Desenvolver um compilador para um subconjunto da linguagem
+      Pascal (descrito na Primeira Parte da disciplina). </li>
+      <li>Este compilador irá gerar um código intermediário, chamado
+      MEPA</li>
+        <li> Material de apoio para o trabalho: </li>
+        <ul> 
+          <li> 
+            <a href="CI211/Posfixo.bz2">
+              Transforma notação infixa em posfixa. 
+            </a>:
+            É o conteúdo da aula de 25/04/2013. Contém o arquivo flex
+            e bison que recebem uma entrada (texto) em notação infixa
+            e geram um texto em notação posfixa. 
+          </li>
+
+
+          <li> 
+            <a href="CI211/ProjetoBase.tar.bz2">
+              Projeto base.
+            </a>:
+            Pontapé inicial (arquivos iniciais lex e yacc) para o
+            compilador a ser desenvolvido.
+          </li>
+          <li>
+            <a href="CI211/IF.y">
+              Código esquemático para o if-then/if-then-else em
+yacc.
+            </a>
+          </li>
+
+          <li>
+            <a href="CI211/Alunos.tar.bz2">              
+              MEPA EXECUTAVEL 
+            </a>
+            (só funciona em linux e para 32 bits). Agradeço a
+            quem tiver o tempo de adaptá-lo para 64 bits.
+          </li>
+          <li>
+            <a href="CI211/PgmasTeste.tar.bz2">Arquivos-Fonte e MEPA do livro.
+            </a>
+            Use-os para verificar se o seu compilador está gerando
+            código corretamente.
+          </li>
+
+        </ul>
+
+
+    </ul>
+
+
+  </article>
+
+  <article  id="aviso">
+    <header>
+      <strong> Avisos </strong>
+    </header>
+
+    <ul>
+      <li> Qualquer
+        modificação será
+        combinada em sala de aula e lançada nesta página com duas
+        semanas de antecedência.
+      </li>
+
+
+    </ul>
+
+  </article>
+
+  <article id="topico">
+    <h2>Bibliografia:</h2>
+    <ul>
+      <li><font size="+1">Implementação de Linguagens de Programação -
+      Tomasz Kowaltowski - Guanabara Dois
+        </font>
+         <a href="http://www.ic.unicamp.br/~tomasz/cursos/mo403/ilp/">
+              Versão pdf do site do Tomasz
+         </a>
+      </li>
+      <ul>
+        <li><font size="+1"><i> Livro-texto para grande parte do
+        curso. A diferença entre a abordagem do livro e a da
+        disciplina é que usaremos direto a última definição da MEPA
+        (sem extensões).</i>
+            <br></br>
+        </font></li>
+      </ul>
+      <li><font size="+1">Compilers: principles, techniques, and
+      tools, Aho, Sethi, Ullman, Addison-Wesley Longman Publishing
+      Co., Inc. (Tem verão em português)
+        </font>
+      </li>
+      <ul>
+        <li><font size="+1"><i>A "bíblia" sobre o assuto.  Trata de
+              tudo que será visto na disciplina, porém com outro
+              enfoque. Muito útil nas dúvidas sobre o trabalho e como
+              referência confiável em caso de dúvidas.</i>
+            <br></br>
+        </font></li>
+      </ul>
+    </ul>
+
+
+  </article>
+
+  <article id="topico">
+    <h2>Avaliação:</h2>
+
+    <ul>
+      <li> Cálculo da Média Parcial </li>
+    </ul>
+
+<ul class="algo">
+<li>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mrow>
+    <mi> MédiaParcial</mi>
+    <mo>:=</mo>
+    <mfrac>
+      <mrow>
+        Prova1 + Prova2 + Prova3
+      </mrow>
+      <mrow>
+        3
+      </mrow>
+    </mfrac>
+  </mrow>
+</math>
+</li>
+
+</ul>
+<ul>
+<li> Definição da Média Final </li>
+</ul>
+
+<ul class="algo">
+<li> 
+  Se (MédiaParcial &ge; 70) ou 
+  (MédiaParcial &lt; 40)  </li>
+<ul class="algo">
+    <li>MédiaFinal:=MédiaParcial</li>
+</ul>
+<li>Senão</li>
+  <ul class="algo">
+    <li>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <mrow>
+          <mi> Média Final </mi>
+          <mo>:=</mo>
+          <mfrac>
+            <mrow>
+              MédiaParcial + ProvaFinal
+            </mrow>
+            <mrow>
+              2
+            </mrow>
+          </mfrac>
+        </mrow>
+      </math>
+    </li>
+  </ul>
+
+
+</ul>
+<ul>
+  <li> Definição de Aprovado ou Reprovado </li>
+</ul>
+
+<ul class="algo">
+  <li> Se  Média Final &ge; 50, Aprovado
+  </li>
+  <li> Senão, Reprovado</li>
+</ul>
+
+<font size="+1" style="font-weight: bold;"> 
+    Prova 1: 
+</font>
+
+<ul>
+  <li> Assunto: Primeira Parte</li>
+  <li> <a href=""> Notas da Primeira Prova
+            </a>
+  </li>
+</ul>
+
+<font size="+1" style="font-weight: bold;"> 
+  Prova 2:  A definir
+</font>
+
+<ul>
+  <li> Assunto: Segunda Parte
+  </li>
+</ul>
+
+<font size="+1" style="font-weight: bold;"> 
+  Trabalho: O quanto antes!
+</font>
+<ul>
+  <li> Assunto: Programa que lê código Pascal e gera um arquivo
+  intermediário MEPA.
+  </ul>
+</ul>
+
+<font size="+1" style="font-weight: bold;"> 
+  Prova Final: Primeira terça-feira do período de finais.
+</font>
+<ul>
+  <li>Tudo, inclusive o trabalho.
+  </li>
+</ul>
+
+</article>
+</section>
+
