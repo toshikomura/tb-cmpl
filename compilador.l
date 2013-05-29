@@ -16,6 +16,20 @@ int nl = 1;
 
 pulo_linha [\n]
 
+igual [=]
+
+diferente [!=]
+
+maior [>]
+
+menor [<]
+
+nao [NOT]
+
+e [AND]
+
+ou [OR]
+
 descarte [\t ]+
 
 ident [a-zAZ][a-zAZ1-9]*
@@ -97,6 +111,48 @@ end { simbolo = simb_end;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" fecha_parenteses ");
           return FECHA_PARENTESES;
+ }
+
+{igual} { simbolo = simb_igual;
+          strncpy ( token , yytext, TAM_TOKEN);
+          IMPRIME(" igual ");
+          return COMPARA_IGUAL;
+ }
+
+{diferente} { simbolo = simb_diferente;
+          strncpy ( token , yytext, TAM_TOKEN);
+          IMPRIME(" diferente ");
+          return COMPARA_DIFERENTE;
+ }
+
+{maior} { simbolo = simb_maior;
+          strncpy ( token , yytext, TAM_TOKEN);
+          IMPRIME(" maior ");
+          return COMPARA_MAIOR;
+ }
+
+{menor} { simbolo = simb_menor;
+          strncpy ( token , yytext, TAM_TOKEN);
+          IMPRIME(" menor ");
+          return COMPARA_MENOR;
+ }
+
+{nao} { simbolo = simb_nao;
+          strncpy ( token , yytext, TAM_TOKEN);
+          IMPRIME(" nao ");
+          return COMPARA_NAO;
+ }
+
+{e} { simbolo = simb_e;
+          strncpy ( token , yytext, TAM_TOKEN);
+          IMPRIME(" e ");
+          return COMPARA_E;
+ }
+
+{ou} { simbolo = simb_ou;
+          strncpy ( token , yytext, TAM_TOKEN);
+          IMPRIME(" ou ");
+          return COMPARA_OU;
  }
 
 {numero} { simbolo = simb_numero;
