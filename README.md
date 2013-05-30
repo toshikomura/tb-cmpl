@@ -1,4 +1,4 @@
-tbcmpl
+tb-cmpl
 =========
 
 Realização do trabalho de Construção de Compiladores (CI211) UFPR Ciência da Computação 2013.
