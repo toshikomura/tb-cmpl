@@ -7,7 +7,7 @@ begin
   m := 2 * m;
   m := n / 2;
   n := ( 1 + m ) * 3;
-  while ( n ) do
+  while ( n=3) do
   begin
     n := m;
   end;
