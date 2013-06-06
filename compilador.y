@@ -154,7 +154,6 @@ repeticao: ENQUANTO
             geraCodigo( rotulo, "NADA");
             } ABRE_PARENTESES expressao_booleana_geral
             {
-            geraCodigo( NULL, "CMIG");
             strcpy( rotulo2, rotulo);
             gera_Proximo_Rotulo();
             sprintf( dados, "DSVF %s", rotulo);
@@ -204,21 +203,59 @@ expressao_fator: IDENT
 
 expressao_booleana_geral: expressao_booleana
             | NAO expressao_booleana
+            {
+            geraCodigo (NULL, "INVR");
+            }
 
 expressao_booleana: expressao_booleana IGUAL expressao_fator2
+            {
+            geraCodigo (NULL, "CMIG");
+            }
             | expressao_booleana DIFERENTE expressao_fator2
+            {
+            geraCodigo (NULL, "CMDG");
+            }
             | expressao_booleana MAIOR expressao_fator2
+            {
+            geraCodigo (NULL, "CMMA");
+            }
             | expressao_booleana MAIOR IGUAL expressao_fator2
+            {
+            geraCodigo (NULL, "CMAG");
+            }
             | expressao_booleana MENOR expressao_fator2
+            {
+            geraCodigo (NULL, "CMME");
+            }
             | expressao_booleana MENOR IGUAL expressao_fator2
+            {
+            geraCodigo (NULL, "CMEG");
+            }
             | expressao_booleana E expressao_fator2
+            {
+            geraCodigo (NULL, "CONJ");
+            }
             | expressao_booleana OU expressao_fator2
-            | expressao_booleana NAO E expressao_fator2
+            {
+            geraCodigo (NULL, "DISJ");
+            }
+            | expressao_booleana E NAO expressao_fator2
+            {
+            geraCodigo (NULL, "INVR");
+            geraCodigo (NULL, "CONJ");
+            }
             | expressao_fator2
 ;
 
 expressao_fator2: IDENT
+            {
+            geraCodigo (NULL, "CRVL");
+            }
             | NUMERO
+            {
+            sprintf ( dados, "CRCT %s", token);
+            geraCodigo (NULL, dados);
+            }
             | ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES
 ;
 
