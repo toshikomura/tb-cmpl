@@ -18,7 +18,7 @@ int num_vars = 0;
 int num_vars_inicial = 0;
 int nivel_lexico = 0;
 int desloc = 0;
-int *end_simb;
+int x, y;
 int percorre_vars;
 
 /* Função para corrigir erro de versões */
@@ -132,17 +132,15 @@ comandos:   comandos atribuicao
 
 atribuicao: IDENT
             {
-            end_simb = procura_simb( token );
-            if ( end_simb == NULL ){
+            procura_simb( token, &x, &y );
+            if ( x == -99 ){
                 sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
                 imprimeErro( dados );
+                exit(1);
             }
-            printf("simbolo %s nivel %d desloc %d\n", token, end_simb[0], end_simb[1]);
             } ATRIBUICAO expressao_aritmetica PONTO_E_VIRGULA
             {
-            sprintf( dados_aux1, "%d, ", end_simb[0]);
-            sprintf( dados_aux2, "%d", end_simb[1]);
-            strcat( dados_aux1, dados_aux2);
+            sprintf( dados_aux1, "%d, %d", x, y);
             sprintf( dados, "ARMZ %s", dados_aux1);
             geraCodigo( NULL, dados );
             }
