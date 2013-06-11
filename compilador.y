@@ -12,8 +12,6 @@
 
 /* Variáveis globais incluidas */
 char dados[TAM_DADOS];
-char dados_aux1[TAM_DADOS];
-char dados_aux2[TAM_DADOS];
 int num_vars = 0;
 int num_vars_inicial = 0;
 int nivel_lexico = 0;
@@ -140,8 +138,7 @@ atribuicao: IDENT
             }
             } ATRIBUICAO expressao_aritmetica PONTO_E_VIRGULA
             {
-            sprintf( dados_aux1, "%d, %d", x, y);
-            sprintf( dados, "ARMZ %s", dados_aux1);
+            sprintf( dados, "ARMZ %d, %d", x, y);
             geraCodigo( NULL, dados );
             }
 ;
