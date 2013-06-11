@@ -57,7 +57,7 @@ int imprimeErro ( char* erro ) {
 procura_simb ( char *simb, int *nivel_lexico, int *desloc ) {
 
     int i;
-    *nivel_lexico = -99;
+    *nivel_lexico = -99; // valor nao muda se nao encontrar simb na tabela
     *desloc = -99;
 
     for ( i = 0; i < 100; i++){

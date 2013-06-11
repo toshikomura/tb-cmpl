@@ -133,7 +133,7 @@ comandos:   comandos atribuicao
 atribuicao: IDENT
             {
             procura_simb( token, &x, &y );
-            if ( x == -99 ){
+            if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
                 sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
                 imprimeErro( dados );
                 exit(1);
