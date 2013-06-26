@@ -32,3 +32,25 @@ compilador.
 
 5 - Incluido verificação no momento de atribuição, verificando se a variável foi
 declarada.
+
+6 - Adicionado função yerror para corrigir erro com bison.
+
+7 - Incluido leitura de expressões com parenteses.
+
+8 - Incluido tokens de repetição.
+
+9 - Incluido escrita de código MEPA de comandos com constantes.
+
+10 - Incluido contagem de variáveis.
+
+11 - Incluido verificação de nivel lexico e deslocamento.
+
+12 - Incluido função de procura de simbolo na tabela de simbolos.
+
+13 - Incluido função de geração de novo rotulo.
+
+14 - Incluido leitura de repetição.
+
+15 - Incluido leitura de expressões booleanas.
+
+16 - Incluido pilha para rotulos.
