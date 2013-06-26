@@ -145,19 +145,22 @@ atribuicao: IDENT
 
 repeticao: ENQUANTO
             {
-            gera_Proximo_Rotulo();
-            geraCodigo( rotulo, "NADA");
+            rotulo1 = gera_Proximo_Rotulo();
+            empilha_Rotulo( rotulo1 );
+            geraCodigo( rotulo1, "NADA");
             } ABRE_PARENTESES expressao_booleana_geral
             {
-            strcpy( rotulo2, rotulo);
-            gera_Proximo_Rotulo();
-            sprintf( dados, "DSVF %s", rotulo);
+            rotulo2 = gera_Proximo_Rotulo();
+            empilha_Rotulo( rotulo2 );
+            sprintf( dados, "DSVF %s", rotulo2 );
             geraCodigo( NULL, dados);
             } FECHA_PARENTESES FACA comando_composto PONTO_E_VIRGULA
             {
-            sprintf( dados, "DSVS %s", rotulo2);
+            rotulo2 = desempilha_Rotulo();
+            rotulo1 = desempilha_Rotulo();
+            sprintf( dados, "DSVS %s", rotulo1 );
             geraCodigo( NULL, dados);
-            geraCodigo( rotulo, "NADA");
+            geraCodigo( rotulo2, "NADA");
             }
 
 condicao: SE ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES ENTAO comando_composto
@@ -282,6 +285,7 @@ main (int argc, char** argv) {
  *  Inicia a Tabela de Símbolos
  * ------------------------------------------------------------------- */
   tb_simb = malloc( sizeof( tabela_simbolos) * TAM_TB_SIMB);
+  inicia_pilha();
 
    yyin=fp;
    yyparse();
