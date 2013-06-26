@@ -40,6 +40,18 @@ typedef struct tabela_simbolos {
     int desloc;
 } tabela_simbolos;
 
+/* -------------------------------------------------------------------
+ * Pilha de rotulos
+ * ------------------------------------------------------------------- */
+typedef struct rotulos_pilha {
+    char *rotulo;
+    struct rotulos_pilha *prox;
+} rotulos_p;
+
+typedef struct pilha_rotulos {
+    rotulos_p *primeiro;
+    int tam;
+} pilha_r;
 
 /* -------------------------------------------------------------------
  * variáveis globais
@@ -51,12 +63,10 @@ extern int nivel_lexico;
 extern int desloc;
 extern int nl;
 
-
 simbolos simbolo, relacao;
 char token[TAM_TOKEN];
 
 tabela_simbolos *tb_simb;
 
-extern char *rotulo;
-extern char *rotulo2;
-extern int valor_rotulo;
+pilha_r *p_rotulos;
+char *rotulo1, *rotulo2; // rotulos
