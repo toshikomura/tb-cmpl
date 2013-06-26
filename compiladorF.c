@@ -25,11 +25,8 @@
 /* Arquivo MEPA */
 FILE* fp=NULL;
 
-char *rotulo;
-char *rotulo2;
-
 /* Indica qual é o rotulo */
-int valor_rotulo;
+int valor_rotulo = 0;
 
 /* Função que gera código MEPA */
 void geraCodigo (char* rot, char* comando) {
@@ -71,13 +68,54 @@ procura_simb ( char *simb, int *nivel_lexico, int *desloc ) {
 }
 
 /* Função que gera próximo rotulo */
-void gera_Proximo_Rotulo () {
+char *gera_Proximo_Rotulo () {
 
-    if ( rotulo == NULL){
-        rotulo = malloc( sizeof (char) * TAM_ROTULO);
-        rotulo2 = malloc( sizeof (char) * TAM_ROTULO);
-        valor_rotulo = 0;
-    }
+    char *rotulo = (char *) malloc( sizeof (char) * TAM_ROTULO);
+
     sprintf( rotulo, "R%d", valor_rotulo);
     valor_rotulo++;
+
+    return rotulo;
+
+}
+
+void inicia_pilha () {
+
+    p_rotulos = malloc( sizeof (pilha_r));
+    p_rotulos->primeiro = NULL;
+    p_rotulos->tam = 0;
+}
+
+/* Função que empilha rotulos */
+void empilha_Rotulo ( char *rot ) {
+
+    rotulos_p *novo_rotulo = malloc( sizeof ( rotulos_p ));
+
+    novo_rotulo->rotulo = rot;
+    novo_rotulo->prox = p_rotulos->primeiro;
+    p_rotulos->primeiro = novo_rotulo;
+    p_rotulos->tam++;
+
+}
+
+/* Função que desempilha rotulos */
+char *desempilha_Rotulo () {
+
+    rotulos_p *rotulo_retirado;
+    char *rot;
+
+    if ( p_rotulos->tam == 0){
+
+        return NULL;
+    }
+    else
+    {
+        rotulo_retirado = p_rotulos->primeiro;
+        p_rotulos->primeiro = rotulo_retirado->prox;
+        p_rotulos->tam--;
+
+        rot = rotulo_retirado->rotulo;
+
+        return rot;
+    }
 }
