@@ -76,8 +76,6 @@
 
 /* Variáveis globais incluidas */
 char dados[TAM_DADOS];
-char dados_aux1[TAM_DADOS];
-char dados_aux2[TAM_DADOS];
 int num_vars = 0;
 int num_vars_inicial = 0;
 int nivel_lexico = 0;
@@ -91,7 +89,7 @@ void yyerror (char const *);
 
 
 /* Line 268 of yacc.c  */
-#line 95 "compilador.tab.c"
+#line 93 "compilador.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -167,7 +165,7 @@ typedef int YYSTYPE;
 
 
 /* Line 343 of yacc.c  */
-#line 171 "compilador.tab.c"
+#line 169 "compilador.tab.c"
 
 #ifdef short
 # undef short
@@ -478,10 +476,10 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    39,    39,    39,    53,    52,    62,    66,    66,    67,
-      70,    71,    74,    79,    74,    86,    94,   103,   114,   115,
-     119,   125,   126,   127,   128,   129,   130,   134,   133,   150,
-     154,   149,   166,   168,   172,   176,   179,   183,   187,   190,
+       0,    37,    37,    37,    51,    50,    60,    64,    64,    65,
+      68,    69,    72,    77,    72,    84,    92,   101,   112,   113,
+     117,   123,   124,   125,   126,   127,   128,   132,   131,   147,
+     152,   146,   166,   168,   172,   176,   179,   183,   187,   190,
      194,   199,   202,   203,   208,   212,   216,   220,   224,   228,
      232,   236,   240,   245,   248,   252,   257
 };
@@ -1481,7 +1479,7 @@ yyreduce:
         case 2:
 
 /* Line 1806 of yacc.c  */
-#line 39 "compilador.y"
+#line 37 "compilador.y"
     {
              geraCodigo (NULL, "INPP");
              }
@@ -1490,7 +1488,7 @@ yyreduce:
   case 3:
 
 /* Line 1806 of yacc.c  */
-#line 44 "compilador.y"
+#line 42 "compilador.y"
     {
              sprintf ( dados, "DMEM %d", num_vars);
              geraCodigo( NULL, dados);
@@ -1501,7 +1499,7 @@ yyreduce:
   case 4:
 
 /* Line 1806 of yacc.c  */
-#line 53 "compilador.y"
+#line 51 "compilador.y"
     {
               }
     break;
@@ -1509,14 +1507,14 @@ yyreduce:
   case 7:
 
 /* Line 1806 of yacc.c  */
-#line 66 "compilador.y"
+#line 64 "compilador.y"
     { }
     break;
 
   case 12:
 
 /* Line 1806 of yacc.c  */
-#line 74 "compilador.y"
+#line 72 "compilador.y"
     {
               num_vars_inicial = num_vars;
               }
@@ -1525,7 +1523,7 @@ yyreduce:
   case 13:
 
 /* Line 1806 of yacc.c  */
-#line 79 "compilador.y"
+#line 77 "compilador.y"
     { /* AMEM */
               sprintf ( dados, "AMEM %d", num_vars);
               geraCodigo( NULL, dados);
@@ -1535,7 +1533,7 @@ yyreduce:
   case 15:
 
 /* Line 1806 of yacc.c  */
-#line 87 "compilador.y"
+#line 85 "compilador.y"
     {
                 for( percorre_vars = num_vars_inicial; percorre_vars < num_vars; percorre_vars++){
                     sprintf ( tb_simb[ percorre_vars ].tipo, "%s", token);
@@ -1546,7 +1544,7 @@ yyreduce:
   case 16:
 
 /* Line 1806 of yacc.c  */
-#line 95 "compilador.y"
+#line 93 "compilador.y"
     { /* insere última vars na tabela de símbolos */
             sprintf ( tb_simb[ num_vars ].simbolo, "%s", token);
             sprintf ( tb_simb[ num_vars ].categoria, "%s", "var_simples");
@@ -1560,7 +1558,7 @@ yyreduce:
   case 17:
 
 /* Line 1806 of yacc.c  */
-#line 104 "compilador.y"
+#line 102 "compilador.y"
     { /* insere vars na tabela de símbolos */
             sprintf ( tb_simb[ num_vars ].simbolo, "%s", token);
             sprintf ( tb_simb[ num_vars ].categoria, "%s", "var_simples");
@@ -1574,7 +1572,7 @@ yyreduce:
   case 20:
 
 /* Line 1806 of yacc.c  */
-#line 120 "compilador.y"
+#line 118 "compilador.y"
     {
 
             }
@@ -1583,10 +1581,10 @@ yyreduce:
   case 27:
 
 /* Line 1806 of yacc.c  */
-#line 134 "compilador.y"
+#line 132 "compilador.y"
     {
             procura_simb( token, &x, &y );
-            if ( x == -99 ){
+            if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
                 sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
                 imprimeErro( dados );
                 exit(1);
@@ -1597,10 +1595,9 @@ yyreduce:
   case 28:
 
 /* Line 1806 of yacc.c  */
-#line 142 "compilador.y"
+#line 140 "compilador.y"
     {
-            sprintf( dados_aux1, "%d, %d", x, y);
-            sprintf( dados, "ARMZ %s", dados_aux1);
+            sprintf( dados, "ARMZ %d, %d", x, y);
             geraCodigo( NULL, dados );
             }
     break;
@@ -1608,21 +1605,22 @@ yyreduce:
   case 29:
 
 /* Line 1806 of yacc.c  */
-#line 150 "compilador.y"
+#line 147 "compilador.y"
     {
-            gera_Proximo_Rotulo();
-            geraCodigo( rotulo, "NADA");
+            rotulo1 = gera_Proximo_Rotulo();
+            empilha_Rotulo( rotulo1 );
+            geraCodigo( rotulo1, "NADA");
             }
     break;
 
   case 30:
 
 /* Line 1806 of yacc.c  */
-#line 154 "compilador.y"
+#line 152 "compilador.y"
     {
-            strcpy( rotulo2, rotulo);
-            gera_Proximo_Rotulo();
-            sprintf( dados, "DSVF %s", rotulo);
+            rotulo2 = gera_Proximo_Rotulo();
+            empilha_Rotulo( rotulo2 );
+            sprintf( dados, "DSVF %s", rotulo2 );
             geraCodigo( NULL, dados);
             }
     break;
@@ -1630,11 +1628,13 @@ yyreduce:
   case 31:
 
 /* Line 1806 of yacc.c  */
-#line 160 "compilador.y"
+#line 158 "compilador.y"
     {
-            sprintf( dados, "DSVS %s", rotulo2);
+            rotulo2 = desempilha_Rotulo();
+            rotulo1 = desempilha_Rotulo();
+            sprintf( dados, "DSVS %s", rotulo1 );
             geraCodigo( NULL, dados);
-            geraCodigo( rotulo, "NADA");
+            geraCodigo( rotulo2, "NADA");
             }
     break;
 
@@ -2066,6 +2066,7 @@ main (int argc, char** argv) {
  *  Inicia a Tabela de Símbolos
  * ------------------------------------------------------------------- */
   tb_simb = malloc( sizeof( tabela_simbolos) * TAM_TB_SIMB);
+  inicia_pilha();
 
    yyin=fp;
    yyparse();
