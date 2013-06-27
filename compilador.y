@@ -145,19 +145,38 @@ atribuicao: IDENT
 
 repeticao: ENQUANTO
             {
-            rotulo1 = gera_Proximo_Rotulo();
+            gera_Proximo_Rotulo( &rotulo1 );
             empilha_Rotulo( rotulo1 );
             geraCodigo( rotulo1, "NADA");
             } ABRE_PARENTESES expressao_booleana_geral
             {
-            rotulo2 = gera_Proximo_Rotulo();
+            gera_Proximo_Rotulo( &rotulo2 );
             empilha_Rotulo( rotulo2 );
             sprintf( dados, "DSVF %s", rotulo2 );
             geraCodigo( NULL, dados);
             } FECHA_PARENTESES FACA comando_composto PONTO_E_VIRGULA
             {
-            rotulo2 = desempilha_Rotulo();
-            rotulo1 = desempilha_Rotulo();
+            desempilha_Rotulo( &rotulo2 );
+            desempilha_Rotulo( &rotulo1 );
+            sprintf( dados, "DSVS %s", rotulo1 );
+            geraCodigo( NULL, dados);
+            geraCodigo( rotulo2, "NADA");
+            }
+            | ENQUANTO
+            {
+            gera_Proximo_Rotulo( &rotulo1 );
+            empilha_Rotulo( rotulo1 );
+            geraCodigo( rotulo1, "NADA");
+            } expressao_booleana_geral
+            {
+            gera_Proximo_Rotulo( &rotulo2 );
+            empilha_Rotulo( rotulo2 );
+            sprintf( dados, "DSVF %s", rotulo2 );
+            geraCodigo( NULL, dados);
+            } FACA comando_composto PONTO_E_VIRGULA
+            {
+            desempilha_Rotulo( &rotulo2 );
+            desempilha_Rotulo( &rotulo1 );
             sprintf( dados, "DSVS %s", rotulo1 );
             geraCodigo( NULL, dados);
             geraCodigo( rotulo2, "NADA");
