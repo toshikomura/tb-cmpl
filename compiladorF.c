@@ -68,14 +68,14 @@ procura_simb ( char *simb, int *nivel_lexico, int *desloc ) {
 }
 
 /* Função que gera próximo rotulo */
-char *gera_Proximo_Rotulo () {
+void gera_Proximo_Rotulo (char **new_rotulo) {
 
-    char *rotulo = (char *) malloc( sizeof (char) * TAM_ROTULO);
+    char *rotulo = malloc( sizeof (char) * TAM_ROTULO);
 
     sprintf( rotulo, "R%d", valor_rotulo);
     valor_rotulo++;
 
-    return rotulo;
+    *new_rotulo = rotulo;
 
 }
 
@@ -99,14 +99,13 @@ void empilha_Rotulo ( char *rot ) {
 }
 
 /* Função que desempilha rotulos */
-char *desempilha_Rotulo () {
+void desempilha_Rotulo ( char **rotulo) {
 
     rotulos_p *rotulo_retirado;
-    char *rot;
 
     if ( p_rotulos->tam == 0){
 
-        return NULL;
+        *rotulo = NULL;
     }
     else
     {
@@ -114,8 +113,7 @@ char *desempilha_Rotulo () {
         p_rotulos->primeiro = rotulo_retirado->prox;
         p_rotulos->tam--;
 
-        rot = rotulo_retirado->rotulo;
+        *rotulo = rotulo_retirado->rotulo;
 
-        return rot;
     }
 }
