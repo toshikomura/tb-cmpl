@@ -2,33 +2,42 @@
      AMEM 2
      CRCT 1
      ARMZ 0, 1
-     CRVL
-     ARMZ 0, 0
+     CRVL 0, 1
+     ARMZ 0, 1
      CRCT 1
      CRCT 1
      SOMA
      ARMZ 0, 0
      CRCT 2
-     CRVL
+     CRVL 0, 0
      MULT
      ARMZ 0, 0
-     CRVL
+     CRVL 0, 1
      CRCT 2
      DIVI
-     ARMZ 0, 0
+     ARMZ 0, 1
      CRCT 1
-     CRVL
+     CRVL 0, 0
      SOMA
      CRCT 3
      MULT
-     ARMZ 0, 1
+     ARMZ 0, 0
 R0: NADA 
-     CRVL
+     CRVL 0, 1
      CRCT 3
      CMIG
      DSVF R1
-     CRVL
-     ARMZ 0, 1
+R2: NADA 
+     CRVL 0, 1
+     CRCT 1
+     CMIG
+     DSVF R3
+     CRCT 2
+     ARMZ 0, 0
+     DSVS R2
+R3: NADA 
+     CRVL 0, 0
+     ARMZ 0, 0
      DSVS R0
 R1: NADA 
      DMEM 2

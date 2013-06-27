@@ -9,6 +9,10 @@ begin
   n := ( 1 + m ) * 3;
   while ( n=3) do
   begin
+    while (n =1) do
+    begin
+        m:= 2;
+    end;
     n := m;
   end;
 end.
