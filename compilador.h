@@ -11,9 +11,9 @@
  *
  * ------------------------------------------------------------------- */
 
-#define TAM_TOKEN 16
-#define TAM_TB_SIMB 10
-#define TAM_ROTULO 10
+#define TAM_TOKEN 100
+#define TAM_TB_SIMB 100
+#define TAM_ROTULO 100
 #define TAM_DADOS 100
 
 typedef enum simbolos {
