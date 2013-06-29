@@ -31,7 +31,7 @@ void yyerror (char const *);
 %token SOMA SUBTRACAO MULTIPLICACAO DIVISAO
 %token IGUAL DIFERENTE MAIOR MENOR NAO E OU
 %token ENQUANTO PARA FACA REPITA ATE SE ENTAO SENAO
-%nonassoc ANTES_ENTAO_SENAO
+%nonassoc LOWER_THEN_ELSE
 %nonassoc SENAO
 
 %%
@@ -121,15 +121,26 @@ lista_idents: lista_idents VIRGULA IDENT
 
 comando_composto: T_BEGIN comandos T_END
             {
-
             }
 ;
 
 
-comandos:   comandos atribuicao
-            | comandos repeticao
-            | comandos condicao
-            | atribuicao
+comandos: comandos atribuicao PONTO_E_VIRGULA
+            | comandos repeticao PONTO_E_VIRGULA
+            | comandos condicao PONTO_E_VIRGULA
+            | atribuicao PONTO_E_VIRGULA
+            | repeticao PONTO_E_VIRGULA
+            | condicao PONTO_E_VIRGULA
+;
+
+
+comando: atribuicao PONTO_E_VIRGULA
+            | repeticao PONTO_E_VIRGULA
+            | condicao PONTO_E_VIRGULA
+;
+
+
+comando_sem_ponto_e_virgula: atribuicao
             | repeticao
             | condicao
 ;
@@ -143,7 +154,7 @@ atribuicao: IDENT
                 imprimeErro( dados );
                 exit(1);
             }
-            } ATRIBUICAO expressao_aritmetica PONTO_E_VIRGULA
+            } ATRIBUICAO expressao_aritmetica
             {
             sprintf( dados, "ARMZ %d, %d", x, y);
             geraCodigo( NULL, dados );
@@ -156,13 +167,13 @@ repeticao: ENQUANTO
             gera_Proximo_Rotulo( &rotulo1 );
             empilha_Rotulo( rotulo1 );
             geraCodigo( rotulo1, "NADA");
-            } ABRE_PARENTESES expressao_booleana_geral
+            } ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES
             {
             gera_Proximo_Rotulo( &rotulo2 );
             empilha_Rotulo( rotulo2 );
             sprintf( dados, "DSVF %s", rotulo2 );
             geraCodigo( NULL, dados);
-            } FECHA_PARENTESES FACA comando_composto PONTO_E_VIRGULA
+            } FACA comando_composto
             {
             desempilha_Rotulo( &rotulo2 );
             desempilha_Rotulo( &rotulo1 );
@@ -181,7 +192,45 @@ repeticao: ENQUANTO
             empilha_Rotulo( rotulo2 );
             sprintf( dados, "DSVF %s", rotulo2 );
             geraCodigo( NULL, dados);
-            } FACA comando_composto PONTO_E_VIRGULA
+            } FACA comando_composto
+            {
+            desempilha_Rotulo( &rotulo2 );
+            desempilha_Rotulo( &rotulo1 );
+            sprintf( dados, "DSVS %s", rotulo1 );
+            geraCodigo( NULL, dados);
+            geraCodigo( rotulo2, "NADA");
+            }
+            | ENQUANTO
+            {
+            gera_Proximo_Rotulo( &rotulo1 );
+            empilha_Rotulo( rotulo1 );
+            geraCodigo( rotulo1, "NADA");
+            } ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES
+            {
+            gera_Proximo_Rotulo( &rotulo2 );
+            empilha_Rotulo( rotulo2 );
+            sprintf( dados, "DSVF %s", rotulo2 );
+            geraCodigo( NULL, dados);
+            } FACA comando
+            {
+            desempilha_Rotulo( &rotulo2 );
+            desempilha_Rotulo( &rotulo1 );
+            sprintf( dados, "DSVS %s", rotulo1 );
+            geraCodigo( NULL, dados);
+            geraCodigo( rotulo2, "NADA");
+            }
+            | ENQUANTO
+            {
+            gera_Proximo_Rotulo( &rotulo1 );
+            empilha_Rotulo( rotulo1 );
+            geraCodigo( rotulo1, "NADA");
+            } expressao_booleana_geral
+            {
+            gera_Proximo_Rotulo( &rotulo2 );
+            empilha_Rotulo( rotulo2 );
+            sprintf( dados, "DSVF %s", rotulo2 );
+            geraCodigo( NULL, dados);
+            } FACA comando
             {
             desempilha_Rotulo( &rotulo2 );
             desempilha_Rotulo( &rotulo1 );
@@ -192,7 +241,12 @@ repeticao: ENQUANTO
 ;
 
 
-condicao: condicao_se_entao condicao_senao
+condicao: condicao_se_entao
+            {
+            desempilha_Rotulo( &rotulo2 );
+            geraCodigo( rotulo2, "NADA");
+            }
+            | condicao_se_entao condicao_senao
             {
             desempilha_Rotulo( &rotulo2 );
             geraCodigo( rotulo2, "NADA");
@@ -206,14 +260,28 @@ condicao_se_entao: SE ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES 
             empilha_Rotulo( rotulo1 );
             sprintf( dados, "DSVF %s", rotulo1 );
             geraCodigo( NULL, dados);
-            } comando_composto PONTO_E_VIRGULA
+            } comando_composto
             | SE expressao_booleana_geral ENTAO
             {
             gera_Proximo_Rotulo( &rotulo1 );
             empilha_Rotulo( rotulo1 );
             sprintf( dados, "DSVF %s", rotulo1 );
             geraCodigo( NULL, dados);
-            } comando_composto PONTO_E_VIRGULA
+            } comando_composto
+            | SE ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES ENTAO
+            {
+            gera_Proximo_Rotulo( &rotulo1 );
+            empilha_Rotulo( rotulo1 );
+            sprintf( dados, "DSVF %s", rotulo1 );
+            geraCodigo( NULL, dados);
+            } comando_sem_ponto_e_virgula
+            | SE expressao_booleana_geral ENTAO
+            {
+            gera_Proximo_Rotulo( &rotulo1 );
+            empilha_Rotulo( rotulo1 );
+            sprintf( dados, "DSVF %s", rotulo1 );
+            geraCodigo( NULL, dados);
+            } comando_sem_ponto_e_virgula
 ;
 
 
@@ -227,8 +295,19 @@ condicao_senao: SENAO
             geraCodigo( NULL, dados);
 
             geraCodigo( rotulo1, "NADA");
-            } comando_composto PONTO_E_VIRGULA
-            | %prec ANTES_ENTAO_SENAO
+            } comando_composto
+            | SENAO
+            {
+            desempilha_Rotulo( &rotulo1 );
+
+            gera_Proximo_Rotulo( &rotulo2 );
+            empilha_Rotulo( rotulo2 );
+            sprintf( dados, "DSVS %s", rotulo2 );
+            geraCodigo( NULL, dados);
+
+            geraCodigo( rotulo1, "NADA");
+            } comando_sem_ponto_e_virgula
+            | %prec LOWER_THEN_ELSE
 ;
 
 
