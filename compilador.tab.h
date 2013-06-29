@@ -68,7 +68,8 @@
      ATE = 286,
      SE = 287,
      ENTAO = 288,
-     SENAO = 289
+     SENAO = 289,
+     ANTES_ENTAO_SENAO = 290
    };
 #endif
 
