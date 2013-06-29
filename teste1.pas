@@ -7,7 +7,8 @@ begin
     if m = n then
     begin
         n := 1;
-    end;
+        m := n;
+    end
     else
     begin
         n := 2;
