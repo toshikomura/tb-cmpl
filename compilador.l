@@ -185,49 +185,49 @@ end { simbolo = simb_end;
           return DIVISAO;
  }
 
-\while  { simbolo = simb_enquanto;
+while  { simbolo = simb_enquanto;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" enquanto ");
           return ENQUANTO;
  }
 
-\for  { simbolo = simb_para;
+for  { simbolo = simb_para;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" para ");
           return PARA;
  }
 
-\do  { simbolo = simb_faca;
+do  { simbolo = simb_faca;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" faca ");
           return FACA;
  }
 
-\repeat  { simbolo = simb_repita;
+repeat  { simbolo = simb_repita;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" repita ");
           return REPITA;
  }
 
-\until  { simbolo = simb_ate;
+until  { simbolo = simb_ate;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" ate ");
           return ATE;
  }
 
-\if  { simbolo = simb_se;
+if  { simbolo = simb_se;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" se ");
           return SE;
  }
 
-\then  { simbolo = simb_entao;
+then  { simbolo = simb_entao;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" entao ");
           return ENTAO;
  }
 
-\else  { simbolo = simb_senao;
+else  { simbolo = simb_senao;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" senao ");
           return SENAO;
@@ -240,4 +240,3 @@ end { simbolo = simb_end;
 }
 
 %%
-
