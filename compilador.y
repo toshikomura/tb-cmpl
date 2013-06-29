@@ -31,6 +31,8 @@ void yyerror (char const *);
 %token SOMA SUBTRACAO MULTIPLICACAO DIVISAO
 %token IGUAL DIFERENTE MAIOR MENOR NAO E OU
 %token ENQUANTO PARA FACA REPITA ATE SE ENTAO SENAO
+%nonassoc ANTES_ENTAO_SENAO
+%nonassoc SENAO
 
 %%
 
@@ -46,15 +48,14 @@ programa    :{
              }
 ;
 
+
 bloco       :
               parte_declara_vars
               {
               }
 
               comando_composto
-              ;
-
-
+;
 
 
 parte_declara_vars:  var
@@ -65,9 +66,11 @@ var         : { } VAR declara_vars
             |
 ;
 
+
 declara_vars: declara_vars declara_var
             | declara_var
 ;
+
 
 declara_var : {
               num_vars_inicial = num_vars;
@@ -89,6 +92,7 @@ tipo        : IDENT
             }
 ;
 
+
 lista_id_var: lista_id_var VIRGULA IDENT
             { /* insere última vars na tabela de símbolos */
             sprintf ( tb_simb[ num_vars ].simbolo, "%s", token);
@@ -109,6 +113,7 @@ lista_id_var: lista_id_var VIRGULA IDENT
             }
 ;
 
+
 lista_idents: lista_idents VIRGULA IDENT
             | IDENT
 ;
@@ -120,6 +125,7 @@ comando_composto: T_BEGIN comandos T_END
             }
 ;
 
+
 comandos:   comandos atribuicao
             | comandos repeticao
             | comandos condicao
@@ -127,6 +133,7 @@ comandos:   comandos atribuicao
             | repeticao
             | condicao
 ;
+
 
 atribuicao: IDENT
             {
@@ -142,6 +149,7 @@ atribuicao: IDENT
             geraCodigo( NULL, dados );
             }
 ;
+
 
 repeticao: ENQUANTO
             {
@@ -181,8 +189,48 @@ repeticao: ENQUANTO
             geraCodigo( NULL, dados);
             geraCodigo( rotulo2, "NADA");
             }
+;
 
-condicao: SE ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES ENTAO comando_composto
+
+condicao: condicao_se_entao condicao_senao
+            {
+            desempilha_Rotulo( &rotulo2 );
+            geraCodigo( rotulo2, "NADA");
+            }
+;
+
+
+condicao_se_entao: SE ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES ENTAO
+            {
+            gera_Proximo_Rotulo( &rotulo1 );
+            empilha_Rotulo( rotulo1 );
+            sprintf( dados, "DSVF %s", rotulo1 );
+            geraCodigo( NULL, dados);
+            } comando_composto PONTO_E_VIRGULA
+            | SE expressao_booleana_geral ENTAO
+            {
+            gera_Proximo_Rotulo( &rotulo1 );
+            empilha_Rotulo( rotulo1 );
+            sprintf( dados, "DSVF %s", rotulo1 );
+            geraCodigo( NULL, dados);
+            } comando_composto PONTO_E_VIRGULA
+;
+
+
+condicao_senao: SENAO
+            {
+            desempilha_Rotulo( &rotulo1 );
+
+            gera_Proximo_Rotulo( &rotulo2 );
+            empilha_Rotulo( rotulo2 );
+            sprintf( dados, "DSVS %s", rotulo2 );
+            geraCodigo( NULL, dados);
+
+            geraCodigo( rotulo1, "NADA");
+            } comando_composto PONTO_E_VIRGULA
+            | %prec ANTES_ENTAO_SENAO
+;
+
 
 expressao_aritmetica: expressao_aritmetica SOMA expressao_termo
             {
@@ -195,6 +243,7 @@ expressao_aritmetica: expressao_aritmetica SOMA expressao_termo
             | expressao_termo
 ;
 
+
 expressao_termo: expressao_termo MULTIPLICACAO expressao_fator
             {
             geraCodigo (NULL, "MULT");
@@ -205,6 +254,7 @@ expressao_termo: expressao_termo MULTIPLICACAO expressao_fator
             }
             | expressao_fator
 ;
+
 
 expressao_fator: IDENT
             {
@@ -225,11 +275,14 @@ expressao_fator: IDENT
             | ABRE_PARENTESES expressao_aritmetica FECHA_PARENTESES
 ;
 
+
 expressao_booleana_geral: expressao_booleana
             | NAO expressao_booleana
             {
             geraCodigo (NULL, "INVR");
             }
+;
+
 
 expressao_booleana: expressao_booleana IGUAL expressao_fator2
             {
@@ -271,6 +324,7 @@ expressao_booleana: expressao_booleana IGUAL expressao_fator2
             | expressao_fator2
 ;
 
+
 expressao_fator2: IDENT
             {
             procura_simb( token, &x, &y );
@@ -289,6 +343,7 @@ expressao_fator2: IDENT
             }
             | ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES
 ;
+
 
 %%
 
