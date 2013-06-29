@@ -69,7 +69,7 @@
      SE = 287,
      ENTAO = 288,
      SENAO = 289,
-     ANTES_ENTAO_SENAO = 290
+     LOWER_THEN_ELSE = 290
    };
 #endif
 
