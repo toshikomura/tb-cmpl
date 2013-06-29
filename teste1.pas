@@ -1,18 +1,16 @@
 program exemplo75 (input, output);
 var m,n :  integer;
 begin
-  n := 1;
-  m := n;
-  m := 1 + 1;
-  m := 2 * m;
-  m := n / 2;
-  n := ( 1 + m ) * 3;
-  while ( n=3) do
+  if ( m < 1 ) then
   begin
-    while (n =1) do
+    m := 2;
+    if m = n then
     begin
-        m:= 2;
+        n := 1;
     end;
-    n := m;
+    else
+    begin
+        n := 2;
+    end;
   end;
 end.
