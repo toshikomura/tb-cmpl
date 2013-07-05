@@ -1,9 +1,35 @@
 program exemplo75 (input, output);
 var m,n :  integer;
-begin
-  while n < 2 do
-    while 1 = 3 do
+
+procedure p;
+  procedure c;
+    procedure l;
     begin
-      m := 0;
     end;
+
+  begin
+    n := 88;
+  end;
+
+begin
+  n := 2;
+  while ( 2 <= n ) do
+  begin
+    while 3 = 2 do
+      m := 2;
+    if n = 3 then
+      if m > n then
+      begin
+        n := 8;
+      end
+    else
+    begin
+      n := 9;
+      m := 100;
+    end;
+  end;
+end;
+
+begin
+  m := 3;
 end.
