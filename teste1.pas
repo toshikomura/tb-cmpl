@@ -1,17 +1,9 @@
 program exemplo75 (input, output);
 var m,n :  integer;
 begin
-  if ( m < 1 ) then
-  begin
-    m := 2;
-    if m = n then
+  while n < 2 do
+    while 1 = 3 do
     begin
-        n := 1;
-        m := n;
-    end
-    else
-    begin
-        n := 2;
+      m := 0;
     end;
-  end;
 end.
