@@ -233,6 +233,12 @@ else  { simbolo = simb_senao;
           return SENAO;
  }
 
+procedure { simbolo = simb_procedimento;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" procedimento ");
+          return PROCEDIMENTO;
+ }
+
 {ident} { simbolo = simb_identificador;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" ident  ");
