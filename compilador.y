@@ -121,8 +121,10 @@ lista_idents: lista_idents VIRGULA IDENT
 ;
 
 
-comando_composto: atribuicao_ou_procedimento T_BEGIN comandos T_END
-            | atribuicao_ou_procedimento T_BEGIN T_END
+comando_composto: atribuicao T_BEGIN T_END
+            | atribuicao T_BEGIN comandos T_END
+            | procedimento T_BEGIN T_END
+            | procedimento T_BEGIN comandos T_END
             | T_BEGIN T_END
             | T_BEGIN comandos T_END
             {
@@ -130,23 +132,35 @@ comando_composto: atribuicao_ou_procedimento T_BEGIN comandos T_END
 ;
 
 
-comandos: atribuicao_ou_procedimento PONTO_E_VIRGULA comandos
+comandos: atribuicao PONTO_E_VIRGULA comandos
             | repeticao PONTO_E_VIRGULA comandos
             | condicao PONTO_E_VIRGULA comandos
-            | atribuicao_ou_procedimento PONTO_E_VIRGULA
+            | atribuicao PONTO_E_VIRGULA
             | repeticao PONTO_E_VIRGULA
             | condicao PONTO_E_VIRGULA
 ;
 
 
-comando_sem_ponto_e_virgula: atribuicao_ou_procedimento
+comando_sem_ponto_e_virgula: atribuicao
             | repeticao
             | condicao
 ;
 
 
-atribuicao_ou_procedimento: PROCEDIMENTO IDENT procedimento PONTO_E_VIRGULA
-            | IDENT
+procedimento: PROCEDIMENTO IDENT procedimento_2 PONTO_E_VIRGULA
+;
+
+
+procedimento_2: ABRE_PARENTESES FECHA_PARENTESES PONTO_E_VIRGULA procedimento_3
+            | PONTO_E_VIRGULA procedimento_3
+;
+
+
+procedimento_3: bloco
+;
+
+
+atribuicao: IDENT
             {
             procura_simb( token, &x, &y );
             if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
@@ -154,20 +168,7 @@ atribuicao_ou_procedimento: PROCEDIMENTO IDENT procedimento PONTO_E_VIRGULA
                 imprimeErro( dados );
                 exit(1);
             }
-            } atribuicao
-;
-
-
-procedimento: ABRE_PARENTESES FECHA_PARENTESES PONTO_E_VIRGULA procedimento_2
-            | PONTO_E_VIRGULA procedimento_2
-;
-
-
-procedimento_2: bloco
-;
-
-
-atribuicao: ATRIBUICAO expressao_aritmetica
+            } ATRIBUICAO expressao_aritmetica
             {
             sprintf( dados, "ARMZ %d, %d", x, y);
             geraCodigo( NULL, dados );
