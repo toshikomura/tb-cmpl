@@ -54,3 +54,13 @@ declarada.
 15 - Incluido leitura de expressões booleanas.
 
 16 - Incluido pilha para rotulos.
+
+17 - Adicionado endereços das variáveis na instrução CRVL do MEPA.
+
+18 - Mudança nas funções de Empilha e Desempilha rotulo, no caso elas deixatm de
+retornar um ponteiro, e passam a atribuir o ponteiro ao parametro passado.
+
+19 - Modificação na leitura para aceitar "if"s e "while"s com uma única linha
+sem "begin" e "end".
+
+20 - Inclusão e possibilidade de leitura de procedimentos com aninhamento.
