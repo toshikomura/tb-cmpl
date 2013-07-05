@@ -69,7 +69,8 @@
      SE = 287,
      ENTAO = 288,
      SENAO = 289,
-     LOWER_THEN_ELSE = 290
+     PROCEDIMENTO = 290,
+     LOWER_THEN_ELSE = 291
    };
 #endif
 
