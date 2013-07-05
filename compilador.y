@@ -121,7 +121,9 @@ lista_idents: lista_idents VIRGULA IDENT
 ;
 
 
-comando_composto: atribuicao_ou_procedimento
+comando_composto: atribuicao_ou_procedimento T_BEGIN comandos T_END
+            | atribuicao_ou_procedimento T_BEGIN T_END
+            | T_BEGIN T_END
             | T_BEGIN comandos T_END
             {
             }
@@ -143,7 +145,8 @@ comando_sem_ponto_e_virgula: atribuicao_ou_procedimento
 ;
 
 
-atribuicao_ou_procedimento: IDENT
+atribuicao_ou_procedimento: PROCEDIMENTO IDENT procedimento PONTO_E_VIRGULA
+            | IDENT
             {
             procura_simb( token, &x, &y );
             if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
@@ -151,20 +154,20 @@ atribuicao_ou_procedimento: IDENT
                 imprimeErro( dados );
                 exit(1);
             }
-            } atribuicao_ou_procedimento_2
-;
-
-atribuicao_ou_procedimento_2: ATRIBUICAO atribuicao
-            | PROCEDIMENTO ABRE_PARENTESES FECHA_PARENTESES procedimento
-            | PROCEDIMENTO procedimento
+            } atribuicao
 ;
 
 
-procedimento: bloco
+procedimento: ABRE_PARENTESES FECHA_PARENTESES PONTO_E_VIRGULA procedimento_2
+            | PONTO_E_VIRGULA procedimento_2
 ;
 
 
-atribuicao: expressao_aritmetica
+procedimento_2: bloco
+;
+
+
+atribuicao: ATRIBUICAO expressao_aritmetica
             {
             sprintf( dados, "ARMZ %d, %d", x, y);
             geraCodigo( NULL, dados );
