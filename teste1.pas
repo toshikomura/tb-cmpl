@@ -2,7 +2,7 @@ program exemplo75 (input, output);
 var m,n,a :  integer;
 
 procedure p;
-  procedure c () ;
+  procedure c ( var m , n :integer; var a:integer) ;
     procedure l ( m , n  : integer; a : integer);
     begin
     end;
