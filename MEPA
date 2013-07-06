@@ -2,6 +2,8 @@
      AMEM 3
      AMEM 5
      AMEM 6
+     AMEM 8
+     AMEM 9
      CRCT 88
      ARMZ 0, 1
      CRCT 2
@@ -42,5 +44,5 @@ R4: NADA
 R1: NADA 
      CRCT 3
      ARMZ 0, 0
-     DMEM 6
+     DMEM 9
      PARA
