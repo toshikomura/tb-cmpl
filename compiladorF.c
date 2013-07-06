@@ -23,10 +23,24 @@
  * ------------------------------------------------------------------- */
 
 /* Arquivo MEPA */
-FILE* fp=NULL;
+FILE* fp;
 
 /* Indica qual é o rotulo */
-int valor_rotulo = 0;
+int valor_rotulo;
+
+void inicia_variaveis_globais () {
+
+    fp = NULL;
+    valor_rotulo = 0;
+    num_vars = 0;
+    num_vars_inicial = 0;
+    nivel_lexico = 0;
+    desloc = 0;
+
+    dados = malloc ( sizeof (char)*TAM_TOKEN);
+    categoria = malloc ( sizeof (char)*TAM_TOKEN);
+
+}
 
 /* Função que gera código MEPA */
 void geraCodigo (char* rot, char* comando) {
@@ -48,6 +62,96 @@ int imprimeErro ( char* erro ) {
   exit(-1);
 }
 
+/* Inicia pilha da tabela de simbolos */
+void inicia_pilha_tabela_simbolos () {
+
+    p_tb_simb = malloc( sizeof (pilha_tb_simb));
+    p_tb_simb->primeiro = NULL;
+    p_tb_simb->tam = 0;
+}
+
+/* Função que impreime pilha da tabela de simbolos */
+void imprime_Simbolo_TB_SIMB () {
+
+    printf("\n\nTABELA DE SIMBOLOS\n\n");
+
+    no_tabela_simbolos_p *slot_tb_simb_aux;
+
+    slot_tb_simb_aux = p_tb_simb->primeiro;
+    while ( slot_tb_simb_aux != NULL) {
+        printf("|| %s | %s | %s | %d | %d ||\n", slot_tb_simb_aux->simbolo, slot_tb_simb_aux->tipo, slot_tb_simb_aux->categoria, slot_tb_simb_aux->nivel_lexico, slot_tb_simb_aux->desloc);
+        slot_tb_simb_aux = slot_tb_simb_aux->prox;
+    }
+
+}
+
+/* Função que insere um simbolo na tabela de simbolos */
+void empilha_Simbolo_TB_SIMB ( char *simb, char *ca, int nivel_l, int des) {
+
+    char *simbol = malloc ( sizeof ( char)*TAM_TOKEN);
+    char *cate = malloc ( sizeof ( char)*TAM_TOKEN);
+
+    strcpy( simbol, simb);
+    strcpy( cate, ca);
+
+    no_tabela_simbolos_p *novo_slot_tb_simb = malloc( sizeof ( no_tabela_simbolos_p ));
+
+    novo_slot_tb_simb->simbolo = simbol;
+    novo_slot_tb_simb->categoria = cate;
+    novo_slot_tb_simb->nivel_lexico = nivel_l;
+    novo_slot_tb_simb->desloc = des;
+
+    novo_slot_tb_simb->prox = p_tb_simb->primeiro;
+
+    p_tb_simb->primeiro = novo_slot_tb_simb;
+    p_tb_simb->tam++;
+
+    imprime_Simbolo_TB_SIMB ();
+
+}
+
+/* Função que insere tipo do simbolo na tabela de simbolos */
+void insere_tipo_Simbolo_TB_SIMB ( char *ti, int qtd_vars) {
+
+    char *tip = malloc ( sizeof ( char)*TAM_TOKEN);
+    int i;
+
+    strcpy( tip, ti);
+
+    no_tabela_simbolos_p *slot_tb_simb_aux = p_tb_simb->primeiro;
+
+    for ( i = 0; i < qtd_vars; i++) {
+        slot_tb_simb_aux->tipo = tip;
+        slot_tb_simb_aux = slot_tb_simb_aux->prox;
+    }
+
+    imprime_Simbolo_TB_SIMB ();
+
+}
+
+/* Função que retira um simbolo da tabela de simbolos */
+void desempilha_Simbolo_TB_SIMB ( char **simb) {
+
+    no_tabela_simbolos_p *slot_tb_simb_retirado;
+
+    if ( p_tb_simb->tam == 0){
+
+        *simb = NULL;
+    }
+    else
+    {
+        slot_tb_simb_retirado = p_tb_simb->primeiro;
+        p_tb_simb->primeiro = slot_tb_simb_retirado->prox;
+        p_tb_simb->tam--;
+
+        *simb = slot_tb_simb_retirado->simbolo;
+
+    }
+
+    imprime_Simbolo_TB_SIMB ();
+
+}
+
 /* Função que procura um simbolo na tabela de simbolos */
 /* Se encontra retorna o nivel e deslocamento */
 /* Se não encontra retorna NULL */
@@ -57,12 +161,15 @@ procura_simb ( char *simb, int *nivel_lexico, int *desloc ) {
     *nivel_lexico = -99; // valor nao muda se nao encontrar simb na tabela
     *desloc = -99;
 
-    for ( i = 0; i < 100; i++){
-        if ( !strcmp( tb_simb[i].simbolo, simb )){
-            *nivel_lexico = tb_simb[i].nivel_lexico;
-            *desloc = tb_simb[i].desloc;
-            break;
-        }
+    no_tabela_simbolos_p *slot_tb_simb_aux = p_tb_simb->primeiro;
+
+    while ( slot_tb_simb_aux != NULL && strcmp( slot_tb_simb_aux->simbolo, simb ) ){
+        slot_tb_simb_aux = slot_tb_simb_aux->prox;
+    }
+
+    if ( slot_tb_simb_aux != NULL){
+        *nivel_lexico = slot_tb_simb_aux->nivel_lexico;
+        *desloc = slot_tb_simb_aux->desloc;
     }
 
 }
@@ -79,7 +186,8 @@ void gera_Proximo_Rotulo (char **new_rotulo) {
 
 }
 
-void inicia_pilha () {
+/* Inicia pilha para rotulos */
+void inicia_pilha_rotulos () {
 
     p_rotulos = malloc( sizeof (pilha_r));
     p_rotulos->primeiro = NULL;
