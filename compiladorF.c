@@ -252,7 +252,6 @@ int desempilha_Deslocamento () {
     deslocamentos_p *deslocamento_retirado;
 
     if ( p_deslocamentos->tam == 0){
-
         return -99;
     }
     else

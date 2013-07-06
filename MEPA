@@ -1,9 +1,12 @@
      INPP
      AMEM 3
-     AMEM 5
-     AMEM 6
-     AMEM 8
-     AMEM 9
+     AMEM 3
+     AMEM 3
+     AMEM 3
+     AMEM 3
+     AMEM 3
+     AMEM 3
+     AMEM 4
      CRCT 88
      ARMZ 0, 1
      CRCT 2
@@ -42,7 +45,8 @@ R6: NADA
 R4: NADA 
      DSVS R0
 R1: NADA 
+     AMEM 5
      CRCT 3
      ARMZ 0, 0
-     DMEM 9
+     DMEM 5
      PARA

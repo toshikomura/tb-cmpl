@@ -70,7 +70,8 @@
      ENTAO = 288,
      SENAO = 289,
      PROCEDIMENTO = 290,
-     LOWER_THEN_ELSE = 291
+     FUNCAO = 291,
+     LOWER_THEN_ELSE = 292
    };
 #endif
 
