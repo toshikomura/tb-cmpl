@@ -38,7 +38,8 @@ void yyerror (char const *);
 
 %%
 
-programa    :{
+
+programa: {
              geraCodigo (NULL, "INPP");
              }
              PROGRAM IDENT
@@ -51,20 +52,19 @@ programa    :{
 ;
 
 
-bloco       :
+bloco:
               parte_declara_vars
               {
               }
-
               comando_composto
 ;
 
 
-parte_declara_vars:  var
+parte_declara_vars: var
 ;
 
 
-var         : { } VAR declara_vars
+var: { } VAR declara_vars
             |
 ;
 
@@ -74,7 +74,7 @@ declara_vars: declara_vars declara_var
 ;
 
 
-declara_var : {
+declara_var: {
               num_vars_inicial = num_vars;
               }
               lista_id_var DOIS_PONTOS
@@ -86,7 +86,8 @@ declara_var : {
               PONTO_E_VIRGULA
 ;
 
-tipo        : IDENT
+
+tipo: IDENT
             {
                 for( percorre_vars = num_vars_inicial; percorre_vars < num_vars; percorre_vars++){
                     sprintf ( tb_simb[ percorre_vars ].tipo, "%s", token);
@@ -121,11 +122,8 @@ lista_idents: lista_idents VIRGULA IDENT
 ;
 
 
-comando_composto: atribuicao T_BEGIN T_END
-            | atribuicao T_BEGIN comandos T_END
-            | procedimento T_BEGIN T_END
+comando_composto: atribuicao T_BEGIN comandos T_END
             | procedimento T_BEGIN comandos T_END
-            | T_BEGIN T_END
             | T_BEGIN comandos T_END
             {
             }
@@ -138,6 +136,7 @@ comandos: atribuicao PONTO_E_VIRGULA comandos
             | atribuicao PONTO_E_VIRGULA
             | repeticao PONTO_E_VIRGULA
             | condicao PONTO_E_VIRGULA
+            |
 ;
 
 
@@ -151,12 +150,34 @@ procedimento: PROCEDIMENTO IDENT procedimento_2 PONTO_E_VIRGULA
 ;
 
 
-procedimento_2: ABRE_PARENTESES FECHA_PARENTESES PONTO_E_VIRGULA procedimento_3
+procedimento_2: ABRE_PARENTESES parametros_vars_procedimento FECHA_PARENTESES PONTO_E_VIRGULA procedimento_3
             | PONTO_E_VIRGULA procedimento_3
 ;
 
 
 procedimento_3: bloco
+;
+
+
+parametros_vars_procedimento: vars_procedimento
+            |
+;
+
+
+vars_procedimento: vars_procedimento var_procedimento
+            | var_procedimento
+;
+
+
+var_procedimento: {
+              num_vars_inicial = num_vars;
+              }
+              lista_id_var DOIS_PONTOS
+              tipo
+              { /* AMEM */
+              sprintf ( dados, "AMEM %d", num_vars);
+              geraCodigo( NULL, dados);
+              }
 ;
 
 
