@@ -1,9 +1,9 @@
 program exemplo75 (input, output);
-var m,n :  integer;
+var m,n,a :  integer;
 
 procedure p;
   procedure c () ;
-    procedure l ( m , n  : integer);
+    procedure l ( m , n  : integer; a : integer);
     begin
     end;
 
