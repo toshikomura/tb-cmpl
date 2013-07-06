@@ -1,9 +1,19 @@
 program exemplo75 (input, output);
 var m,n,a :  integer;
 
+function f ();
+  function d ( n : integer; var a,m:integer);
+  begin
+
+  end;
+begin
+
+end;
+
 procedure p;
   procedure c ( var m , n :integer; var a:integer) ;
     procedure l ( m , n  : integer; a : integer);
+    var l :integer;
     begin
     end;
 
