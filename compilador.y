@@ -49,18 +49,22 @@ void yyerror (char const *);
 programa: {
              geraCodigo (NULL, "INPP");
              }
-             PROGRAM IDENT
-            {
-            sprintf( categoria, "nome_programa");
-            empilha_Simbolo_TB_SIMB ( token, categoria, 0, 0);
-            insere_tipo_Simbolo_TB_SIMB ( "sem_tipo", 1);
-            }
+             PROGRAM sem_tipo
              ABRE_PARENTESES lista_idents FECHA_PARENTESES PONTO_E_VIRGULA
              bloco PONTO {
              sprintf ( dados, "DMEM %d", num_vars);
              geraCodigo( NULL, dados);
              geraCodigo (NULL, "PARA");
              }
+;
+
+
+sem_tipo: IDENT
+            {
+            sprintf( categoria, "nome_programa");
+            empilha_Simbolo_TB_SIMB ( token, categoria, 0, 0);
+            insere_tipo_Simbolo_TB_SIMB ( "sem_tipo", 1);
+            }
 ;
 
 
@@ -106,6 +110,12 @@ tipo: IDENT
             {
                 percorre_vars = num_vars - num_vars_inicial;
                 insere_tipo_Simbolo_TB_SIMB ( token, percorre_vars);
+            }
+;
+
+
+tipo_retorno_func: IDENT
+            {
             }
 ;
 
@@ -162,13 +172,13 @@ lista_idents: lista_idents VIRGULA IDENT
 ;
 
 
-comando_composto: atribuicao comando_composto
+comando_composto: atribuicao bloco
             |
             {
             empilha_Deslocamento ( desloc);
             desloc = 0;
             nivel_lexico++;
-            } procedimento_ou_funcao comando_composto
+            } procedimento_ou_funcao bloco
             | comando_composto_2
 ;
 
@@ -197,20 +207,20 @@ comando_sem_ponto_e_virgula: atribuicao
 ;
 
 
-procedimento_ou_funcao: PROCEDIMENTO procedimento_ou_funcao_2
-            | FUNCAO procedimento_ou_funcao_2
+procedimento_ou_funcao: PROCEDIMENTO procedimento_ou_funcao_2 PONTO_E_VIRGULA procedimento_ou_funcao_4
+            | FUNCAO procedimento_ou_funcao_2 DOIS_PONTOS tipo_retorno_func PONTO_E_VIRGULA procedimento_ou_funcao_4
 ;
 
-procedimento_ou_funcao_2: IDENT procedimento_ou_funcao_3 PONTO_E_VIRGULA
-;
-
-
-procedimento_ou_funcao_3: ABRE_PARENTESES parametros_vars_proc_ou_func FECHA_PARENTESES PONTO_E_VIRGULA procedimento_ou_funcao_4
-            | PONTO_E_VIRGULA procedimento_ou_funcao_4
+procedimento_ou_funcao_2: IDENT procedimento_ou_funcao_3
 ;
 
 
-procedimento_ou_funcao_4: bloco
+procedimento_ou_funcao_3: ABRE_PARENTESES parametros_vars_proc_ou_func FECHA_PARENTESES
+            |
+;
+
+
+procedimento_ou_funcao_4: bloco PONTO_E_VIRGULA
 ;
 
 
