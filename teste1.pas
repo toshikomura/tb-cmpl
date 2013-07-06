@@ -1,8 +1,8 @@
 program exemplo75 (input, output);
 var m,n,a :  integer;
 
-function f ();
-  function d ( n : integer; var a,m:integer);
+function f():integer;
+  function d ( n : integer; var a,m:integer):integer;
   begin
 
   end;
@@ -39,6 +39,8 @@ begin
     end;
   end;
 end;
+
+var z :integer;
 
 begin
   m := 3;
