@@ -12,7 +12,6 @@
  * ------------------------------------------------------------------- */
 
 #define TAM_TOKEN 100
-#define TAM_TB_SIMB 10
 #define TAM_ROTULO 100
 #define TAM_DADOS 100
 
@@ -31,15 +30,23 @@ typedef enum simbolos {
 /* -------------------------------------------------------------------
  * Tabela de simbolos
  * ------------------------------------------------------------------- */
-
-typedef struct tabela_simbolos {
-    char simbolo[50];
-    char tipo[20];
-    char categoria[20];
+/* -------------------------------------------------------------------
+ * Pilha da Tabeka de simbolos
+ * ------------------------------------------------------------------- */
+typedef struct no_tabela_simbolos {
+    char *simbolo;
+    char *tipo;
+    char *categoria;
     int qtd_parametros;
     int nivel_lexico;
     int desloc;
-} tabela_simbolos;
+    struct no_tabela_simbolos *prox;
+} no_tabela_simbolos_p;
+
+typedef struct pilha_tabela_simb {
+    no_tabela_simbolos_p *primeiro;
+    int tam;
+} pilha_tb_simb;
 
 /* -------------------------------------------------------------------
  * Pilha de rotulos
@@ -60,14 +67,19 @@ typedef struct pilha_rotulos {
 
 extern simbolos simbolo, relacao;
 extern char token[TAM_TOKEN];
+extern char *dados;
+extern char *categoria;
 extern int nivel_lexico;
 extern int desloc;
 extern int nl;
+extern int num_vars;
+extern int num_vars_inicial;
+extern int eh_parametro_referencia;
+extern int eh_vars_proc_func;
 
 simbolos simbolo, relacao;
 char token[TAM_TOKEN];
 
-tabela_simbolos *tb_simb;
-
+pilha_tb_simb *p_tb_simb;
 pilha_r *p_rotulos;
 char *rotulo1, *rotulo2; // rotulos
