@@ -173,21 +173,12 @@ lista_idents: lista_idents VIRGULA IDENT
 
 
 comando_composto: atribuicao bloco
-            |
-            {
-            empilha_Deslocamento ( desloc);
-            desloc = 0;
-            nivel_lexico++;
-            } procedimento_ou_funcao bloco
+            | procedimento_ou_funcao bloco
             | comando_composto_2
 ;
 
 
 comando_composto_2: T_BEGIN comandos T_END
-            {
-            desloc = desempilha_Deslocamento ();
-            nivel_lexico--;
-            }
 ;
 
 
@@ -220,7 +211,16 @@ procedimento_ou_funcao_3: ABRE_PARENTESES parametros_vars_proc_ou_func FECHA_PAR
 ;
 
 
-procedimento_ou_funcao_4: bloco PONTO_E_VIRGULA
+procedimento_ou_funcao_4:
+            {
+            empilha_Deslocamento ( desloc);
+            desloc = 0;
+            nivel_lexico++;
+            } bloco PONTO_E_VIRGULA
+            {
+            desloc = desempilha_Deslocamento ();
+            nivel_lexico--;
+            }
 ;
 
 
