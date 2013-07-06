@@ -22,7 +22,6 @@ int eh_vars_proc_func;
 
 int nivel_lexico;
 int desloc;
-int desloc_aux;
 
 int x, y;
 int percorre_vars;
@@ -166,7 +165,7 @@ lista_idents: lista_idents VIRGULA IDENT
 comando_composto: atribuicao comando_composto
             |
             {
-            desloc_aux = desloc;
+            empilha_Deslocamento ( desloc);
             desloc = 0;
             nivel_lexico++;
             } procedimento_ou_funcao comando_composto
@@ -176,7 +175,7 @@ comando_composto: atribuicao comando_composto
 
 comando_composto_2: T_BEGIN comandos T_END
             {
-            desloc = desloc_aux;
+            desloc = desempilha_Deslocamento ();
             nivel_lexico--;
             }
 ;
@@ -512,6 +511,7 @@ main (int argc, char** argv) {
     inicia_variaveis_globais();
     inicia_pilha_tabela_simbolos();
     inicia_pilha_rotulos();
+    inicia_pilha_deslocamentos();
 
     yyin=fp;
     yyparse();

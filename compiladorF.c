@@ -225,3 +225,43 @@ void desempilha_Rotulo ( char **rotulo) {
 
     }
 }
+
+/* Inicia pilha para deslocamentos */
+void inicia_pilha_deslocamentos () {
+
+    p_deslocamentos = malloc( sizeof (pilha_d));
+    p_deslocamentos->primeiro = NULL;
+    p_deslocamentos->tam = 0;
+}
+
+/* Função que empilha deslocamento */
+void empilha_Deslocamento ( int deslocamento ) {
+
+    deslocamentos_p *novo_deslocamento = malloc( sizeof ( deslocamentos_p ));
+
+    novo_deslocamento->deslocamento = deslocamento;
+    novo_deslocamento->prox = p_deslocamentos->primeiro;
+    p_deslocamentos->primeiro = novo_deslocamento;
+    p_deslocamentos->tam++;
+
+}
+
+/* Função que desempilha deslocamentos */
+int desempilha_Deslocamento () {
+
+    deslocamentos_p *deslocamento_retirado;
+
+    if ( p_deslocamentos->tam == 0){
+
+        return -99;
+    }
+    else
+    {
+        deslocamento_retirado = p_deslocamentos->primeiro;
+        p_deslocamentos->primeiro = deslocamento_retirado->prox;
+        p_deslocamentos->tam--;
+
+        return deslocamento_retirado->deslocamento;
+
+    }
+}

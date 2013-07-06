@@ -62,6 +62,19 @@ typedef struct pilha_rotulos {
 } pilha_r;
 
 /* -------------------------------------------------------------------
+ * Pilha de deslocamento
+ * ------------------------------------------------------------------- */
+typedef struct deslocamentos_pilha {
+    int deslocamento;
+    struct deslocamentos_pilha *prox;
+} deslocamentos_p;
+
+typedef struct pilha_deslocamentos {
+    deslocamentos_p *primeiro;
+    int tam;
+} pilha_d;
+
+/* -------------------------------------------------------------------
  * variáveis globais
  * ------------------------------------------------------------------- */
 
@@ -69,8 +82,10 @@ extern simbolos simbolo, relacao;
 extern char token[TAM_TOKEN];
 extern char *dados;
 extern char *categoria;
+
 extern int nivel_lexico;
 extern int desloc;
+
 extern int nl;
 extern int num_vars;
 extern int num_vars_inicial;
@@ -82,4 +97,5 @@ char token[TAM_TOKEN];
 
 pilha_tb_simb *p_tb_simb;
 pilha_r *p_rotulos;
+pilha_d *p_deslocamentos;
 char *rotulo1, *rotulo2; // rotulos
