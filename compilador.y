@@ -122,9 +122,13 @@ lista_idents: lista_idents VIRGULA IDENT
 ;
 
 
-comando_composto: atribuicao T_BEGIN comandos T_END
-            | procedimento T_BEGIN comandos T_END
-            | T_BEGIN comandos T_END
+comando_composto: atribuicao comando_composto
+            | procedimento_ou_funcao comando_composto
+            | comando_composto_2
+;
+
+
+comando_composto_2: T_BEGIN comandos T_END
             {
             }
 ;
@@ -146,34 +150,38 @@ comando_sem_ponto_e_virgula: atribuicao
 ;
 
 
-procedimento: PROCEDIMENTO IDENT procedimento_2 PONTO_E_VIRGULA
+procedimento_ou_funcao: PROCEDIMENTO procedimento_ou_funcao_2
+            | FUNCAO procedimento_ou_funcao_2
+;
+
+procedimento_ou_funcao_2: IDENT procedimento_ou_funcao_3 PONTO_E_VIRGULA
 ;
 
 
-procedimento_2: ABRE_PARENTESES parametros_vars_procedimento FECHA_PARENTESES PONTO_E_VIRGULA procedimento_3
-            | PONTO_E_VIRGULA procedimento_3
+procedimento_ou_funcao_3: ABRE_PARENTESES parametros_vars_proc_ou_func FECHA_PARENTESES PONTO_E_VIRGULA procedimento_ou_funcao_4
+            | PONTO_E_VIRGULA procedimento_ou_funcao_4
 ;
 
 
-procedimento_3: bloco
+procedimento_ou_funcao_4: bloco
 ;
 
 
-parametros_vars_procedimento: vars_procedimento
+parametros_vars_proc_ou_func: vars_proc_ou_func
             |
 ;
 
 
-vars_procedimento: VAR vars_procedimento_2
-            | vars_procedimento_2
+vars_proc_ou_func: VAR vars_proc_ou_func_2
+            | vars_proc_ou_func_2
 
 
-vars_procedimento_2: var_procedimento PONTO_E_VIRGULA vars_procedimento
-            | var_procedimento
+vars_proc_ou_func_2: var_proc_ou_func PONTO_E_VIRGULA vars_proc_ou_func
+            | var_proc_ou_func
 ;
 
 
-var_procedimento: {
+var_proc_ou_func: {
               num_vars_inicial = num_vars;
               }
               lista_id_var DOIS_PONTOS
