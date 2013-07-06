@@ -11,11 +11,19 @@
 #include "compilador.h"
 
 /* Variáveis globais incluidas */
-char dados[TAM_DADOS];
-int num_vars = 0;
-int num_vars_inicial = 0;
-int nivel_lexico = 0;
-int desloc = 0;
+char *dados;
+char *categoria;
+
+int num_vars;
+int num_vars_inicial;
+
+int eh_parametro_referencia;
+int eh_vars_proc_func;
+
+int nivel_lexico;
+int desloc;
+int desloc_aux;
+
 int x, y;
 int percorre_vars;
 
@@ -43,6 +51,11 @@ programa: {
              geraCodigo (NULL, "INPP");
              }
              PROGRAM IDENT
+            {
+            sprintf( categoria, "nome_programa");
+            empilha_Simbolo_TB_SIMB ( token, categoria, 0, 0);
+            insere_tipo_Simbolo_TB_SIMB ( "sem_tipo", 1);
+            }
              ABRE_PARENTESES lista_idents FECHA_PARENTESES PONTO_E_VIRGULA
              bloco PONTO {
              sprintf ( dados, "DMEM %d", num_vars);
@@ -64,7 +77,10 @@ parte_declara_vars: var
 ;
 
 
-var: { } VAR declara_vars
+var: {
+            eh_vars_proc_func = 0;
+            eh_parametro_referencia = 0;
+            } VAR declara_vars
             |
 ;
 
@@ -89,30 +105,55 @@ declara_var: {
 
 tipo: IDENT
             {
-                for( percorre_vars = num_vars_inicial; percorre_vars < num_vars; percorre_vars++){
-                    sprintf ( tb_simb[ percorre_vars ].tipo, "%s", token);
-                }
+                percorre_vars = num_vars - num_vars_inicial;
+                insere_tipo_Simbolo_TB_SIMB ( token, percorre_vars);
             }
 ;
 
 
 lista_id_var: lista_id_var VIRGULA IDENT
             { /* insere última vars na tabela de símbolos */
-            sprintf ( tb_simb[ num_vars ].simbolo, "%s", token);
-            sprintf ( tb_simb[ num_vars ].categoria, "%s", "var_simples");
-            tb_simb[ num_vars ].nivel_lexico = nivel_lexico;
-            tb_simb[ num_vars ].desloc = desloc;
-            desloc++;
-            num_vars++;
+
+            if ( eh_parametro_referencia == 1)
+                sprintf ( categoria, "var_referencia");
+            else
+                sprintf ( categoria, "var_simples");
+
+            if ( eh_vars_proc_func == 1) {
+                procura_simb( token, &x, &y );
+                if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
+                    sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
+                    imprimeErro( dados );
+                    exit(1);
+                }
+            }
+            else {
+                empilha_Simbolo_TB_SIMB ( token, categoria, nivel_lexico, desloc);
+                desloc++;
+                num_vars++;
+            }
             }
             | IDENT
             { /* insere vars na tabela de símbolos */
-            sprintf ( tb_simb[ num_vars ].simbolo, "%s", token);
-            sprintf ( tb_simb[ num_vars ].categoria, "%s", "var_simples");
-            tb_simb[ num_vars ].nivel_lexico = nivel_lexico;
-            tb_simb[ num_vars ].desloc = desloc;
-            desloc++;
-            num_vars++;
+
+            if ( eh_parametro_referencia == 1)
+                sprintf ( categoria, "var_referencia");
+            else
+                sprintf ( categoria, "var_simples");
+
+            if ( eh_vars_proc_func == 1) {
+                procura_simb( token, &x, &y );
+                if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
+                    sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
+                    imprimeErro( dados );
+                    exit(1);
+                }
+            }
+            else {
+                empilha_Simbolo_TB_SIMB ( token, categoria, nivel_lexico, desloc);
+                desloc++;
+                num_vars++;
+            }
             }
 ;
 
@@ -123,13 +164,20 @@ lista_idents: lista_idents VIRGULA IDENT
 
 
 comando_composto: atribuicao comando_composto
-            | procedimento_ou_funcao comando_composto
+            |
+            {
+            desloc_aux = desloc;
+            desloc = 0;
+            nivel_lexico++;
+            } procedimento_ou_funcao comando_composto
             | comando_composto_2
 ;
 
 
 comando_composto_2: T_BEGIN comandos T_END
             {
+            desloc = desloc_aux;
+            nivel_lexico--;
             }
 ;
 
@@ -167,13 +215,21 @@ procedimento_ou_funcao_4: bloco
 ;
 
 
-parametros_vars_proc_ou_func: vars_proc_ou_func
+parametros_vars_proc_ou_func:{
+            eh_vars_proc_func = 1;
+            } vars_proc_ou_func
             |
 ;
 
 
-vars_proc_ou_func: VAR vars_proc_ou_func_2
-            | vars_proc_ou_func_2
+vars_proc_ou_func: VAR
+            {
+                eh_parametro_referencia = 1;
+            } vars_proc_ou_func_2
+            |
+            {
+                eh_parametro_referencia = 0;
+            } vars_proc_ou_func_2
 
 
 vars_proc_ou_func_2: var_proc_ou_func PONTO_E_VIRGULA vars_proc_ou_func
@@ -430,36 +486,35 @@ void yyerror (char const *message)
 }
 
 main (int argc, char** argv) {
-   FILE* fp;
-   extern FILE* yyin;
+    FILE* fp;
+    extern FILE* yyin;
 
-   if (argc<2 || argc>2) {
-         printf("usage compilador <arq>a %d\n", argc);
-         return(-1);
-      }
+    if (argc<2 || argc>2) {
+        printf("usage compilador <arq>a %d\n", argc);
 
-   fp=fopen (argv[1], "r");
-   if (fp == NULL) {
-      printf("usage compilador <arq>b\n");
-      return(-1);
-   }
+        return(-1);
+
+    }
+
+    fp=fopen (argv[1], "r");
+    if (fp == NULL) {
+        printf("usage compilador <arq>b\n");
+
+        return(-1);
+
+    }
 
 
 /* -------------------------------------------------------------------
  *  Inicia a Tabela de Símbolos
  * ------------------------------------------------------------------- */
-  tb_simb = malloc( sizeof( tabela_simbolos) * TAM_TB_SIMB);
-  inicia_pilha();
 
-   yyin=fp;
-   yyparse();
+    inicia_variaveis_globais();
+    inicia_pilha_tabela_simbolos();
+    inicia_pilha_rotulos();
 
-/* Impressão da tabela de simbolos */
-    int i;
-    printf("\n\nTABELA DE SIMBOLOS\n\n");
-    for( i = 0; i < TAM_TB_SIMB ; i++ ){
-        printf( "| %s | %s | %d | %d | %s |\n", tb_simb[i].simbolo, tb_simb[i].categoria, tb_simb[i].nivel_lexico, tb_simb[i].desloc, tb_simb[i].tipo);
-    }
+    yyin=fp;
+    yyparse();
 
-   return 0;
+    return 0;
 }
