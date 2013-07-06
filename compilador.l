@@ -239,6 +239,12 @@ procedure { simbolo = simb_procedimento;
           return PROCEDIMENTO;
  }
 
+function { simbolo = simb_funcao;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" funcao ");
+          return FUNCAO;
+ }
+
 {ident} { simbolo = simb_identificador;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" ident  ");

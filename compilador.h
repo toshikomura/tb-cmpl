@@ -24,7 +24,7 @@ typedef enum simbolos {
   simb_soma, simb_subtracao, simb_multiplicacao, simb_divisao,
   simb_igual, simb_diferente, simb_maior, simb_menor, simb_nao, simb_e, simb_ou,
   simb_enquanto, simb_para, simb_faca, simb_repita, simb_ate, simb_se, simb_entao, simb_senao,
-  simb_procedimento
+  simb_procedimento, simb_funcao
 } simbolos;
 
 
