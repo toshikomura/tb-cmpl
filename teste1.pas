@@ -2,8 +2,8 @@ program exemplo75 (input, output);
 var m,n :  integer;
 
 procedure p;
-  procedure c;
-    procedure l;
+  procedure c () ;
+    procedure l ( m , n  : integer);
     begin
     end;
 
