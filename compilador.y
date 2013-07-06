@@ -164,7 +164,7 @@ parametros_vars_procedimento: vars_procedimento
 ;
 
 
-vars_procedimento: vars_procedimento var_procedimento
+vars_procedimento: var_procedimento PONTO_E_VIRGULA vars_procedimento
             | var_procedimento
 ;
 
