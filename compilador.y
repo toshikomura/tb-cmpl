@@ -13,6 +13,7 @@
 /* Variáveis globais incluidas */
 char *dados;
 char *categoria;
+char *tipo;
 
 int num_vars;
 int num_vars_inicial;
@@ -54,17 +55,18 @@ programa: {
              ABRE_PARENTESES lista_idents FECHA_PARENTESES PONTO_E_VIRGULA
              bloco PONTO {
              sprintf ( dados, "DMEM %d", num_vars);
-             geraCodigo( NULL, dados);
-             geraCodigo (NULL, "PARA");
+             geraCodigo ( NULL, dados);
+             geraCodigo ( NULL, "PARA");
              }
 ;
 
 
 sem_tipo: IDENT
             {
-            sprintf( categoria, "nome_programa");
-            empilha_Simbolo_TB_SIMB ( token, categoria, 0, 0);
-            insere_tipo_Simbolo_TB_SIMB ( "sem_tipo", 1);
+            sprintf ( categoria, "nome_programa");
+            sprintf ( tipo, "sem_tipo");
+            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, 0, 0);
+            insere_tipo_Simbolo_TB_SIMB ( tipo, 1);
             }
 ;
 
@@ -101,7 +103,7 @@ declara_var: {
               tipo
               { /* AMEM */
               sprintf ( dados, "AMEM %d", num_vars);
-              geraCodigo( NULL, dados);
+              geraCodigo ( NULL, dados);
               }
               PONTO_E_VIRGULA
 ;
@@ -130,15 +132,15 @@ lista_id_var: lista_id_var VIRGULA IDENT
                 sprintf ( categoria, "var_simples");
 
             if ( eh_vars_proc_func == 1) {
-                procura_simb( token, &x, &y );
-                if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
+                procura_simb ( token, &x, &y, &tipo);
+                if ( x == -99 ) { // numero -99 indica que nao encontrou simb na tabela
                     sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
-                    imprimeErro( dados );
-                    exit(1);
+                    imprimeErro ( dados);
+                    exit ( 1);
                 }
             }
             else {
-                empilha_Simbolo_TB_SIMB ( token, categoria, nivel_lexico, desloc);
+                empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
                 desloc++;
                 num_vars++;
             }
@@ -152,15 +154,15 @@ lista_id_var: lista_id_var VIRGULA IDENT
                 sprintf ( categoria, "var_simples");
 
             if ( eh_vars_proc_func == 1) {
-                procura_simb( token, &x, &y );
+                procura_simb ( token, &x, &y, &tipo );
                 if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
                     sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
                     imprimeErro( dados );
-                    exit(1);
+                    exit ( 1);
                 }
             }
             else {
-                empilha_Simbolo_TB_SIMB ( token, categoria, nivel_lexico, desloc);
+                empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
                 desloc++;
                 num_vars++;
             }
@@ -173,7 +175,7 @@ lista_idents: lista_idents VIRGULA IDENT
 ;
 
 
-comando_composto: atribuicao bloco
+comando_composto: IDENT atribuicao bloco
             | procedimento_ou_funcao bloco
             | comando_composto_2
 ;
@@ -183,36 +185,43 @@ comando_composto_2: T_BEGIN comandos T_END
 ;
 
 
-comandos: atribuicao PONTO_E_VIRGULA comandos
+comandos: atrib_proc_func PONTO_E_VIRGULA comandos
             | repeticao PONTO_E_VIRGULA comandos
             | condicao PONTO_E_VIRGULA comandos
-            | atribuicao PONTO_E_VIRGULA
+            | atrib_proc_func PONTO_E_VIRGULA
             | repeticao PONTO_E_VIRGULA
             | condicao PONTO_E_VIRGULA
             |
 ;
 
 
-comando_sem_ponto_e_virgula: atribuicao
+comando_sem_ponto_e_virgula: atrib_proc_func
             | repeticao
             | condicao
 ;
 
 
-procedimento_ou_funcao: PROCEDIMENTO procedimento_ou_funcao_2 PONTO_E_VIRGULA procedimento_ou_funcao_4
-            | FUNCAO procedimento_ou_funcao_2 DOIS_PONTOS tipo_retorno_func PONTO_E_VIRGULA procedimento_ou_funcao_4
+procedimento_ou_funcao: PROCEDIMENTO IDENT
+            {
+            sprintf ( categoria, "procedimento");
+            gera_Proximo_Rotulo ( &rotulo1);
+            empilha_Simbolo_TB_SIMB ( token, categoria, rotulo1, nivel_lexico, desloc);
+            } procedimento_ou_funcao_2 PONTO_E_VIRGULA procedimento_ou_funcao_3
+            | FUNCAO IDENT
+            {
+            sprintf ( categoria, "funcao");
+            gera_Proximo_Rotulo ( &rotulo1);
+            empilha_Simbolo_TB_SIMB ( token, categoria, rotulo1, nivel_lexico, desloc);
+            } procedimento_ou_funcao_2 DOIS_PONTOS tipo_retorno_func PONTO_E_VIRGULA procedimento_ou_funcao_3
 ;
 
-procedimento_ou_funcao_2: IDENT procedimento_ou_funcao_3
-;
 
-
-procedimento_ou_funcao_3: ABRE_PARENTESES parametros_vars_proc_ou_func FECHA_PARENTESES
+procedimento_ou_funcao_2: ABRE_PARENTESES parametros_vars_proc_ou_func FECHA_PARENTESES
             |
 ;
 
 
-procedimento_ou_funcao_4:
+procedimento_ou_funcao_3:
             {
             empilha_Deslocamento ( desloc);
             desloc = 0;
@@ -254,123 +263,177 @@ var_proc_ou_func: {
               tipo
               { /* AMEM */
               sprintf ( dados, "AMEM %d", num_vars);
-              geraCodigo( NULL, dados);
+              geraCodigo ( NULL, dados);
               }
 ;
 
 
-atribuicao: IDENT
+atrib_proc_func: IDENT
             {
-            procura_simb( token, &x, &y );
+            procura_simb ( token, &x, &y, &tipo );
             if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
                 sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
-                imprimeErro( dados );
-                exit(1);
+                imprimeErro ( dados );
+                exit ( 1);
             }
-            } ATRIBUICAO expressao_aritmetica
+            sprintf ( dados, "%s", token);
+            } atrib_proc_func_2
+;
+
+
+atrib_proc_func_2: atribuicao
+            | chama_procedimento
+            | chama_funcao
+;
+
+
+atribuicao: ATRIBUICAO expressao_aritmetica
             {
-            sprintf( dados, "ARMZ %d, %d", x, y);
-            geraCodigo( NULL, dados );
+            sprintf ( dados, "ARMZ %d, %d", x, y);
+            geraCodigo ( NULL, dados );
             }
+;
+
+
+chama_procedimento: {
+            sprintf ( categoria, "procedimento");
+            if ( procura_cat ( dados, categoria, &rotulo1) == -99 ) {
+                sprintf ( dados, "Procedimento '%s' nao foi declarada", dados);
+                imprimeErro ( dados);
+                exit ( 1);
+            }
+            } chama_proc_func
+;
+
+
+chama_funcao: {
+            sprintf ( categoria, "funcao");
+            if ( procura_cat ( dados, categoria, &rotulo1) == -99 ) {
+                sprintf ( dados, "Funcao '%s' nao foi declarada", dados);
+                imprimeErro ( dados);
+                exit ( 1);
+            }
+            sprintf ( dados, "AMEN 1");
+            geraCodigo ( NULL, dados );
+            } chama_proc_func
+;
+
+
+chama_proc_func: ABRE_PARENTESES lista_id_var_parametro FECHA_PARENTESES PONTO_E_VIRGULA chama_proc_func_2
+            | PONTO_E_VIRGULA chama_proc_func_2
+;
+
+
+chama_proc_func_2:
+            {
+            sprintf ( dados, "CHPR %s, %d", rotulo1, nivel_lexico);
+            geraCodigo ( NULL, dados );
+            }
+;
+
+
+lista_id_var_parametro: lista_id_var_parametro VIRGULA IDENT
+            | IDENT
+            |
 ;
 
 
 repeticao: ENQUANTO
             {
-            gera_Proximo_Rotulo( &rotulo1 );
-            empilha_Rotulo( rotulo1 );
-            geraCodigo( rotulo1, "NADA");
+            gera_Proximo_Rotulo ( &rotulo1);
+            empilha_Rotulo ( rotulo1);
+            geraCodigo ( rotulo1, "NADA");
             } repeticao_2
 ;
 
 repeticao_2: ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES FACA
             {
-            gera_Proximo_Rotulo( &rotulo2 );
-            empilha_Rotulo( rotulo2 );
-            sprintf( dados, "DSVF %s", rotulo2 );
-            geraCodigo( NULL, dados);
+            gera_Proximo_Rotulo ( &rotulo2);
+            empilha_Rotulo ( rotulo2);
+            sprintf ( dados, "DSVF %s", rotulo2);
+            geraCodigo ( NULL, dados);
             } repeticao_3
             | expressao_booleana_geral FACA
             {
-            gera_Proximo_Rotulo( &rotulo2 );
-            empilha_Rotulo( rotulo2 );
-            sprintf( dados, "DSVF %s", rotulo2 );
-            geraCodigo( NULL, dados);
+            gera_Proximo_Rotulo ( &rotulo2);
+            empilha_Rotulo ( rotulo2);
+            sprintf ( dados, "DSVF %s", rotulo2);
+            geraCodigo ( NULL, dados);
             } repeticao_3
 ;
 
 
 repeticao_3: comando_sem_ponto_e_virgula
             {
-            desempilha_Rotulo( &rotulo2 );
-            desempilha_Rotulo( &rotulo1 );
-            sprintf( dados, "DSVS %s", rotulo1 );
-            geraCodigo( NULL, dados);
-            geraCodigo( rotulo2, "NADA");
+            desempilha_Rotulo ( &rotulo2);
+            desempilha_Rotulo ( &rotulo1);
+            sprintf ( dados, "DSVS %s", rotulo1);
+            geraCodigo ( NULL, dados);
+            geraCodigo ( rotulo2, "NADA");
             }
-            | comando_composto
+            | comando_composto_2
             {
-            desempilha_Rotulo( &rotulo2 );
-            desempilha_Rotulo( &rotulo1 );
-            sprintf( dados, "DSVS %s", rotulo1 );
-            geraCodigo( NULL, dados);
-            geraCodigo( rotulo2, "NADA");
+            desempilha_Rotulo ( &rotulo2);
+            desempilha_Rotulo ( &rotulo1);
+            sprintf ( dados, "DSVS %s", rotulo1);
+            geraCodigo ( NULL, dados);
+            geraCodigo ( rotulo2, "NADA");
             }
 ;
 
 
 condicao: SE condicao_se_entao
             {
-            desempilha_Rotulo( &rotulo2 );
-            geraCodigo( rotulo2, "NADA");
+            desempilha_Rotulo ( &rotulo2);
+            geraCodigo ( rotulo2, "NADA");
             }
             | SE condicao_se_entao condicao_senao
             {
-            desempilha_Rotulo( &rotulo2 );
-            geraCodigo( rotulo2, "NADA");
+            desempilha_Rotulo ( &rotulo2);
+            geraCodigo ( rotulo2, "NADA");
             }
 ;
 
 
 condicao_se_entao: ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES ENTAO
             {
-            gera_Proximo_Rotulo( &rotulo1 );
-            empilha_Rotulo( rotulo1 );
-            sprintf( dados, "DSVF %s", rotulo1 );
-            geraCodigo( NULL, dados);
+            gera_Proximo_Rotulo ( &rotulo1);
+            empilha_Rotulo ( rotulo1);
+            sprintf ( dados, "DSVF %s", rotulo1);
+            geraCodigo ( NULL, dados);
             } condicao_se_entao_2
             | expressao_booleana_geral ENTAO
             {
-            gera_Proximo_Rotulo( &rotulo1 );
-            empilha_Rotulo( rotulo1 );
-            sprintf( dados, "DSVF %s", rotulo1 );
-            geraCodigo( NULL, dados);
+            gera_Proximo_Rotulo ( &rotulo1);
+            empilha_Rotulo ( rotulo1);
+            sprintf ( dados, "DSVF %s", rotulo1);
+            geraCodigo(  NULL, dados);
             } condicao_se_entao_2
 ;
 
 
 condicao_se_entao_2: comando_sem_ponto_e_virgula
-            | comando_composto
+            | comando_composto_2
 ;
 
 
 condicao_senao: SENAO
             {
-            desempilha_Rotulo( &rotulo1 );
+            desempilha_Rotulo ( &rotulo1);
 
-            gera_Proximo_Rotulo( &rotulo2 );
-            empilha_Rotulo( rotulo2 );
-            sprintf( dados, "DSVS %s", rotulo2 );
-            geraCodigo( NULL, dados);
+            gera_Proximo_Rotulo ( &rotulo2);
+            empilha_Rotulo ( rotulo2);
+            sprintf ( dados, "DSVS %s", rotulo2);
+            geraCodigo ( NULL, dados);
 
-            geraCodigo( rotulo1, "NADA");
+            geraCodigo ( rotulo1, "NADA");
             } condicao_senao_2
             | %prec LOWER_THEN_ELSE
 ;
 
 
 condicao_senao_2: comando_sem_ponto_e_virgula
-            | comando_composto
+            | comando_composto_2
 ;
 
 
@@ -400,19 +463,19 @@ expressao_termo: expressao_termo MULTIPLICACAO expressao_fator
 
 expressao_fator: IDENT
             {
-            procura_simb( token, &x, &y );
+            procura_simb( token, &x, &y, &tipo );
             if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
                 sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
-                imprimeErro( dados );
-                exit(1);
+                imprimeErro ( dados);
+                exit ( 1);
             }
-            sprintf( dados, "CRVL %d, %d", x, y);
-            geraCodigo (NULL, dados);
+            sprintf ( dados, "CRVL %d, %d", x, y);
+            geraCodigo ( NULL, dados);
             }
             | NUMERO
             {
             sprintf ( dados, "CRCT %s", token);
-            geraCodigo (NULL, dados);
+            geraCodigo ( NULL, dados);
             }
             | ABRE_PARENTESES expressao_aritmetica FECHA_PARENTESES
 ;
@@ -421,47 +484,47 @@ expressao_fator: IDENT
 expressao_booleana_geral: expressao_booleana
             | NAO expressao_booleana
             {
-            geraCodigo (NULL, "INVR");
+            geraCodigo ( NULL, "INVR");
             }
 ;
 
 
 expressao_booleana: expressao_booleana IGUAL expressao_fator2
             {
-            geraCodigo (NULL, "CMIG");
+            geraCodigo ( NULL, "CMIG");
             }
             | expressao_booleana DIFERENTE expressao_fator2
             {
-            geraCodigo (NULL, "CMDG");
+            geraCodigo ( NULL, "CMDG");
             }
             | expressao_booleana MAIOR expressao_fator2
             {
-            geraCodigo (NULL, "CMMA");
+            geraCodigo ( NULL, "CMMA");
             }
             | expressao_booleana MAIOR IGUAL expressao_fator2
             {
-            geraCodigo (NULL, "CMAG");
+            geraCodigo ( NULL, "CMAG");
             }
             | expressao_booleana MENOR expressao_fator2
             {
-            geraCodigo (NULL, "CMME");
+            geraCodigo ( NULL, "CMME");
             }
             | expressao_booleana MENOR IGUAL expressao_fator2
             {
-            geraCodigo (NULL, "CMEG");
+            geraCodigo ( NULL, "CMEG");
             }
             | expressao_booleana E expressao_fator2
             {
-            geraCodigo (NULL, "CONJ");
+            geraCodigo ( NULL, "CONJ");
             }
             | expressao_booleana OU expressao_fator2
             {
-            geraCodigo (NULL, "DISJ");
+            geraCodigo ( NULL, "DISJ");
             }
             | expressao_booleana E NAO expressao_fator2
             {
-            geraCodigo (NULL, "INVR");
-            geraCodigo (NULL, "CONJ");
+            geraCodigo ( NULL, "INVR");
+            geraCodigo ( NULL, "CONJ");
             }
             | expressao_fator2
 ;
@@ -469,19 +532,19 @@ expressao_booleana: expressao_booleana IGUAL expressao_fator2
 
 expressao_fator2: IDENT
             {
-            procura_simb( token, &x, &y );
+            procura_simb ( token, &x, &y, &tipo );
             if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
                 sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
-                imprimeErro( dados );
-                exit(1);
+                imprimeErro ( dados );
+                exit ( 1);
             }
-            sprintf( dados, "CRVL %d, %d", x, y);
-            geraCodigo (NULL, dados);
+            sprintf ( dados, "CRVL %d, %d", x, y);
+            geraCodigo ( NULL, dados);
             }
             | NUMERO
             {
             sprintf ( dados, "CRCT %s", token);
-            geraCodigo (NULL, dados);
+            geraCodigo ( NULL, dados);
             }
             | ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES
 ;
@@ -489,28 +552,28 @@ expressao_fator2: IDENT
 
 %%
 
-void yyerror (char const *message)
+void yyerror ( char const *message)
 {
-    fputs (message, stderr);
-    fputc ('\n', stderr);
+    fputs ( message, stderr);
+    fputc ( '\n', stderr);
 }
 
-main (int argc, char** argv) {
+main ( int argc, char** argv) {
     FILE* fp;
     extern FILE* yyin;
 
-    if (argc<2 || argc>2) {
-        printf("usage compilador <arq>a %d\n", argc);
+    if ( argc < 2 || argc > 2) {
+        printf ( "usage compilador <arq>a %d\n", argc);
 
-        return(-1);
+        return ( -1);
 
     }
 
-    fp=fopen (argv[1], "r");
-    if (fp == NULL) {
-        printf("usage compilador <arq>b\n");
+    fp = fopen ( argv [ 1], "r");
+    if ( fp == NULL) {
+        printf ( "usage compilador <arq>b\n");
 
-        return(-1);
+        return ( -1);
 
     }
 
@@ -519,13 +582,13 @@ main (int argc, char** argv) {
  *  Inicia a Tabela de Símbolos
  * ------------------------------------------------------------------- */
 
-    inicia_variaveis_globais();
-    inicia_pilha_tabela_simbolos();
-    inicia_pilha_rotulos();
-    inicia_pilha_deslocamentos();
+    inicia_variaveis_globais ();
+    inicia_pilha_tabela_simbolos ();
+    inicia_pilha_rotulos ();
+    inicia_pilha_deslocamentos ();
 
-    yyin=fp;
-    yyparse();
+    yyin = fp;
+    yyparse ();
 
     return 0;
 }
