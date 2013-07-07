@@ -39,6 +39,7 @@ void inicia_variaveis_globais () {
 
     dados = malloc ( sizeof (char)*TAM_TOKEN);
     categoria = malloc ( sizeof (char)*TAM_TOKEN);
+    tipo = malloc ( sizeof (char)*TAM_TOKEN);
 
 }
 
@@ -86,7 +87,7 @@ void imprime_Simbolo_TB_SIMB () {
 }
 
 /* Função que insere um simbolo na tabela de simbolos */
-void empilha_Simbolo_TB_SIMB ( char *simb, char *ca, int nivel_l, int des) {
+void empilha_Simbolo_TB_SIMB ( char *simb, char *ca, char *rot, int nivel_l, int des) {
 
     char *simbol = malloc ( sizeof ( char)*TAM_TOKEN);
     char *cate = malloc ( sizeof ( char)*TAM_TOKEN);
@@ -98,6 +99,8 @@ void empilha_Simbolo_TB_SIMB ( char *simb, char *ca, int nivel_l, int des) {
 
     novo_slot_tb_simb->simbolo = simbol;
     novo_slot_tb_simb->categoria = cate;
+    novo_slot_tb_simb->rotulo = rot;
+
     novo_slot_tb_simb->nivel_lexico = nivel_l;
     novo_slot_tb_simb->desloc = des;
 
@@ -153,11 +156,10 @@ void desempilha_Simbolo_TB_SIMB ( char **simb) {
 }
 
 /* Função que procura um simbolo na tabela de simbolos */
-/* Se encontra retorna o nivel e deslocamento */
-/* Se não encontra retorna NULL */
-procura_simb ( char *simb, int *nivel_lexico, int *desloc ) {
+/* Se encontra retorna o nivel e deslocamento pelo parametros */
+/* Se não encontra retorna -99 */
+void procura_simb ( char *simb, int *nivel_lexico, int *desloc, char **tip ) {
 
-    int i;
     *nivel_lexico = -99; // valor nao muda se nao encontrar simb na tabela
     *desloc = -99;
 
@@ -170,8 +172,29 @@ procura_simb ( char *simb, int *nivel_lexico, int *desloc ) {
     if ( slot_tb_simb_aux != NULL){
         *nivel_lexico = slot_tb_simb_aux->nivel_lexico;
         *desloc = slot_tb_simb_aux->desloc;
+        *tip = slot_tb_simb_aux->tipo;
     }
 
+}
+
+/* Função que procura um simbolo de uma certa categoria na tabela de simbolos */
+/* Se encontra retorna 1 */
+/* Se não encontra retorna -99 */
+int procura_cat ( char *simb, char *cat, char **rot) {
+
+    no_tabela_simbolos_p *slot_tb_simb_aux = p_tb_simb->primeiro;
+
+    while ( slot_tb_simb_aux != NULL && strcmp( slot_tb_simb_aux->simbolo, simb ) && strcmp( slot_tb_simb_aux->categoria, cat ) ){
+        printf ( "valor %s %s", slot_tb_simb_aux->simbolo, slot_tb_simb_aux->categoria);
+        slot_tb_simb_aux = slot_tb_simb_aux->prox;
+    }
+
+    if ( slot_tb_simb_aux != NULL) {
+        *rot = slot_tb_simb_aux->rotulo;
+        return 1;
+    }
+    else
+        return -99;
 }
 
 /* Função que gera próximo rotulo */
