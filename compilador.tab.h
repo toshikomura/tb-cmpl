@@ -71,7 +71,8 @@
      SENAO = 289,
      PROCEDIMENTO = 290,
      FUNCAO = 291,
-     LOWER_THEN_ELSE = 292
+     TIPO_INTEIRO = 292,
+     LOWER_THEN_ELSE = 293
    };
 #endif
 
