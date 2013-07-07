@@ -40,6 +40,7 @@ void inicia_variaveis_globais () {
     dados = malloc ( sizeof (char)*TAM_TOKEN);
     categoria = malloc ( sizeof (char)*TAM_TOKEN);
     tipo = malloc ( sizeof (char)*TAM_TOKEN);
+    tipo_parametro = malloc ( sizeof (char)*TAM_TOKEN);
 
 }
 
@@ -80,26 +81,29 @@ void imprime_Simbolo_TB_SIMB () {
 
     slot_tb_simb_aux = p_tb_simb->primeiro;
     while ( slot_tb_simb_aux != NULL) {
-        printf("|| %s | %s | %s | %d | %d ||\n", slot_tb_simb_aux->simbolo, slot_tb_simb_aux->tipo, slot_tb_simb_aux->categoria, slot_tb_simb_aux->nivel_lexico, slot_tb_simb_aux->desloc);
+        printf("|| %s | %s | %s | %s | %d | %d ||\n", slot_tb_simb_aux->simbolo, slot_tb_simb_aux->tipo, slot_tb_simb_aux->categoria, slot_tb_simb_aux->tipo_parametro, slot_tb_simb_aux->nivel_lexico, slot_tb_simb_aux->desloc);
         slot_tb_simb_aux = slot_tb_simb_aux->prox;
     }
 
 }
 
 /* Função que insere um simbolo na tabela de simbolos */
-void empilha_Simbolo_TB_SIMB ( char *simb, char *ca, char *rot, int nivel_l, int des) {
+void empilha_Simbolo_TB_SIMB ( char *simb, char *ca, char *rot, char *ti_para, int nivel_l, int des) {
 
     char *simbol = malloc ( sizeof ( char)*TAM_TOKEN);
     char *cate = malloc ( sizeof ( char)*TAM_TOKEN);
+    char *tip_param = malloc ( sizeof ( char)*TAM_TOKEN);
 
     strcpy( simbol, simb);
     strcpy( cate, ca);
+    strcpy( tip_param, ti_para);
 
     no_tabela_simbolos_p *novo_slot_tb_simb = malloc( sizeof ( no_tabela_simbolos_p ));
 
     novo_slot_tb_simb->simbolo = simbol;
     novo_slot_tb_simb->categoria = cate;
     novo_slot_tb_simb->rotulo = rot;
+    novo_slot_tb_simb->tipo_parametro = tip_param;
 
     novo_slot_tb_simb->nivel_lexico = nivel_l;
     novo_slot_tb_simb->desloc = des;

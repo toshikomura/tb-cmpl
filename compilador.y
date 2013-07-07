@@ -14,6 +14,7 @@
 char *dados;
 char *categoria;
 char *tipo;
+char *tipo_parametro;
 
 int num_vars;
 int num_vars_inicial;
@@ -65,7 +66,8 @@ sem_tipo: IDENT
             {
             sprintf ( categoria, "nome_programa");
             sprintf ( tipo, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, 0, 0);
+            sprintf ( tipo_parametro, "sem_tipo");
+            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, tipo_parametro, 0, 0);
             insere_tipo_Simbolo_TB_SIMB ( tipo, 1);
             }
 ;
@@ -125,47 +127,19 @@ tipo_retorno_func: TIPO_INTEIRO
 
 lista_id_var: lista_id_var VIRGULA IDENT
             { /* insere última vars na tabela de símbolos */
-
-            if ( eh_parametro_referencia == 1)
-                sprintf ( categoria, "var_referencia");
-            else
-                sprintf ( categoria, "var_simples");
-
-            if ( eh_vars_proc_func == 1) {
-                procura_simb ( token, &x, &y, &tipo);
-                if ( x == -99 ) { // numero -99 indica que nao encontrou simb na tabela
-                    sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
-                    imprimeErro ( dados);
-                    exit ( 1);
-                }
-            }
-            else {
-                empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
-                desloc++;
-                num_vars++;
-            }
+            sprintf ( categoria, "var_simples");
+            sprintf ( tipo_parametro, "sem_tipo");
+            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, tipo_parametro, nivel_lexico, desloc);
+            desloc++;
+            num_vars++;
             }
             | IDENT
             { /* insere vars na tabela de símbolos */
-
-            if ( eh_parametro_referencia == 1)
-                sprintf ( categoria, "var_referencia");
-            else
-                sprintf ( categoria, "var_simples");
-
-            if ( eh_vars_proc_func == 1) {
-                procura_simb ( token, &x, &y, &tipo );
-                if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
-                    sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
-                    imprimeErro( dados );
-                    exit ( 1);
-                }
-            }
-            else {
-                empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
-                desloc++;
-                num_vars++;
-            }
+            sprintf ( categoria, "var_simples");
+            sprintf ( tipo_parametro, "sem_tipo");
+            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, tipo_parametro, nivel_lexico, desloc);
+            desloc++;
+            num_vars++;
             }
 ;
 
@@ -204,14 +178,16 @@ comando_sem_ponto_e_virgula: atrib_proc_func
 procedimento_ou_funcao: PROCEDIMENTO IDENT
             {
             sprintf ( categoria, "procedimento");
+            sprintf ( tipo_parametro, "sem_tipo");
             gera_Proximo_Rotulo ( &rotulo1);
-            empilha_Simbolo_TB_SIMB ( token, categoria, rotulo1, nivel_lexico, desloc);
+            empilha_Simbolo_TB_SIMB ( token, categoria, rotulo1, tipo_parametro, nivel_lexico, desloc);
             } procedimento_ou_funcao_2 PONTO_E_VIRGULA procedimento_ou_funcao_3
             | FUNCAO IDENT
             {
             sprintf ( categoria, "funcao");
+            sprintf ( tipo_parametro, "sem_tipo");
             gera_Proximo_Rotulo ( &rotulo1);
-            empilha_Simbolo_TB_SIMB ( token, categoria, rotulo1, nivel_lexico, desloc);
+            empilha_Simbolo_TB_SIMB ( token, categoria, rotulo1, tipo_parametro, nivel_lexico, desloc);
             } procedimento_ou_funcao_2 DOIS_PONTOS tipo_retorno_func PONTO_E_VIRGULA procedimento_ou_funcao_3
 ;
 
@@ -257,14 +233,53 @@ vars_proc_ou_func_2: var_proc_ou_func PONTO_E_VIRGULA vars_proc_ou_func
 
 
 var_proc_ou_func: {
-              num_vars_inicial = num_vars;
-              }
-              lista_id_var DOIS_PONTOS
-              tipo
-              { /* AMEM */
-              sprintf ( dados, "AMEM %d", num_vars);
-              geraCodigo ( NULL, dados);
-              }
+            num_vars_inicial = num_vars;
+            }
+            lista_id_var_proc_ou_func DOIS_PONTOS
+            tipo
+            { /* AMEM */
+            sprintf ( dados, "AMEM %d", num_vars);
+            geraCodigo ( NULL, dados);
+            }
+;
+
+
+lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA IDENT
+            {
+            procura_simb ( token, &x, &y, &tipo);
+            if ( x == -99 ) { // numero -99 indica que nao encontrou simb na tabela
+                sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
+                imprimeErro ( dados);
+                exit ( 1);
+            }
+
+            if ( eh_parametro_referencia == 1)
+                sprintf ( tipo_parametro, "var_referencia");
+            else
+                sprintf ( tipo_parametro, "var_valor");
+
+            sprintf ( categoria, "parametro_formal");
+            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, tipo_parametro, nivel_lexico, desloc);
+            num_vars++;
+            }
+            | IDENT
+            {
+            procura_simb ( token, &x, &y, &tipo);
+            if ( x == -99 ) { // numero -99 indica que nao encontrou simb na tabela
+                sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
+                imprimeErro ( dados);
+                exit ( 1);
+            }
+
+            if ( eh_parametro_referencia == 1)
+                sprintf ( tipo_parametro, "var_referencia");
+            else
+                sprintf ( tipo_parametro, "var_valor");
+
+            sprintf ( categoria, "parametro_formal");
+            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, tipo_parametro, nivel_lexico, desloc);
+            num_vars++;
+            }
 ;
 
 

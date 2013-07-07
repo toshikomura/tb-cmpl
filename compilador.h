@@ -38,6 +38,7 @@ typedef struct no_tabela_simbolos {
     char *simbolo;
     char *tipo;
     char *categoria;
+    char *tipo_parametro;
     char *rotulo;
     int qtd_parametros;
     int nivel_lexico;
@@ -85,6 +86,7 @@ extern char token[TAM_TOKEN];
 extern char *dados;
 extern char *categoria;
 extern char *tipo;
+extern char *tipo_parametro;
 
 extern int nivel_lexico;
 extern int desloc;
