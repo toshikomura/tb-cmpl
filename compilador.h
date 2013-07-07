@@ -39,6 +39,7 @@ typedef struct no_tabela_simbolos {
     char *tipo;
     char *categoria;
     char *tipo_parametro;
+    char *tipo_retorno;
     char *rotulo;
     int qtd_parametros;
     int nivel_lexico;
@@ -87,9 +88,12 @@ extern char *dados;
 extern char *categoria;
 extern char *tipo;
 extern char *tipo_parametro;
+extern char *tipo_retorno;
+extern char *nome_proc_func;
 
 extern int nivel_lexico;
 extern int desloc;
+extern int qtd_parametros;
 
 extern int nl;
 extern int num_vars;
