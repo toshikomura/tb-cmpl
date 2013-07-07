@@ -78,6 +78,9 @@
 char *dados;
 char *categoria;
 char *tipo;
+char *tipo_parametro;
+char *tipo_retorno;
+char *nome_proc_func;
 
 int num_vars;
 int num_vars_inicial;
@@ -87,6 +90,7 @@ int eh_vars_proc_func;
 
 int nivel_lexico;
 int desloc;
+int qtd_parametros;
 
 int x, y;
 int percorre_vars;
@@ -97,7 +101,7 @@ void yyerror (char const *);
 
 
 /* Line 268 of yacc.c  */
-#line 101 "compilador.tab.c"
+#line 105 "compilador.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -177,7 +181,7 @@ typedef int YYSTYPE;
 
 
 /* Line 343 of yacc.c  */
-#line 181 "compilador.tab.c"
+#line 185 "compilador.tab.c"
 
 #ifdef short
 # undef short
@@ -396,16 +400,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  3
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   162
+#define YYLAST   166
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  39
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  66
+#define YYNNTS  69
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  115
+#define YYNRULES  119
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  190
+#define YYNSTATES  195
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
@@ -457,15 +461,15 @@ static const yytype_uint16 yyprhs[] =
        0,     0,     3,     4,    14,    16,    17,    21,    23,    24,
       28,    29,    32,    34,    35,    36,    43,    45,    47,    51,
       53,    57,    59,    63,    66,    68,    72,    76,    80,    84,
-      87,    90,    93,    94,    96,    98,   100,   101,   108,   109,
-     118,   122,   123,   124,   128,   129,   132,   133,   134,   138,
-     139,   142,   146,   148,   149,   154,   155,   159,   161,   163,
-     165,   168,   169,   172,   173,   176,   182,   185,   186,   190,
-     192,   193,   194,   198,   199,   206,   207,   212,   214,   216,
-     219,   223,   224,   231,   232,   237,   239,   241,   242,   246,
-     247,   249,   251,   255,   259,   261,   265,   269,   271,   273,
-     275,   279,   281,   284,   288,   292,   296,   301,   305,   310,
-     314,   318,   323,   325,   327,   329
+      87,    90,    93,    94,    96,    98,   100,   101,   102,   110,
+     111,   112,   122,   126,   127,   128,   132,   133,   136,   137,
+     138,   142,   143,   146,   150,   152,   153,   158,   162,   164,
+     165,   169,   171,   173,   175,   178,   179,   182,   183,   186,
+     192,   195,   196,   200,   202,   203,   204,   208,   209,   216,
+     217,   222,   224,   226,   229,   233,   234,   241,   242,   247,
+     249,   251,   252,   256,   257,   259,   261,   265,   269,   271,
+     275,   279,   281,   283,   285,   289,   291,   294,   298,   302,
+     306,   311,   315,   320,   324,   328,   333,   335,   337,   339
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
@@ -477,51 +481,52 @@ static const yytype_int8 yyrhs[] =
       49,    -1,    49,    -1,    -1,    -1,    50,    54,     8,    52,
       51,     7,    -1,    37,    -1,    37,    -1,    54,     6,    13,
       -1,    13,    -1,    55,     6,    13,    -1,    13,    -1,    13,
-      77,    43,    -1,    60,    43,    -1,    57,    -1,    10,    58,
-      11,    -1,    74,     7,    58,    -1,    85,     7,    58,    -1,
-      91,     7,    58,    -1,    74,     7,    -1,    85,     7,    -1,
-      91,     7,    -1,    -1,    74,    -1,    85,    -1,    91,    -1,
-      -1,    35,    13,    61,    63,     7,    64,    -1,    -1,    36,
-      13,    62,    63,     8,    53,     7,    64,    -1,     4,    66,
-       5,    -1,    -1,    -1,    65,    43,     7,    -1,    -1,    67,
-      68,    -1,    -1,    -1,    12,    69,    71,    -1,    -1,    70,
-      71,    -1,    72,     7,    68,    -1,    72,    -1,    -1,    73,
-      54,     8,    52,    -1,    -1,    13,    75,    76,    -1,    77,
-      -1,    78,    -1,    80,    -1,    14,    99,    -1,    -1,    79,
-      82,    -1,    -1,    81,    82,    -1,     4,    84,     5,     7,
-      83,    -1,     7,    83,    -1,    -1,    84,     6,    13,    -1,
-      13,    -1,    -1,    -1,    27,    86,    87,    -1,    -1,     4,
-     102,     5,    29,    88,    90,    -1,    -1,   102,    29,    89,
-      90,    -1,    59,    -1,    57,    -1,    32,    92,    -1,    32,
-      92,    96,    -1,    -1,     4,   102,     5,    33,    93,    95,
-      -1,    -1,   102,    33,    94,    95,    -1,    59,    -1,    57,
-      -1,    -1,    34,    97,    98,    -1,    -1,    59,    -1,    57,
-      -1,    99,    16,   100,    -1,    99,    17,   100,    -1,   100,
-      -1,   100,    18,   101,    -1,   100,    19,   101,    -1,   101,
-      -1,    13,    -1,    15,    -1,     4,    99,     5,    -1,   103,
-      -1,    24,   103,    -1,   103,    20,   104,    -1,   103,    21,
-     104,    -1,   103,    22,   104,    -1,   103,    22,    20,   104,
-      -1,   103,    23,   104,    -1,   103,    23,    20,   104,    -1,
-     103,    25,   104,    -1,   103,    26,   104,    -1,   103,    25,
-      24,   104,    -1,   104,    -1,    13,    -1,    15,    -1,     4,
-     102,     5,    -1
+      80,    43,    -1,    60,    43,    -1,    57,    -1,    10,    58,
+      11,    -1,    77,     7,    58,    -1,    88,     7,    58,    -1,
+      94,     7,    58,    -1,    77,     7,    -1,    88,     7,    -1,
+      94,     7,    -1,    -1,    77,    -1,    88,    -1,    94,    -1,
+      -1,    -1,    35,    13,    61,    65,     7,    62,    66,    -1,
+      -1,    -1,    36,    13,    63,    65,     8,    53,     7,    64,
+      66,    -1,     4,    68,     5,    -1,    -1,    -1,    67,    43,
+       7,    -1,    -1,    69,    70,    -1,    -1,    -1,    12,    71,
+      73,    -1,    -1,    72,    73,    -1,    74,     7,    70,    -1,
+      74,    -1,    -1,    75,    76,     8,    52,    -1,    76,     6,
+      13,    -1,    13,    -1,    -1,    13,    78,    79,    -1,    80,
+      -1,    81,    -1,    83,    -1,    14,   102,    -1,    -1,    82,
+      85,    -1,    -1,    84,    85,    -1,     4,    87,     5,     7,
+      86,    -1,     7,    86,    -1,    -1,    87,     6,    13,    -1,
+      13,    -1,    -1,    -1,    27,    89,    90,    -1,    -1,     4,
+     105,     5,    29,    91,    93,    -1,    -1,   105,    29,    92,
+      93,    -1,    59,    -1,    57,    -1,    32,    95,    -1,    32,
+      95,    99,    -1,    -1,     4,   105,     5,    33,    96,    98,
+      -1,    -1,   105,    33,    97,    98,    -1,    59,    -1,    57,
+      -1,    -1,    34,   100,   101,    -1,    -1,    59,    -1,    57,
+      -1,   102,    16,   103,    -1,   102,    17,   103,    -1,   103,
+      -1,   103,    18,   104,    -1,   103,    19,   104,    -1,   104,
+      -1,    13,    -1,    15,    -1,     4,   102,     5,    -1,   106,
+      -1,    24,   106,    -1,   106,    20,   107,    -1,   106,    21,
+     107,    -1,   106,    22,   107,    -1,   106,    22,    20,   107,
+      -1,   106,    23,   107,    -1,   106,    23,    20,   107,    -1,
+     106,    25,   107,    -1,   106,    26,   107,    -1,   106,    25,
+      24,   107,    -1,   107,    -1,    13,    -1,    15,    -1,     4,
+     105,     5,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    51,    51,    51,    64,    76,    75,    82,    86,    86,
-      90,    94,    95,    99,   104,    99,   112,   120,   126,   148,
-     173,   174,   178,   179,   180,   184,   188,   189,   190,   191,
-     192,   193,   194,   198,   199,   200,   205,   204,   211,   210,
-     219,   220,   225,   225,   237,   237,   240,   245,   244,   249,
-     249,   254,   255,   259,   259,   272,   271,   284,   285,   286,
-     290,   298,   298,   309,   309,   322,   323,   328,   335,   336,
-     337,   342,   341,   350,   349,   357,   356,   366,   374,   385,
-     390,   399,   398,   406,   405,   415,   416,   421,   420,   431,
-     435,   436,   440,   444,   448,   452,   456,   460,   464,   475,
-     480,   484,   485,   492,   496,   500,   504,   508,   512,   516,
-     520,   524,   529,   533,   544,   549
+       0,    55,    55,    55,    68,    82,    81,    88,    92,    92,
+      96,   100,   101,   105,   110,   105,   118,   126,   133,   142,
+     154,   155,   159,   160,   161,   165,   169,   170,   171,   172,
+     173,   174,   175,   179,   180,   181,   186,   194,   185,   198,
+     205,   197,   211,   212,   217,   217,   229,   229,   232,   237,
+     236,   241,   241,   246,   247,   251,   251,   263,   283,   307,
+     306,   319,   320,   321,   325,   333,   333,   344,   344,   357,
+     358,   363,   370,   371,   372,   377,   376,   385,   384,   392,
+     391,   401,   409,   420,   425,   434,   433,   441,   440,   450,
+     451,   456,   455,   466,   470,   471,   475,   479,   483,   487,
+     491,   495,   499,   510,   515,   519,   520,   527,   531,   535,
+     539,   543,   547,   551,   555,   559,   564,   568,   579,   584
 };
 #endif
 
@@ -541,17 +546,17 @@ static const char *const yytname[] =
   "$@4", "$@5", "tipo", "tipo_retorno_func", "lista_id_var",
   "lista_idents", "comando_composto", "comando_composto_2", "comandos",
   "comando_sem_ponto_e_virgula", "procedimento_ou_funcao", "$@6", "$@7",
-  "procedimento_ou_funcao_2", "procedimento_ou_funcao_3", "$@8",
-  "parametros_vars_proc_ou_func", "$@9", "vars_proc_ou_func", "$@10",
-  "$@11", "vars_proc_ou_func_2", "var_proc_ou_func", "$@12",
-  "atrib_proc_func", "$@13", "atrib_proc_func_2", "atribuicao",
-  "chama_procedimento", "$@14", "chama_funcao", "$@15", "chama_proc_func",
-  "chama_proc_func_2", "lista_id_var_parametro", "repeticao", "$@16",
-  "repeticao_2", "$@17", "$@18", "repeticao_3", "condicao",
-  "condicao_se_entao", "$@19", "$@20", "condicao_se_entao_2",
-  "condicao_senao", "$@21", "condicao_senao_2", "expressao_aritmetica",
-  "expressao_termo", "expressao_fator", "expressao_booleana_geral",
-  "expressao_booleana", "expressao_fator2", 0
+  "$@8", "$@9", "procedimento_ou_funcao_2", "procedimento_ou_funcao_3",
+  "$@10", "parametros_vars_proc_ou_func", "$@11", "vars_proc_ou_func",
+  "$@12", "$@13", "vars_proc_ou_func_2", "var_proc_ou_func", "$@14",
+  "lista_id_var_proc_ou_func", "atrib_proc_func", "$@15",
+  "atrib_proc_func_2", "atribuicao", "chama_procedimento", "$@16",
+  "chama_funcao", "$@17", "chama_proc_func", "chama_proc_func_2",
+  "lista_id_var_parametro", "repeticao", "$@18", "repeticao_2", "$@19",
+  "$@20", "repeticao_3", "condicao", "condicao_se_entao", "$@21", "$@22",
+  "condicao_se_entao_2", "condicao_senao", "$@23", "condicao_senao_2",
+  "expressao_aritmetica", "expressao_termo", "expressao_fator",
+  "expressao_booleana_geral", "expressao_booleana", "expressao_fator2", 0
 };
 #endif
 
@@ -573,15 +578,15 @@ static const yytype_uint8 yyr1[] =
        0,    39,    41,    40,    42,    44,    43,    45,    47,    46,
       46,    48,    48,    50,    51,    49,    52,    53,    54,    54,
       55,    55,    56,    56,    56,    57,    58,    58,    58,    58,
-      58,    58,    58,    59,    59,    59,    61,    60,    62,    60,
-      63,    63,    65,    64,    67,    66,    66,    69,    68,    70,
-      68,    71,    71,    73,    72,    75,    74,    76,    76,    76,
-      77,    79,    78,    81,    80,    82,    82,    83,    84,    84,
-      84,    86,    85,    88,    87,    89,    87,    90,    90,    91,
-      91,    93,    92,    94,    92,    95,    95,    97,    96,    96,
-      98,    98,    99,    99,    99,   100,   100,   100,   101,   101,
-     101,   102,   102,   103,   103,   103,   103,   103,   103,   103,
-     103,   103,   103,   104,   104,   104
+      58,    58,    58,    59,    59,    59,    61,    62,    60,    63,
+      64,    60,    65,    65,    67,    66,    69,    68,    68,    71,
+      70,    72,    70,    73,    73,    75,    74,    76,    76,    78,
+      77,    79,    79,    79,    80,    82,    81,    84,    83,    85,
+      85,    86,    87,    87,    87,    89,    88,    91,    90,    92,
+      90,    93,    93,    94,    94,    96,    95,    97,    95,    98,
+      98,   100,    99,    99,   101,   101,   102,   102,   102,   103,
+     103,   103,   104,   104,   104,   105,   105,   106,   106,   106,
+     106,   106,   106,   106,   106,   106,   106,   107,   107,   107
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
@@ -590,15 +595,15 @@ static const yytype_uint8 yyr2[] =
        0,     2,     0,     9,     1,     0,     3,     1,     0,     3,
        0,     2,     1,     0,     0,     6,     1,     1,     3,     1,
        3,     1,     3,     2,     1,     3,     3,     3,     3,     2,
-       2,     2,     0,     1,     1,     1,     0,     6,     0,     8,
-       3,     0,     0,     3,     0,     2,     0,     0,     3,     0,
-       2,     3,     1,     0,     4,     0,     3,     1,     1,     1,
-       2,     0,     2,     0,     2,     5,     2,     0,     3,     1,
-       0,     0,     3,     0,     6,     0,     4,     1,     1,     2,
-       3,     0,     6,     0,     4,     1,     1,     0,     3,     0,
-       1,     1,     3,     3,     1,     3,     3,     1,     1,     1,
-       3,     1,     2,     3,     3,     3,     4,     3,     4,     3,
-       3,     4,     1,     1,     1,     3
+       2,     2,     0,     1,     1,     1,     0,     0,     7,     0,
+       0,     9,     3,     0,     0,     3,     0,     2,     0,     0,
+       3,     0,     2,     3,     1,     0,     4,     3,     1,     0,
+       3,     1,     1,     1,     2,     0,     2,     0,     2,     5,
+       2,     0,     3,     1,     0,     0,     3,     0,     6,     0,
+       4,     1,     1,     2,     3,     0,     6,     0,     4,     1,
+       1,     0,     3,     0,     1,     1,     3,     3,     1,     3,
+       3,     1,     1,     1,     3,     1,     2,     3,     3,     3,
+       4,     3,     4,     3,     3,     4,     1,     1,     1,     3
 };
 
 /* YYDEFACT[STATE-NAME] -- Default reduction number in state STATE-NUM.
@@ -609,34 +614,35 @@ static const yytype_uint8 yydefact[] =
        2,     0,     0,     1,     0,     4,     0,     0,    21,     0,
        0,     0,    10,    20,     0,     5,     7,     0,     3,     0,
       13,    32,     0,     0,     0,     6,    24,    10,     9,    12,
-       0,    55,    71,     0,     0,     0,     0,     0,     0,    10,
-      36,    38,    23,    11,    19,     0,    61,     0,     0,   113,
-     114,     0,    79,     0,   101,   112,    25,    29,    30,    31,
-       0,    98,    99,    60,    94,    97,    22,    41,    41,     0,
-       0,    56,    57,    58,     0,    59,     0,     0,    72,     0,
-       0,     0,   102,    87,    80,    83,     0,     0,     0,     0,
+       0,    59,    75,     0,     0,     0,     0,     0,     0,    10,
+      36,    39,    23,    11,    19,     0,    65,     0,     0,   117,
+     118,     0,    83,     0,   105,   116,    25,    29,    30,    31,
+       0,   102,   103,    64,    98,   101,    22,    43,    43,     0,
+       0,    60,    61,    62,     0,    63,     0,     0,    76,     0,
+       0,     0,   106,    91,    84,    87,     0,     0,     0,     0,
        0,     0,    26,    27,    28,     0,     0,     0,     0,     0,
-      44,     0,     0,    18,    16,    14,    70,    67,    62,    64,
-       0,    75,     0,   115,     0,     0,   103,   104,     0,   105,
-       0,   107,     0,   109,   110,   100,    92,    93,    95,    96,
-       0,    49,    42,     0,     0,    69,     0,    66,   115,     0,
-     115,    81,    91,    90,    33,    34,    35,    88,    86,    85,
-      84,   106,   108,   111,    40,    47,    45,    53,    37,    10,
-      17,     0,    15,     0,     0,    73,    78,    77,    76,     0,
-      53,    50,    52,     0,     0,    42,    67,    68,     0,    82,
-      48,    49,     0,    43,    39,    65,    74,    51,     0,    54
+      46,     0,     0,    18,    16,    14,    74,    71,    66,    68,
+       0,    79,     0,   119,     0,     0,   107,   108,     0,   109,
+       0,   111,     0,   113,   114,   104,    96,    97,    99,   100,
+       0,    51,    37,     0,     0,    73,     0,    70,   119,     0,
+     119,    85,    95,    94,    33,    34,    35,    92,    90,    89,
+      88,   110,   112,   115,    42,    49,    47,    55,    44,    17,
+       0,    15,     0,     0,    77,    82,    81,    80,     0,    55,
+      52,    54,     0,    38,    10,    40,    71,    72,     0,    86,
+      50,    51,    58,     0,     0,    44,    69,    78,    53,     0,
+       0,    45,    41,    57,    56
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int16 yydefgoto[] =
 {
       -1,     1,     2,     6,    14,    19,    15,    16,    17,    28,
-      29,    30,   134,   105,   161,    45,     9,    25,   148,    34,
-     149,    27,    67,    68,   101,   158,   159,   130,   131,   156,
-     170,   157,   171,   172,   173,   144,    46,    71,    39,    73,
-      74,    75,    76,   108,   137,   136,   145,    47,    78,   178,
-     139,   168,   146,    52,   169,   115,   150,    84,   114,   147,
-      63,    64,    65,    53,    54,    55
+      29,    30,   134,   105,   160,    45,     9,    25,   148,    34,
+     149,    27,    67,   158,    68,   185,   101,   173,   174,   130,
+     131,   156,   169,   157,   170,   171,   172,   183,   144,    46,
+      71,    39,    73,    74,    75,    76,   108,   137,   136,   145,
+      47,    78,   178,   139,   167,   146,    52,   168,   115,   150,
+      84,   114,   147,    63,    64,    65,    53,    54,    55
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
@@ -654,52 +660,53 @@ static const yytype_int16 yypact[] =
       88,  -113,  -113,  -113,    24,  -113,    24,    49,  -113,    99,
       49,   122,    80,  -113,  -113,  -113,    84,    84,    63,    64,
       50,    84,  -113,  -113,  -113,    75,    81,    81,    81,    81,
-     124,   123,   126,  -113,  -113,  -113,   118,  -113,  -113,  -113,
-     127,  -113,   130,   105,    -2,    -2,  -113,  -113,    84,  -113,
+     124,   123,   125,  -113,  -113,  -113,   118,  -113,  -113,  -113,
+     127,  -113,   129,   105,    -2,    -2,  -113,  -113,    84,  -113,
       84,  -113,    84,  -113,  -113,  -113,    68,    68,  -113,  -113,
-     131,   125,  -113,   106,   132,  -113,    76,  -113,   111,    -2,
+     130,   128,  -113,   100,   132,  -113,    76,  -113,   116,    -2,
     -113,  -113,  -113,  -113,  -113,  -113,  -113,  -113,  -113,  -113,
-    -113,  -113,  -113,  -113,  -113,  -113,  -113,  -113,  -113,    92,
-    -113,   134,  -113,   135,   133,  -113,  -113,  -113,  -113,    -2,
-    -113,  -113,   137,   104,   138,  -113,  -113,  -113,    -2,  -113,
-    -113,   125,    30,  -113,  -113,  -113,  -113,  -113,    88,  -113
+    -113,  -113,  -113,  -113,  -113,  -113,  -113,  -113,  -113,  -113,
+     134,  -113,   135,   131,  -113,  -113,  -113,  -113,    -2,  -113,
+    -113,   136,   133,  -113,    92,  -113,  -113,  -113,    -2,  -113,
+    -113,   128,  -113,    30,   140,  -113,  -113,  -113,  -113,   137,
+      88,  -113,  -113,  -113,  -113
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
     -113,  -113,  -113,  -113,   -26,  -113,  -113,  -113,  -113,  -113,
-     119,  -113,  -113,   -40,  -113,   -24,  -113,  -113,   -19,    51,
-    -112,  -113,  -113,  -113,    82,   -23,  -113,  -113,  -113,   -30,
-    -113,  -113,   -17,  -113,  -113,   -18,  -113,  -113,   108,  -113,
-    -113,  -113,  -113,    86,   -21,  -113,   -15,  -113,  -113,  -113,
-    -113,   -22,   -12,  -113,  -113,  -113,   -11,  -113,  -113,  -113,
-      97,    -7,    13,   -43,   109,   -70
+     108,  -113,  -113,   -41,  -113,  -113,  -113,  -113,   -19,    51,
+    -112,  -113,  -113,  -113,  -113,  -113,    83,   -33,  -113,  -113,
+    -113,   -28,  -113,  -113,   -14,  -113,  -113,  -113,   -18,  -113,
+    -113,   111,  -113,  -113,  -113,  -113,    78,   -20,  -113,   -15,
+    -113,  -113,  -113,  -113,   -17,   -12,  -113,  -113,  -113,   -10,
+    -113,  -113,  -113,   106,    -7,    13,   -43,   109,   -70
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
    positive, shift that token.  If negative, reduce the rule which
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
-#define YYTABLE_NINF -47
+#define YYTABLE_NINF -49
 static const yytype_int16 yytable[] =
 {
       26,    42,   143,    35,    79,    81,    36,    21,    21,    37,
       22,    31,    69,    66,    70,    48,   116,   117,   119,   121,
-     123,   124,    10,    11,    49,    32,    50,   167,   106,     3,
-      33,   107,    23,    24,   110,    51,    69,   112,   188,    35,
+     123,   124,    10,    11,    49,    32,    50,   166,   106,     3,
+      33,   107,    23,    24,   110,    51,   189,   112,   190,    35,
       35,    35,    36,    36,    36,    37,    37,    37,   151,    77,
      152,     4,   153,    80,    80,     5,    31,     7,    49,     8,
-      50,    12,    49,    49,    50,    50,   167,    80,    80,    51,
+      50,    12,    49,    49,    50,    50,   166,    80,    80,    51,
       32,    96,    97,    51,   122,    33,    49,    49,    50,    50,
-     125,   163,   164,   118,   120,    60,    98,    99,    80,   126,
+     125,   162,   163,   118,   120,    60,    98,    99,    80,   126,
      127,    96,    97,    38,    61,   142,    62,    49,    13,    50,
       86,    87,    88,    89,    -8,    90,    91,    18,    92,    93,
       94,   128,   129,    20,   100,    40,    41,    44,    56,    57,
-     166,    58,    59,    83,    85,   104,   103,   113,   111,   -46,
-     132,   135,   138,   174,   133,   140,   154,   155,   141,   162,
-     165,   175,   176,   160,   181,   183,   177,    43,   189,   182,
-     102,   187,   184,   180,    72,   185,   186,    95,   179,   166,
-      82,     0,   109
+     165,    58,    59,    83,    85,   104,   103,   113,   111,   -48,
+     132,   135,   138,   133,   140,   154,    43,   159,   141,   161,
+     155,   175,   176,   181,   177,   164,   182,   191,   184,   194,
+     193,   102,   192,   188,   109,   180,   186,    72,   179,   165,
+      82,   187,     0,     0,     0,     0,    95
 };
 
 #define yypact_value_is_default(yystate) \
@@ -723,10 +730,10 @@ static const yytype_int16 yycheck[] =
       20,    21,    22,    23,    12,    25,    26,     9,    57,    58,
       59,    98,    99,    12,     4,    13,    13,    13,    11,     7,
      139,     7,     7,    34,    33,    37,    13,     5,    29,     5,
-       7,    13,     5,   159,     8,     5,     5,    12,    33,     7,
-      29,     7,     7,    37,     7,     7,    13,    28,   188,   173,
-      68,   181,   175,   170,    46,   176,   178,    60,   169,   178,
-      51,    -1,    76
+       7,    13,     5,     8,     5,     5,    28,    37,    33,     7,
+      12,     7,     7,     7,    13,    29,    13,     7,   174,   190,
+      13,    68,   185,   181,    76,   169,   176,    46,   168,   178,
+      51,   178,    -1,    -1,    -1,    -1,    60
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -736,22 +743,23 @@ static const yytype_uint8 yystos[] =
        0,    40,    41,     0,     3,    13,    42,     4,    13,    55,
        5,     6,     7,    13,    43,    45,    46,    47,     9,    44,
       12,    10,    13,    35,    36,    56,    57,    60,    48,    49,
-      50,    13,    27,    32,    58,    74,    85,    91,    14,    77,
-      13,    13,    43,    49,    13,    54,    75,    86,     4,    13,
-      15,    24,    92,   102,   103,   104,    11,     7,     7,     7,
-       4,    13,    15,    99,   100,   101,    43,    61,    62,     6,
-       8,    76,    77,    78,    79,    80,    81,     4,    87,   102,
-       4,   102,   103,    34,    96,    33,    20,    21,    22,    23,
-      25,    26,    58,    58,    58,    99,    16,    17,    18,    19,
-       4,    63,    63,    13,    37,    52,     4,     7,    82,    82,
-     102,    29,   102,     5,    97,    94,   104,   104,    20,   104,
-      20,   104,    24,   104,   104,     5,   100,   100,   101,   101,
-      66,    67,     7,     8,    51,    13,    84,    83,     5,    89,
-       5,    33,    57,    59,    74,    85,    91,    98,    57,    59,
-      95,   104,   104,   104,     5,    12,    68,    70,    64,    65,
-      37,    53,     7,     5,     6,    29,    57,    59,    90,    93,
-      69,    71,    72,    73,    43,     7,     7,    13,    88,    95,
-      71,     7,    54,     7,    64,    83,    90,    68,     8,    52
+      50,    13,    27,    32,    58,    77,    88,    94,    14,    80,
+      13,    13,    43,    49,    13,    54,    78,    89,     4,    13,
+      15,    24,    95,   105,   106,   107,    11,     7,     7,     7,
+       4,    13,    15,   102,   103,   104,    43,    61,    63,     6,
+       8,    79,    80,    81,    82,    83,    84,     4,    90,   105,
+       4,   105,   106,    34,    99,    33,    20,    21,    22,    23,
+      25,    26,    58,    58,    58,   102,    16,    17,    18,    19,
+       4,    65,    65,    13,    37,    52,     4,     7,    85,    85,
+     105,    29,   105,     5,   100,    97,   107,   107,    20,   107,
+      20,   107,    24,   107,   107,     5,   103,   103,   104,   104,
+      68,    69,     7,     8,    51,    13,    87,    86,     5,    92,
+       5,    33,    57,    59,    77,    88,    94,   101,    57,    59,
+      98,   107,   107,   107,     5,    12,    70,    72,    62,    37,
+      53,     7,     5,     6,    29,    57,    59,    93,    96,    71,
+      73,    74,    75,    66,    67,     7,     7,    13,    91,    98,
+      73,     7,    13,    76,    43,    64,    86,    93,    70,     6,
+       8,     7,    66,    13,    52
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1588,7 +1596,7 @@ yyreduce:
         case 2:
 
 /* Line 1806 of yacc.c  */
-#line 51 "compilador.y"
+#line 55 "compilador.y"
     {
              geraCodigo (NULL, "INPP");
              }
@@ -1597,7 +1605,7 @@ yyreduce:
   case 3:
 
 /* Line 1806 of yacc.c  */
-#line 56 "compilador.y"
+#line 60 "compilador.y"
     {
              sprintf ( dados, "DMEM %d", num_vars);
              geraCodigo ( NULL, dados);
@@ -1608,11 +1616,13 @@ yyreduce:
   case 4:
 
 /* Line 1806 of yacc.c  */
-#line 65 "compilador.y"
+#line 69 "compilador.y"
     {
             sprintf ( categoria, "nome_programa");
             sprintf ( tipo, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, 0, 0);
+            sprintf ( tipo_parametro, "sem_tipo");
+            sprintf ( tipo_retorno, "sem_tipo");
+            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, tipo_parametro, tipo_retorno, 0, 0, 0);
             insere_tipo_Simbolo_TB_SIMB ( tipo, 1);
             }
     break;
@@ -1620,7 +1630,7 @@ yyreduce:
   case 5:
 
 /* Line 1806 of yacc.c  */
-#line 76 "compilador.y"
+#line 82 "compilador.y"
     {
               }
     break;
@@ -1628,7 +1638,7 @@ yyreduce:
   case 8:
 
 /* Line 1806 of yacc.c  */
-#line 86 "compilador.y"
+#line 92 "compilador.y"
     {
             eh_vars_proc_func = 0;
             eh_parametro_referencia = 0;
@@ -1638,7 +1648,7 @@ yyreduce:
   case 13:
 
 /* Line 1806 of yacc.c  */
-#line 99 "compilador.y"
+#line 105 "compilador.y"
     {
               num_vars_inicial = num_vars;
               }
@@ -1647,7 +1657,7 @@ yyreduce:
   case 14:
 
 /* Line 1806 of yacc.c  */
-#line 104 "compilador.y"
+#line 110 "compilador.y"
     { /* AMEM */
               sprintf ( dados, "AMEM %d", num_vars);
               geraCodigo ( NULL, dados);
@@ -1657,7 +1667,7 @@ yyreduce:
   case 16:
 
 /* Line 1806 of yacc.c  */
-#line 113 "compilador.y"
+#line 119 "compilador.y"
     {
                 percorre_vars = num_vars - num_vars_inicial;
                 insere_tipo_Simbolo_TB_SIMB ( token, percorre_vars);
@@ -1667,91 +1677,89 @@ yyreduce:
   case 17:
 
 /* Line 1806 of yacc.c  */
-#line 121 "compilador.y"
+#line 127 "compilador.y"
     {
+            sprintf ( tipo_retorno, "%s", token);
             }
     break;
 
   case 18:
 
 /* Line 1806 of yacc.c  */
-#line 127 "compilador.y"
+#line 134 "compilador.y"
     { /* insere última vars na tabela de símbolos */
-
-            if ( eh_parametro_referencia == 1)
-                sprintf ( categoria, "var_referencia");
-            else
-                sprintf ( categoria, "var_simples");
-
-            if ( eh_vars_proc_func == 1) {
-                procura_simb ( token, &x, &y, &tipo);
-                if ( x == -99 ) { // numero -99 indica que nao encontrou simb na tabela
-                    sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
-                    imprimeErro ( dados);
-                    exit ( 1);
-                }
-            }
-            else {
-                empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
-                desloc++;
-                num_vars++;
-            }
+            sprintf ( categoria, "var_simples");
+            sprintf ( tipo_parametro, "sem_tipo");
+            sprintf ( tipo_retorno, "sem_tipo");
+            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, tipo_parametro, tipo_retorno, nivel_lexico, desloc, 0);
+            desloc++;
+            num_vars++;
             }
     break;
 
   case 19:
 
 /* Line 1806 of yacc.c  */
-#line 149 "compilador.y"
+#line 143 "compilador.y"
     { /* insere vars na tabela de símbolos */
-
-            if ( eh_parametro_referencia == 1)
-                sprintf ( categoria, "var_referencia");
-            else
-                sprintf ( categoria, "var_simples");
-
-            if ( eh_vars_proc_func == 1) {
-                procura_simb ( token, &x, &y, &tipo );
-                if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
-                    sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
-                    imprimeErro( dados );
-                    exit ( 1);
-                }
-            }
-            else {
-                empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
-                desloc++;
-                num_vars++;
-            }
+            sprintf ( categoria, "var_simples");
+            sprintf ( tipo_parametro, "sem_tipo");
+            sprintf ( tipo_retorno, "sem_tipo");
+            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, tipo_parametro, tipo_retorno, nivel_lexico, desloc, 0);
+            desloc++;
+            num_vars++;
             }
     break;
 
   case 36:
 
 /* Line 1806 of yacc.c  */
+#line 186 "compilador.y"
+    {
+            sprintf ( nome_proc_func, "%s", token);
+            sprintf ( categoria, "procedimento");
+            sprintf ( tipo_parametro, "sem_tipo");
+            sprintf ( tipo_retorno, "sem_tipo");
+            gera_Proximo_Rotulo ( &rotulo1);
+            qtd_parametros = 0;
+            }
+    break;
+
+  case 37:
+
+/* Line 1806 of yacc.c  */
+#line 194 "compilador.y"
+    {
+            empilha_Simbolo_TB_SIMB ( nome_proc_func, categoria, rotulo1, tipo_parametro, tipo_retorno, nivel_lexico, desloc, qtd_parametros);
+            }
+    break;
+
+  case 39:
+
+/* Line 1806 of yacc.c  */
+#line 198 "compilador.y"
+    {
+            sprintf ( nome_proc_func, "%s", token);
+            sprintf ( categoria, "funcao");
+            sprintf ( tipo_parametro, "sem_tipo");
+            gera_Proximo_Rotulo ( &rotulo1);
+            qtd_parametros = 0;
+            }
+    break;
+
+  case 40:
+
+/* Line 1806 of yacc.c  */
 #line 205 "compilador.y"
     {
-            sprintf ( categoria, "procedimento");
-            gera_Proximo_Rotulo ( &rotulo1);
-            empilha_Simbolo_TB_SIMB ( token, categoria, rotulo1, nivel_lexico, desloc);
+            empilha_Simbolo_TB_SIMB ( nome_proc_func, categoria, rotulo1, tipo_parametro, tipo_retorno, nivel_lexico, desloc, qtd_parametros);
             }
     break;
 
-  case 38:
+  case 44:
 
 /* Line 1806 of yacc.c  */
-#line 211 "compilador.y"
-    {
-            sprintf ( categoria, "funcao");
-            gera_Proximo_Rotulo ( &rotulo1);
-            empilha_Simbolo_TB_SIMB ( token, categoria, rotulo1, nivel_lexico, desloc);
-            }
-    break;
-
-  case 42:
-
-/* Line 1806 of yacc.c  */
-#line 225 "compilador.y"
+#line 217 "compilador.y"
     {
             empilha_Deslocamento ( desloc);
             desloc = 0;
@@ -1759,66 +1767,116 @@ yyreduce:
             }
     break;
 
-  case 43:
+  case 45:
 
 /* Line 1806 of yacc.c  */
-#line 230 "compilador.y"
+#line 222 "compilador.y"
     {
             desloc = desempilha_Deslocamento ();
             nivel_lexico--;
             }
     break;
 
-  case 44:
+  case 46:
 
 /* Line 1806 of yacc.c  */
-#line 237 "compilador.y"
+#line 229 "compilador.y"
     {
             eh_vars_proc_func = 1;
-            }
-    break;
-
-  case 47:
-
-/* Line 1806 of yacc.c  */
-#line 245 "compilador.y"
-    {
-                eh_parametro_referencia = 1;
             }
     break;
 
   case 49:
 
 /* Line 1806 of yacc.c  */
-#line 249 "compilador.y"
+#line 237 "compilador.y"
+    {
+                eh_parametro_referencia = 1;
+            }
+    break;
+
+  case 51:
+
+/* Line 1806 of yacc.c  */
+#line 241 "compilador.y"
     {
                 eh_parametro_referencia = 0;
             }
     break;
 
-  case 53:
-
-/* Line 1806 of yacc.c  */
-#line 259 "compilador.y"
-    {
-              num_vars_inicial = num_vars;
-              }
-    break;
-
-  case 54:
-
-/* Line 1806 of yacc.c  */
-#line 264 "compilador.y"
-    { /* AMEM */
-              sprintf ( dados, "AMEM %d", num_vars);
-              geraCodigo ( NULL, dados);
-              }
-    break;
-
   case 55:
 
 /* Line 1806 of yacc.c  */
-#line 272 "compilador.y"
+#line 251 "compilador.y"
+    {
+            num_vars_inicial = num_vars;
+            }
+    break;
+
+  case 56:
+
+/* Line 1806 of yacc.c  */
+#line 256 "compilador.y"
+    { /* AMEM */
+            sprintf ( dados, "AMEM %d", num_vars);
+            geraCodigo ( NULL, dados);
+            }
+    break;
+
+  case 57:
+
+/* Line 1806 of yacc.c  */
+#line 264 "compilador.y"
+    {
+            procura_simb ( token, &x, &y, &tipo);
+            if ( x == -99 ) { // numero -99 indica que nao encontrou simb na tabela
+                sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
+                imprimeErro ( dados);
+                exit ( 1);
+            }
+
+            if ( eh_parametro_referencia == 1)
+                sprintf ( tipo_parametro, "var_referencia");
+            else
+                sprintf ( tipo_parametro, "var_valor");
+
+            sprintf ( categoria, "parametro_formal");
+            sprintf ( tipo_retorno, "sem_tipo");
+            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, tipo_parametro, tipo_retorno, nivel_lexico, desloc, 0);
+            num_vars++;
+            qtd_parametros++;
+            }
+    break;
+
+  case 58:
+
+/* Line 1806 of yacc.c  */
+#line 284 "compilador.y"
+    {
+            procura_simb ( token, &x, &y, &tipo);
+            if ( x == -99 ) { // numero -99 indica que nao encontrou simb na tabela
+                sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
+                imprimeErro ( dados);
+                exit ( 1);
+            }
+
+            if ( eh_parametro_referencia == 1)
+                sprintf ( tipo_parametro, "var_referencia");
+            else
+                sprintf ( tipo_parametro, "var_valor");
+
+            sprintf ( categoria, "parametro_formal");
+            sprintf ( tipo_retorno, "sem_tipo");
+            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, tipo_parametro, tipo_retorno, nivel_lexico, desloc, 0);
+            num_vars++;
+            qtd_parametros++;
+            }
+    break;
+
+  case 59:
+
+/* Line 1806 of yacc.c  */
+#line 307 "compilador.y"
     {
             procura_simb ( token, &x, &y, &tipo );
             if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
@@ -1830,20 +1888,20 @@ yyreduce:
             }
     break;
 
-  case 60:
+  case 64:
 
 /* Line 1806 of yacc.c  */
-#line 291 "compilador.y"
+#line 326 "compilador.y"
     {
             sprintf ( dados, "ARMZ %d, %d", x, y);
             geraCodigo ( NULL, dados );
             }
     break;
 
-  case 61:
+  case 65:
 
 /* Line 1806 of yacc.c  */
-#line 298 "compilador.y"
+#line 333 "compilador.y"
     {
             sprintf ( categoria, "procedimento");
             if ( procura_cat ( dados, categoria, &rotulo1) == -99 ) {
@@ -1854,10 +1912,10 @@ yyreduce:
             }
     break;
 
-  case 63:
+  case 67:
 
 /* Line 1806 of yacc.c  */
-#line 309 "compilador.y"
+#line 344 "compilador.y"
     {
             sprintf ( categoria, "funcao");
             if ( procura_cat ( dados, categoria, &rotulo1) == -99 ) {
@@ -1870,20 +1928,20 @@ yyreduce:
             }
     break;
 
-  case 67:
+  case 71:
 
 /* Line 1806 of yacc.c  */
-#line 328 "compilador.y"
+#line 363 "compilador.y"
     {
             sprintf ( dados, "CHPR %s, %d", rotulo1, nivel_lexico);
             geraCodigo ( NULL, dados );
             }
     break;
 
-  case 71:
+  case 75:
 
 /* Line 1806 of yacc.c  */
-#line 342 "compilador.y"
+#line 377 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_Rotulo ( rotulo1);
@@ -1891,80 +1949,80 @@ yyreduce:
             }
     break;
 
-  case 73:
-
-/* Line 1806 of yacc.c  */
-#line 350 "compilador.y"
-    {
-            gera_Proximo_Rotulo ( &rotulo2);
-            empilha_Rotulo ( rotulo2);
-            sprintf ( dados, "DSVF %s", rotulo2);
-            geraCodigo ( NULL, dados);
-            }
-    break;
-
-  case 75:
-
-/* Line 1806 of yacc.c  */
-#line 357 "compilador.y"
-    {
-            gera_Proximo_Rotulo ( &rotulo2);
-            empilha_Rotulo ( rotulo2);
-            sprintf ( dados, "DSVF %s", rotulo2);
-            geraCodigo ( NULL, dados);
-            }
-    break;
-
   case 77:
 
 /* Line 1806 of yacc.c  */
-#line 367 "compilador.y"
+#line 385 "compilador.y"
     {
-            desempilha_Rotulo ( &rotulo2);
-            desempilha_Rotulo ( &rotulo1);
-            sprintf ( dados, "DSVS %s", rotulo1);
+            gera_Proximo_Rotulo ( &rotulo2);
+            empilha_Rotulo ( rotulo2);
+            sprintf ( dados, "DSVF %s", rotulo2);
             geraCodigo ( NULL, dados);
-            geraCodigo ( rotulo2, "NADA");
-            }
-    break;
-
-  case 78:
-
-/* Line 1806 of yacc.c  */
-#line 375 "compilador.y"
-    {
-            desempilha_Rotulo ( &rotulo2);
-            desempilha_Rotulo ( &rotulo1);
-            sprintf ( dados, "DSVS %s", rotulo1);
-            geraCodigo ( NULL, dados);
-            geraCodigo ( rotulo2, "NADA");
             }
     break;
 
   case 79:
 
 /* Line 1806 of yacc.c  */
-#line 386 "compilador.y"
+#line 392 "compilador.y"
     {
-            desempilha_Rotulo ( &rotulo2);
-            geraCodigo ( rotulo2, "NADA");
-            }
-    break;
-
-  case 80:
-
-/* Line 1806 of yacc.c  */
-#line 391 "compilador.y"
-    {
-            desempilha_Rotulo ( &rotulo2);
-            geraCodigo ( rotulo2, "NADA");
+            gera_Proximo_Rotulo ( &rotulo2);
+            empilha_Rotulo ( rotulo2);
+            sprintf ( dados, "DSVF %s", rotulo2);
+            geraCodigo ( NULL, dados);
             }
     break;
 
   case 81:
 
 /* Line 1806 of yacc.c  */
-#line 399 "compilador.y"
+#line 402 "compilador.y"
+    {
+            desempilha_Rotulo ( &rotulo2);
+            desempilha_Rotulo ( &rotulo1);
+            sprintf ( dados, "DSVS %s", rotulo1);
+            geraCodigo ( NULL, dados);
+            geraCodigo ( rotulo2, "NADA");
+            }
+    break;
+
+  case 82:
+
+/* Line 1806 of yacc.c  */
+#line 410 "compilador.y"
+    {
+            desempilha_Rotulo ( &rotulo2);
+            desempilha_Rotulo ( &rotulo1);
+            sprintf ( dados, "DSVS %s", rotulo1);
+            geraCodigo ( NULL, dados);
+            geraCodigo ( rotulo2, "NADA");
+            }
+    break;
+
+  case 83:
+
+/* Line 1806 of yacc.c  */
+#line 421 "compilador.y"
+    {
+            desempilha_Rotulo ( &rotulo2);
+            geraCodigo ( rotulo2, "NADA");
+            }
+    break;
+
+  case 84:
+
+/* Line 1806 of yacc.c  */
+#line 426 "compilador.y"
+    {
+            desempilha_Rotulo ( &rotulo2);
+            geraCodigo ( rotulo2, "NADA");
+            }
+    break;
+
+  case 85:
+
+/* Line 1806 of yacc.c  */
+#line 434 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_Rotulo ( rotulo1);
@@ -1973,10 +2031,10 @@ yyreduce:
             }
     break;
 
-  case 83:
+  case 87:
 
 /* Line 1806 of yacc.c  */
-#line 406 "compilador.y"
+#line 441 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_Rotulo ( rotulo1);
@@ -1985,10 +2043,10 @@ yyreduce:
             }
     break;
 
-  case 87:
+  case 91:
 
 /* Line 1806 of yacc.c  */
-#line 421 "compilador.y"
+#line 456 "compilador.y"
     {
             desempilha_Rotulo ( &rotulo1);
 
@@ -2001,46 +2059,46 @@ yyreduce:
             }
     break;
 
-  case 92:
+  case 96:
 
 /* Line 1806 of yacc.c  */
-#line 441 "compilador.y"
+#line 476 "compilador.y"
     {
             geraCodigo (NULL, "SOMA");
             }
     break;
 
-  case 93:
+  case 97:
 
 /* Line 1806 of yacc.c  */
-#line 445 "compilador.y"
+#line 480 "compilador.y"
     {
             geraCodigo (NULL, "SUBT");
             }
     break;
 
-  case 95:
+  case 99:
 
 /* Line 1806 of yacc.c  */
-#line 453 "compilador.y"
+#line 488 "compilador.y"
     {
             geraCodigo (NULL, "MULT");
             }
     break;
 
-  case 96:
+  case 100:
 
 /* Line 1806 of yacc.c  */
-#line 457 "compilador.y"
+#line 492 "compilador.y"
     {
             geraCodigo (NULL, "DIVI");
             }
     break;
 
-  case 98:
+  case 102:
 
 /* Line 1806 of yacc.c  */
-#line 465 "compilador.y"
+#line 500 "compilador.y"
     {
             procura_simb( token, &x, &y, &tipo );
             if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
@@ -2053,111 +2111,111 @@ yyreduce:
             }
     break;
 
-  case 99:
+  case 103:
 
 /* Line 1806 of yacc.c  */
-#line 476 "compilador.y"
+#line 511 "compilador.y"
     {
             sprintf ( dados, "CRCT %s", token);
             geraCodigo ( NULL, dados);
             }
     break;
 
-  case 102:
-
-/* Line 1806 of yacc.c  */
-#line 486 "compilador.y"
-    {
-            geraCodigo ( NULL, "INVR");
-            }
-    break;
-
-  case 103:
-
-/* Line 1806 of yacc.c  */
-#line 493 "compilador.y"
-    {
-            geraCodigo ( NULL, "CMIG");
-            }
-    break;
-
-  case 104:
-
-/* Line 1806 of yacc.c  */
-#line 497 "compilador.y"
-    {
-            geraCodigo ( NULL, "CMDG");
-            }
-    break;
-
-  case 105:
-
-/* Line 1806 of yacc.c  */
-#line 501 "compilador.y"
-    {
-            geraCodigo ( NULL, "CMMA");
-            }
-    break;
-
   case 106:
 
 /* Line 1806 of yacc.c  */
-#line 505 "compilador.y"
+#line 521 "compilador.y"
     {
-            geraCodigo ( NULL, "CMAG");
+            geraCodigo ( NULL, "INVR");
             }
     break;
 
   case 107:
 
 /* Line 1806 of yacc.c  */
-#line 509 "compilador.y"
+#line 528 "compilador.y"
     {
-            geraCodigo ( NULL, "CMME");
+            geraCodigo ( NULL, "CMIG");
             }
     break;
 
   case 108:
 
 /* Line 1806 of yacc.c  */
-#line 513 "compilador.y"
+#line 532 "compilador.y"
     {
-            geraCodigo ( NULL, "CMEG");
+            geraCodigo ( NULL, "CMDG");
             }
     break;
 
   case 109:
 
 /* Line 1806 of yacc.c  */
-#line 517 "compilador.y"
+#line 536 "compilador.y"
     {
-            geraCodigo ( NULL, "CONJ");
+            geraCodigo ( NULL, "CMMA");
             }
     break;
 
   case 110:
 
 /* Line 1806 of yacc.c  */
-#line 521 "compilador.y"
+#line 540 "compilador.y"
     {
-            geraCodigo ( NULL, "DISJ");
+            geraCodigo ( NULL, "CMAG");
             }
     break;
 
   case 111:
 
 /* Line 1806 of yacc.c  */
-#line 525 "compilador.y"
+#line 544 "compilador.y"
     {
-            geraCodigo ( NULL, "INVR");
-            geraCodigo ( NULL, "CONJ");
+            geraCodigo ( NULL, "CMME");
+            }
+    break;
+
+  case 112:
+
+/* Line 1806 of yacc.c  */
+#line 548 "compilador.y"
+    {
+            geraCodigo ( NULL, "CMEG");
             }
     break;
 
   case 113:
 
 /* Line 1806 of yacc.c  */
-#line 534 "compilador.y"
+#line 552 "compilador.y"
+    {
+            geraCodigo ( NULL, "CONJ");
+            }
+    break;
+
+  case 114:
+
+/* Line 1806 of yacc.c  */
+#line 556 "compilador.y"
+    {
+            geraCodigo ( NULL, "DISJ");
+            }
+    break;
+
+  case 115:
+
+/* Line 1806 of yacc.c  */
+#line 560 "compilador.y"
+    {
+            geraCodigo ( NULL, "INVR");
+            geraCodigo ( NULL, "CONJ");
+            }
+    break;
+
+  case 117:
+
+/* Line 1806 of yacc.c  */
+#line 569 "compilador.y"
     {
             procura_simb ( token, &x, &y, &tipo );
             if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
@@ -2170,10 +2228,10 @@ yyreduce:
             }
     break;
 
-  case 114:
+  case 118:
 
 /* Line 1806 of yacc.c  */
-#line 545 "compilador.y"
+#line 580 "compilador.y"
     {
             sprintf ( dados, "CRCT %s", token);
             geraCodigo ( NULL, dados);
@@ -2183,7 +2241,7 @@ yyreduce:
 
 
 /* Line 1806 of yacc.c  */
-#line 2187 "compilador.tab.c"
+#line 2245 "compilador.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2414,7 +2472,7 @@ yyreturn:
 
 
 /* Line 2067 of yacc.c  */
-#line 553 "compilador.y"
+#line 588 "compilador.y"
 
 
 void yyerror ( char const *message)

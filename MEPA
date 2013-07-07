@@ -1,19 +1,19 @@
      INPP
      AMEM 3
-     AMEM 3
-     AMEM 3
-     AMEM 3
-     AMEM 3
-     AMEM 3
-     AMEM 3
      AMEM 4
+     AMEM 6
+     AMEM 8
+     AMEM 9
+     AMEM 11
+     AMEM 12
+     AMEM 13
      CRCT 88
-     ARMZ 0, 1
+     ARMZ 2, 0
      CRCT 2
-     ARMZ 0, 1
+     ARMZ 2, 0
 R5: NADA 
      CRCT 2
-     CRVL 0, 1
+     CRVL 2, 0
      CMEG
      DSVF R6
 R7: NADA 
@@ -22,31 +22,31 @@ R7: NADA
      CMIG
      DSVF R8
      CRCT 2
-     ARMZ 0, 0
+     ARMZ 2, 0
      DSVS R7
 R8: NADA 
-     CRVL 0, 1
+     CRVL 2, 0
      CRCT 3
      CMIG
      DSVF R9
-     CRVL 0, 0
-     CRVL 0, 1
+     CRVL 2, 0
+     CRVL 2, 0
      CMMA
      DSVF R10
      CRCT 8
-     ARMZ 0, 1
+     ARMZ 2, 0
      DSVS R11
 R10: NADA 
      CRCT 9
-     ARMZ 0, 1
+     ARMZ 2, 0
      CRCT 100
-     ARMZ 0, 0
+     ARMZ 2, 0
 R11: NADA 
 R9: NADA 
      DSVS R5
 R6: NADA 
-     AMEM 5
+     AMEM 14
      CRCT 3
-     ARMZ 0, 0
-     DMEM 5
+     ARMZ 2, 0
+     DMEM 14
      PARA
