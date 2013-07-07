@@ -39,6 +39,7 @@ void yyerror (char const *);
 %token IGUAL DIFERENTE MAIOR MENOR NAO E OU
 %token ENQUANTO PARA FACA REPITA ATE SE ENTAO SENAO
 %token PROCEDIMENTO FUNCAO
+%token TIPO_INTEIRO
 
 %nonassoc LOWER_THEN_ELSE
 %nonassoc SENAO
@@ -106,7 +107,7 @@ declara_var: {
 ;
 
 
-tipo: IDENT
+tipo: TIPO_INTEIRO
             {
                 percorre_vars = num_vars - num_vars_inicial;
                 insere_tipo_Simbolo_TB_SIMB ( token, percorre_vars);
@@ -114,7 +115,7 @@ tipo: IDENT
 ;
 
 
-tipo_retorno_func: IDENT
+tipo_retorno_func: TIPO_INTEIRO
             {
             }
 ;

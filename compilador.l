@@ -245,6 +245,12 @@ function { simbolo = simb_funcao;
           return FUNCAO;
  }
 
+integer { simbolo = simb_tipo_integer;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" tipo_inteiro ");
+          return TIPO_INTEIRO;
+ }
+
 {ident} { simbolo = simb_identificador;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" ident  ");
