@@ -101,12 +101,9 @@ extern char *nome_proc_func;
 
 extern int nivel_lexico;
 extern int desloc;
-extern int qtd_parametros;
 
 extern int nl;
 extern int num_vars;
-extern int num_vars_inicial;
-extern int eh_vars_proc_func;
 
 simbolos simbolo, relacao;
 char token[TAM_TOKEN];

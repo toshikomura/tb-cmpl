@@ -33,7 +33,6 @@ void inicia_variaveis_globais () {
     fp = NULL;
     valor_rotulo = 0;
     num_vars = 0;
-    num_vars_inicial = 0;
     nivel_lexico = 0;
     desloc = 0;
 

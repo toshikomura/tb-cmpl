@@ -19,13 +19,11 @@ char *tipo_retorno;
 char *nome_proc_func;
 
 int num_vars;
+int num_parametros;
 int num_vars_inicial;
-
-int eh_vars_proc_func;
 
 int nivel_lexico;
 int desloc;
-int qtd_parametros;
 
 int x, y;
 int percorre_vars;
@@ -87,9 +85,7 @@ parte_declara_vars: var
 ;
 
 
-var: {
-            eh_vars_proc_func = 0;
-            } VAR declara_vars
+var: VAR declara_vars
             |
 ;
 
@@ -121,7 +117,7 @@ tipo: TIPO_INTEIRO
 
 tipo_parametro: TIPO_INTEIRO
             {
-            percorre_vars = num_vars - num_vars_inicial;
+            percorre_vars = num_parametros - num_vars_inicial;
             insere_tipo_parametro_Simbolo_TB_SIMB ( nome_proc_func, tipo_valor_referencia, token, percorre_vars);
             }
 ;
@@ -191,7 +187,6 @@ procedimento_ou_funcao: PROCEDIMENTO IDENT
             sprintf ( tipo_retorno, "sem_tipo");
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_Simbolo_TB_SIMB ( nome_proc_func, categoria, rotulo1, nivel_lexico, 0);
-            qtd_parametros = 0;
             } procedimento_ou_funcao_2 PONTO_E_VIRGULA
             {
             } procedimento_ou_funcao_3
@@ -201,7 +196,6 @@ procedimento_ou_funcao: PROCEDIMENTO IDENT
             sprintf ( categoria, "funcao");
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_Simbolo_TB_SIMB ( nome_proc_func, categoria, rotulo1, nivel_lexico, 0);
-            qtd_parametros = 0;
             } procedimento_ou_funcao_2 DOIS_PONTOS tipo_retorno_func PONTO_E_VIRGULA
             {
             } procedimento_ou_funcao_3
@@ -227,8 +221,7 @@ procedimento_ou_funcao_3:
 
 
 parametros_vars_proc_ou_func:{
-            eh_vars_proc_func = 1;
-            num_vars = 0;
+            num_parametros = 0;
             } vars_proc_ou_func
             |
 ;
@@ -250,7 +243,7 @@ vars_proc_ou_func_2: var_proc_ou_func PONTO_E_VIRGULA vars_proc_ou_func
 
 
 var_proc_ou_func: {
-            num_vars_inicial = num_vars;
+            num_vars_inicial = num_parametros;
             }
             lista_id_var_proc_ou_func DOIS_PONTOS
             tipo_parametro
@@ -262,14 +255,14 @@ lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA IDENT
             sprintf ( categoria, "parametro_formal");
             sprintf ( tipo_retorno, "sem_tipo");
             empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
-            num_vars++;
+            num_parametros++;
             }
             | IDENT
             {
             sprintf ( categoria, "parametro_formal");
             sprintf ( tipo_retorno, "sem_tipo");
             empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
-            num_vars++;
+            num_parametros++;
             }
 ;
 
