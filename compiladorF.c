@@ -198,6 +198,25 @@ void insere_tipo_parametro_Simbolo_TB_SIMB ( char *simb, char *va_re, char *ti, 
 
 }
 
+/* Função que insere tipo de retorno de uma função ou procedimento na tabela de simbolos */
+void insere_tipo_retorno_Simbolo_TB_SIMB ( char *simb, char *ti) {
+
+    char *tip = malloc ( sizeof ( char)*TAM_TOKEN);
+
+    strcpy( tip, ti);
+
+    no_tabela_simbolos_p *slot_tb_simb_aux = p_tb_simb->primeiro;
+
+    while ( slot_tb_simb_aux != NULL && strcmp( slot_tb_simb_aux->simbolo, simb))
+        slot_tb_simb_aux = slot_tb_simb_aux->prox;
+
+    if ( slot_tb_simb_aux != NULL)
+        slot_tb_simb_aux->tipo_retorno = tip;
+
+    imprime_Simbolo_TB_SIMB ();
+
+}
+
 /* Função que retira um simbolo da tabela de simbolos */
 void desempilha_Simbolo_TB_SIMB ( char **simb) {
 
