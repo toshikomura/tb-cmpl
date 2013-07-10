@@ -34,17 +34,25 @@ typedef enum simbolos {
 /* -------------------------------------------------------------------
  * Pilha da Tabeka de simbolos
  * ------------------------------------------------------------------- */
+
+typedef struct tipos_parametros {
+    char *tipo;
+    char *valor_referencia;
+    struct tipos_parametros *prox;
+} tipos_parametros_l;
+
+
 typedef struct no_tabela_simbolos {
     char *simbolo;
     char *tipo;
     char *categoria;
-    char *tipo_parametro;
     char *tipo_retorno;
     char *rotulo;
     int qtd_parametros;
     int nivel_lexico;
     int desloc;
     struct no_tabela_simbolos *prox;
+    tipos_parametros_l *primeiro_tipo_parametro;
 } no_tabela_simbolos_p;
 
 typedef struct pilha_tabela_simb {
@@ -87,7 +95,7 @@ extern char token[TAM_TOKEN];
 extern char *dados;
 extern char *categoria;
 extern char *tipo;
-extern char *tipo_parametro;
+extern char *tipo_valor_referencia;
 extern char *tipo_retorno;
 extern char *nome_proc_func;
 
@@ -98,7 +106,6 @@ extern int qtd_parametros;
 extern int nl;
 extern int num_vars;
 extern int num_vars_inicial;
-extern int eh_parametro_referencia;
 extern int eh_vars_proc_func;
 
 simbolos simbolo, relacao;
