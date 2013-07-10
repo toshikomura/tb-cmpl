@@ -125,7 +125,7 @@ tipo_parametro: TIPO_INTEIRO
 
 tipo_retorno_func: TIPO_INTEIRO
             {
-            sprintf ( tipo_retorno, "%s", token);
+            insere_tipo_retorno_Simbolo_TB_SIMB ( nome_proc_func, token);
             }
 ;
 
