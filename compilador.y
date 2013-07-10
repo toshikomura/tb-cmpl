@@ -14,14 +14,13 @@
 char *dados;
 char *categoria;
 char *tipo;
-char *tipo_parametro;
+char *tipo_valor_referencia;
 char *tipo_retorno;
 char *nome_proc_func;
 
 int num_vars;
 int num_vars_inicial;
 
-int eh_parametro_referencia;
 int eh_vars_proc_func;
 
 int nivel_lexico;
@@ -69,9 +68,8 @@ sem_tipo: IDENT
             {
             sprintf ( categoria, "nome_programa");
             sprintf ( tipo, "sem_tipo");
-            sprintf ( tipo_parametro, "sem_tipo");
             sprintf ( tipo_retorno, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, tipo_parametro, tipo_retorno, 0, 0, 0);
+            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, 0, 0);
             insere_tipo_Simbolo_TB_SIMB ( tipo, 1);
             }
 ;
@@ -91,7 +89,6 @@ parte_declara_vars: var
 
 var: {
             eh_vars_proc_func = 0;
-            eh_parametro_referencia = 0;
             } VAR declara_vars
             |
 ;
@@ -122,6 +119,13 @@ tipo: TIPO_INTEIRO
             }
 ;
 
+tipo_parametro: TIPO_INTEIRO
+            {
+            percorre_vars = num_vars - num_vars_inicial;
+            insere_tipo_parametro_Simbolo_TB_SIMB ( nome_proc_func, tipo_valor_referencia, token, percorre_vars);
+            }
+;
+
 
 tipo_retorno_func: TIPO_INTEIRO
             {
@@ -133,18 +137,16 @@ tipo_retorno_func: TIPO_INTEIRO
 lista_id_var: lista_id_var VIRGULA IDENT
             { /* insere última vars na tabela de símbolos */
             sprintf ( categoria, "var_simples");
-            sprintf ( tipo_parametro, "sem_tipo");
             sprintf ( tipo_retorno, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, tipo_parametro, tipo_retorno, nivel_lexico, desloc, 0);
+            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
             desloc++;
             num_vars++;
             }
             | IDENT
             { /* insere vars na tabela de símbolos */
             sprintf ( categoria, "var_simples");
-            sprintf ( tipo_parametro, "sem_tipo");
             sprintf ( tipo_retorno, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, tipo_parametro, tipo_retorno, nivel_lexico, desloc, 0);
+            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
             desloc++;
             num_vars++;
             }
@@ -186,24 +188,22 @@ procedimento_ou_funcao: PROCEDIMENTO IDENT
             {
             sprintf ( nome_proc_func, "%s", token);
             sprintf ( categoria, "procedimento");
-            sprintf ( tipo_parametro, "sem_tipo");
             sprintf ( tipo_retorno, "sem_tipo");
             gera_Proximo_Rotulo ( &rotulo1);
+            empilha_Simbolo_TB_SIMB ( nome_proc_func, categoria, rotulo1, nivel_lexico, 0);
             qtd_parametros = 0;
             } procedimento_ou_funcao_2 PONTO_E_VIRGULA
             {
-            empilha_Simbolo_TB_SIMB ( nome_proc_func, categoria, rotulo1, tipo_parametro, tipo_retorno, nivel_lexico, desloc, qtd_parametros);
             } procedimento_ou_funcao_3
             | FUNCAO IDENT
             {
             sprintf ( nome_proc_func, "%s", token);
             sprintf ( categoria, "funcao");
-            sprintf ( tipo_parametro, "sem_tipo");
             gera_Proximo_Rotulo ( &rotulo1);
+            empilha_Simbolo_TB_SIMB ( nome_proc_func, categoria, rotulo1, nivel_lexico, 0);
             qtd_parametros = 0;
             } procedimento_ou_funcao_2 DOIS_PONTOS tipo_retorno_func PONTO_E_VIRGULA
             {
-            empilha_Simbolo_TB_SIMB ( nome_proc_func, categoria, rotulo1, tipo_parametro, tipo_retorno, nivel_lexico, desloc, qtd_parametros);
             } procedimento_ou_funcao_3
 ;
 
@@ -228,6 +228,7 @@ procedimento_ou_funcao_3:
 
 parametros_vars_proc_ou_func:{
             eh_vars_proc_func = 1;
+            num_vars = 0;
             } vars_proc_ou_func
             |
 ;
@@ -235,11 +236,11 @@ parametros_vars_proc_ou_func:{
 
 vars_proc_ou_func: VAR
             {
-                eh_parametro_referencia = 1;
+            sprintf ( tipo_valor_referencia, "var_referencia");
             } vars_proc_ou_func_2
             |
             {
-                eh_parametro_referencia = 0;
+            sprintf ( tipo_valor_referencia, "var_valor");
             } vars_proc_ou_func_2
 
 
@@ -252,53 +253,23 @@ var_proc_ou_func: {
             num_vars_inicial = num_vars;
             }
             lista_id_var_proc_ou_func DOIS_PONTOS
-            tipo
-            { /* AMEM */
-            sprintf ( dados, "AMEM %d", num_vars);
-            geraCodigo ( NULL, dados);
-            }
+            tipo_parametro
 ;
 
 
 lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA IDENT
             {
-            procura_simb ( token, &x, &y, &tipo);
-            if ( x == -99 ) { // numero -99 indica que nao encontrou simb na tabela
-                sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
-                imprimeErro ( dados);
-                exit ( 1);
-            }
-
-            if ( eh_parametro_referencia == 1)
-                sprintf ( tipo_parametro, "var_referencia");
-            else
-                sprintf ( tipo_parametro, "var_valor");
-
             sprintf ( categoria, "parametro_formal");
             sprintf ( tipo_retorno, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, tipo_parametro, tipo_retorno, nivel_lexico, desloc, 0);
+            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
             num_vars++;
-            qtd_parametros++;
             }
             | IDENT
             {
-            procura_simb ( token, &x, &y, &tipo);
-            if ( x == -99 ) { // numero -99 indica que nao encontrou simb na tabela
-                sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
-                imprimeErro ( dados);
-                exit ( 1);
-            }
-
-            if ( eh_parametro_referencia == 1)
-                sprintf ( tipo_parametro, "var_referencia");
-            else
-                sprintf ( tipo_parametro, "var_valor");
-
             sprintf ( categoria, "parametro_formal");
             sprintf ( tipo_retorno, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, tipo_parametro, tipo_retorno, nivel_lexico, desloc, 0);
+            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
             num_vars++;
-            qtd_parametros++;
             }
 ;
 
