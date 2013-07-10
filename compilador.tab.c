@@ -1675,7 +1675,7 @@ yyreduce:
 /* Line 1806 of yacc.c  */
 #line 127 "compilador.y"
     {
-            sprintf ( tipo_retorno, "%s", token);
+            insere_tipo_retorno_Simbolo_TB_SIMB ( nome_proc_func, token);
             }
     break;
 
