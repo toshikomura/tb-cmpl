@@ -76,10 +76,19 @@ sem_tipo: IDENT
 bloco: parte_declara_vars
             {
             empilha_Inteiro ( p_num_vars, num_vars);
+
+            gera_Proximo_Rotulo ( &rotulo1);
+            empilha_Rotulo ( rotulo1);
+            sprintf ( dados, "DSVS %s", rotulo1);
+            geraCodigo ( NULL, dados);
+
             }
             comando_composto
             {
             desempilha_Inteiro ( p_num_vars, num_vars);
+
+            desempilha_Rotulo ( &rotulo1);
+            geraCodigo ( rotulo1, "NADA");
             }
 ;
 
