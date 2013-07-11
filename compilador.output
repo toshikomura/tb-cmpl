@@ -13,13 +13,13 @@ Regras inúteis no analisador devido a conflitos
 
 
 Estado 18 conflitos: 1 de redução/redução
-Estado 50 conflitos: 2 de redução/redução
+Estado 50 conflitos: 3 de redução/redução
 Estado 56 conflitos: 1 de deslocamento/redução, 1 de redução/redução
 Estado 61 conflitos: 1 de redução/redução
 Estado 62 conflitos: 1 de redução/redução
 Estado 63 conflitos: 1 de redução/redução
 Estado 114 conflitos: 1 de deslocamento/redução
-Estado 138 conflitos: 1 de deslocamento/redução
+Estado 137 conflitos: 1 de deslocamento/redução
 
 
 Gramática
@@ -140,8 +140,8 @@ Gramática
 
    67 chama_funcao: $@16 chama_proc_func
 
-   68 chama_proc_func: ABRE_PARENTESES lista_id_var_parametro FECHA_PARENTESES PONTO_E_VIRGULA chama_proc_func_2
-   69                | PONTO_E_VIRGULA chama_proc_func_2
+   68 chama_proc_func: ABRE_PARENTESES lista_id_var_parametro FECHA_PARENTESES chama_proc_func_2
+   69                | chama_proc_func_2
 
    70 chama_proc_func_2: /* vazio */
 
@@ -225,7 +225,7 @@ PROGRAM (258) 2
 ABRE_PARENTESES (259) 2 41 68 77 85 103 118
 FECHA_PARENTESES (260) 2 41 68 77 85 103 118
 VIRGULA (261) 17 19 56 71
-PONTO_E_VIRGULA (262) 2 13 25 26 27 28 29 30 37 40 44 52 68 69
+PONTO_E_VIRGULA (262) 2 13 25 26 27 28 29 30 37 40 44 52
 DOIS_PONTOS (263) 13 40 55
 PONTO (264) 2
 T_BEGIN (265) 24
@@ -854,6 +854,8 @@ estado 50
     ABRE_PARENTESES  [reduzir usando a regra 66 ($@16)]
     PONTO_E_VIRGULA  reduzir usando a regra 64 ($@15)
     PONTO_E_VIRGULA  [reduzir usando a regra 66 ($@16)]
+    SENAO            reduzir usando a regra 64 ($@15)
+    SENAO            [reduzir usando a regra 66 ($@16)]
     $padrão         reduzir usando a regra 64 ($@15)
 
     atrib_proc_func_2   ir ao estado 74
@@ -1156,9 +1158,11 @@ estado 77
    65 chama_procedimento: $@15 . chama_proc_func
 
     ABRE_PARENTESES  deslocar, e ir ao estado 107
-    PONTO_E_VIRGULA  deslocar, e ir ao estado 108
 
-    chama_proc_func  ir ao estado 109
+    $padrão  reduzir usando a regra 70 (chama_proc_func_2)
+
+    chama_proc_func    ir ao estado 108
+    chama_proc_func_2  ir ao estado 109
 
 
 estado 78
@@ -1173,9 +1177,11 @@ estado 79
    67 chama_funcao: $@16 . chama_proc_func
 
     ABRE_PARENTESES  deslocar, e ir ao estado 107
-    PONTO_E_VIRGULA  deslocar, e ir ao estado 108
 
-    chama_proc_func  ir ao estado 110
+    $padrão  reduzir usando a regra 70 (chama_proc_func_2)
+
+    chama_proc_func    ir ao estado 110
+    chama_proc_func_2  ir ao estado 109
 
 
 estado 80
@@ -1461,7 +1467,7 @@ estado 106
 
 estado 107
 
-   68 chama_proc_func: ABRE_PARENTESES . lista_id_var_parametro FECHA_PARENTESES PONTO_E_VIRGULA chama_proc_func_2
+   68 chama_proc_func: ABRE_PARENTESES . lista_id_var_parametro FECHA_PARENTESES chama_proc_func_2
 
     IDENT  deslocar, e ir ao estado 135
 
@@ -1472,18 +1478,16 @@ estado 107
 
 estado 108
 
-   69 chama_proc_func: PONTO_E_VIRGULA . chama_proc_func_2
+   65 chama_procedimento: $@15 chama_proc_func .
 
-    $padrão  reduzir usando a regra 70 (chama_proc_func_2)
-
-    chama_proc_func_2  ir ao estado 137
+    $padrão  reduzir usando a regra 65 (chama_procedimento)
 
 
 estado 109
 
-   65 chama_procedimento: $@15 chama_proc_func .
+   69 chama_proc_func: chama_proc_func_2 .
 
-    $padrão  reduzir usando a regra 65 (chama_procedimento)
+    $padrão  reduzir usando a regra 69 (chama_proc_func)
 
 
 estado 110
@@ -1498,7 +1502,7 @@ estado 111
    77 repeticao_2: ABRE_PARENTESES expressao_booleana_geral . FECHA_PARENTESES FACA $@18 repeticao_3
   118 expressao_fator2: ABRE_PARENTESES expressao_booleana_geral . FECHA_PARENTESES
 
-    FECHA_PARENTESES  deslocar, e ir ao estado 138
+    FECHA_PARENTESES  deslocar, e ir ao estado 137
 
 
 estado 112
@@ -1507,14 +1511,14 @@ estado 112
 
     $padrão  reduzir usando a regra 78 ($@19)
 
-    $@19  ir ao estado 139
+    $@19  ir ao estado 138
 
 
 estado 113
 
   118 expressao_fator2: ABRE_PARENTESES expressao_booleana_geral . FECHA_PARENTESES
 
-    FECHA_PARENTESES  deslocar, e ir ao estado 140
+    FECHA_PARENTESES  deslocar, e ir ao estado 139
 
 
 estado 114
@@ -1522,7 +1526,7 @@ estado 114
    85 condicao_se_entao: ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES . ENTAO $@20 condicao_se_entao_2
   118 expressao_fator2: ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES .
 
-    ENTAO  deslocar, e ir ao estado 141
+    ENTAO  deslocar, e ir ao estado 140
 
     ENTAO     [reduzir usando a regra 118 (expressao_fator2)]
     $padrão  reduzir usando a regra 118 (expressao_fator2)
@@ -1537,12 +1541,12 @@ estado 115
     ENQUANTO  deslocar, e ir ao estado 36
     SE        deslocar, e ir ao estado 37
 
-    comando_composto_2           ir ao estado 142
-    comando_sem_ponto_e_virgula  ir ao estado 143
-    atrib_proc_func              ir ao estado 144
-    repeticao                    ir ao estado 145
-    condicao                     ir ao estado 146
-    condicao_senao_2             ir ao estado 147
+    comando_composto_2           ir ao estado 141
+    comando_sem_ponto_e_virgula  ir ao estado 142
+    atrib_proc_func              ir ao estado 143
+    repeticao                    ir ao estado 144
+    condicao                     ir ao estado 145
+    condicao_senao_2             ir ao estado 146
 
 
 estado 116
@@ -1554,12 +1558,12 @@ estado 116
     ENQUANTO  deslocar, e ir ao estado 36
     SE        deslocar, e ir ao estado 37
 
-    comando_composto_2           ir ao estado 148
-    comando_sem_ponto_e_virgula  ir ao estado 149
-    atrib_proc_func              ir ao estado 144
-    repeticao                    ir ao estado 145
-    condicao                     ir ao estado 146
-    condicao_se_entao_2          ir ao estado 150
+    comando_composto_2           ir ao estado 147
+    comando_sem_ponto_e_virgula  ir ao estado 148
+    atrib_proc_func              ir ao estado 143
+    repeticao                    ir ao estado 144
+    condicao                     ir ao estado 145
+    condicao_se_entao_2          ir ao estado 149
 
 
 estado 117
@@ -1584,7 +1588,7 @@ estado 119
     IDENT            deslocar, e ir ao estado 53
     NUMERO           deslocar, e ir ao estado 54
 
-    expressao_fator2  ir ao estado 151
+    expressao_fator2  ir ao estado 150
 
 
 estado 120
@@ -1602,7 +1606,7 @@ estado 121
     IDENT            deslocar, e ir ao estado 53
     NUMERO           deslocar, e ir ao estado 54
 
-    expressao_fator2  ir ao estado 152
+    expressao_fator2  ir ao estado 151
 
 
 estado 122
@@ -1620,7 +1624,7 @@ estado 123
     IDENT            deslocar, e ir ao estado 53
     NUMERO           deslocar, e ir ao estado 54
 
-    expressao_fator2  ir ao estado 153
+    expressao_fator2  ir ao estado 152
 
 
 estado 124
@@ -1686,19 +1690,19 @@ estado 131
 
    41 procedimento_ou_funcao_2: ABRE_PARENTESES parametros_vars_proc_ou_func . FECHA_PARENTESES
 
-    FECHA_PARENTESES  deslocar, e ir ao estado 154
+    FECHA_PARENTESES  deslocar, e ir ao estado 153
 
 
 estado 132
 
    46 parametros_vars_proc_ou_func: $@10 . vars_proc_ou_func
 
-    VAR  deslocar, e ir ao estado 155
+    VAR  deslocar, e ir ao estado 154
 
     $padrão  reduzir usando a regra 50 ($@12)
 
-    vars_proc_ou_func  ir ao estado 156
-    $@12               ir ao estado 157
+    vars_proc_ou_func  ir ao estado 155
+    $@12               ir ao estado 156
 
 
 estado 133
@@ -1707,16 +1711,16 @@ estado 133
 
     $padrão  reduzir usando a regra 36 ($@6)
 
-    $@6  ir ao estado 158
+    $@6  ir ao estado 157
 
 
 estado 134
 
    40 procedimento_ou_funcao: FUNCAO IDENT $@7 procedimento_ou_funcao_2 DOIS_PONTOS . tipo_retorno_func PONTO_E_VIRGULA $@8 procedimento_ou_funcao_3
 
-    TIPO_INTEIRO  deslocar, e ir ao estado 159
+    TIPO_INTEIRO  deslocar, e ir ao estado 158
 
-    tipo_retorno_func  ir ao estado 160
+    tipo_retorno_func  ir ao estado 159
 
 
 estado 135
@@ -1728,32 +1732,25 @@ estado 135
 
 estado 136
 
-   68 chama_proc_func: ABRE_PARENTESES lista_id_var_parametro . FECHA_PARENTESES PONTO_E_VIRGULA chama_proc_func_2
+   68 chama_proc_func: ABRE_PARENTESES lista_id_var_parametro . FECHA_PARENTESES chama_proc_func_2
    71 lista_id_var_parametro: lista_id_var_parametro . VIRGULA IDENT
 
-    FECHA_PARENTESES  deslocar, e ir ao estado 161
-    VIRGULA           deslocar, e ir ao estado 162
+    FECHA_PARENTESES  deslocar, e ir ao estado 160
+    VIRGULA           deslocar, e ir ao estado 161
 
 
 estado 137
 
-   69 chama_proc_func: PONTO_E_VIRGULA chama_proc_func_2 .
-
-    $padrão  reduzir usando a regra 69 (chama_proc_func)
-
-
-estado 138
-
    77 repeticao_2: ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES . FACA $@18 repeticao_3
   118 expressao_fator2: ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES .
 
-    FACA  deslocar, e ir ao estado 163
+    FACA  deslocar, e ir ao estado 162
 
     FACA      [reduzir usando a regra 118 (expressao_fator2)]
     $padrão  reduzir usando a regra 118 (expressao_fator2)
 
 
-estado 139
+estado 138
 
    79 repeticao_2: expressao_booleana_geral FACA $@19 . repeticao_3
 
@@ -1762,217 +1759,219 @@ estado 139
     ENQUANTO  deslocar, e ir ao estado 36
     SE        deslocar, e ir ao estado 37
 
-    comando_composto_2           ir ao estado 164
-    comando_sem_ponto_e_virgula  ir ao estado 165
-    atrib_proc_func              ir ao estado 144
-    repeticao                    ir ao estado 145
-    repeticao_3                  ir ao estado 166
-    condicao                     ir ao estado 146
+    comando_composto_2           ir ao estado 163
+    comando_sem_ponto_e_virgula  ir ao estado 164
+    atrib_proc_func              ir ao estado 143
+    repeticao                    ir ao estado 144
+    repeticao_3                  ir ao estado 165
+    condicao                     ir ao estado 145
 
 
-estado 140
+estado 139
 
   118 expressao_fator2: ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES .
 
     $padrão  reduzir usando a regra 118 (expressao_fator2)
 
 
-estado 141
+estado 140
 
    85 condicao_se_entao: ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES ENTAO . $@20 condicao_se_entao_2
 
     $padrão  reduzir usando a regra 84 ($@20)
 
-    $@20  ir ao estado 167
+    $@20  ir ao estado 166
 
 
-estado 142
+estado 141
 
    94 condicao_senao_2: comando_composto_2 .
 
     $padrão  reduzir usando a regra 94 (condicao_senao_2)
 
 
-estado 143
+estado 142
 
    93 condicao_senao_2: comando_sem_ponto_e_virgula .
 
     $padrão  reduzir usando a regra 93 (condicao_senao_2)
 
 
-estado 144
+estado 143
 
    32 comando_sem_ponto_e_virgula: atrib_proc_func .
 
     $padrão  reduzir usando a regra 32 (comando_sem_ponto_e_virgula)
 
 
-estado 145
+estado 144
 
    33 comando_sem_ponto_e_virgula: repeticao .
 
     $padrão  reduzir usando a regra 33 (comando_sem_ponto_e_virgula)
 
 
-estado 146
+estado 145
 
    34 comando_sem_ponto_e_virgula: condicao .
 
     $padrão  reduzir usando a regra 34 (comando_sem_ponto_e_virgula)
 
 
-estado 147
+estado 146
 
    91 condicao_senao: SENAO $@22 condicao_senao_2 .
 
     $padrão  reduzir usando a regra 91 (condicao_senao)
 
 
-estado 148
+estado 147
 
    89 condicao_se_entao_2: comando_composto_2 .
 
     $padrão  reduzir usando a regra 89 (condicao_se_entao_2)
 
 
-estado 149
+estado 148
 
    88 condicao_se_entao_2: comando_sem_ponto_e_virgula .
 
     $padrão  reduzir usando a regra 88 (condicao_se_entao_2)
 
 
-estado 150
+estado 149
 
    87 condicao_se_entao: expressao_booleana_geral ENTAO $@21 condicao_se_entao_2 .
 
     $padrão  reduzir usando a regra 87 (condicao_se_entao)
 
 
-estado 151
+estado 150
 
   109 expressao_booleana: expressao_booleana MAIOR IGUAL expressao_fator2 .
 
     $padrão  reduzir usando a regra 109 (expressao_booleana)
 
 
-estado 152
+estado 151
 
   111 expressao_booleana: expressao_booleana MENOR IGUAL expressao_fator2 .
 
     $padrão  reduzir usando a regra 111 (expressao_booleana)
 
 
-estado 153
+estado 152
 
   114 expressao_booleana: expressao_booleana E NAO expressao_fator2 .
 
     $padrão  reduzir usando a regra 114 (expressao_booleana)
 
 
-estado 154
+estado 153
 
    41 procedimento_ou_funcao_2: ABRE_PARENTESES parametros_vars_proc_ou_func FECHA_PARENTESES .
 
     $padrão  reduzir usando a regra 41 (procedimento_ou_funcao_2)
 
 
-estado 155
+estado 154
 
    49 vars_proc_ou_func: VAR . $@11 vars_proc_ou_func_2
 
     $padrão  reduzir usando a regra 48 ($@11)
 
-    $@11  ir ao estado 168
+    $@11  ir ao estado 167
 
 
-estado 156
+estado 155
 
    46 parametros_vars_proc_ou_func: $@10 vars_proc_ou_func .
 
     $padrão  reduzir usando a regra 46 (parametros_vars_proc_ou_func)
 
 
-estado 157
+estado 156
 
    51 vars_proc_ou_func: $@12 . vars_proc_ou_func_2
 
     $padrão  reduzir usando a regra 54 ($@13)
 
-    vars_proc_ou_func_2  ir ao estado 169
-    var_proc_ou_func     ir ao estado 170
-    $@13                 ir ao estado 171
+    vars_proc_ou_func_2  ir ao estado 168
+    var_proc_ou_func     ir ao estado 169
+    $@13                 ir ao estado 170
 
 
-estado 158
+estado 157
 
    37 procedimento_ou_funcao: PROCEDIMENTO IDENT $@5 procedimento_ou_funcao_2 PONTO_E_VIRGULA $@6 . procedimento_ou_funcao_3
 
     $padrão  reduzir usando a regra 43 ($@9)
 
-    procedimento_ou_funcao_3  ir ao estado 172
-    $@9                       ir ao estado 173
+    procedimento_ou_funcao_3  ir ao estado 171
+    $@9                       ir ao estado 172
 
 
-estado 159
+estado 158
 
    16 tipo_retorno_func: TIPO_INTEIRO .
 
     $padrão  reduzir usando a regra 16 (tipo_retorno_func)
 
 
-estado 160
+estado 159
 
    40 procedimento_ou_funcao: FUNCAO IDENT $@7 procedimento_ou_funcao_2 DOIS_PONTOS tipo_retorno_func . PONTO_E_VIRGULA $@8 procedimento_ou_funcao_3
 
-    PONTO_E_VIRGULA  deslocar, e ir ao estado 174
+    PONTO_E_VIRGULA  deslocar, e ir ao estado 173
+
+
+estado 160
+
+   68 chama_proc_func: ABRE_PARENTESES lista_id_var_parametro FECHA_PARENTESES . chama_proc_func_2
+
+    $padrão  reduzir usando a regra 70 (chama_proc_func_2)
+
+    chama_proc_func_2  ir ao estado 174
 
 
 estado 161
 
-   68 chama_proc_func: ABRE_PARENTESES lista_id_var_parametro FECHA_PARENTESES . PONTO_E_VIRGULA chama_proc_func_2
+   71 lista_id_var_parametro: lista_id_var_parametro VIRGULA . IDENT
 
-    PONTO_E_VIRGULA  deslocar, e ir ao estado 175
+    IDENT  deslocar, e ir ao estado 175
 
 
 estado 162
-
-   71 lista_id_var_parametro: lista_id_var_parametro VIRGULA . IDENT
-
-    IDENT  deslocar, e ir ao estado 176
-
-
-estado 163
 
    77 repeticao_2: ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES FACA . $@18 repeticao_3
 
     $padrão  reduzir usando a regra 76 ($@18)
 
-    $@18  ir ao estado 177
+    $@18  ir ao estado 176
 
 
-estado 164
+estado 163
 
    81 repeticao_3: comando_composto_2 .
 
     $padrão  reduzir usando a regra 81 (repeticao_3)
 
 
-estado 165
+estado 164
 
    80 repeticao_3: comando_sem_ponto_e_virgula .
 
     $padrão  reduzir usando a regra 80 (repeticao_3)
 
 
-estado 166
+estado 165
 
    79 repeticao_2: expressao_booleana_geral FACA $@19 repeticao_3 .
 
     $padrão  reduzir usando a regra 79 (repeticao_2)
 
 
-estado 167
+estado 166
 
    85 condicao_se_entao: ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES ENTAO $@20 . condicao_se_entao_2
 
@@ -1981,59 +1980,59 @@ estado 167
     ENQUANTO  deslocar, e ir ao estado 36
     SE        deslocar, e ir ao estado 37
 
-    comando_composto_2           ir ao estado 148
-    comando_sem_ponto_e_virgula  ir ao estado 149
-    atrib_proc_func              ir ao estado 144
-    repeticao                    ir ao estado 145
-    condicao                     ir ao estado 146
-    condicao_se_entao_2          ir ao estado 178
+    comando_composto_2           ir ao estado 147
+    comando_sem_ponto_e_virgula  ir ao estado 148
+    atrib_proc_func              ir ao estado 143
+    repeticao                    ir ao estado 144
+    condicao                     ir ao estado 145
+    condicao_se_entao_2          ir ao estado 177
 
 
-estado 168
+estado 167
 
    49 vars_proc_ou_func: VAR $@11 . vars_proc_ou_func_2
 
     $padrão  reduzir usando a regra 54 ($@13)
 
-    vars_proc_ou_func_2  ir ao estado 179
-    var_proc_ou_func     ir ao estado 170
-    $@13                 ir ao estado 171
+    vars_proc_ou_func_2  ir ao estado 178
+    var_proc_ou_func     ir ao estado 169
+    $@13                 ir ao estado 170
 
 
-estado 169
+estado 168
 
    51 vars_proc_ou_func: $@12 vars_proc_ou_func_2 .
 
     $padrão  reduzir usando a regra 51 (vars_proc_ou_func)
 
 
-estado 170
+estado 169
 
    52 vars_proc_ou_func_2: var_proc_ou_func . PONTO_E_VIRGULA vars_proc_ou_func
    53                    | var_proc_ou_func .
 
-    PONTO_E_VIRGULA  deslocar, e ir ao estado 180
+    PONTO_E_VIRGULA  deslocar, e ir ao estado 179
 
     $padrão  reduzir usando a regra 53 (vars_proc_ou_func_2)
 
 
-estado 171
+estado 170
 
    55 var_proc_ou_func: $@13 . lista_id_var_proc_ou_func DOIS_PONTOS tipo_parametro
 
-    IDENT  deslocar, e ir ao estado 181
+    IDENT  deslocar, e ir ao estado 180
 
-    lista_id_var_proc_ou_func  ir ao estado 182
+    lista_id_var_proc_ou_func  ir ao estado 181
 
 
-estado 172
+estado 171
 
    37 procedimento_ou_funcao: PROCEDIMENTO IDENT $@5 procedimento_ou_funcao_2 PONTO_E_VIRGULA $@6 procedimento_ou_funcao_3 .
 
     $padrão  reduzir usando a regra 37 (procedimento_ou_funcao)
 
 
-estado 173
+estado 172
 
    44 procedimento_ou_funcao_3: $@9 . bloco PONTO_E_VIRGULA
 
@@ -2041,37 +2040,35 @@ estado 173
 
     $padrão  reduzir usando a regra 8 (var)
 
-    bloco               ir ao estado 183
+    bloco               ir ao estado 182
     parte_declara_vars  ir ao estado 16
     var                 ir ao estado 17
 
 
-estado 174
+estado 173
 
    40 procedimento_ou_funcao: FUNCAO IDENT $@7 procedimento_ou_funcao_2 DOIS_PONTOS tipo_retorno_func PONTO_E_VIRGULA . $@8 procedimento_ou_funcao_3
 
     $padrão  reduzir usando a regra 39 ($@8)
 
-    $@8  ir ao estado 184
+    $@8  ir ao estado 183
+
+
+estado 174
+
+   68 chama_proc_func: ABRE_PARENTESES lista_id_var_parametro FECHA_PARENTESES chama_proc_func_2 .
+
+    $padrão  reduzir usando a regra 68 (chama_proc_func)
 
 
 estado 175
-
-   68 chama_proc_func: ABRE_PARENTESES lista_id_var_parametro FECHA_PARENTESES PONTO_E_VIRGULA . chama_proc_func_2
-
-    $padrão  reduzir usando a regra 70 (chama_proc_func_2)
-
-    chama_proc_func_2  ir ao estado 185
-
-
-estado 176
 
    71 lista_id_var_parametro: lista_id_var_parametro VIRGULA IDENT .
 
     $padrão  reduzir usando a regra 71 (lista_id_var_parametro)
 
 
-estado 177
+estado 176
 
    77 repeticao_2: ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES FACA $@18 . repeticao_3
 
@@ -2080,139 +2077,132 @@ estado 177
     ENQUANTO  deslocar, e ir ao estado 36
     SE        deslocar, e ir ao estado 37
 
-    comando_composto_2           ir ao estado 164
-    comando_sem_ponto_e_virgula  ir ao estado 165
-    atrib_proc_func              ir ao estado 144
-    repeticao                    ir ao estado 145
-    repeticao_3                  ir ao estado 186
-    condicao                     ir ao estado 146
+    comando_composto_2           ir ao estado 163
+    comando_sem_ponto_e_virgula  ir ao estado 164
+    atrib_proc_func              ir ao estado 143
+    repeticao                    ir ao estado 144
+    repeticao_3                  ir ao estado 184
+    condicao                     ir ao estado 145
 
 
-estado 178
+estado 177
 
    85 condicao_se_entao: ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES ENTAO $@20 condicao_se_entao_2 .
 
     $padrão  reduzir usando a regra 85 (condicao_se_entao)
 
 
-estado 179
+estado 178
 
    49 vars_proc_ou_func: VAR $@11 vars_proc_ou_func_2 .
 
     $padrão  reduzir usando a regra 49 (vars_proc_ou_func)
 
 
-estado 180
+estado 179
 
    52 vars_proc_ou_func_2: var_proc_ou_func PONTO_E_VIRGULA . vars_proc_ou_func
 
-    VAR  deslocar, e ir ao estado 155
+    VAR  deslocar, e ir ao estado 154
 
     $padrão  reduzir usando a regra 50 ($@12)
 
-    vars_proc_ou_func  ir ao estado 187
-    $@12               ir ao estado 157
+    vars_proc_ou_func  ir ao estado 185
+    $@12               ir ao estado 156
 
 
-estado 181
+estado 180
 
    57 lista_id_var_proc_ou_func: IDENT .
 
     $padrão  reduzir usando a regra 57 (lista_id_var_proc_ou_func)
 
 
-estado 182
+estado 181
 
    55 var_proc_ou_func: $@13 lista_id_var_proc_ou_func . DOIS_PONTOS tipo_parametro
    56 lista_id_var_proc_ou_func: lista_id_var_proc_ou_func . VIRGULA IDENT
 
-    VIRGULA      deslocar, e ir ao estado 188
-    DOIS_PONTOS  deslocar, e ir ao estado 189
+    VIRGULA      deslocar, e ir ao estado 186
+    DOIS_PONTOS  deslocar, e ir ao estado 187
 
 
-estado 183
+estado 182
 
    44 procedimento_ou_funcao_3: $@9 bloco . PONTO_E_VIRGULA
 
-    PONTO_E_VIRGULA  deslocar, e ir ao estado 190
+    PONTO_E_VIRGULA  deslocar, e ir ao estado 188
 
 
-estado 184
+estado 183
 
    40 procedimento_ou_funcao: FUNCAO IDENT $@7 procedimento_ou_funcao_2 DOIS_PONTOS tipo_retorno_func PONTO_E_VIRGULA $@8 . procedimento_ou_funcao_3
 
     $padrão  reduzir usando a regra 43 ($@9)
 
-    procedimento_ou_funcao_3  ir ao estado 191
-    $@9                       ir ao estado 173
+    procedimento_ou_funcao_3  ir ao estado 189
+    $@9                       ir ao estado 172
 
 
-estado 185
-
-   68 chama_proc_func: ABRE_PARENTESES lista_id_var_parametro FECHA_PARENTESES PONTO_E_VIRGULA chama_proc_func_2 .
-
-    $padrão  reduzir usando a regra 68 (chama_proc_func)
-
-
-estado 186
+estado 184
 
    77 repeticao_2: ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES FACA $@18 repeticao_3 .
 
     $padrão  reduzir usando a regra 77 (repeticao_2)
 
 
-estado 187
+estado 185
 
    52 vars_proc_ou_func_2: var_proc_ou_func PONTO_E_VIRGULA vars_proc_ou_func .
 
     $padrão  reduzir usando a regra 52 (vars_proc_ou_func_2)
 
 
-estado 188
+estado 186
 
    56 lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA . IDENT
 
-    IDENT  deslocar, e ir ao estado 192
+    IDENT  deslocar, e ir ao estado 190
 
 
-estado 189
+estado 187
 
    55 var_proc_ou_func: $@13 lista_id_var_proc_ou_func DOIS_PONTOS . tipo_parametro
 
-    TIPO_INTEIRO  deslocar, e ir ao estado 193
+    TIPO_INTEIRO  deslocar, e ir ao estado 191
 
-    tipo_parametro  ir ao estado 194
+    tipo_parametro  ir ao estado 192
 
 
-estado 190
+estado 188
 
    44 procedimento_ou_funcao_3: $@9 bloco PONTO_E_VIRGULA .
 
     $padrão  reduzir usando a regra 44 (procedimento_ou_funcao_3)
 
 
-estado 191
+estado 189
 
    40 procedimento_ou_funcao: FUNCAO IDENT $@7 procedimento_ou_funcao_2 DOIS_PONTOS tipo_retorno_func PONTO_E_VIRGULA $@8 procedimento_ou_funcao_3 .
 
     $padrão  reduzir usando a regra 40 (procedimento_ou_funcao)
 
 
-estado 192
+estado 190
 
    56 lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA IDENT .
 
     $padrão  reduzir usando a regra 56 (lista_id_var_proc_ou_func)
 
 
-estado 193
+estado 191
 
    15 tipo_parametro: TIPO_INTEIRO .
 
     $padrão  reduzir usando a regra 15 (tipo_parametro)
 
 
-estado 194
+estado 192
 
    55 var_proc_ou_func: $@13 lista_id_var_proc_ou_func DOIS_PONTOS tipo_parametro .
 
