@@ -73,11 +73,14 @@ sem_tipo: IDENT
 ;
 
 
-bloco:
-              parte_declara_vars
-              {
-              }
-              comando_composto
+bloco: parte_declara_vars
+            {
+            empilha_Inteiro ( p_num_vars, num_vars);
+            }
+            comando_composto
+            {
+            desempilha_Inteiro ( p_num_vars, num_vars);
+            }
 ;
 
 
@@ -209,12 +212,14 @@ procedimento_ou_funcao_2: ABRE_PARENTESES parametros_vars_proc_ou_func FECHA_PAR
 
 procedimento_ou_funcao_3:
             {
-            empilha_Deslocamento ( desloc);
+            empilha_Inteiro ( p_deslocamentos, desloc);
             desloc = 0;
             nivel_lexico++;
+            sprintf ( dados, "ENPR %d", nivel_lexico);
+            geraCodigo ( NULL, dados );
             } bloco PONTO_E_VIRGULA
             {
-            desloc = desempilha_Deslocamento ();
+            desloc = desempilha_Inteiro ( p_deslocamentos);
             nivel_lexico--;
             }
 ;
@@ -584,7 +589,8 @@ main ( int argc, char** argv) {
     inicia_variaveis_globais ();
     inicia_pilha_tabela_simbolos ();
     inicia_pilha_rotulos ();
-    inicia_pilha_deslocamentos ();
+    inicia_pilha_inteiros ();
+    inicia_pilha_inteiros ();
 
     yyin = fp;
     yyparse ();
