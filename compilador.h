@@ -76,15 +76,15 @@ typedef struct pilha_rotulos {
 /* -------------------------------------------------------------------
  * Pilha de deslocamento
  * ------------------------------------------------------------------- */
-typedef struct deslocamentos_pilha {
-    int deslocamento;
-    struct deslocamentos_pilha *prox;
-} deslocamentos_p;
+typedef struct inteiros_pilha {
+    int inteiro;
+    struct inteiros_pilha *prox;
+} inteiros_p;
 
-typedef struct pilha_deslocamentos {
-    deslocamentos_p *primeiro;
+typedef struct pilha_inteiros {
+    inteiros_p *primeiro;
     int tam;
-} pilha_d;
+} pilha_i;
 
 /* -------------------------------------------------------------------
  * variáveis globais
@@ -110,5 +110,6 @@ char token[TAM_TOKEN];
 
 pilha_tb_simb *p_tb_simb;
 pilha_r *p_rotulos;
-pilha_d *p_deslocamentos;
+pilha_i *p_deslocamentos;
+pilha_i *p_num_vars;
 char *rotulo1, *rotulo2; // rotulos
