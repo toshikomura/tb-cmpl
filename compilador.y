@@ -297,6 +297,10 @@ atrib_proc_func: IDENT
 atrib_proc_func_2: atribuicao
             | chama_procedimento
             | chama_funcao
+            {
+            sprintf ( dados, "DMEN 1");
+            geraCodigo ( NULL, dados);
+            }
 ;
 
 
@@ -332,8 +336,8 @@ chama_funcao: {
 ;
 
 
-chama_proc_func: ABRE_PARENTESES lista_id_var_parametro FECHA_PARENTESES PONTO_E_VIRGULA chama_proc_func_2
-            | PONTO_E_VIRGULA chama_proc_func_2
+chama_proc_func: ABRE_PARENTESES lista_id_var_parametro FECHA_PARENTESES chama_proc_func_2
+            | chama_proc_func_2
 ;
 
 
