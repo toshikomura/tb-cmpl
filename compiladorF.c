@@ -335,40 +335,44 @@ void desempilha_Rotulo ( char **rotulo) {
 }
 
 /* Inicia pilha para deslocamentos */
-void inicia_pilha_deslocamentos () {
+void inicia_pilha_inteiros () {
 
-    p_deslocamentos = malloc( sizeof (pilha_d));
+    p_deslocamentos = malloc ( sizeof ( pilha_i));
     p_deslocamentos->primeiro = NULL;
     p_deslocamentos->tam = 0;
+
+    p_num_vars = malloc ( sizeof ( pilha_i));
+    p_num_vars->primeiro = NULL;
+    p_num_vars->tam = 0;
 }
 
 /* Função que empilha deslocamento */
-void empilha_Deslocamento ( int deslocamento ) {
+void empilha_Inteiro ( pilha_i *p, int inteiro) {
 
-    deslocamentos_p *novo_deslocamento = malloc( sizeof ( deslocamentos_p ));
+    inteiros_p *novo_inteiro = malloc( sizeof ( inteiros_p ));
 
-    novo_deslocamento->deslocamento = deslocamento;
-    novo_deslocamento->prox = p_deslocamentos->primeiro;
-    p_deslocamentos->primeiro = novo_deslocamento;
-    p_deslocamentos->tam++;
+    novo_inteiro->inteiro = inteiro;
+    novo_inteiro->prox = p->primeiro;
+    p->primeiro = novo_inteiro;
+    p->tam++;
 
 }
 
 /* Função que desempilha deslocamentos */
-int desempilha_Deslocamento () {
+int desempilha_Inteiro ( pilha_i *p) {
 
-    deslocamentos_p *deslocamento_retirado;
+    inteiros_p *inteiro_retirado;
 
-    if ( p_deslocamentos->tam == 0){
+    if ( p->tam == 0){
         return -99;
     }
     else
     {
-        deslocamento_retirado = p_deslocamentos->primeiro;
-        p_deslocamentos->primeiro = deslocamento_retirado->prox;
-        p_deslocamentos->tam--;
+        inteiro_retirado = p->primeiro;
+        p->primeiro = inteiro_retirado->prox;
+        p->tam--;
 
-        return deslocamento_retirado->deslocamento;
+        return inteiro_retirado->inteiro;
 
     }
 }
