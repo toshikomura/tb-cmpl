@@ -73,23 +73,7 @@ sem_tipo: IDENT
 ;
 
 
-bloco: parte_declara_vars
-            {
-            empilha_Inteiro ( p_num_vars, num_vars);
-
-            gera_Proximo_Rotulo ( &rotulo1);
-            empilha_Rotulo ( rotulo1);
-            sprintf ( dados, "DSVS %s", rotulo1);
-            geraCodigo ( NULL, dados);
-
-            }
-            comando_composto
-            {
-            desempilha_Inteiro ( p_num_vars, num_vars);
-
-            desempilha_Rotulo ( &rotulo1);
-            geraCodigo ( rotulo1, "NADA");
-            }
+bloco: parte_declara_vars comando_composto
 ;
 
 
@@ -108,22 +92,22 @@ declara_vars: declara_vars declara_var
 
 
 declara_var: {
-              num_vars_inicial = num_vars;
-              }
-              lista_id_var DOIS_PONTOS
-              tipo
-              { /* AMEM */
-              sprintf ( dados, "AMEM %d", num_vars);
-              geraCodigo ( NULL, dados);
-              }
-              PONTO_E_VIRGULA
+            num_vars_inicial = num_vars;
+            }
+            lista_id_var DOIS_PONTOS
+            tipo
+            { /* AMEM */
+            sprintf ( dados, "AMEM %d", percorre_vars);
+            geraCodigo ( NULL, dados);
+            }
+            PONTO_E_VIRGULA
 ;
 
 
 tipo: TIPO_INTEIRO
             {
-                percorre_vars = num_vars - num_vars_inicial;
-                insere_tipo_Simbolo_TB_SIMB ( token, percorre_vars);
+            percorre_vars = num_vars - num_vars_inicial;
+            insere_tipo_Simbolo_TB_SIMB ( token, percorre_vars);
             }
 ;
 
@@ -167,12 +151,33 @@ lista_idents: lista_idents VIRGULA IDENT
 
 
 comando_composto: IDENT atribuicao bloco
-            | procedimento_ou_funcao bloco
+            | {
+            printf ( "Empilha vars %d\n", num_vars);
+            empilha_Inteiro ( p_num_vars, num_vars);
+
+            gera_Proximo_Rotulo ( &rotulo1);
+            empilha_Rotulo ( rotulo1);
+            sprintf ( dados, "DSVS %s", rotulo1);
+            geraCodigo ( NULL, dados);
+            }
+            procedimento_ou_funcao
+            {
+            printf ( "Desempilha vars %d\n", num_vars);
+            num_vars = desempilha_Inteiro ( p_num_vars);
+
+            desempilha_Rotulo ( &rotulo1);
+            geraCodigo ( rotulo1, "NADA");
+            }
+            bloco
             | comando_composto_2
 ;
 
 
 comando_composto_2: T_BEGIN comandos T_END
+;
+
+
+comando_composto_2_rep_cond: T_BEGIN comandos T_END
 ;
 
 
@@ -224,6 +229,8 @@ procedimento_ou_funcao_3:
             empilha_Inteiro ( p_deslocamentos, desloc);
             desloc = 0;
             nivel_lexico++;
+
+            geraCodigo ( rotulo1, "NADA");
             sprintf ( dados, "ENPR %d", nivel_lexico);
             geraCodigo ( NULL, dados );
             } bloco PONTO_E_VIRGULA
@@ -282,15 +289,9 @@ lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA IDENT
 
 
 atrib_proc_func: IDENT
-            {
-            procura_simb ( token, &x, &y, &tipo );
-            if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
-                sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
-                imprimeErro ( dados );
-                exit ( 1);
-            }
-            sprintf ( dados, "%s", token);
-            } atrib_proc_func_2
+                {
+                    sprintf ( dados, "%s", token);
+                } atrib_proc_func_2
 ;
 
 
@@ -304,7 +305,14 @@ atrib_proc_func_2: atribuicao
 ;
 
 
-atribuicao: ATRIBUICAO expressao_aritmetica
+atribuicao: {
+            procura_simb ( dados, &x, &y, &tipo );
+            if ( x == -99 ) { // numero -99 indica que nao encontrou simb na tabela
+                sprintf ( dados, "Simbolo '%s' nao foi declarada", dados);
+                imprimeErro ( dados );
+                exit ( 1);
+            }
+            } ATRIBUICAO expressao_aritmetica
             {
             sprintf ( dados, "ARMZ %d, %d", x, y);
             geraCodigo ( NULL, dados );
@@ -388,7 +396,7 @@ repeticao_3: comando_sem_ponto_e_virgula
             geraCodigo ( NULL, dados);
             geraCodigo ( rotulo2, "NADA");
             }
-            | comando_composto_2
+            | comando_composto_2_rep_cond
             {
             desempilha_Rotulo ( &rotulo2);
             desempilha_Rotulo ( &rotulo1);
@@ -430,7 +438,7 @@ condicao_se_entao: ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES ENT
 
 
 condicao_se_entao_2: comando_sem_ponto_e_virgula
-            | comando_composto_2
+            | comando_composto_2_rep_cond
 ;
 
 
@@ -450,7 +458,7 @@ condicao_senao: SENAO
 
 
 condicao_senao_2: comando_sem_ponto_e_virgula
-            | comando_composto_2
+            | comando_composto_2_rep_cond
 ;
 
 
@@ -479,6 +487,10 @@ expressao_termo: expressao_termo MULTIPLICACAO expressao_fator
 
 
 expressao_fator: IDENT
+            {
+                sprintf ( dados, "%s", token);
+            } chama_funcao
+            | IDENT
             {
             procura_simb( token, &x, &y, &tipo );
             if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
