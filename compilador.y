@@ -150,8 +150,7 @@ lista_idents: lista_idents VIRGULA IDENT
 ;
 
 
-comando_composto: IDENT atribuicao bloco
-            | {
+comando_composto: {
             printf ( "Empilha vars %d\n", num_vars);
             empilha_Inteiro ( p_num_vars, num_vars);
 
