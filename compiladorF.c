@@ -203,7 +203,7 @@ void insere_tipo_retorno_Simbolo_TB_SIMB ( char *simb, char *ti) {
 
     char *tip = malloc ( sizeof ( char)*TAM_TOKEN);
 
-    strcpy( tip, ti);
+    strcpy ( tip, ti);
 
     no_tabela_simbolos_p *slot_tb_simb_aux = p_tb_simb->primeiro;
 
@@ -250,9 +250,8 @@ void procura_simb ( char *simb, int *nivel_lexico, int *desloc, char **tip ) {
 
     no_tabela_simbolos_p *slot_tb_simb_aux = p_tb_simb->primeiro;
 
-    while ( slot_tb_simb_aux != NULL && strcmp( slot_tb_simb_aux->simbolo, simb ) ){
+    while ( slot_tb_simb_aux != NULL && strcmp( slot_tb_simb_aux->simbolo, simb ) )
         slot_tb_simb_aux = slot_tb_simb_aux->prox;
-    }
 
     if ( slot_tb_simb_aux != NULL){
         *nivel_lexico = slot_tb_simb_aux->nivel_lexico;
@@ -269,21 +268,23 @@ int procura_cat ( char *simb, char *cat, char **rot) {
 
     no_tabela_simbolos_p *slot_tb_simb_aux = p_tb_simb->primeiro;
 
-    while ( slot_tb_simb_aux != NULL && strcmp( slot_tb_simb_aux->simbolo, simb ) && strcmp( slot_tb_simb_aux->categoria, cat ) ){
-        printf ( "valor %s %s", slot_tb_simb_aux->simbolo, slot_tb_simb_aux->categoria);
+    while ( slot_tb_simb_aux != NULL && strcmp( slot_tb_simb_aux->simbolo, simb ) && strcmp( slot_tb_simb_aux->categoria, cat ) )
         slot_tb_simb_aux = slot_tb_simb_aux->prox;
-    }
 
     if ( slot_tb_simb_aux != NULL) {
         *rot = slot_tb_simb_aux->rotulo;
+
         return 1;
+
     }
     else
+
         return -99;
+
 }
 
 /* Função que gera próximo rotulo */
-void gera_Proximo_Rotulo (char **new_rotulo) {
+void gera_Proximo_Rotulo ( char **new_rotulo) {
 
     char *rotulo = malloc( sizeof (char) * TAM_ROTULO);
 
