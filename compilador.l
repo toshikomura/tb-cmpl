@@ -251,6 +251,18 @@ integer { simbolo = simb_tipo_integer;
           return TIPO_INTEIRO;
  }
 
+read { simbolo = simb_leitura;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" leitura ");
+          return LEITURA;
+ }
+
+write { simbolo = simb_impressao;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" impressao ");
+          return IMPRESSAO;
+ }
+
 {ident} { simbolo = simb_identificador;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" ident  ");
