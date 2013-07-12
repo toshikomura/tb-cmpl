@@ -72,7 +72,9 @@
      PROCEDIMENTO = 290,
      FUNCAO = 291,
      TIPO_INTEIRO = 292,
-     LOWER_THEN_ELSE = 293
+     LEITURA = 293,
+     IMPRESSAO = 294,
+     LOWER_THEN_ELSE = 295
    };
 #endif
 
