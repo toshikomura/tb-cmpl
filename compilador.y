@@ -22,6 +22,7 @@ char *nome_proc_func;
 
 int num_vars;
 int num_parametros;
+int num_parametros_aux;
 int num_vars_inicial;
 
 int nivel_lexico;
@@ -339,6 +340,7 @@ var_chama_proc_func: {
                 geraCodigo ( NULL, dados );
             }
             printf ( "ROTULOS: var/proc %s func %s\n", rotulo1, rotulo2);
+            num_parametros = 0;
             }
             passagem
 ;
@@ -348,12 +350,14 @@ passagem: ABRE_PARENTESES
             {
             nome_proc_func = malloc ( sizeof (char)*TAM_TOKEN);
             strcpy ( nome_proc_func, nome_var_proc_func);
-            printf ( "EMPILHOU nome %s\n", nome_proc_func);
+            printf ( "EMPILHOU nome %s num param %d\n", nome_proc_func, num_parametros);
             empilha_String ( p_nomes, nome_proc_func);
+            empilha_Inteiro ( p_num_parametros, num_parametros);
             } lista_id_var_parametro FECHA_PARENTESES
             {
             desempilha_String ( p_nomes, &nome_proc_func);
-            printf ( "DESEMPILHOU nome %s\n", nome_proc_func);
+            num_parametros = desempilha_Inteiro ( p_num_parametros);
+            printf ( "DESEMPILHOU nome %s %d\n", nome_proc_func, num_parametros);
             strcpy ( nome_var_proc_func, nome_proc_func);
             } var_chama_proc_func_2
             | var_chama_proc_func_2
@@ -377,7 +381,12 @@ var_chama_proc_func_2: {
             }
             else {
                 if ( procura_cat ( nome_var_proc_func, categoria2, &rotulo2, &tipo, &x, &y) == 1) {
-                    printf ( "Determinou como função\n");
+                    printf ( "Determinou como função com %d parametros\n", num_parametros);
+                    if ( compara_parametros_proc_func ( nome_var_proc_func, num_parametros) != 1) {
+                        sprintf ( dados, "Para função '%s' numero de parametros incorreto", nome_var_proc_func);
+                        imprimeErro ( dados);
+                        exit ( 1);
+                    }
                     sprintf ( dados, "CHPR %s, %d", rotulo2, nivel_lexico);
                     geraCodigo ( NULL, dados );
                 }
@@ -387,7 +396,19 @@ var_chama_proc_func_2: {
 
 
 lista_id_var_parametro: lista_id_var_parametro VIRGULA expressao_aritmetica
+            {
+            num_parametros_aux = desempilha_Inteiro ( p_num_parametros);
+            num_parametros_aux++;
+            empilha_Inteiro ( p_num_parametros, num_parametros_aux);
+            printf ( "-----------------SOmou parametro e foi para %d\n", num_parametros_aux);
+            }
             | expressao_aritmetica
+            {
+            num_parametros_aux = desempilha_Inteiro ( p_num_parametros);
+            num_parametros_aux++;
+            empilha_Inteiro ( p_num_parametros, num_parametros_aux);
+            printf ( "-----------------SOmou parametro e foi para %d\n", num_parametros_aux);
+            }
             |
 ;
 
@@ -591,6 +612,7 @@ expressao_booleana: expressao_booleana IGUAL expressao_fator2
 expressao_fator2: IDENT
             {
             procura_simb ( token, &x, &y, &tipo );
+            printf ( "Correspondendo o valor %p\n", procura_simb ( token, &x, &y, &tipo ));
             if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
                 sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
                 imprimeErro ( dados );
