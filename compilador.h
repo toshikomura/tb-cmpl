@@ -115,4 +115,5 @@ pilha_s *p_rotulos;
 pilha_s *p_nomes;
 pilha_i *p_deslocamentos;
 pilha_i *p_num_vars;
+pilha_i *p_num_parametros;
 char *rotulo1, *rotulo2; // rotulos
