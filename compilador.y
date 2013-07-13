@@ -155,7 +155,6 @@ lista_idents: lista_idents VIRGULA IDENT
 
 
 comando_composto: {
-            printf ( "Empilha vars %d\n", num_vars);
             empilha_Inteiro ( p_num_vars, num_vars);
 
             gera_Proximo_Rotulo ( &rotulo1);
@@ -165,7 +164,6 @@ comando_composto: {
             }
             procedimento_ou_funcao
             {
-            printf ( "Desempilha vars %d\n", num_vars);
             num_vars = desempilha_Inteiro ( p_num_vars);
 
             desempilha_String ( p_rotulos, &rotulo1);
@@ -312,8 +310,7 @@ atrib_proc_func_2: atribuicao
 
 atribuicao: {
             sprintf ( categoria, "var_simples");
-            printf ( "Verificando se %s e variavel\n", nome_var_proc_func);
-            if ( procura_cat ( nome_var_proc_func, categoria, &rotulo1, &tipo, &x, &y) == -99 ) {
+            if ( procura_cat ( nome_var_proc_func, categoria, &rotulo1, &tipo, &x, &y) == NULL ) {
                 sprintf ( dados, "Simbolo '%s' nao foi declarada", nome_var_proc_func);
                 imprimeErro ( dados );
                 exit ( 1);
@@ -328,18 +325,15 @@ atribuicao: {
 
 var_chama_proc_func: {
             sprintf ( categoria2, "funcao");
-            printf ( "Verificando se %s e variável, procedimento ou função\n", nome_var_proc_func);
-            if ( procura_cat ( nome_var_proc_func, categoria, &rotulo1, &tipo, &x, &y) != 1 && procura_cat ( nome_var_proc_func, categoria2, &rotulo2, &tipo, &x, &y) != 1 ) {
+            if ( procura_cat ( nome_var_proc_func, categoria, &rotulo1, &tipo, &x, &y) == NULL && procura_cat ( nome_var_proc_func, categoria2, &rotulo2, &tipo, &x, &y) == NULL ) {
                 sprintf ( dados, "Variavel, Procedimento ou Funcao '%s' nao foi declarada", nome_var_proc_func);
                 imprimeErro ( dados);
                 exit ( 1);
             }
-            if ( procura_cat ( nome_var_proc_func, categoria2, &rotulo2, &tipo, &x, &y) == 1) {
-                printf ( "O IDENT %s e função\n", nome_var_proc_func);
+            if ( procura_cat ( nome_var_proc_func, categoria2, &rotulo2, &tipo, &x, &y) != NULL) {
                 sprintf ( dados, "AMEN 1");
                 geraCodigo ( NULL, dados );
             }
-            printf ( "ROTULOS: var/proc %s func %s\n", rotulo1, rotulo2);
             num_parametros = 0;
             }
             passagem
@@ -350,14 +344,12 @@ passagem: ABRE_PARENTESES
             {
             nome_proc_func = malloc ( sizeof (char)*TAM_TOKEN);
             strcpy ( nome_proc_func, nome_var_proc_func);
-            printf ( "EMPILHOU nome %s num param %d\n", nome_proc_func, num_parametros);
             empilha_String ( p_nomes, nome_proc_func);
             empilha_Inteiro ( p_num_parametros, num_parametros);
             } lista_id_var_parametro FECHA_PARENTESES
             {
             desempilha_String ( p_nomes, &nome_proc_func);
             num_parametros = desempilha_Inteiro ( p_num_parametros);
-            printf ( "DESEMPILHOU nome %s %d\n", nome_proc_func, num_parametros);
             strcpy ( nome_var_proc_func, nome_proc_func);
             } var_chama_proc_func_2
             | var_chama_proc_func_2
@@ -365,23 +357,19 @@ passagem: ABRE_PARENTESES
 
 
 var_chama_proc_func_2: {
-            if ( procura_cat ( nome_var_proc_func, categoria, &rotulo1, &tipo, &x, &y) == 1) {
+            if ( procura_cat ( nome_var_proc_func, categoria, &rotulo1, &tipo, &x, &y) != NULL) {
                 sprintf ( dados, "procedimento");
-                printf ( "comparando %s com %s %d\n", dados, categoria, strcmp( categoria, dados));
                 if ( strcmp( categoria, dados) == 0) {
-                    printf ( "Determinou como procedimento\n");
                     sprintf ( dados, "CHPR %s, %d", rotulo1, nivel_lexico);
                     geraCodigo ( NULL, dados );
                 }
                 else {
-                    printf ( "Determinou como variável simples\n");
                     sprintf ( dados, "CRVL %d %d", x, y);
                     geraCodigo ( NULL, dados);
                 }
             }
             else {
-                if ( procura_cat ( nome_var_proc_func, categoria2, &rotulo2, &tipo, &x, &y) == 1) {
-                    printf ( "Determinou como função com %d parametros\n", num_parametros);
+                if ( procura_cat ( nome_var_proc_func, categoria2, &rotulo2, &tipo, &x, &y) != NULL) {
                     if ( compara_parametros_proc_func ( nome_var_proc_func, num_parametros) != 1) {
                         sprintf ( dados, "Para função '%s' numero de parametros incorreto", nome_var_proc_func);
                         imprimeErro ( dados);
@@ -400,14 +388,12 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA expressao_aritmetica
             num_parametros_aux = desempilha_Inteiro ( p_num_parametros);
             num_parametros_aux++;
             empilha_Inteiro ( p_num_parametros, num_parametros_aux);
-            printf ( "-----------------SOmou parametro e foi para %d\n", num_parametros_aux);
             }
             | expressao_aritmetica
             {
             num_parametros_aux = desempilha_Inteiro ( p_num_parametros);
             num_parametros_aux++;
             empilha_Inteiro ( p_num_parametros, num_parametros_aux);
-            printf ( "-----------------SOmou parametro e foi para %d\n", num_parametros_aux);
             }
             |
 ;
@@ -611,9 +597,7 @@ expressao_booleana: expressao_booleana IGUAL expressao_fator2
 
 expressao_fator2: IDENT
             {
-            procura_simb ( token, &x, &y, &tipo );
-            printf ( "Correspondendo o valor %p\n", procura_simb ( token, &x, &y, &tipo ));
-            if ( x == -99 ){ // numero -99 indica que nao encontrou simb na tabela
+            if ( procura_simb ( token, &x, &y, &tipo ) == NULL ){ // numero -99 indica que nao encontrou simb na tabela
                 sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
                 imprimeErro ( dados );
                 exit ( 1);

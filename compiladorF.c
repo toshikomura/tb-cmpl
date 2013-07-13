@@ -258,8 +258,9 @@ no_tabela_simbolos_p *procura_simb ( char *simb, int *nivel_lexico, int *desloc,
         *nivel_lexico = slot_tb_simb_aux->nivel_lexico;
         *desloc = slot_tb_simb_aux->desloc;
         *tip = slot_tb_simb_aux->tipo;
-        printf ( "valor do ponteiro do slot é %p\n", slot_tb_simb_aux);
+
         return slot_tb_simb_aux;
+
     }
 
     return NULL;
@@ -269,32 +270,25 @@ no_tabela_simbolos_p *procura_simb ( char *simb, int *nivel_lexico, int *desloc,
 /* Função que procura um simbolo de uma certa categoria na tabela de simbolos */
 /* Se encontra retorna 1 */
 /* Se não encontra retorna -99 */
-int procura_cat ( char *simb, char *cat, char **rot, char **tip, int *nivel_lexico, int *desloc) {
+no_tabela_simbolos_p *procura_cat ( char *simb, char *cat, char **rot, char **tip, int *nivel_lexico, int *desloc) {
 
     no_tabela_simbolos_p *slot_tb_simb_aux = p_tb_simb->primeiro;
 
-    printf ( "procurando pelo simbolo %s com categoria %s\n", simb, cat);
-
-    while ( slot_tb_simb_aux != NULL && ( strcmp( slot_tb_simb_aux->simbolo, simb ) || strcmp( slot_tb_simb_aux->categoria, cat )) ) {
+    while ( slot_tb_simb_aux != NULL && ( strcmp( slot_tb_simb_aux->simbolo, simb ) || strcmp( slot_tb_simb_aux->categoria, cat )) )
         slot_tb_simb_aux = slot_tb_simb_aux->prox;
-//        if ( slot_tb_simb_aux != NULL)
-//            printf ( "%s %s %d %d\n", slot_tb_simb_aux->simbolo, slot_tb_simb_aux->categoria, strcmp( slot_tb_simb_aux->simbolo, simb ), strcmp( slot_tb_simb_aux->categoria, cat ));
-    }
 
     if ( slot_tb_simb_aux != NULL) {
         *rot = slot_tb_simb_aux->rotulo;
         *nivel_lexico = slot_tb_simb_aux->nivel_lexico;
         *desloc = slot_tb_simb_aux->desloc;
         *tip = slot_tb_simb_aux->tipo;
-        printf ( "achou\n");
 
-        return 1;
+        return slot_tb_simb_aux;
 
     }
     else {
-        printf ( "não achou\n");
 
-        return -99;
+        return NULL;
 
     }
 
@@ -334,7 +328,6 @@ void empilha_String ( pilha_s *p, char *str ) {
     p->primeiro = nova_string;
     p->tam++;
 
-    printf ( "ELEMENTO SENDO COLOCADO DA PILHA %s\n", nova_string->string);
 }
 
 /* Função que desempilha rotulos */
@@ -352,8 +345,6 @@ void desempilha_String ( pilha_s *p, char **str) {
         string_retirada = p->primeiro;
         p->primeiro = string_retirada->prox;
         p->tam--;
-
-        printf ( "ELEMENTO RETIRADO DA PILHA %s\n", string_retirada->string);
 
         *str = string_retirada->string;
 
