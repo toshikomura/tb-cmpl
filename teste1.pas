@@ -45,5 +45,5 @@ var z :integer;
 begin
   m := 3;
   p;
-  a := f;
+  a := f + f;
 end.
