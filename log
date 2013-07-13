@@ -61,8 +61,6 @@ TABELA DE SIMBOLOS
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  pt_virgula      # ; 
  funcao     # function 
-Empilha vars 3
-ELEMENTO SENDO COLOCADO DA PILHA R0
  ident      # f 
 
 
@@ -90,8 +88,6 @@ TABELA DE SIMBOLOS
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  pt_virgula      # ; 
  funcao     # function 
-Empilha vars 3
-ELEMENTO SENDO COLOCADO DA PILHA R2
  ident      # d 
 
 
@@ -201,77 +197,19 @@ TABELA DE SIMBOLOS
 begin     # begin 
 end      # end 
  pt_virgula      # ; 
-Desempilha vars 3
-ELEMENTO RETIRADO DA PILHA R2
 begin     # begin 
  ident      # d 
  abre_parenteses      # ( 
-Verificando se d e variável, procedimento ou função
-procurando pelo simbolo d com categoria procedimento
-não achou
-procurando pelo simbolo d com categoria funcao
-achou
-procurando pelo simbolo d com categoria funcao
-achou
-O IDENT d e função
-ROTULOS: var/proc R2 func R3
-EMPILHOU nome d num param 0
-ELEMENTO SENDO COLOCADO DA PILHA d
  ident      # a 
-Verificando se a e variável, procedimento ou função
-procurando pelo simbolo a com categoria var_simples
-achou
-procurando pelo simbolo a com categoria funcao
-não achou
-ROTULOS: var/proc (null) func R3
  virgula      # , 
-procurando pelo simbolo a com categoria var_simples
-achou
-comparando procedimento com var_simples 6
-Determinou como variável simples
------------------SOmou parametro e foi para 1
  ident      # m 
-Verificando se m e variável, procedimento ou função
-procurando pelo simbolo m com categoria var_simples
-achou
-procurando pelo simbolo m com categoria funcao
-não achou
-ROTULOS: var/proc (null) func R3
  virgula      # , 
-procurando pelo simbolo m com categoria var_simples
-achou
-comparando procedimento com var_simples 6
-Determinou como variável simples
------------------SOmou parametro e foi para 2
  ident      # n 
-Verificando se n e variável, procedimento ou função
-procurando pelo simbolo n com categoria var_simples
-achou
-procurando pelo simbolo n com categoria funcao
-não achou
-ROTULOS: var/proc (null) func R3
  fecha_parenteses     # ) 
-procurando pelo simbolo n com categoria var_simples
-achou
-comparando procedimento com var_simples 6
-Determinou como variável simples
------------------SOmou parametro e foi para 3
-ELEMENTO RETIRADO DA PILHA d
-DESEMPILHOU nome d 3
-procurando pelo simbolo d com categoria var_simples
-não achou
-procurando pelo simbolo d com categoria funcao
-achou
-Determinou como função com 3 parametros
-valor do ponteiro do slot é 0x25de3c0
  pt_virgula      # ; 
 end      # end 
  pt_virgula      # ; 
-Desempilha vars 3
-ELEMENTO RETIRADO DA PILHA R0
  procedimento     # procedure 
-Empilha vars 3
-ELEMENTO SENDO COLOCADO DA PILHA R4
  ident      # p 
 
 
@@ -290,8 +228,6 @@ TABELA DE SIMBOLOS
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  pt_virgula      # ; 
  procedimento     # procedure 
-Empilha vars 3
-ELEMENTO SENDO COLOCADO DA PILHA R6
  ident      # c 
 
 
@@ -415,8 +351,6 @@ TABELA DE SIMBOLOS
  fecha_parenteses     # ) 
  pt_virgula      # ; 
  procedimento     # procedure 
-Empilha vars 3
-ELEMENTO SENDO COLOCADO DA PILHA R8
  ident      # l 
 
 
@@ -617,118 +551,68 @@ TABELA DE SIMBOLOS
 begin     # begin 
 end      # end 
  pt_virgula      # ; 
-Desempilha vars 4
-ELEMENTO RETIRADO DA PILHA R8
 begin     # begin 
  ident      # n 
  atribuicao      # := 
-Verificando se n e variavel
-procurando pelo simbolo n com categoria var_simples
-achou
  numero      # 88 
  pt_virgula      # ; 
 end      # end 
  pt_virgula      # ; 
-Desempilha vars 3
-ELEMENTO RETIRADO DA PILHA R6
 begin     # begin 
  ident      # n 
  atribuicao      # := 
-Verificando se n e variavel
-procurando pelo simbolo n com categoria var_simples
-achou
  numero      # 2 
  pt_virgula      # ; 
  enquanto     # while 
-ELEMENTO SENDO COLOCADO DA PILHA R10
  abre_parenteses      # ( 
  numero      # 2 
  menor     # < 
  igual     # = 
  ident      # n 
-valor do ponteiro do slot é 0x25dfa50
-valor do ponteiro do slot é 0x25dfa50
-Correspondendo o valor 0x25dfa50
  fecha_parenteses     # ) 
  faca     # do 
-ELEMENTO SENDO COLOCADO DA PILHA R11
 begin     # begin 
  enquanto     # while 
-ELEMENTO SENDO COLOCADO DA PILHA R12
  numero      # 3 
  igual     # = 
  numero      # 2 
  faca     # do 
-ELEMENTO SENDO COLOCADO DA PILHA R13
  ident      # m 
  atribuicao      # := 
-Verificando se m e variavel
-procurando pelo simbolo m com categoria var_simples
-achou
  numero      # 2 
  pt_virgula      # ; 
-ELEMENTO RETIRADO DA PILHA R13
-ELEMENTO RETIRADO DA PILHA R12
  se     # if 
  ident      # n 
-valor do ponteiro do slot é 0x25dfa50
-valor do ponteiro do slot é 0x25dfa50
-Correspondendo o valor 0x25dfa50
  igual     # = 
  numero      # 3 
  entao     # then 
-ELEMENTO SENDO COLOCADO DA PILHA R14
  se     # if 
  ident      # m 
-valor do ponteiro do slot é 0x25df920
-valor do ponteiro do slot é 0x25df920
-Correspondendo o valor 0x25df920
  maior     # > 
  ident      # n 
-valor do ponteiro do slot é 0x25dfa50
-valor do ponteiro do slot é 0x25dfa50
-Correspondendo o valor 0x25dfa50
  entao     # then 
-ELEMENTO SENDO COLOCADO DA PILHA R15
 begin     # begin 
  ident      # n 
  atribuicao      # := 
-Verificando se n e variavel
-procurando pelo simbolo n com categoria var_simples
-achou
  numero      # 8 
  pt_virgula      # ; 
 end      # end 
  senao     # else 
-ELEMENTO RETIRADO DA PILHA R15
-ELEMENTO SENDO COLOCADO DA PILHA R16
 begin     # begin 
  ident      # n 
  atribuicao      # := 
-Verificando se n e variavel
-procurando pelo simbolo n com categoria var_simples
-achou
  numero      # 9 
  pt_virgula      # ; 
  ident      # m 
  atribuicao      # := 
-Verificando se m e variavel
-procurando pelo simbolo m com categoria var_simples
-achou
  numero      # 100 
  pt_virgula      # ; 
 end      # end 
-ELEMENTO RETIRADO DA PILHA R16
- pt_virgula      # ; 
-ELEMENTO RETIRADO DA PILHA R14
-end      # end 
-ELEMENTO RETIRADO DA PILHA R11
-ELEMENTO RETIRADO DA PILHA R10
  pt_virgula      # ; 
 end      # end 
  pt_virgula      # ; 
-Desempilha vars 3
-ELEMENTO RETIRADO DA PILHA R4
+end      # end 
+ pt_virgula      # ; 
 var      # var 
  ident      # z 
 
@@ -787,61 +671,15 @@ TABELA DE SIMBOLOS
 begin     # begin 
  ident      # m 
  atribuicao      # := 
-Verificando se m e variavel
-procurando pelo simbolo m com categoria var_simples
-achou
  numero      # 3 
  pt_virgula      # ; 
  ident      # p 
  pt_virgula      # ; 
-Verificando se p e variável, procedimento ou função
-procurando pelo simbolo p com categoria procedimento
-achou
-procurando pelo simbolo p com categoria funcao
-não achou
-ROTULOS: var/proc R5 func R11
-procurando pelo simbolo p com categoria procedimento
-achou
-comparando procedimento com procedimento 0
-Determinou como procedimento
  ident      # a 
  atribuicao      # := 
-Verificando se a e variavel
-procurando pelo simbolo a com categoria var_simples
-achou
  ident      # f 
-Verificando se f e variável, procedimento ou função
-procurando pelo simbolo f com categoria var_simples
-não achou
-procurando pelo simbolo f com categoria funcao
-achou
-procurando pelo simbolo f com categoria funcao
-achou
-O IDENT f e função
-ROTULOS: var/proc (null) func R1
  soma     # + 
-procurando pelo simbolo f com categoria var_simples
-não achou
-procurando pelo simbolo f com categoria funcao
-achou
-Determinou como função com 0 parametros
-valor do ponteiro do slot é 0x25de0e0
  ident      # f 
-Verificando se f e variável, procedimento ou função
-procurando pelo simbolo f com categoria var_simples
-não achou
-procurando pelo simbolo f com categoria funcao
-achou
-procurando pelo simbolo f com categoria funcao
-achou
-O IDENT f e função
-ROTULOS: var/proc (null) func R1
  pt_virgula      # ; 
-procurando pelo simbolo f com categoria var_simples
-não achou
-procurando pelo simbolo f com categoria funcao
-achou
-Determinou como função com 0 parametros
-valor do ponteiro do slot é 0x25de0e0
 end      # end 
  ponto      # . 
