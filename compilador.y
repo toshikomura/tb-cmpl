@@ -132,6 +132,12 @@ tipo_retorno_func: TIPO_INTEIRO
 
 lista_id_var: lista_id_var VIRGULA IDENT
             { /* insere última vars na tabela de símbolos */
+            if ( procura_simb ( token, &x, &y, &tipo ) != NULL){
+                sprintf ( dados, "Variável '%s' já foi delcarada", token);
+                imprimeErro ( dados);
+                exit ( 1);
+            }
+
             sprintf ( categoria, "var_simples");
             sprintf ( tipo_retorno, "sem_tipo");
             empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
@@ -140,6 +146,12 @@ lista_id_var: lista_id_var VIRGULA IDENT
             }
             | IDENT
             { /* insere vars na tabela de símbolos */
+            if ( procura_simb ( token, &x, &y, &tipo ) != NULL){
+                sprintf ( dados, "Variável '%s' já foi delcarada", token);
+                imprimeErro ( dados);
+                exit ( 1);
+            }
+
             sprintf ( categoria, "var_simples");
             sprintf ( tipo_retorno, "sem_tipo");
             empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
@@ -311,7 +323,7 @@ atrib_proc_func_2: atribuicao
 atribuicao: {
             sprintf ( categoria, "var_simples");
             if ( procura_cat ( nome_var_proc_func, categoria, &rotulo1, &tipo, &x, &y) == NULL ) {
-                sprintf ( dados, "Simbolo '%s' nao foi declarada", nome_var_proc_func);
+                sprintf ( dados, "Variável '%s' não foi declarada", nome_var_proc_func);
                 imprimeErro ( dados );
                 exit ( 1);
             }
@@ -605,7 +617,7 @@ expressao_booleana: expressao_booleana IGUAL expressao_fator2
 expressao_fator2: IDENT
             {
             if ( procura_simb ( token, &x, &y, &tipo ) == NULL ){ // numero -99 indica que nao encontrou simb na tabela
-                sprintf ( dados, "Simbolo '%s' nao foi declarada", token);
+                sprintf ( dados, "Variável '%s' não foi declarada", token);
                 imprimeErro ( dados );
                 exit ( 1);
             }
