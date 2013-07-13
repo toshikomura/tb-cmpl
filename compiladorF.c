@@ -244,7 +244,7 @@ void desempilha_Simbolo_TB_SIMB ( char **simb) {
 /* Função que procura um simbolo na tabela de simbolos */
 /* Se encontra retorna o nivel e deslocamento pelo parametros */
 /* Se não encontra retorna -99 */
-void procura_simb ( char *simb, int *nivel_lexico, int *desloc, char **tip ) {
+no_tabela_simbolos_p *procura_simb ( char *simb, int *nivel_lexico, int *desloc, char **tip ) {
 
     *nivel_lexico = -99; // valor nao muda se nao encontrar simb na tabela
     *desloc = -99;
@@ -258,7 +258,11 @@ void procura_simb ( char *simb, int *nivel_lexico, int *desloc, char **tip ) {
         *nivel_lexico = slot_tb_simb_aux->nivel_lexico;
         *desloc = slot_tb_simb_aux->desloc;
         *tip = slot_tb_simb_aux->tipo;
+        printf ( "valor do ponteiro do slot é %p\n", slot_tb_simb_aux);
+        return slot_tb_simb_aux;
     }
+
+    return NULL;
 
 }
 
@@ -366,6 +370,10 @@ void inicia_pilha_inteiros () {
     p_num_vars = malloc ( sizeof ( pilha_i));
     p_num_vars->primeiro = NULL;
     p_num_vars->tam = 0;
+
+    p_num_parametros = malloc ( sizeof ( pilha_i));
+    p_num_parametros->primeiro = NULL;
+    p_num_parametros->tam = 0;
 }
 
 /* Função que empilha deslocamento */
@@ -397,4 +405,20 @@ int desempilha_Inteiro ( pilha_i *p) {
         return inteiro_retirado->inteiro;
 
     }
+}
+
+/* Função que verifica se os parametros conferem com o que esta na tabela de simbolos */
+int compara_parametros_proc_func ( char *simb, int qtd_param) {
+
+    int x, y;
+    no_tabela_simbolos_p *slot_tb_simb_aux;
+
+    slot_tb_simb_aux = procura_simb ( simb, &x, &y, &tipo);
+
+    if ( slot_tb_simb_aux != NULL)
+        if ( slot_tb_simb_aux->qtd_parametros == qtd_param)
+            return 1;
+
+    return -99;
+
 }
