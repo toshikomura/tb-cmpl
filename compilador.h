@@ -64,15 +64,15 @@ typedef struct pilha_tabela_simb {
 /* -------------------------------------------------------------------
  * Pilha de rotulos
  * ------------------------------------------------------------------- */
-typedef struct rotulos_pilha {
-    char *rotulo;
-    struct rotulos_pilha *prox;
-} rotulos_p;
+typedef struct strings_pilha {
+    char *string;
+    struct strings_pilha *prox;
+} strings_p;
 
-typedef struct pilha_rotulos {
-    rotulos_p *primeiro;
+typedef struct pilha_strings {
+    strings_p *primeiro;
     int tam;
-} pilha_r;
+} pilha_s;
 
 /* -------------------------------------------------------------------
  * Pilha de deslocamento
@@ -95,10 +95,11 @@ extern simbolos simbolo, relacao;
 extern char token[TAM_TOKEN];
 extern char *dados;
 extern char *categoria;
+extern char *categoria2;
 extern char *tipo;
 extern char *tipo_valor_referencia;
 extern char *tipo_retorno;
-extern char *nome_proc_func;
+extern char *nome_var_proc_func;
 
 extern int nivel_lexico;
 extern int desloc;
@@ -110,7 +111,8 @@ simbolos simbolo, relacao;
 char token[TAM_TOKEN];
 
 pilha_tb_simb *p_tb_simb;
-pilha_r *p_rotulos;
+pilha_s *p_rotulos;
+pilha_s *p_nomes;
 pilha_i *p_deslocamentos;
 pilha_i *p_num_vars;
 char *rotulo1, *rotulo2; // rotulos
