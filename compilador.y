@@ -326,8 +326,15 @@ atribuicao: {
 var_chama_proc_func: {
             sprintf ( categoria2, "funcao");
             if ( procura_cat ( nome_var_proc_func, categoria, &rotulo1, &tipo, &x, &y) == NULL && procura_cat ( nome_var_proc_func, categoria2, &rotulo2, &tipo, &x, &y) == NULL ) {
-                sprintf ( dados, "Variavel, Procedimento ou Funcao '%s' nao foi declarada", nome_var_proc_func);
-                imprimeErro ( dados);
+                sprintf ( dados, "var_simples");
+                if ( strcmp ( categoria, dados) == 0){
+                    sprintf ( dados, "Variavel ou Funcao '%s' nao foi declarada", nome_var_proc_func);
+                    imprimeErro ( dados);
+                }
+                else {
+                    sprintf ( dados, "Procedimento ou Funcao '%s' nao foi declarada", nome_var_proc_func);
+                    imprimeErro ( dados);
+                }
                 exit ( 1);
             }
             if ( procura_cat ( nome_var_proc_func, categoria2, &rotulo2, &tipo, &x, &y) != NULL) {
