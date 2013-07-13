@@ -215,7 +215,7 @@ procurando pelo simbolo d com categoria funcao
 achou
 O IDENT d e função
 ROTULOS: var/proc R2 func R3
-EMPILHOU nome d
+EMPILHOU nome d num param 0
 ELEMENTO SENDO COLOCADO DA PILHA d
  ident      # a 
 Verificando se a e variável, procedimento ou função
@@ -229,6 +229,7 @@ procurando pelo simbolo a com categoria var_simples
 achou
 comparando procedimento com var_simples 6
 Determinou como variável simples
+-----------------SOmou parametro e foi para 1
  ident      # m 
 Verificando se m e variável, procedimento ou função
 procurando pelo simbolo m com categoria var_simples
@@ -241,6 +242,7 @@ procurando pelo simbolo m com categoria var_simples
 achou
 comparando procedimento com var_simples 6
 Determinou como variável simples
+-----------------SOmou parametro e foi para 2
  ident      # n 
 Verificando se n e variável, procedimento ou função
 procurando pelo simbolo n com categoria var_simples
@@ -253,13 +255,15 @@ procurando pelo simbolo n com categoria var_simples
 achou
 comparando procedimento com var_simples 6
 Determinou como variável simples
+-----------------SOmou parametro e foi para 3
 ELEMENTO RETIRADO DA PILHA d
-DESEMPILHOU nome d
+DESEMPILHOU nome d 3
 procurando pelo simbolo d com categoria var_simples
 não achou
 procurando pelo simbolo d com categoria funcao
 achou
-Determinou como função
+Determinou como função com 3 parametros
+valor do ponteiro do slot é 0x25de3c0
  pt_virgula      # ; 
 end      # end 
  pt_virgula      # ; 
@@ -642,6 +646,9 @@ ELEMENTO SENDO COLOCADO DA PILHA R10
  menor     # < 
  igual     # = 
  ident      # n 
+valor do ponteiro do slot é 0x25dfa50
+valor do ponteiro do slot é 0x25dfa50
+Correspondendo o valor 0x25dfa50
  fecha_parenteses     # ) 
  faca     # do 
 ELEMENTO SENDO COLOCADO DA PILHA R11
@@ -664,14 +671,23 @@ ELEMENTO RETIRADO DA PILHA R13
 ELEMENTO RETIRADO DA PILHA R12
  se     # if 
  ident      # n 
+valor do ponteiro do slot é 0x25dfa50
+valor do ponteiro do slot é 0x25dfa50
+Correspondendo o valor 0x25dfa50
  igual     # = 
  numero      # 3 
  entao     # then 
 ELEMENTO SENDO COLOCADO DA PILHA R14
  se     # if 
  ident      # m 
+valor do ponteiro do slot é 0x25df920
+valor do ponteiro do slot é 0x25df920
+Correspondendo o valor 0x25df920
  maior     # > 
  ident      # n 
+valor do ponteiro do slot é 0x25dfa50
+valor do ponteiro do slot é 0x25dfa50
+Correspondendo o valor 0x25dfa50
  entao     # then 
 ELEMENTO SENDO COLOCADO DA PILHA R15
 begin     # begin 
@@ -803,11 +819,29 @@ procurando pelo simbolo f com categoria funcao
 achou
 O IDENT f e função
 ROTULOS: var/proc (null) func R1
+ soma     # + 
+procurando pelo simbolo f com categoria var_simples
+não achou
+procurando pelo simbolo f com categoria funcao
+achou
+Determinou como função com 0 parametros
+valor do ponteiro do slot é 0x25de0e0
+ ident      # f 
+Verificando se f e variável, procedimento ou função
+procurando pelo simbolo f com categoria var_simples
+não achou
+procurando pelo simbolo f com categoria funcao
+achou
+procurando pelo simbolo f com categoria funcao
+achou
+O IDENT f e função
+ROTULOS: var/proc (null) func R1
  pt_virgula      # ; 
 procurando pelo simbolo f com categoria var_simples
 não achou
 procurando pelo simbolo f com categoria funcao
 achou
-Determinou como função
+Determinou como função com 0 parametros
+valor do ponteiro do slot é 0x25de0e0
 end      # end 
  ponto      # . 

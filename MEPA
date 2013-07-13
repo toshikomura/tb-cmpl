@@ -70,6 +70,9 @@ R4: NADA
      CHPR R5, 0
      AMEN 1
      CHPR R1, 0
+     AMEN 1
+     CHPR R1, 0
+     SOMA
      ARMZ 0, 0
      DMEM 4
      PARA
