@@ -38,10 +38,11 @@ void inicia_variaveis_globais () {
 
     dados = malloc ( sizeof (char)*TAM_TOKEN);
     categoria = malloc ( sizeof (char)*TAM_TOKEN);
+    categoria2 = malloc ( sizeof (char)*TAM_TOKEN);
     tipo = malloc ( sizeof (char)*TAM_TOKEN);
     tipo_valor_referencia = malloc ( sizeof (char)*TAM_TOKEN);
     tipo_retorno = malloc ( sizeof (char)*TAM_TOKEN);
-    nome_proc_func = malloc ( sizeof (char)*TAM_TOKEN);
+    nome_var_proc_func = malloc ( sizeof (char)*TAM_TOKEN);
 
 }
 
@@ -264,22 +265,34 @@ void procura_simb ( char *simb, int *nivel_lexico, int *desloc, char **tip ) {
 /* Função que procura um simbolo de uma certa categoria na tabela de simbolos */
 /* Se encontra retorna 1 */
 /* Se não encontra retorna -99 */
-int procura_cat ( char *simb, char *cat, char **rot) {
+int procura_cat ( char *simb, char *cat, char **rot, char **tip, int *nivel_lexico, int *desloc) {
 
     no_tabela_simbolos_p *slot_tb_simb_aux = p_tb_simb->primeiro;
 
-    while ( slot_tb_simb_aux != NULL && strcmp( slot_tb_simb_aux->simbolo, simb ) && strcmp( slot_tb_simb_aux->categoria, cat ) )
+    printf ( "procurando pelo simbolo %s com categoria %s\n", simb, cat);
+
+    while ( slot_tb_simb_aux != NULL && ( strcmp( slot_tb_simb_aux->simbolo, simb ) || strcmp( slot_tb_simb_aux->categoria, cat )) ) {
         slot_tb_simb_aux = slot_tb_simb_aux->prox;
+//        if ( slot_tb_simb_aux != NULL)
+//            printf ( "%s %s %d %d\n", slot_tb_simb_aux->simbolo, slot_tb_simb_aux->categoria, strcmp( slot_tb_simb_aux->simbolo, simb ), strcmp( slot_tb_simb_aux->categoria, cat ));
+    }
 
     if ( slot_tb_simb_aux != NULL) {
         *rot = slot_tb_simb_aux->rotulo;
+        *nivel_lexico = slot_tb_simb_aux->nivel_lexico;
+        *desloc = slot_tb_simb_aux->desloc;
+        *tip = slot_tb_simb_aux->tipo;
+        printf ( "achou\n");
 
         return 1;
 
     }
-    else
+    else {
+        printf ( "não achou\n");
 
         return -99;
+
+    }
 
 }
 
@@ -296,41 +309,49 @@ void gera_Proximo_Rotulo ( char **new_rotulo) {
 }
 
 /* Inicia pilha para rotulos */
-void inicia_pilha_rotulos () {
+void inicia_pilha_strings () {
 
-    p_rotulos = malloc( sizeof (pilha_r));
+    p_rotulos = malloc( sizeof (pilha_s));
     p_rotulos->primeiro = NULL;
     p_rotulos->tam = 0;
+
+    p_nomes = malloc( sizeof (pilha_s));
+    p_nomes->primeiro = NULL;
+    p_nomes->tam = 0;
 }
 
 /* Função que empilha rotulos */
-void empilha_Rotulo ( char *rot ) {
+void empilha_String ( pilha_s *p, char *str ) {
 
-    rotulos_p *novo_rotulo = malloc( sizeof ( rotulos_p ));
+    strings_p *nova_string = malloc( sizeof ( strings_p ));
 
-    novo_rotulo->rotulo = rot;
-    novo_rotulo->prox = p_rotulos->primeiro;
-    p_rotulos->primeiro = novo_rotulo;
-    p_rotulos->tam++;
+    nova_string->string = str;
+    nova_string->prox = p->primeiro;
+    p->primeiro = nova_string;
+    p->tam++;
 
+    printf ( "ELEMENTO SENDO COLOCADO DA PILHA %s\n", nova_string->string);
 }
 
 /* Função que desempilha rotulos */
-void desempilha_Rotulo ( char **rotulo) {
+void desempilha_String ( pilha_s *p, char **str) {
 
-    rotulos_p *rotulo_retirado;
+    strings_p *string_retirada;
 
-    if ( p_rotulos->tam == 0){
+    if ( p->tam == 0){
 
-        *rotulo = NULL;
+        *str = NULL;
     }
     else
     {
-        rotulo_retirado = p_rotulos->primeiro;
-        p_rotulos->primeiro = rotulo_retirado->prox;
-        p_rotulos->tam--;
 
-        *rotulo = rotulo_retirado->rotulo;
+        string_retirada = p->primeiro;
+        p->primeiro = string_retirada->prox;
+        p->tam--;
+
+        printf ( "ELEMENTO RETIRADO DA PILHA %s\n", string_retirada->string);
+
+        *str = string_retirada->string;
 
     }
 }
