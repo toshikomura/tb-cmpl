@@ -44,7 +44,6 @@ void yyerror (char const *);
 %token IGUAL DIFERENTE MAIOR MENOR NAO E OU
 %token ENQUANTO PARA FACA REPITA ATE SE ENTAO SENAO
 %token PROCEDIMENTO FUNCAO
-%token TIPO_INTEIRO
 %token LEITURA IMPRESSAO
 
 %nonassoc LOWER_THEN_ELSE
@@ -108,23 +107,41 @@ declara_var: {
 ;
 
 
-tipo: TIPO_INTEIRO
+tipo: IDENT
             {
+            sprintf ( dados, "integer");
+            if ( strcmp ( dados, token) != 0) {
+                sprintf ( dados, "Tipo '%s' não suportado, somente 'integer'", token);
+                imprimeErro ( dados);
+                exit ( 1);
+            }
             percorre_vars = num_vars - num_vars_inicial;
             insere_tipo_Simbolo_TB_SIMB ( token, percorre_vars);
             }
 ;
 
-tipo_parametro: TIPO_INTEIRO
+tipo_parametro: IDENT
             {
+            sprintf ( dados, "integer");
+            if ( strcmp ( dados, token) != 0) {
+                sprintf ( dados, "Tipo '%s' não suportado, somente 'integer'", token);
+                imprimeErro ( dados);
+                exit ( 1);
+            }
             percorre_vars = num_parametros - num_vars_inicial;
             insere_tipo_parametro_Simbolo_TB_SIMB ( nome_var_proc_func, tipo_valor_referencia, token, percorre_vars);
             }
 ;
 
 
-tipo_retorno_func: TIPO_INTEIRO
+tipo_retorno_func: IDENT
             {
+            sprintf ( dados, "integer");
+            if ( strcmp ( dados, token) != 0) {
+                sprintf ( dados, "Tipo '%s' não suportado, somente 'integer'", token);
+                imprimeErro ( dados);
+                exit ( 1);
+            }
             insere_tipo_retorno_Simbolo_TB_SIMB ( nome_var_proc_func, token);
             }
 ;
