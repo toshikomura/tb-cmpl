@@ -30,19 +30,23 @@ int valor_rotulo;
 
 void inicia_variaveis_globais () {
 
+    dados = malloc ( sizeof (char)*TAM_TOKEN);
+    categoria = malloc ( sizeof (char)*TAM_TOKEN);
+    categoria_funcao = malloc ( sizeof (char)*TAM_TOKEN);
+    categoria_parametro_formal = malloc ( sizeof (char)*TAM_TOKEN);
+    tipo = malloc ( sizeof (char)*TAM_TOKEN);
+    tipo_valor_referencia = malloc ( sizeof (char)*TAM_TOKEN);
+    tipo_retorno = malloc ( sizeof (char)*TAM_TOKEN);
+    nome_var_proc_func = malloc ( sizeof (char)*TAM_TOKEN);
+
     fp = NULL;
     valor_rotulo = 0;
     num_vars = 0;
     nivel_lexico = 0;
     desloc = 0;
 
-    dados = malloc ( sizeof (char)*TAM_TOKEN);
-    categoria1 = malloc ( sizeof (char)*TAM_TOKEN);
-    categoria2 = malloc ( sizeof (char)*TAM_TOKEN);
-    tipo = malloc ( sizeof (char)*TAM_TOKEN);
-    tipo_valor_referencia = malloc ( sizeof (char)*TAM_TOKEN);
-    tipo_retorno = malloc ( sizeof (char)*TAM_TOKEN);
-    nome_var_proc_func = malloc ( sizeof (char)*TAM_TOKEN);
+    sprintf ( categoria_funcao, "funcao");
+    sprintf ( categoria_parametro_formal, "parametro_formal");
 
 }
 
