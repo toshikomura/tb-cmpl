@@ -1,19 +1,19 @@
 program exemplo75 (input, output);
-var m,n,a :  integer;
+var m,n,o :  integer;
 
-function f():integer;
-  function d ( n : integer; var a,m:integer):integer;
+function y():integer;
+  function x ( a : integer; var b,c:integer):integer;
   begin
 
   end;
 begin
-  d ( a, m, n);
+  x ( a, m, n);
 end;
 
-procedure p;
-  procedure c ( var m , n :integer; var a:integer) ;
-    procedure l ( m , n  : integer; a : integer);
-    var l :integer;
+procedure w;
+  procedure v ( var d , e :integer; var f:integer) ;
+    procedure u ( g, h  : integer; i : integer);
+    var j :integer;
     begin
     end;
 
@@ -43,7 +43,7 @@ end;
 var z :integer;
 
 begin
-  m := 3;
-  p;
-  a := f + f;
+  z := 3;
+  w;
+  n := y + y + z + n * m + 3;
 end.
