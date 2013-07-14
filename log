@@ -38,512 +38,522 @@ TABELA DE SIMBOLOS
 || m | (null) | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  virgula      # , 
- ident      # a 
+ ident      # o 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| a | (null) | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| o | (null) | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | (null) | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | (null) | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  dois pontos     # : 
- tipo_inteiro     # integer 
+ ident      # integer 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  pt_virgula      # ; 
  funcao     # function 
- ident      # f 
+tamanho da pilha 1
+ ident      # y 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| f | (null) | funcao | R1 | (null) | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| y | (null) | funcao | R1 | (null) | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  abre_parenteses      # ( 
  fecha_parenteses     # ) 
  dois pontos     # : 
- tipo_inteiro     # integer 
+ ident      # integer 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  pt_virgula      # ; 
  funcao     # function 
- ident      # d 
+tamanho da pilha 2
+ ident      # x 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| d | (null) | funcao | R3 | (null) | 1 | 0 | 0 ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| x | (null) | funcao | R3 | (null) | 1 | 0 | 0 ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  abre_parenteses      # ( 
- ident      # n 
+ ident      # a 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| n | (null) | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | (null) | 1 | 0 | 0 ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| a | (null) | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| x | (null) | funcao | R3 | (null) | 1 | 0 | 0 ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  dois pontos     # : 
- tipo_inteiro     # integer 
+ ident      # integer 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | (null) | 1 | 0 | 1 |- var_valor | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| x | (null) | funcao | R3 | (null) | 1 | 0 | 1 |- var_valor | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  pt_virgula      # ; 
 var      # var 
- ident      # a 
+ ident      # b 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| a | (null) | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | (null) | 1 | 0 | 1 |- var_valor | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| b | (null) | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| x | (null) | funcao | R3 | (null) | 1 | 0 | 1 |- var_valor | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  virgula      # , 
- ident      # m 
-
-
-TABELA DE SIMBOLOS
-
-|| simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| m | (null) | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| a | (null) | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | (null) | 1 | 0 | 1 |- var_valor | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
-|| n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
-|| m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
-|| exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
- dois pontos     # : 
- tipo_inteiro     # integer 
-
-
-TABELA DE SIMBOLOS
-
-|| simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | (null) | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
-|| n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
-|| m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
-|| exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
- fecha_parenteses     # ) 
- dois pontos     # : 
- tipo_inteiro     # integer 
-
-
-TABELA DE SIMBOLOS
-
-|| simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
-|| n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
-|| m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
-|| exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
- pt_virgula      # ; 
-begin     # begin 
-end      # end 
- pt_virgula      # ; 
-begin     # begin 
- ident      # d 
- abre_parenteses      # ( 
- ident      # a 
- virgula      # , 
- ident      # m 
- virgula      # , 
- ident      # n 
- fecha_parenteses     # ) 
- pt_virgula      # ; 
-end      # end 
- pt_virgula      # ; 
- procedimento     # procedure 
- ident      # p 
-
-
-TABELA DE SIMBOLOS
-
-|| simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| p | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
-|| n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
-|| m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
-|| exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
- pt_virgula      # ; 
- procedimento     # procedure 
  ident      # c 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| c | (null) | procedimento | R7 | (null) | 1 | 0 | 0 ||
-|| p | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| c | (null) | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | (null) | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
 || a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| x | (null) | funcao | R3 | (null) | 1 | 0 | 1 |- var_valor | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
+|| m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
+|| exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
+ dois pontos     # : 
+ ident      # integer 
+
+
+TABELA DE SIMBOLOS
+
+|| simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| x | (null) | funcao | R3 | (null) | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
+|| m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
+|| exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
+ fecha_parenteses     # ) 
+ dois pontos     # : 
+ ident      # integer 
+
+
+TABELA DE SIMBOLOS
+
+|| simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
+|| m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
+|| exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
+ pt_virgula      # ; 
+begin     # begin 
+end      # end 
+ pt_virgula      # ; 
+begin     # begin 
+ ident      # x 
+ abre_parenteses      # ( 
+tamanho da pilha 1
+ ident      # a 
+ virgula      # , 
+tamanho da pilha 1
+ ident      # m 
+ virgula      # , 
+tamanho da pilha 2
+ ident      # n 
+ fecha_parenteses     # ) 
+tamanho da pilha 1
+tamanho da pilha 1
+ pt_virgula      # ; 
+end      # end 
+ pt_virgula      # ; 
+ procedimento     # procedure 
+tamanho da pilha 1
+ ident      # w 
+
+
+TABELA DE SIMBOLOS
+
+|| simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
+|| w | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
+|| m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
+|| exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
+ pt_virgula      # ; 
+ procedimento     # procedure 
+tamanho da pilha 2
+ ident      # v 
+
+
+TABELA DE SIMBOLOS
+
+|| simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
+|| v | (null) | procedimento | R7 | (null) | 1 | 0 | 0 ||
+|| w | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  abre_parenteses      # ( 
 var      # var 
- ident      # m 
+ ident      # d 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| m | (null) | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| c | (null) | procedimento | R7 | (null) | 1 | 0 | 0 ||
-|| p | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| d | (null) | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R7 | (null) | 1 | 0 | 0 ||
+|| w | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
 || a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  virgula      # , 
- ident      # n 
+ ident      # e 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| n | (null) | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| m | (null) | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| c | (null) | procedimento | R7 | (null) | 1 | 0 | 0 ||
-|| p | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| e | (null) | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| d | (null) | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R7 | (null) | 1 | 0 | 0 ||
+|| w | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
 || a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  dois pontos     # : 
- tipo_inteiro     # integer 
+ ident      # integer 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| c | (null) | procedimento | R7 | (null) | 1 | 0 | 2 |- var_referencia | integer |- var_referencia | integer ||
-|| p | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| e | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| d | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R7 | (null) | 1 | 0 | 2 |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
 || a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  pt_virgula      # ; 
 var      # var 
- ident      # a 
+ ident      # f 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| a | (null) | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| c | (null) | procedimento | R7 | (null) | 1 | 0 | 2 |- var_referencia | integer |- var_referencia | integer ||
-|| p | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| f | (null) | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| e | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| d | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R7 | (null) | 1 | 0 | 2 |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
 || a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  dois pontos     # : 
- tipo_inteiro     # integer 
+ ident      # integer 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
+|| f | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| e | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| d | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
 || a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| c | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| p | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  fecha_parenteses     # ) 
  pt_virgula      # ; 
  procedimento     # procedure 
- ident      # l 
+tamanho da pilha 3
+ ident      # u 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| l | (null) | procedimento | R9 | (null) | 2 | 0 | 0 ||
+|| u | (null) | procedimento | R9 | (null) | 2 | 0 | 0 ||
+|| f | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| e | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| d | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
 || a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| c | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| p | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  abre_parenteses      # ( 
- ident      # m 
+ ident      # g 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| m | (null) | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| l | (null) | procedimento | R9 | (null) | 2 | 0 | 0 ||
+|| g | (null) | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| u | (null) | procedimento | R9 | (null) | 2 | 0 | 0 ||
+|| f | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| e | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| d | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
 || a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| c | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| p | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  virgula      # , 
- ident      # n 
+ ident      # h 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| n | (null) | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| m | (null) | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| l | (null) | procedimento | R9 | (null) | 2 | 0 | 0 ||
+|| h | (null) | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| g | (null) | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| u | (null) | procedimento | R9 | (null) | 2 | 0 | 0 ||
+|| f | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| e | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| d | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
 || a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| c | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| p | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  dois pontos     # : 
- tipo_inteiro     # integer 
+ ident      # integer 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| n | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| l | (null) | procedimento | R9 | (null) | 2 | 0 | 2 |- var_valor | integer |- var_valor | integer ||
+|| h | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| g | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| u | (null) | procedimento | R9 | (null) | 2 | 0 | 2 |- var_valor | integer |- var_valor | integer ||
+|| f | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| e | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| d | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
 || a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| c | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| p | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  pt_virgula      # ; 
- ident      # a 
+ ident      # i 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| a | (null) | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| l | (null) | procedimento | R9 | (null) | 2 | 0 | 2 |- var_valor | integer |- var_valor | integer ||
+|| i | (null) | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| h | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| g | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| u | (null) | procedimento | R9 | (null) | 2 | 0 | 2 |- var_valor | integer |- var_valor | integer ||
+|| f | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| e | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| d | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
 || a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| c | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| p | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  dois pontos     # : 
- tipo_inteiro     # integer 
+ ident      # integer 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| a | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| l | (null) | procedimento | R9 | (null) | 2 | 0 | 3 |- var_valor | integer |- var_valor | integer |- var_valor | integer ||
+|| i | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| h | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| g | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| u | (null) | procedimento | R9 | (null) | 2 | 0 | 3 |- var_valor | integer |- var_valor | integer |- var_valor | integer ||
+|| f | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| e | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| d | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
 || a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| c | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| p | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  fecha_parenteses     # ) 
  pt_virgula      # ; 
 var      # var 
- ident      # l 
+ ident      # j 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| l | (null) | var_simples | (null) | (null) | 3 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| l | (null) | procedimento | R9 | (null) | 2 | 0 | 3 |- var_valor | integer |- var_valor | integer |- var_valor | integer ||
+|| j | (null) | var_simples | (null) | (null) | 3 | 0 | 0 ||
+|| i | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| h | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| g | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| u | (null) | procedimento | R9 | (null) | 2 | 0 | 3 |- var_valor | integer |- var_valor | integer |- var_valor | integer ||
+|| f | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| e | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| d | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
 || a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| c | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| p | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  dois pontos     # : 
- tipo_inteiro     # integer 
+ ident      # integer 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| l | integer | var_simples | (null) | (null) | 3 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| l | (null) | procedimento | R9 | (null) | 2 | 0 | 3 |- var_valor | integer |- var_valor | integer |- var_valor | integer ||
+|| j | integer | var_simples | (null) | (null) | 3 | 0 | 0 ||
+|| i | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| h | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| g | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| u | (null) | procedimento | R9 | (null) | 2 | 0 | 3 |- var_valor | integer |- var_valor | integer |- var_valor | integer ||
+|| f | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| e | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| d | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
 || a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| c | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| p | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
@@ -555,6 +565,7 @@ begin     # begin
  ident      # n 
  atribuicao      # := 
  numero      # 88 
+tamanho da pilha 2
  pt_virgula      # ; 
 end      # end 
  pt_virgula      # ; 
@@ -562,8 +573,10 @@ begin     # begin
  ident      # n 
  atribuicao      # := 
  numero      # 2 
+tamanho da pilha 1
  pt_virgula      # ; 
  enquanto     # while 
+tamanho da pilha 2
  abre_parenteses      # ( 
  numero      # 2 
  menor     # < 
@@ -571,41 +584,51 @@ begin     # begin
  ident      # n 
  fecha_parenteses     # ) 
  faca     # do 
+tamanho da pilha 3
 begin     # begin 
  enquanto     # while 
+tamanho da pilha 4
  numero      # 3 
  igual     # = 
  numero      # 2 
  faca     # do 
+tamanho da pilha 5
  ident      # m 
  atribuicao      # := 
  numero      # 2 
+tamanho da pilha 1
  pt_virgula      # ; 
  se     # if 
  ident      # n 
  igual     # = 
  numero      # 3 
  entao     # then 
+tamanho da pilha 4
  se     # if 
  ident      # m 
  maior     # > 
  ident      # n 
  entao     # then 
+tamanho da pilha 5
 begin     # begin 
  ident      # n 
  atribuicao      # := 
  numero      # 8 
+tamanho da pilha 1
  pt_virgula      # ; 
 end      # end 
  senao     # else 
+tamanho da pilha 5
 begin     # begin 
  ident      # n 
  atribuicao      # := 
  numero      # 9 
+tamanho da pilha 1
  pt_virgula      # ; 
  ident      # m 
  atribuicao      # := 
  numero      # 100 
+tamanho da pilha 1
  pt_virgula      # ; 
 end      # end 
  pt_virgula      # ; 
@@ -621,65 +644,80 @@ TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
 || z | (null) | var_simples | (null) | (null) | 0 | 3 | 0 ||
-|| l | integer | var_simples | (null) | (null) | 3 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| l | (null) | procedimento | R9 | (null) | 2 | 0 | 3 |- var_valor | integer |- var_valor | integer |- var_valor | integer ||
+|| j | integer | var_simples | (null) | (null) | 3 | 0 | 0 ||
+|| i | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| h | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| g | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| u | (null) | procedimento | R9 | (null) | 2 | 0 | 3 |- var_valor | integer |- var_valor | integer |- var_valor | integer ||
+|| f | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| e | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| d | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
 || a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| c | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| p | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  dois pontos     # : 
- tipo_inteiro     # integer 
+ ident      # integer 
 
 
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
 || z | integer | var_simples | (null) | (null) | 0 | 3 | 0 ||
-|| l | integer | var_simples | (null) | (null) | 3 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
-|| l | (null) | procedimento | R9 | (null) | 2 | 0 | 3 |- var_valor | integer |- var_valor | integer |- var_valor | integer ||
+|| j | integer | var_simples | (null) | (null) | 3 | 0 | 0 ||
+|| i | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| h | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| g | integer | parametro_formal | (null) | (null) | 2 | 0 | 0 ||
+|| u | (null) | procedimento | R9 | (null) | 2 | 0 | 3 |- var_valor | integer |- var_valor | integer |- var_valor | integer ||
+|| f | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| e | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| d | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
+|| c | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
+|| b | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
 || a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| c | (null) | procedimento | R7 | (null) | 1 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| p | (null) | procedimento | R5 | (null) | 0 | 0 | 0 ||
-|| m | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| a | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| n | integer | parametro_formal | (null) | (null) | 1 | 0 | 0 ||
-|| d | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
-|| f | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
-|| a | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
+|| x | (null) | funcao | R3 | integer | 1 | 0 | 3 |- var_valor | integer |- var_referencia | integer |- var_referencia | integer ||
+|| y | (null) | funcao | R1 | integer | 0 | 0 | 0 ||
+|| o | integer | var_simples | (null) | (null) | 0 | 2 | 0 ||
 || n | integer | var_simples | (null) | (null) | 0 | 1 | 0 ||
 || m | integer | var_simples | (null) | (null) | 0 | 0 | 0 ||
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  pt_virgula      # ; 
 begin     # begin 
- ident      # m 
+ ident      # z 
  atribuicao      # := 
  numero      # 3 
+tamanho da pilha 1
  pt_virgula      # ; 
- ident      # p 
+ ident      # w 
  pt_virgula      # ; 
- ident      # a 
+ ident      # n 
  atribuicao      # := 
- ident      # f 
+ ident      # y 
  soma     # + 
- ident      # f 
+tamanho da pilha 1
+ ident      # y 
+ soma     # + 
+tamanho da pilha 2
+ ident      # z 
+ soma     # + 
+tamanho da pilha 3
+ ident      # n 
+ multiplicacao     # * 
+tamanho da pilha 4
+ ident      # m 
+ soma     # + 
+tamanho da pilha 5
+ numero      # 3 
+tamanho da pilha 6
  pt_virgula      # ; 
 end      # end 
  ponto      # . 

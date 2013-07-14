@@ -8,7 +8,7 @@ R3: NADA
      ENPR 2
 R2: NADA 
      AMEN 1
-     CRVL 0 2
+     CRVL 1 0
      CRVL 0 0
      CRVL 0 1
      CHPR R3, 1
@@ -31,7 +31,7 @@ R6: NADA
      ARMZ 0, 1
 R10: NADA 
      CRCT 2
-     CRVL 2, 0
+     CRVL 0, 1
      CMEG
      DSVF R11
 R12: NADA 
@@ -43,12 +43,12 @@ R12: NADA
      ARMZ 0, 0
      DSVS R12
 R13: NADA 
-     CRVL 2, 0
+     CRVL 0, 1
      CRCT 3
      CMIG
      DSVF R14
-     CRVL 2, 0
-     CRVL 2, 0
+     CRVL 0, 0
+     CRVL 0, 1
      CMMA
      DSVF R15
      CRCT 8
@@ -66,12 +66,20 @@ R11: NADA
 R4: NADA 
      AMEM 1
      CRCT 3
-     ARMZ 0, 0
+     ARMZ 0, 3
      CHPR R5, 0
      AMEN 1
      CHPR R1, 0
      AMEN 1
      CHPR R1, 0
+     SOMA
+     CRVL 0 3
+     SOMA
+     CRVL 0 1
+     CRVL 0 0
+     MULT
+     SOMA
+     CRCT 3
      SOMA
      ARMZ 0, 0
      DMEM 4

@@ -71,10 +71,9 @@
      SENAO = 289,
      PROCEDIMENTO = 290,
      FUNCAO = 291,
-     TIPO_INTEIRO = 292,
-     LEITURA = 293,
-     IMPRESSAO = 294,
-     LOWER_THEN_ELSE = 295
+     LEITURA = 292,
+     IMPRESSAO = 293,
+     LOWER_THEN_ELSE = 294
    };
 #endif
 
