@@ -93,7 +93,7 @@ typedef struct pilha_inteiros {
 extern simbolos simbolo, relacao;
 extern char token[TAM_TOKEN];
 extern char *dados;
-extern char *categoria;
+extern char *categoria1;
 extern char *categoria2;
 extern char *tipo;
 extern char *tipo_valor_referencia;
@@ -112,6 +112,7 @@ char token[TAM_TOKEN];
 pilha_tb_simb *p_tb_simb;
 pilha_s *p_rotulos;
 pilha_s *p_nomes;
+pilha_s *p_tipos;
 pilha_i *p_deslocamentos;
 pilha_i *p_num_vars;
 pilha_i *p_num_parametros;
