@@ -195,8 +195,12 @@ lista_idents: lista_idents VIRGULA IDENT
 
 
 comando_composto: {
+            /* Caso encontre um procedimento */
+            /* Empilha número de variávei para não perder */
+            /* a quantidade depois de ler todo o procedimento */
             empilha_Inteiro ( p_num_vars, num_vars);
 
+            /* Gera rótulo para desviar do procedimento */
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_String ( p_rotulos, rotulo1);
             sprintf ( dados, "DSVS %s", rotulo1);
@@ -204,8 +208,10 @@ comando_composto: {
             }
             procedimento_ou_funcao
             {
+            /* Recupera o número de variáveis */
             num_vars = desempilha_Inteiro ( p_num_vars);
 
+            /* Retoma com o rótulo */
             desempilha_String ( p_rotulos, &rotulo1);
             geraCodigo ( rotulo1, "NADA");
             }
@@ -271,6 +277,10 @@ procedimento_ou_funcao_2: ABRE_PARENTESES parametros_vars_proc_ou_func FECHA_PAR
 
 procedimento_ou_funcao_3:
             {
+            /* Depois de ler todo a declaração do procedimento */
+            /* Empilha deslocamento para não perder ele depois */
+            /* que sair do procedimento e inicia um novo */
+            /* Aumento nivel léxico por causa da entrada no procedimento */
             empilha_Inteiro ( p_deslocamentos, desloc);
             desloc = 0;
             nivel_lexico++;
@@ -280,6 +290,9 @@ procedimento_ou_funcao_3:
             geraCodigo ( NULL, dados );
             } bloco PONTO_E_VIRGULA
             {
+            /* Ao terminar de ler todo o procedimento retoma o deslocamento */
+            /* Diminui o nivel lexico por causa do fim do procedimento */
+
             desloc = desempilha_Inteiro ( p_deslocamentos);
             nivel_lexico--;
             }
@@ -318,6 +331,8 @@ var_proc_ou_func: {
 
 lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA IDENT
             {
+            /* Os parametros obrigatoriamente não pode sido declarados anteriormente */
+
             dados_simbolo1 = procura_simb ( token, &x, &y, &tipo);
             if ( dados_simbolo1 != NULL){
                 sprintf ( dados, "Parametro não pode ser '%s' já foi delcarado como %s", token, dados_simbolo1->categoria);
@@ -332,6 +347,8 @@ lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA IDENT
             }
             | IDENT
             {
+            /* Os parametros obrigatoriamente não pode sido declarados anteriormente */
+
             dados_simbolo1 = procura_simb ( token, &x, &y, &tipo);
             if ( dados_simbolo1 != NULL){
                 sprintf ( dados, "Parametro não pode ser '%s' já foi delcarado como %s", token, dados_simbolo1->categoria);
@@ -398,12 +415,8 @@ var_chama_proc_func: {
             /* 3 - Caso venha de lita de parametros->expressao pode ser var_simples, parametro_formal ou funcao */
             /* Para os 2 casos o outro parametro pode ser função */
             sprintf ( categoria2, "funcao");
-            //dados_simbolo1 = procura_cat ( nome_var_proc_func, categoria1, &rotulo1, &tipo, &x, &y);
-            //dados_simbolo2 = procura_cat ( nome_var_proc_func, categoria2, &rotulo2, &tipo, &x, &y);
 
             dados_simbolo1 = procura_simb ( nome_var_proc_func, &x, &y, &tipo);
-
-            //num_parametros_aux = desempilha_Inteiro ( &p_num_parametros);
 
             /* Se não encontrar o simbolos como var_simples/procedimento ou funcao e não é parametro_formal */
             sprintf ( dados, "parametro_formal");
@@ -422,10 +435,7 @@ var_chama_proc_func: {
             }
             }
 
-            //empilha_Inteiro ( &p_num_parametros, num_parametros_aux);
-
             /* Se o simbolo é uma função */
-            //dados_simbolo1 = procura_cat ( nome_var_proc_func, categoria2, &rotulo2, &tipo, &x, &y);
             if ( dados_simbolo1 != NULL && strcmp ( categoria2, dados_simbolo1->categoria) == 0) {
                 sprintf ( dados, "AMEN 1");
                 geraCodigo ( NULL, dados );
@@ -454,12 +464,10 @@ passagem: ABRE_PARENTESES
 
 
 var_chama_proc_func_2: {
-            //dados_simbolo1 = procura_cat ( nome_var_proc_func, categoria1, &rotulo1, &tipo, &x, &y);
-
-            dados_simbolo1 = procura_simb ( nome_var_proc_func, &x, &y, &tipo);
 
             /* Se simbolo é procedimento ou var_simples */
             sprintf ( dados, "parametro_formal");
+            dados_simbolo1 = procura_simb ( nome_var_proc_func, &x, &y, &tipo);
             if ( dados_simbolo1 != NULL && (strcmp ( categoria1, dados_simbolo1->categoria) == 0 || strcmp ( dados, dados_simbolo1->categoria) == 0)) {
                 sprintf ( dados, "procedimento");
 
@@ -479,11 +487,10 @@ var_chama_proc_func_2: {
                 }
             }
             else {
+
                 /* Senão é funcao */
-                //dados_simbolo1 = procura_cat ( nome_var_proc_func, categoria2, &rotulo2, &tipo, &x, &y);
                 dados_simbolo1 = procura_simb ( nome_var_proc_func, &x, &y, &tipo);
                 if ( dados_simbolo1 != NULL && strcmp ( categoria2, dados_simbolo1->categoria) == 0) {
-                    //if ( compara_parametros_proc_func ( nome_var_proc_func, num_parametros) != 1) {
                     if ( dados_simbolo1->qtd_parametros != num_parametros) {
                         sprintf ( dados, "Para função '%s' numero de parametros incorreto", nome_var_proc_func);
                         imprimeErro ( dados);
