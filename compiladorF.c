@@ -37,7 +37,7 @@ void inicia_variaveis_globais () {
     desloc = 0;
 
     dados = malloc ( sizeof (char)*TAM_TOKEN);
-    categoria = malloc ( sizeof (char)*TAM_TOKEN);
+    categoria1 = malloc ( sizeof (char)*TAM_TOKEN);
     categoria2 = malloc ( sizeof (char)*TAM_TOKEN);
     tipo = malloc ( sizeof (char)*TAM_TOKEN);
     tipo_valor_referencia = malloc ( sizeof (char)*TAM_TOKEN);
@@ -270,6 +270,7 @@ no_tabela_simbolos_p *procura_simb ( char *simb, int *nivel_lexico, int *desloc,
 /* Função que procura um simbolo de uma certa categoria na tabela de simbolos */
 /* Se encontra retorna 1 */
 /* Se não encontra retorna -99 */
+/*
 no_tabela_simbolos_p *procura_cat ( char *simb, char *cat, char **rot, char **tip, int *nivel_lexico, int *desloc) {
 
     no_tabela_simbolos_p *slot_tb_simb_aux = p_tb_simb->primeiro;
@@ -293,6 +294,7 @@ no_tabela_simbolos_p *procura_cat ( char *simb, char *cat, char **rot, char **ti
     }
 
 }
+*/
 
 /* Função que gera próximo rotulo */
 void gera_Proximo_Rotulo ( char **new_rotulo) {
@@ -316,6 +318,10 @@ void inicia_pilha_strings () {
     p_nomes = malloc( sizeof (pilha_s));
     p_nomes->primeiro = NULL;
     p_nomes->tam = 0;
+
+    p_tipos = malloc( sizeof (pilha_s));
+    p_tipos->primeiro = NULL;
+    p_tipos->tam = 0;
 }
 
 /* Função que empilha rotulos */
@@ -327,7 +333,7 @@ void empilha_String ( pilha_s *p, char *str ) {
     nova_string->prox = p->primeiro;
     p->primeiro = nova_string;
     p->tam++;
-
+    printf ( "tamanho da pilha %d\n", p->tam);
 }
 
 /* Função que desempilha rotulos */
@@ -376,7 +382,6 @@ void empilha_Inteiro ( pilha_i *p, int inteiro) {
     novo_inteiro->prox = p->primeiro;
     p->primeiro = novo_inteiro;
     p->tam++;
-
 }
 
 /* Função que desempilha deslocamentos */
@@ -399,6 +404,7 @@ int desempilha_Inteiro ( pilha_i *p) {
 }
 
 /* Função que verifica se os parametros conferem com o que esta na tabela de simbolos */
+/*
 int compara_parametros_proc_func ( char *simb, int qtd_param) {
 
     int x, y;
@@ -413,3 +419,4 @@ int compara_parametros_proc_func ( char *simb, int qtd_param) {
     return -99;
 
 }
+*/
