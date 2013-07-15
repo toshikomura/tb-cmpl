@@ -248,7 +248,7 @@ void desempilha_Simbolo_TB_SIMB ( char **simb) {
 /* Função que procura um simbolo na tabela de simbolos */
 /* Se encontra retorna o nivel e deslocamento pelo parametros */
 /* Se não encontra retorna -99 */
-no_tabela_simbolos_p *procura_simb ( char *simb, int *nivel_lexico, int *desloc, char **tip ) {
+void procura_simb ( char *simb, int *nivel_lexico, int *desloc, char **tip, no_tabela_simbolos_p **slot_tb_simb_retorno) {
 
     *nivel_lexico = -99; // valor nao muda se nao encontrar simb na tabela
     *desloc = -99;
@@ -263,11 +263,11 @@ no_tabela_simbolos_p *procura_simb ( char *simb, int *nivel_lexico, int *desloc,
         *desloc = slot_tb_simb_aux->desloc;
         *tip = slot_tb_simb_aux->tipo;
 
-        return slot_tb_simb_aux;
+        *slot_tb_simb_retorno =  slot_tb_simb_aux;
 
     }
-
-    return NULL;
+    else
+        *slot_tb_simb_retorno = NULL;
 
 }
 

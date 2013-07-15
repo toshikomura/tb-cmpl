@@ -162,7 +162,7 @@ tipo_retorno_func: IDENT
 lista_id_var: lista_id_var VIRGULA IDENT
             {
             /* insere última variável na tabela de símbolos */
-            dados_simbolo1 = procura_simb ( token, &x, &y, &tipo);
+            procura_simb ( token, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 != NULL){
                 sprintf ( dados, "Variável '%s' já foi delcarada como %s", token, dados_simbolo1->categoria);
                 imprimeErro ( dados);
@@ -177,7 +177,7 @@ lista_id_var: lista_id_var VIRGULA IDENT
             }
             | IDENT
             { /* insere variáveis na tabela de símbolos */
-            dados_simbolo1 = procura_simb ( token, &x, &y, &tipo);
+            procura_simb ( token, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 != NULL){
                 sprintf ( dados, "Variável '%s' já foi delcarada como %s", token, dados_simbolo1->categoria);
                 imprimeErro ( dados);
@@ -350,7 +350,7 @@ lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA IDENT
             {
             /* Os parametros obrigatoriamente não podem ter sido declarados anteriormente */
 
-            dados_simbolo1 = procura_simb ( token, &x, &y, &tipo);
+            procura_simb ( token, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 != NULL){
                 sprintf ( dados, "Parametro não pode ser '%s' já foi delcarado como %s", token, dados_simbolo1->categoria);
                 imprimeErro ( dados);
@@ -366,7 +366,7 @@ lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA IDENT
             {
             /* Os parametros obrigatoriamente não podem ter sido declarados anteriormente */
 
-            dados_simbolo1 = procura_simb ( token, &x, &y, &tipo);
+            procura_simb ( token, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 != NULL){
                 sprintf ( dados, "Parametro não pode ser '%s' já foi delcarado como %s", token, dados_simbolo1->categoria);
                 imprimeErro ( dados);
@@ -409,7 +409,7 @@ atrib_proc_func_2: atribuicao
 
 atribuicao: {
             sprintf ( categoria, "var_simples");
-            dados_simbolo1 = procura_simb ( nome_var_proc_func, &x, &y, &tipo);
+            procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 == NULL || strcmp ( categoria, dados_simbolo1->categoria) != 0) {
                 if ( dados_simbolo1 == NULL)
                     sprintf ( dados, "Variável '%s' não foi declarada", nome_var_proc_func);
@@ -481,7 +481,7 @@ var_chama_proc_func: {
             }
 
             if ( eh_parametro_formal != 1) {
-                dados_simbolo1 = procura_simb ( nome_var_proc_func, &x, &y, &tipo);
+                procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
 
                 /* Se não encontrar o simbolos como var_simples/procedimento ou funcao e não é parametro_formal */
                 if ( dados_simbolo1 == NULL || ( strcmp ( categoria, dados_simbolo1->categoria) != 0 && strcmp ( categoria_funcao, dados_simbolo1->categoria) != 0)) {
@@ -548,7 +548,7 @@ var_chama_proc_func_2: {
             }
 
             /* Se simbolo é procedimento ou var_simples */
-            dados_simbolo1 = procura_simb ( nome_var_proc_func, &x, &y, &tipo);
+            procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 != NULL && (strcmp ( categoria, dados_simbolo1->categoria) == 0 || strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0)) {
                 printf ( "entrou como procedimento, var_simples ou parametro_formal\n");
 
@@ -605,7 +605,7 @@ var_chama_proc_func_2: {
             else {
 
                 /* Senão é funcao */
-                dados_simbolo1 = procura_simb ( nome_var_proc_func, &x, &y, &tipo);
+                procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
                 if ( dados_simbolo1 != NULL && strcmp ( categoria_funcao, dados_simbolo1->categoria) == 0) {
                     if ( dados_simbolo1->qtd_parametros != num_parametros) {
                         sprintf ( dados, "Para função '%s' numero de parametros incorreto", nome_var_proc_func);
@@ -683,7 +683,7 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
                 exit ( 1);
             }
 
-            dados_simbolo2 = procura_simb ( nome_proc_func, &x, &y, &tipo);
+            procura_simb ( nome_proc_func, &x, &y, &tipo, &dados_simbolo2);
             printf ( "Nome da função é %s\n", dados_simbolo2->simbolo);
             sprintf ( dados, "integer");
             while ( p_tipos->tam > 0) {
@@ -745,7 +745,7 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
                 exit ( 1);
             }
 
-            dados_simbolo2 = procura_simb ( nome_proc_func, &x, &y, &tipo);
+            procura_simb ( nome_proc_func, &x, &y, &tipo, &dados_simbolo2);
             printf ( "Nome da função é %s\n", dados_simbolo2->simbolo);
             sprintf ( dados, "integer");
             while ( p_tipos->tam > 0) {
@@ -1009,7 +1009,7 @@ expressao_booleana: expressao_booleana IGUAL expressao_fator2
 
 expressao_fator2: IDENT
             {
-            dados_simbolo1 = procura_simb ( token, &x, &y, &tipo);
+            procura_simb ( token, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 == NULL ){ // numero -99 indica que nao encontrou simb na tabela
                 sprintf ( dados, "Variável '%s' não foi declarada", token);
                 imprimeErro ( dados );
