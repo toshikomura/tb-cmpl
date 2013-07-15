@@ -28,6 +28,7 @@ int num_vars;
 int num_parametros;
 int num_parametros_aux;
 int num_vars_inicial;
+int eh_parametro_formal;
 
 int nivel_lexico;
 int desloc;
@@ -35,6 +36,7 @@ int desloc;
 int x, y;
 int percorre_vars;
 
+pilha_s *p_tipos;
 no_tabela_simbolos_p *dados_simbolo1;
 no_tabela_simbolos_p *dados_simbolo2;
 
@@ -158,7 +160,8 @@ tipo_retorno_func: IDENT
 
 
 lista_id_var: lista_id_var VIRGULA IDENT
-            { /* insere última vars na tabela de símbolos */
+            {
+            /* insere última variável na tabela de símbolos */
             dados_simbolo1 = procura_simb ( token, &x, &y, &tipo);
             if ( dados_simbolo1 != NULL){
                 sprintf ( dados, "Variável '%s' já foi delcarada como %s", token, dados_simbolo1->categoria);
@@ -173,7 +176,7 @@ lista_id_var: lista_id_var VIRGULA IDENT
             num_vars++;
             }
             | IDENT
-            { /* insere vars na tabela de símbolos */
+            { /* insere variáveis na tabela de símbolos */
             dados_simbolo1 = procura_simb ( token, &x, &y, &tipo);
             if ( dados_simbolo1 != NULL){
                 sprintf ( dados, "Variável '%s' já foi delcarada como %s", token, dados_simbolo1->categoria);
@@ -211,9 +214,18 @@ comando_composto: {
             {
             /* Recupera o número de variáveis */
             num_vars = desempilha_Inteiro ( p_num_vars);
+            if ( num_vars == -99) {
+                printf ( "Pilha p_num_vars esta vazia\n");
+                exit ( 1);
+            }
 
             /* Retoma com o rótulo */
             desempilha_String ( p_rotulos, &rotulo1);
+            if ( rotulo1 == NULL ) {
+                printf ( "Pilha p_rotulos esta vazia\n");
+                exit ( 1);
+            }
+
             geraCodigo ( rotulo1, "NADA");
             }
             bloco
@@ -295,6 +307,10 @@ procedimento_ou_funcao_3:
             /* Diminui o nivel lexico por causa do fim do procedimento */
 
             desloc = desempilha_Inteiro ( p_deslocamentos);
+            if ( desloc == -99) {
+                printf ( "Pilha p_deslocamentos esta vazia\n");
+                exit ( 1);
+            }
             nivel_lexico--;
             }
 ;
@@ -332,7 +348,7 @@ var_proc_ou_func: {
 
 lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA IDENT
             {
-            /* Os parametros obrigatoriamente não pode sido declarados anteriormente */
+            /* Os parametros obrigatoriamente não podem ter sido declarados anteriormente */
 
             dados_simbolo1 = procura_simb ( token, &x, &y, &tipo);
             if ( dados_simbolo1 != NULL){
@@ -348,7 +364,7 @@ lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA IDENT
             }
             | IDENT
             {
-            /* Os parametros obrigatoriamente não pode sido declarados anteriormente */
+            /* Os parametros obrigatoriamente não podem ter sido declarados anteriormente */
 
             dados_simbolo1 = procura_simb ( token, &x, &y, &tipo);
             if ( dados_simbolo1 != NULL){
@@ -375,8 +391,19 @@ atrib_proc_func: IDENT
 atrib_proc_func_2: atribuicao
             |
             {
+            /* Caso não seja atribuição então só pde ser procedimento ou função */
+            /* Indica que não é parametro formal e indica com 2 */
+            /* dizendo que vem de chamada de procedimento ou função */
+
             sprintf ( categoria, "procedimento");
+            empilha_Inteiro ( p_eh_parametro_formal, 2);
             } var_chama_proc_func
+            {
+            if ( desempilha_Inteiro ( p_eh_parametro_formal) == -99) {
+                printf ( "Pilha p_eh_parametro_formal esta vazia em atribuicao\n");
+                exit ( 1);
+            }
+            }
 ;
 
 
@@ -392,17 +419,49 @@ atribuicao: {
                 imprimeErro ( dados );
                 exit ( 1);
             }
-            } ATRIBUICAO expressao_aritmetica
+            } ATRIBUICAO
             {
+            /* Indica que não é parametro formal e que está indica com '0' */
+            /* que esta indo de atribuição */
+            empilha_Inteiro ( p_eh_parametro_formal, 0);
+
+            /* Cria pilha de tipos */
+            p_tipos = malloc( sizeof (pilha_s));
+            p_tipos->primeiro = NULL;
+            p_tipos->tam = 0;
+
+            /* Empilha a pilha de tipos para não perder na recursão */
+            /* A pilha de tipos pode mudar caso haja uma chamada de função com parametros */
+            empilha_pilhas_String ( p_p_tipos, p_tipos);
+
+            } expressao_aritmetica
+            {
+            if ( desempilha_Inteiro ( p_eh_parametro_formal) == -99) {
+                printf ( "Pilha p_eh_parametro_formal esta vazia em atribuicao\n");
+                exit ( 1);
+            }
+
+            desempilha_pilhas_String ( p_p_tipos, &p_tipos);
+            if ( p_tipos == NULL) {
+                printf ( "Pilha p_p_tipos esta vazia em atribuição\n");
+                exit ( 1);
+            }
+
             /* Checa se o tipo do resultado da expressão corresponde a variável que vai receber a expressão */
             while ( p_tipos->tam > 0) {
                 desempilha_String ( p_tipos, &tipo_expressao);
+                if ( tipo_expressao == NULL ) {
+                    printf ( "Pilha p_tipos esta vazia\n");
+                    exit ( 1);
+                }
+
                 if ( strcmp ( dados_simbolo1->tipo, tipo_expressao) != 0) {
                     sprintf ( dados, "Tipo do receptor é incopativel com um elemento da expressao");
                     imprimeErro ( dados );
                     exit ( 1);
                 }
             }
+
             sprintf ( dados, "ARMZ %d, %d", x, y);
             geraCodigo ( NULL, dados );
             }
@@ -415,25 +474,32 @@ var_chama_proc_func: {
             /* 3 - Caso venha de lita de parametros->expressao pode ser var_simples, parametro_formal ou funcao */
             /* Para os 2 casos o outro parametro pode ser função */
 
-            dados_simbolo1 = procura_simb ( nome_var_proc_func, &x, &y, &tipo);
-
-            /* Se não encontrar o simbolos como var_simples/procedimento ou funcao e não é parametro_formal */
-            if ( dados_simbolo1 != NULL && strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) != 0) {
-            if ( dados_simbolo1 == NULL || ( strcmp ( categoria, dados_simbolo1->categoria) != 0 && strcmp ( categoria_funcao, dados_simbolo1->categoria) != 0)) {
-                sprintf ( dados, "var_simples");
-                if ( strcmp ( categoria, dados) == 0){
-                    sprintf ( dados, "Variavel ou Funcao '%s' nao foi declarada", nome_var_proc_func);
-                    imprimeErro ( dados);
-                }
-                else {
-                    sprintf ( dados, "Procedimento ou Funcao '%s' nao foi declarada", nome_var_proc_func);
-                    imprimeErro ( dados);
-                }
+            eh_parametro_formal = desempilha_Inteiro ( p_eh_parametro_formal);
+            if ( eh_parametro_formal == -99) {
+                printf ( "Pilha p_eh_parametro_formal esta vazia em var_chama_proc_func\n");
                 exit ( 1);
             }
-            }
 
-            /* Se o simbolo é uma função */
+            if ( eh_parametro_formal != 1) {
+                dados_simbolo1 = procura_simb ( nome_var_proc_func, &x, &y, &tipo);
+
+                /* Se não encontrar o simbolos como var_simples/procedimento ou funcao e não é parametro_formal */
+                if ( dados_simbolo1 == NULL || ( strcmp ( categoria, dados_simbolo1->categoria) != 0 && strcmp ( categoria_funcao, dados_simbolo1->categoria) != 0)) {
+                    sprintf ( dados, "var_simples");
+                    if ( strcmp ( categoria, dados) == 0){
+                        sprintf ( dados, "Variavel ou Funcao '%s' nao foi declarada", nome_var_proc_func);
+                        imprimeErro ( dados);
+                    }
+                    else {
+                        sprintf ( dados, "Procedimento ou Funcao '%s' nao foi declarada", nome_var_proc_func);
+                        imprimeErro ( dados);
+                    }
+                    exit ( 1);
+                }
+            }
+            empilha_Inteiro ( p_eh_parametro_formal, eh_parametro_formal);
+
+            /* Se o simbolo é uma função gera o código de retorno antes de empilhar os parametros */
             if ( dados_simbolo1 != NULL && strcmp ( categoria_funcao, dados_simbolo1->categoria) == 0) {
                 sprintf ( dados, "AMEN 1");
                 geraCodigo ( NULL, dados );
@@ -446,6 +512,8 @@ var_chama_proc_func: {
 
 passagem: ABRE_PARENTESES
             {
+            /* Salva o nome da função antes de iniciar leitura dos parametros */
+            /* Também salva a quantidade de parametros */
             nome_proc_func = malloc ( sizeof (char)*TAM_TOKEN);
             strcpy ( nome_proc_func, nome_var_proc_func);
             empilha_String ( p_nomes, nome_proc_func);
@@ -454,7 +522,17 @@ passagem: ABRE_PARENTESES
             } lista_id_var_parametro FECHA_PARENTESES
             {
             desempilha_String ( p_nomes, &nome_proc_func);
+            if ( nome_proc_func == NULL ) {
+                printf ( "Pilha p_nomes esta vazia\n");
+                exit ( 1);
+            }
+
             num_parametros = desempilha_Inteiro ( p_num_parametros);
+            if ( num_parametros == -99) {
+                printf ( "Pilha p_num_parametros esta vazia\n");
+                exit ( 1);
+            }
+
             strcpy ( nome_var_proc_func, nome_proc_func);
             } var_chama_proc_func_2
             | var_chama_proc_func_2
@@ -463,25 +541,66 @@ passagem: ABRE_PARENTESES
 
 var_chama_proc_func_2: {
 
+            eh_parametro_formal = desempilha_Inteiro ( p_eh_parametro_formal);
+            if ( eh_parametro_formal == -99) {
+                printf ( "Pilha p_eh_parametro_formal esta vazia em var_chama_proc_func2\n");
+                exit ( 1);
+            }
+
             /* Se simbolo é procedimento ou var_simples */
             dados_simbolo1 = procura_simb ( nome_var_proc_func, &x, &y, &tipo);
             if ( dados_simbolo1 != NULL && (strcmp ( categoria, dados_simbolo1->categoria) == 0 || strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0)) {
-                sprintf ( dados, "procedimento");
+                printf ( "entrou como procedimento, var_simples ou parametro_formal\n");
 
-                /* Se é procedimento */
-                if ( strcmp( categoria, dados) == 0) {
-                    sprintf ( dados, "CHPR %s, %d", dados_simbolo1->rotulo, nivel_lexico);
-                    geraCodigo ( NULL, dados );
+                if ( eh_parametro_formal == 1) {
+                    printf ( "Determinou como parametro_formal\n");
+                    if ( strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0) {
+                        /* é parametro_formal */
+                        desempilha_pilhas_String ( p_p_tipos, &p_tipos);
+                        if ( p_tipos == NULL) {
+                            printf ( "Pilha p_eh_parametro_formal esta vazia em parmetro_formal\n");
+                            exit ( 1);
+                        }
+
+                        /* Salva o tipo do parametro */
+                        tipo_fator = malloc ( sizeof (char)*TAM_TOKEN);
+                        strcpy (tipo_fator, dados_simbolo1->tipo);
+                        empilha_String ( p_tipos, tipo_fator);
+
+                        empilha_pilhas_String ( p_p_tipos, p_tipos);
+
+                        sprintf ( dados, "CRVL %d %d", x, y);
+                        geraCodigo ( NULL, dados);
+                    }
                 }
                 else {
-                    /* Senão é var_simples */
+                    sprintf ( dados, "procedimento");
 
-                    tipo_fator = malloc ( sizeof (char)*TAM_TOKEN);
-                    strcpy (tipo_fator, dados_simbolo1->tipo);
-                    empilha_String ( p_tipos, tipo_fator);
-                    sprintf ( dados, "CRVL %d %d", x, y);
-                    geraCodigo ( NULL, dados);
+                    /* Se é procedimento */
+                    if ( strcmp( categoria, dados) == 0) {
+                        sprintf ( dados, "CHPR %s, %d", dados_simbolo1->rotulo, nivel_lexico);
+                        geraCodigo ( NULL, dados );
+                    }
+                    else {
+                        /* Senão é var_simples */
+                        desempilha_pilhas_String ( p_p_tipos, &p_tipos);
+                        if ( p_tipos == NULL) {
+                            printf ( "Pilha p_p_tipos esta vazia em var_chama_proc_func2 var_simples\n");
+                            exit ( 1);
+                        }
+
+                        /* Salva o tipo variável */
+                        tipo_fator = malloc ( sizeof (char)*TAM_TOKEN);
+                        strcpy (tipo_fator, dados_simbolo1->tipo);
+                        empilha_String ( p_tipos, tipo_fator);
+
+                        empilha_pilhas_String ( p_p_tipos, p_tipos);
+
+                        sprintf ( dados, "CRVL %d %d", x, y);
+                        geraCodigo ( NULL, dados);
+                    }
                 }
+
             }
             else {
 
@@ -493,39 +612,157 @@ var_chama_proc_func_2: {
                         imprimeErro ( dados);
                         exit ( 1);
                     }
-                    tipo_fator = malloc ( sizeof (char)*TAM_TOKEN);
-                    strcpy (tipo_fator, dados_simbolo1->tipo_retorno);
-                    empilha_String ( p_tipos, tipo_fator);
+
+                    /* Se a função não faz parte de uma expressão da atribuição */
+                    /* No caso ele não faz parte disso ' a := funcao ' */
+                    if ( eh_parametro_formal != 2) {
+                        desempilha_pilhas_String ( p_p_tipos, &p_tipos);
+                        if ( p_tipos == NULL) {
+                            printf ( "Pilha p_p_tipos esta vazia em var_chama_proc_func2 função\n");
+                            exit ( 1);
+                        }
+
+                        /* Salva o tipo de retorno da função */
+                        tipo_fator = malloc ( sizeof (char)*TAM_TOKEN);
+                        strcpy (tipo_fator, dados_simbolo1->tipo_retorno);
+                        empilha_String ( p_tipos, tipo_fator);
+
+                        empilha_pilhas_String ( p_p_tipos, p_tipos);
+                    }
+
                     sprintf ( dados, "CHPR %s, %d", dados_simbolo1->rotulo, nivel_lexico);
                     geraCodigo ( NULL, dados );
                 }
             }
+
+            empilha_Inteiro ( p_eh_parametro_formal, eh_parametro_formal);
             }
 ;
 
 
-lista_id_var_parametro: lista_id_var_parametro VIRGULA expressao_aritmetica
+lista_id_var_parametro: lista_id_var_parametro VIRGULA
             {
+            empilha_Inteiro ( p_eh_parametro_formal, 1);
+
+            /* Cria pilha de tipos */
+            p_tipos = malloc( sizeof (pilha_s));
+            p_tipos->primeiro = NULL;
+            p_tipos->tam = 0;
+
+            /* Empilha a pilha de tipos para não perder na recursão */
+            /* A pilha de tipos pode mudar caso haja uma chamada de função com parametros */
+            empilha_pilhas_String ( p_p_tipos, p_tipos);
+
+            } expressao_aritmetica
+            {
+            if ( desempilha_Inteiro ( p_eh_parametro_formal) == -99) {
+                printf ( "Pilha p_eh_parametro_formal esta vazia em lista_id_var_parametro 1\n");
+                exit ( 1);
+            }
+
+            desempilha_pilhas_String ( p_p_tipos, &p_tipos);
+            if ( p_tipos == NULL) {
+                printf ( "Pilha p_p_tipos esta vazia em lista_id_parametro\n");
+                exit ( 1);
+            }
+
+            num_parametros_aux = desempilha_Inteiro ( p_num_parametros);
+            if ( num_parametros_aux == -99) {
+                printf ( "Pilha p_num_parametros esta vazia\n");
+                exit ( 1);
+            }
+
+            num_parametros_aux++;
+            empilha_Inteiro ( p_num_parametros, num_parametros_aux);
+            printf ( "NUMERO DE PARAMETROS f= %d\n", num_parametros_aux);
+
             /* Checar se o tipo do resultado da expressão corresponde ao parametro do procedimento ou função */
+            desempilha_String ( p_nomes, &nome_proc_func);
+            if ( nome_proc_func == NULL ) {
+                printf ( "Pilha p_nomes esta vazia\n");
+                exit ( 1);
+            }
+
+            dados_simbolo2 = procura_simb ( nome_proc_func, &x, &y, &tipo);
+            printf ( "Nome da função é %s\n", dados_simbolo2->simbolo);
             sprintf ( dados, "integer");
             while ( p_tipos->tam > 0) {
                 desempilha_String ( p_tipos, &tipo_expressao);
-                if ( strcmp ( dados, tipo_expressao) != 0) {
+                if ( tipo_expressao == NULL ) {
+                    printf ( "Pilha p_tipos esta vazia\n");
+                    exit ( 1);
+                }
+
+                if ( chaca_tipo_parametro( dados_simbolo2, tipo_expressao, num_parametros_aux) != 1) {
                     sprintf ( dados, "Tipo do receptor é incopativel com um elemento da expressao");
                     imprimeErro ( dados );
                     exit ( 1);
                 }
             }
 
-            num_parametros_aux = desempilha_Inteiro ( p_num_parametros);
-            num_parametros_aux++;
-            empilha_Inteiro ( p_num_parametros, num_parametros_aux);
+            empilha_String ( p_nomes, nome_proc_func);
             }
-            | expressao_aritmetica
+            |
             {
+            empilha_Inteiro ( p_eh_parametro_formal, 1);
+
+            /* Cria pilha de tipos */
+            p_tipos = malloc( sizeof (pilha_s));
+            p_tipos->primeiro = NULL;
+            p_tipos->tam = 0;
+
+            /* Empilha a pilha de tipos para não perder na recursão */
+            /* A pilha de tipos pode mudar caso haja uma chamada de função com parametros */
+            empilha_pilhas_String ( p_p_tipos, p_tipos);
+
+            } expressao_aritmetica
+            {
+            if ( desempilha_Inteiro ( p_eh_parametro_formal) == -99) {
+                printf ( "Pilha p_eh_parametro_formal esta vazia em lista_id_var_parametro 2\n");
+                exit ( 1);
+            }
+
+            desempilha_pilhas_String ( p_p_tipos, &p_tipos);
+            if ( p_tipos == NULL) {
+                printf ( "Pilha p_p_tipos esta vazia em lista_id_parametro 2\n");
+                exit ( 1);
+            }
+
             num_parametros_aux = desempilha_Inteiro ( p_num_parametros);
+            if ( num_parametros_aux == -99) {
+                printf ( "Pilha p_num_parametros esta vazia\n");
+                exit ( 1);
+            }
+
             num_parametros_aux++;
             empilha_Inteiro ( p_num_parametros, num_parametros_aux);
+            printf ( "NUMERO DE PARAMETROS = %d\n", num_parametros_aux);
+
+            /* Checar se o tipo do resultado da expressão corresponde ao parametro do procedimento ou função */
+            desempilha_String ( p_nomes, &nome_proc_func);
+            if ( nome_proc_func == NULL ) {
+                printf ( "Pilha p_nomes esta vazia\n");
+                exit ( 1);
+            }
+
+            dados_simbolo2 = procura_simb ( nome_proc_func, &x, &y, &tipo);
+            printf ( "Nome da função é %s\n", dados_simbolo2->simbolo);
+            sprintf ( dados, "integer");
+            while ( p_tipos->tam > 0) {
+                desempilha_String ( p_tipos, &tipo_expressao);
+                if ( tipo_expressao == NULL ) {
+                    printf ( "Pilha p_tipos esta vazia\n");
+                    exit ( 1);
+                }
+
+                if ( chaca_tipo_parametro( dados_simbolo2, tipo_expressao, num_parametros_aux) != 1) {
+                    sprintf ( dados, "Tipo do receptor é incopativel com um elemento da expressao");
+                    imprimeErro ( dados );
+                    exit ( 1);
+                }
+            }
+
+            empilha_String ( p_nomes, nome_proc_func);
             }
             |
 ;
@@ -559,7 +796,17 @@ repeticao_2: ABRE_PARENTESES expressao_booleana_geral FECHA_PARENTESES FACA
 repeticao_3: comando_sem_ponto_e_virgula
             {
             desempilha_String ( p_rotulos, &rotulo2);
+            if ( rotulo2 == NULL ) {
+                printf ( "Pilha p_rotulos esta vazia\n");
+                exit ( 1);
+            }
+
             desempilha_String ( p_rotulos, &rotulo1);
+            if ( rotulo1 == NULL ) {
+                printf ( "Pilha p_rotulos esta vazia\n");
+                exit ( 1);
+            }
+
             sprintf ( dados, "DSVS %s", rotulo1);
             geraCodigo ( NULL, dados);
             geraCodigo ( rotulo2, "NADA");
@@ -567,7 +814,17 @@ repeticao_3: comando_sem_ponto_e_virgula
             | comando_composto_2_rep_cond
             {
             desempilha_String ( p_rotulos, &rotulo2);
+            if ( rotulo2 == NULL ) {
+                printf ( "Pilha p_rotulos esta vazia\n");
+                exit ( 1);
+            }
+
             desempilha_String ( p_rotulos, &rotulo1);
+            if ( rotulo1 == NULL ) {
+                printf ( "Pilha p_rotulos esta vazia\n");
+                exit ( 1);
+            }
+
             sprintf ( dados, "DSVS %s", rotulo1);
             geraCodigo ( NULL, dados);
             geraCodigo ( rotulo2, "NADA");
@@ -578,11 +835,21 @@ repeticao_3: comando_sem_ponto_e_virgula
 condicao: SE condicao_se_entao
             {
             desempilha_String ( p_rotulos, &rotulo2);
+            if ( rotulo2 == NULL ) {
+                printf ( "Pilha p_rotulos esta vazia\n");
+                exit ( 1);
+            }
+
             geraCodigo ( rotulo2, "NADA");
             }
             | SE condicao_se_entao condicao_senao
             {
             desempilha_String ( p_rotulos, &rotulo2);
+            if ( rotulo2 == NULL ) {
+                printf ( "Pilha p_rotulos esta vazia\n");
+                exit ( 1);
+            }
+
             geraCodigo ( rotulo2, "NADA");
             }
 ;
@@ -613,6 +880,10 @@ condicao_se_entao_2: comando_sem_ponto_e_virgula
 condicao_senao: SENAO
             {
             desempilha_String ( p_rotulos, &rotulo1);
+            if ( rotulo1 == NULL ) {
+                printf ( "Pilha p_rotulos esta vazia\n");
+                exit ( 1);
+            }
 
             gera_Proximo_Rotulo ( &rotulo2);
             empilha_String ( p_rotulos, rotulo2);
@@ -791,6 +1062,7 @@ main ( int argc, char** argv) {
     inicia_variaveis_globais ();
     inicia_pilha_tabela_simbolos ();
     inicia_pilha_strings ();
+    inicia_pilha_pilhas_strings ();
     inicia_pilha_inteiros ();
     inicia_pilha_inteiros ();
 
