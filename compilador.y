@@ -442,7 +442,7 @@ atribuicao: {
 
             num_termos = desempilha_Inteiro ( p_num_termos);
             if ( num_termos == -99) {
-                printf ( "Pilha p_num_termos esta vazia\n");
+                printf ( "Pilha p_num_termos esta vazia em atribuição\n");
                 exit ( 1);
             }
 
@@ -700,6 +700,8 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
             }
 
             procura_simb ( nome_proc_func, &x, &y, &tipo, &dados_simbolo2);
+
+            /* Para cada tipo de variavel da expressao */
             while ( p_tipos->tam > 0) {
                 desempilha_String ( p_tipos, &tipo_expressao);
                 if ( tipo_expressao == NULL ) {
@@ -707,13 +709,14 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
                     exit ( 1);
                 }
 
-                if ( chaca_tipo_parametro( dados_simbolo2, tipo_expressao, num_parametros_aux) != 1) {
+                if ( chaca_tipo_parametro( dados_simbolo2, tipo_expressao, num_parametros_aux, num_termos) != 1) {
                     sprintf ( dados, "Tipo do parametro %d do procedimento ou função %s incompativel com declaração", num_parametros_aux, dados_simbolo2->simbolo);
                     imprimeErro ( dados );
                     exit ( 1);
                 }
             }
 
+            empilha_Inteiro ( p_num_termos, num_termos);
             empilha_String ( p_nomes, nome_proc_func);
             }
             |
@@ -768,6 +771,8 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
             }
 
             procura_simb ( nome_proc_func, &x, &y, &tipo, &dados_simbolo2);
+
+            /* Para cada tipo de variavel da expressao */
             while ( p_tipos->tam > 0) {
                 desempilha_String ( p_tipos, &tipo_expressao);
                 if ( tipo_expressao == NULL ) {
@@ -775,13 +780,14 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
                     exit ( 1);
                 }
 
-                if ( chaca_tipo_parametro( dados_simbolo2, tipo_expressao, num_parametros_aux) != 1) {
+                if ( chaca_tipo_parametro( dados_simbolo2, tipo_expressao, num_parametros_aux, num_termos) != 1) {
                     sprintf ( dados, "Tipo do parametro %d do procedimento ou função %s incompativel com declaração", num_parametros_aux, dados_simbolo2->simbolo);
                     imprimeErro ( dados );
                     exit ( 1);
                 }
             }
 
+            empilha_Inteiro ( p_num_termos, num_termos);
             empilha_String ( p_nomes, nome_proc_func);
             }
             |
@@ -962,7 +968,7 @@ expressao_fator: IDENT
 
             num_termos = desempilha_Inteiro ( p_num_termos);
             if ( num_termos == -99) {
-                printf ( "Pilha p_num_termos esta vazia\n");
+                printf ( "Pilha p_num_termos esta vazia em fator 1\n");
                 exit ( 1);
             }
 
@@ -980,11 +986,14 @@ expressao_fator: IDENT
 
             num_termos = desempilha_Inteiro ( p_num_termos);
             if ( num_termos == -99) {
-                printf ( "Pilha p_num_termos esta vazia\n");
+                printf ( "Pilha p_num_termos esta vazia em fator 2\n");
                 exit ( 1);
             }
 
-            num_termos++;
+            /* Soma 2 para caso seja expressao de parametro */
+            /* com número ou mais de uma variável na expressao ser incompativel */
+            /* com passagem por referência */
+            num_termos = num_termos + 2;
             empilha_Inteiro ( p_num_termos, num_termos);
             }
             | ABRE_PARENTESES expressao_aritmetica FECHA_PARENTESES
@@ -992,15 +1001,6 @@ expressao_fator: IDENT
             sprintf ( dados, "integer");
             strcpy ( tipo_fator, dados);
             empilha_String ( p_tipos, tipo_fator);
-
-            num_termos = desempilha_Inteiro ( p_num_termos);
-            if ( num_termos == -99) {
-                printf ( "Pilha p_num_termos esta vazia\n");
-                exit ( 1);
-            }
-
-            num_termos++;
-            empilha_Inteiro ( p_num_termos, num_termos);
             }
 ;
 
