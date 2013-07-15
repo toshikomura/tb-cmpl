@@ -472,28 +472,42 @@ int compara_parametros_proc_func ( char *simb, int qtd_param) {
 
 /* Função que verifica se tipo do parametro declarado na chamada corresponde ao tipo do parametro */
 /* da função que está na tabela de simbolos */
-int chaca_tipo_parametro ( no_tabela_simbolos_p *slot_tb_simb_aux, char *ti, int parametro_n) {
+int chaca_tipo_parametro ( no_tabela_simbolos_p *slot_tb_simb_aux, char *ti, int parametro_n, int qtd_term) {
 
+    char *v_vl = malloc ( sizeof (char)*TAM_TOKEN);
     int j = 1;
     tipos_parametros_l *tip_para_aux = slot_tb_simb_aux->primeiro_tipo_parametro;
+
+    sprintf ( v_vl, "var_valor");
 
     while ( tip_para_aux != NULL && j < parametro_n) {
         tip_para_aux = tip_para_aux->prox;
         j++;
     }
 
+    /* Se o tipo do parametro não existe na tabela de simbolos */
     if ( tip_para_aux == NULL)
 
         return -99;
 
     else {
+
+        /* Se o tipo não corresponde com o parametro */
         if ( strcmp ( tip_para_aux->tipo, ti) != 0 )
 
             return -99;
 
-        else
+        else {
 
-            return 1;
+            /* Caso o parametro seja um valor mas na declaração recebe um endereço */
+            if ( strcmp ( tip_para_aux->valor_referencia, v_vl) != 0 && qtd_term > 1)
 
+                return 99;
+
+            else
+
+                return 1;
+
+        }
     }
 }
