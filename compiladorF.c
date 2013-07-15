@@ -416,6 +416,10 @@ void inicia_pilha_inteiros () {
     p_eh_parametro_formal = malloc ( sizeof ( pilha_i));
     p_eh_parametro_formal->primeiro = NULL;
     p_eh_parametro_formal->tam = 0;
+
+    p_num_termos = malloc ( sizeof ( pilha_i));
+    p_num_termos->primeiro = NULL;
+    p_num_termos->tam = 0;
 }
 
 /* Função que empilha deslocamento */
