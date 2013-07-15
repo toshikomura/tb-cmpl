@@ -29,6 +29,7 @@ int num_parametros;
 int num_parametros_aux;
 int num_vars_inicial;
 int eh_parametro_formal;
+int num_termos;
 
 int nivel_lexico;
 int desloc;
@@ -434,8 +435,17 @@ atribuicao: {
             /* A pilha de tipos pode mudar caso haja uma chamada de função com parametros */
             empilha_pilhas_String ( p_p_tipos, p_tipos);
 
+            empilha_Inteiro ( p_num_termos, 0);
+
             } expressao_aritmetica
             {
+
+            num_termos = desempilha_Inteiro ( p_num_termos);
+            if ( num_termos == -99) {
+                printf ( "Pilha p_num_termos esta vazia\n");
+                exit ( 1);
+            }
+
             if ( desempilha_Inteiro ( p_eh_parametro_formal) == -99) {
                 printf ( "Pilha p_eh_parametro_formal esta vazia em atribuicao\n");
                 exit ( 1);
@@ -653,8 +663,17 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
             /* A pilha de tipos pode mudar caso haja uma chamada de função com parametros */
             empilha_pilhas_String ( p_p_tipos, p_tipos);
 
+            empilha_Inteiro ( p_num_termos, 0);
+
             } expressao_aritmetica
             {
+
+            num_termos = desempilha_Inteiro ( p_num_termos);
+            if ( num_termos == -99) {
+                printf ( "Pilha p_num_termos esta vazia\n");
+                exit ( 1);
+            }
+
             if ( desempilha_Inteiro ( p_eh_parametro_formal) == -99) {
                 printf ( "Pilha p_eh_parametro_formal esta vazia em lista_id_var_parametro 1\n");
                 exit ( 1);
@@ -715,8 +734,17 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
             /* A pilha de tipos pode mudar caso haja uma chamada de função com parametros */
             empilha_pilhas_String ( p_p_tipos, p_tipos);
 
+            empilha_Inteiro ( p_num_termos, 0);
+
             } expressao_aritmetica
             {
+
+            num_termos = desempilha_Inteiro ( p_num_termos);
+            if ( num_termos == -99) {
+                printf ( "Pilha p_num_termos esta vazia\n");
+                exit ( 1);
+            }
+
             if ( desempilha_Inteiro ( p_eh_parametro_formal) == -99) {
                 printf ( "Pilha p_eh_parametro_formal esta vazia em lista_id_var_parametro 2\n");
                 exit ( 1);
@@ -939,6 +967,15 @@ expressao_fator: IDENT
             {
             sprintf ( categoria, "var_simples");
             sprintf ( nome_var_proc_func, "%s", token);
+
+            num_termos = desempilha_Inteiro ( p_num_termos);
+            if ( num_termos == -99) {
+                printf ( "Pilha p_num_termos esta vazia\n");
+                exit ( 1);
+            }
+
+            num_termos++;
+            empilha_Inteiro ( p_num_termos, num_termos);
             } var_chama_proc_func
             | NUMERO
             {
@@ -948,12 +985,30 @@ expressao_fator: IDENT
             sprintf ( dados, "integer");
             strcpy ( tipo_fator, dados);
             empilha_String ( p_tipos, tipo_fator);
+
+            num_termos = desempilha_Inteiro ( p_num_termos);
+            if ( num_termos == -99) {
+                printf ( "Pilha p_num_termos esta vazia\n");
+                exit ( 1);
+            }
+
+            num_termos++;
+            empilha_Inteiro ( p_num_termos, num_termos);
             }
             | ABRE_PARENTESES expressao_aritmetica FECHA_PARENTESES
             {
             sprintf ( dados, "integer");
             strcpy ( tipo_fator, dados);
             empilha_String ( p_tipos, tipo_fator);
+
+            num_termos = desempilha_Inteiro ( p_num_termos);
+            if ( num_termos == -99) {
+                printf ( "Pilha p_num_termos esta vazia\n");
+                exit ( 1);
+            }
+
+            num_termos++;
+            empilha_Inteiro ( p_num_termos, num_termos);
             }
 ;
 
