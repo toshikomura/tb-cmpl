@@ -560,10 +560,8 @@ var_chama_proc_func_2: {
             /* Se simbolo é procedimento ou var_simples */
             procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 != NULL && (strcmp ( categoria, dados_simbolo1->categoria) == 0 || strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0)) {
-                printf ( "entrou como procedimento, var_simples ou parametro_formal\n");
 
                 if ( eh_parametro_formal == 1) {
-                    printf ( "Determinou como parametro_formal\n");
                     if ( strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0) {
                         /* é parametro_formal */
                         desempilha_pilhas_String ( p_p_tipos, &p_tipos);
@@ -693,7 +691,6 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
 
             num_parametros_aux++;
             empilha_Inteiro ( p_num_parametros, num_parametros_aux);
-            printf ( "NUMERO DE PARAMETROS f= %d\n", num_parametros_aux);
 
             /* Checar se o tipo do resultado da expressão corresponde ao parametro do procedimento ou função */
             desempilha_String ( p_nomes, &nome_proc_func);
@@ -703,8 +700,6 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
             }
 
             procura_simb ( nome_proc_func, &x, &y, &tipo, &dados_simbolo2);
-            printf ( "Nome da função é %s\n", dados_simbolo2->simbolo);
-            sprintf ( dados, "integer");
             while ( p_tipos->tam > 0) {
                 desempilha_String ( p_tipos, &tipo_expressao);
                 if ( tipo_expressao == NULL ) {
@@ -713,7 +708,7 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
                 }
 
                 if ( chaca_tipo_parametro( dados_simbolo2, tipo_expressao, num_parametros_aux) != 1) {
-                    sprintf ( dados, "Tipo do receptor é incopativel com um elemento da expressao");
+                    sprintf ( dados, "Tipo do parametro %d do procedimento ou função %s incompativel com declaração", num_parametros_aux, dados_simbolo2->simbolo);
                     imprimeErro ( dados );
                     exit ( 1);
                 }
@@ -764,7 +759,6 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
 
             num_parametros_aux++;
             empilha_Inteiro ( p_num_parametros, num_parametros_aux);
-            printf ( "NUMERO DE PARAMETROS = %d\n", num_parametros_aux);
 
             /* Checar se o tipo do resultado da expressão corresponde ao parametro do procedimento ou função */
             desempilha_String ( p_nomes, &nome_proc_func);
@@ -774,8 +768,6 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
             }
 
             procura_simb ( nome_proc_func, &x, &y, &tipo, &dados_simbolo2);
-            printf ( "Nome da função é %s\n", dados_simbolo2->simbolo);
-            sprintf ( dados, "integer");
             while ( p_tipos->tam > 0) {
                 desempilha_String ( p_tipos, &tipo_expressao);
                 if ( tipo_expressao == NULL ) {
@@ -784,7 +776,7 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
                 }
 
                 if ( chaca_tipo_parametro( dados_simbolo2, tipo_expressao, num_parametros_aux) != 1) {
-                    sprintf ( dados, "Tipo do receptor é incopativel com um elemento da expressao");
+                    sprintf ( dados, "Tipo do parametro %d do procedimento ou função %s incompativel com declaração", num_parametros_aux, dados_simbolo2->simbolo);
                     imprimeErro ( dados );
                     exit ( 1);
                 }
