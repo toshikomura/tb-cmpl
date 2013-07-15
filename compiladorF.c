@@ -312,7 +312,7 @@ void gera_Proximo_Rotulo ( char **new_rotulo) {
 
 }
 
-/* Inicia pilha para rotulos */
+/* Inicia pilha para strings */
 void inicia_pilha_strings () {
 
     p_rotulos = malloc( sizeof (pilha_s));
@@ -323,12 +323,9 @@ void inicia_pilha_strings () {
     p_nomes->primeiro = NULL;
     p_nomes->tam = 0;
 
-    p_tipos = malloc( sizeof (pilha_s));
-    p_tipos->primeiro = NULL;
-    p_tipos->tam = 0;
 }
 
-/* Função que empilha rotulos */
+/* Função que empilha strings */
 void empilha_String ( pilha_s *p, char *str ) {
 
     strings_p *nova_string = malloc( sizeof ( strings_p ));
@@ -337,10 +334,9 @@ void empilha_String ( pilha_s *p, char *str ) {
     nova_string->prox = p->primeiro;
     p->primeiro = nova_string;
     p->tam++;
-    printf ( "tamanho da pilha %d\n", p->tam);
 }
 
-/* Função que desempilha rotulos */
+/* Função que desempilha strings */
 void desempilha_String ( pilha_s *p, char **str) {
 
     strings_p *string_retirada;
@@ -361,6 +357,47 @@ void desempilha_String ( pilha_s *p, char **str) {
     }
 }
 
+/* Inicia pilha de pilha de strings */
+void inicia_pilha_pilhas_strings () {
+
+    p_p_tipos = malloc( sizeof (pilha_pilhas_s));
+    p_p_tipos->primeiro = NULL;
+    p_p_tipos->tam = 0;
+
+}
+
+/* Função que empilha pilhas de strings */
+void empilha_pilhas_String ( pilha_pilhas_s *p, pilha_s *str ) {
+
+    strings_pilhas_p *nova_pilha = malloc( sizeof ( strings_pilhas_p ));
+
+    nova_pilha->local_pilha = str;
+    nova_pilha->prox = p->primeiro;
+    p->primeiro = nova_pilha;
+    p->tam++;
+}
+
+/* Função que desempilha pilhas de strings */
+void desempilha_pilhas_String ( pilha_pilhas_s *p, pilha_s **str) {
+
+    strings_pilhas_p *pilha_retirada;
+
+    if ( p->tam == 0){
+
+        *str = NULL;
+    }
+    else
+    {
+
+        pilha_retirada = p->primeiro;
+        p->primeiro = pilha_retirada->prox;
+        p->tam--;
+
+        *str = pilha_retirada->local_pilha;
+
+    }
+}
+
 /* Inicia pilha para deslocamentos */
 void inicia_pilha_inteiros () {
 
@@ -375,6 +412,10 @@ void inicia_pilha_inteiros () {
     p_num_parametros = malloc ( sizeof ( pilha_i));
     p_num_parametros->primeiro = NULL;
     p_num_parametros->tam = 0;
+
+    p_eh_parametro_formal = malloc ( sizeof ( pilha_i));
+    p_eh_parametro_formal->primeiro = NULL;
+    p_eh_parametro_formal->tam = 0;
 }
 
 /* Função que empilha deslocamento */
@@ -424,3 +465,31 @@ int compara_parametros_proc_func ( char *simb, int qtd_param) {
 
 }
 */
+
+/* Função que verifica se tipo do parametro declarado na chamada corresponde ao tipo do parametro */
+/* da função que está na tabela de simbolos */
+int chaca_tipo_parametro ( no_tabela_simbolos_p *slot_tb_simb_aux, char *ti, int parametro_n) {
+
+    int j = 1;
+    tipos_parametros_l *tip_para_aux = slot_tb_simb_aux->primeiro_tipo_parametro;
+
+    while ( tip_para_aux != NULL && j < parametro_n) {
+        tip_para_aux = tip_para_aux->prox;
+        j++;
+    }
+
+    if ( tip_para_aux == NULL)
+
+        return -99;
+
+    else {
+        if ( strcmp ( tip_para_aux->tipo, ti) != 0 )
+
+            return -99;
+
+        else
+
+            return 1;
+
+    }
+}
