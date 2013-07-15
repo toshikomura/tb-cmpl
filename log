@@ -61,7 +61,6 @@ TABELA DE SIMBOLOS
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  pt_virgula      # ; 
  funcao     # function 
-tamanho da pilha 1
  ident      # y 
 
 
@@ -89,7 +88,6 @@ TABELA DE SIMBOLOS
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  pt_virgula      # ; 
  funcao     # function 
-tamanho da pilha 2
  ident      # x 
 
 
@@ -202,22 +200,28 @@ end      # end
 begin     # begin 
  ident      # x 
  abre_parenteses      # ( 
-tamanho da pilha 1
  ident      # a 
  virgula      # , 
-tamanho da pilha 1
+entrou como procedimento, var_simples ou parametro_formal
+Determinou como parametro_formal
+NUMERO DE PARAMETROS = 1
+Nome da função é x
  ident      # m 
  virgula      # , 
-tamanho da pilha 2
+entrou como procedimento, var_simples ou parametro_formal
+Determinou como parametro_formal
+NUMERO DE PARAMETROS f= 2
+Nome da função é x
  ident      # n 
  fecha_parenteses     # ) 
-tamanho da pilha 1
-tamanho da pilha 1
+entrou como procedimento, var_simples ou parametro_formal
+Determinou como parametro_formal
+NUMERO DE PARAMETROS f= 3
+Nome da função é x
  pt_virgula      # ; 
 end      # end 
  pt_virgula      # ; 
  procedimento     # procedure 
-tamanho da pilha 1
  ident      # w 
 
 
@@ -236,7 +240,6 @@ TABELA DE SIMBOLOS
 || exemplo75 | sem_tipo | nome_programa | (null) | (null) | 0 | 0 | 0 ||
  pt_virgula      # ; 
  procedimento     # procedure 
-tamanho da pilha 2
  ident      # v 
 
 
@@ -360,7 +363,6 @@ TABELA DE SIMBOLOS
  fecha_parenteses     # ) 
  pt_virgula      # ; 
  procedimento     # procedure 
-tamanho da pilha 3
  ident      # u 
 
 
@@ -565,7 +567,6 @@ begin     # begin
  ident      # n 
  atribuicao      # := 
  numero      # 88 
-tamanho da pilha 2
  pt_virgula      # ; 
 end      # end 
  pt_virgula      # ; 
@@ -573,10 +574,8 @@ begin     # begin
  ident      # n 
  atribuicao      # := 
  numero      # 2 
-tamanho da pilha 1
  pt_virgula      # ; 
  enquanto     # while 
-tamanho da pilha 2
  abre_parenteses      # ( 
  numero      # 2 
  menor     # < 
@@ -584,51 +583,41 @@ tamanho da pilha 2
  ident      # n 
  fecha_parenteses     # ) 
  faca     # do 
-tamanho da pilha 3
 begin     # begin 
  enquanto     # while 
-tamanho da pilha 4
  numero      # 3 
  igual     # = 
  numero      # 2 
  faca     # do 
-tamanho da pilha 5
  ident      # m 
  atribuicao      # := 
  numero      # 2 
-tamanho da pilha 1
  pt_virgula      # ; 
  se     # if 
  ident      # n 
  igual     # = 
  numero      # 3 
  entao     # then 
-tamanho da pilha 4
  se     # if 
  ident      # m 
  maior     # > 
  ident      # n 
  entao     # then 
-tamanho da pilha 5
 begin     # begin 
  ident      # n 
  atribuicao      # := 
  numero      # 8 
-tamanho da pilha 1
  pt_virgula      # ; 
 end      # end 
  senao     # else 
-tamanho da pilha 5
 begin     # begin 
  ident      # n 
  atribuicao      # := 
  numero      # 9 
-tamanho da pilha 1
  pt_virgula      # ; 
  ident      # m 
  atribuicao      # := 
  numero      # 100 
-tamanho da pilha 1
  pt_virgula      # ; 
 end      # end 
  pt_virgula      # ; 
@@ -695,29 +684,26 @@ begin     # begin
  ident      # z 
  atribuicao      # := 
  numero      # 3 
-tamanho da pilha 1
  pt_virgula      # ; 
  ident      # w 
  pt_virgula      # ; 
+entrou como procedimento, var_simples ou parametro_formal
  ident      # n 
  atribuicao      # := 
  ident      # y 
  soma     # + 
-tamanho da pilha 1
  ident      # y 
  soma     # + 
-tamanho da pilha 2
  ident      # z 
  soma     # + 
-tamanho da pilha 3
+entrou como procedimento, var_simples ou parametro_formal
  ident      # n 
  multiplicacao     # * 
-tamanho da pilha 4
+entrou como procedimento, var_simples ou parametro_formal
  ident      # m 
  soma     # + 
-tamanho da pilha 5
+entrou como procedimento, var_simples ou parametro_formal
  numero      # 3 
-tamanho da pilha 6
  pt_virgula      # ; 
 end      # end 
  ponto      # . 
