@@ -202,22 +202,10 @@ begin     # begin
  abre_parenteses      # ( 
  ident      # a 
  virgula      # , 
-entrou como procedimento, var_simples ou parametro_formal
-Determinou como parametro_formal
-NUMERO DE PARAMETROS = 1
-Nome da função é x
  ident      # m 
  virgula      # , 
-entrou como procedimento, var_simples ou parametro_formal
-Determinou como parametro_formal
-NUMERO DE PARAMETROS f= 2
-Nome da função é x
  ident      # n 
  fecha_parenteses     # ) 
-entrou como procedimento, var_simples ou parametro_formal
-Determinou como parametro_formal
-NUMERO DE PARAMETROS f= 3
-Nome da função é x
  pt_virgula      # ; 
 end      # end 
  pt_virgula      # ; 
@@ -687,7 +675,6 @@ begin     # begin
  pt_virgula      # ; 
  ident      # w 
  pt_virgula      # ; 
-entrou como procedimento, var_simples ou parametro_formal
  ident      # n 
  atribuicao      # := 
  ident      # y 
@@ -696,13 +683,10 @@ entrou como procedimento, var_simples ou parametro_formal
  soma     # + 
  ident      # z 
  soma     # + 
-entrou como procedimento, var_simples ou parametro_formal
  ident      # n 
  multiplicacao     # * 
-entrou como procedimento, var_simples ou parametro_formal
  ident      # m 
  soma     # + 
-entrou como procedimento, var_simples ou parametro_formal
  numero      # 3 
  pt_virgula      # ; 
 end      # end 
