@@ -131,5 +131,6 @@ pilha_i *p_deslocamentos;
 pilha_i *p_num_vars;
 pilha_i *p_num_parametros;
 pilha_i *p_eh_parametro_formal;
+pilha_i *p_num_termos;
 pilha_pilhas_s *p_p_tipos;
 char *rotulo1, *rotulo2; // rotulos
