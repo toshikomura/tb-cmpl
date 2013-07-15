@@ -61,7 +61,7 @@ typedef struct pilha_tabela_simb {
 } pilha_tb_simb;
 
 /* -------------------------------------------------------------------
- * Pilha de rotulos
+ * Pilha de strings
  * ------------------------------------------------------------------- */
 typedef struct strings_pilha {
     char *string;
@@ -73,8 +73,22 @@ typedef struct pilha_strings {
     int tam;
 } pilha_s;
 
+
 /* -------------------------------------------------------------------
- * Pilha de deslocamento
+ * Pilha de pilhas de strings
+ * ------------------------------------------------------------------- */
+typedef struct strings_pilhas_pilha {
+    pilha_s *local_pilha;
+    struct strings_pilhas_pilha *prox;
+} strings_pilhas_p;
+
+typedef struct pilha_pilhas_strings {
+    strings_pilhas_p *primeiro;
+    int tam;
+} pilha_pilhas_s;
+
+/* -------------------------------------------------------------------
+ * Pilha de inteiros
  * ------------------------------------------------------------------- */
 typedef struct inteiros_pilha {
     int inteiro;
@@ -113,8 +127,9 @@ char token[TAM_TOKEN];
 pilha_tb_simb *p_tb_simb;
 pilha_s *p_rotulos;
 pilha_s *p_nomes;
-pilha_s *p_tipos;
 pilha_i *p_deslocamentos;
 pilha_i *p_num_vars;
 pilha_i *p_num_parametros;
+pilha_i *p_eh_parametro_formal;
+pilha_pilhas_s *p_p_tipos;
 char *rotulo1, *rotulo2; // rotulos
