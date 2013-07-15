@@ -2,6 +2,7 @@ $DEPURA=1
 
 compilador: lex.yy.c y.tab.c compilador.o compilador.h
 	gcc lex.yy.c compilador.tab.c compilador.o -o compilador -ll -ly -lc
+	./compilador teste1.pas > log
 
 lex.yy.c: compilador.l compilador.h
 	flex compilador.l
@@ -16,4 +17,4 @@ pascal :
 	fpc teste1.pas
 
 clean :
-	rm -f compilador.tab.* lex.yy.c teste1 teste1.o
+	rm -f compilador.tab.* lex.yy.c teste1 *.o *.output
