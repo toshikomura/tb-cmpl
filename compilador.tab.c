@@ -538,16 +538,16 @@ static const yytype_uint16 yyrline[] =
      107,   111,   116,   111,   124,   138,   153,   167,   183,   201,
      202,   206,   219,   206,   237,   241,   245,   249,   250,   251,
      252,   253,   254,   255,   256,   257,   258,   259,   263,   264,
-     265,   270,   269,   299,   298,   329,   330,   335,   335,   362,
-     362,   365,   370,   369,   374,   374,   379,   380,   384,   384,
-     392,   407,   426,   425,   432,   434,   434,   451,   464,   451,
-     521,   521,   562,   571,   561,   586,   590,   705,   704,   776,
-     776,   846,   851,   850,   859,   858,   866,   865,   875,   893,
-     914,   924,   938,   937,   945,   944,   954,   955,   960,   959,
-     974,   978,   979,   983,   984,   988,   989,   993,   997,  1001,
-    1005,  1009,  1013,  1018,  1017,  1031,  1052,  1061,  1062,  1069,
-    1073,  1077,  1081,  1085,  1089,  1093,  1097,  1101,  1106,  1110,
-    1121,  1126
+     265,   270,   269,   307,   306,   345,   346,   351,   351,   378,
+     378,   381,   386,   385,   390,   390,   395,   396,   400,   400,
+     408,   423,   442,   441,   448,   450,   450,   467,   480,   467,
+     537,   537,   578,   587,   577,   602,   606,   720,   719,   791,
+     791,   861,   866,   865,   874,   873,   881,   880,   890,   908,
+     929,   939,   953,   952,   960,   959,   969,   970,   975,   974,
+     989,   993,   994,   998,   999,  1003,  1004,  1008,  1012,  1016,
+    1020,  1024,  1028,  1033,  1032,  1046,  1067,  1076,  1077,  1084,
+    1088,  1092,  1096,  1100,  1104,  1108,  1112,  1116,  1121,  1125,
+    1136,  1141
 };
 #endif
 
@@ -1799,14 +1799,14 @@ yyreduce:
             /* Recupera o número de variáveis */
             num_vars = desempilha_Inteiro ( p_num_vars);
             if ( num_vars == -99) {
-                printf ( "Pilha p_num_vars esta vazia\n");
+                printf ( "Pilha p_num_vars esta vazia em comando_composto\n");
                 exit ( 1);
             }
 
             /* Retoma com o rótulo */
             desempilha_String ( p_rotulos, &rotulo1);
             if ( rotulo1 == NULL ) {
-                printf ( "Pilha p_rotulos esta vazia\n");
+                printf ( "Pilha p_rotulos esta vazia em comando_coposto\n");
                 exit ( 1);
             }
 
@@ -1840,13 +1840,21 @@ yyreduce:
     {
             desempilha_String ( p_nomes, &nome_proc_func);
             if ( nome_proc_func == NULL ) {
-                printf ( "Pilha p_nomes esta vazia\n");
+                printf ( "Pilha p_nomes esta vazia em proc_func\n");
                 exit ( 1);
             }
 
             procura_simb ( nome_proc_func, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 == NULL){
-                printf ( "O simbolo %s não foi encontrado\n", dados_simbolo1->simbolo);
+                printf ( "O simbolo %s não foi encontrado em procura_simb proc_func\n", dados_simbolo1->simbolo);
+                exit ( 1);
+            }
+
+            /* Deleta itens que não podem mais ser usados na tabela de simbolos */
+            deleta_itens_Tabela_Simbolos ( dados_simbolo1, &dados_simbolo2);
+            if ( dados_simbolo2  == NULL ) {
+                printf ( "O simbolo %s não conseguiu deletar itens em proc_func\n", dados_simbolo1->simbolo);
+                exit ( 1);
             }
 
             sprintf ( dados, "RTPR %d, %d", dados_simbolo1->nivel_lexico, dados_simbolo1->qtd_parametros);
@@ -1857,7 +1865,7 @@ yyreduce:
   case 43:
 
 /* Line 1806 of yacc.c  */
-#line 299 "compilador.y"
+#line 307 "compilador.y"
     {
             sprintf ( nome_var_proc_func, "%s", token);
 
@@ -1875,17 +1883,25 @@ yyreduce:
   case 44:
 
 /* Line 1806 of yacc.c  */
-#line 311 "compilador.y"
+#line 319 "compilador.y"
     {
             desempilha_String ( p_nomes, &nome_proc_func);
             if ( nome_proc_func == NULL ) {
-                printf ( "Pilha p_nomes esta vazia\n");
+                printf ( "Pilha p_nomes esta vazia em proc_func\n");
                 exit ( 1);
             }
 
             procura_simb ( nome_proc_func, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 == NULL){
-                printf ( "O simbolo %s não foi encontrado\n", dados_simbolo1->simbolo);
+                printf ( "O simbolo %s não foi encontrado em procura_simb proc_func\n", dados_simbolo1->simbolo);
+                exit ( 1);
+            }
+
+            /* Deleta itens que não podem mais ser usados na tabela de simbolos */
+            deleta_itens_Tabela_Simbolos ( dados_simbolo1, &dados_simbolo2);
+            if ( dados_simbolo2  == NULL ) {
+                printf ( "O simbolo %s não conseguiu deletar itens em proc_func\n", dados_simbolo1->simbolo);
+                exit ( 1);
             }
 
             sprintf ( dados, "RTPR %d, %d", dados_simbolo1->nivel_lexico, dados_simbolo1->qtd_parametros);
@@ -1896,7 +1912,7 @@ yyreduce:
   case 47:
 
 /* Line 1806 of yacc.c  */
-#line 335 "compilador.y"
+#line 351 "compilador.y"
     {
             /* Depois de ler todo a declaração do procedimento */
             /* Empilha deslocamento para não perder ele depois */
@@ -1915,14 +1931,14 @@ yyreduce:
   case 48:
 
 /* Line 1806 of yacc.c  */
-#line 348 "compilador.y"
+#line 364 "compilador.y"
     {
             /* Ao terminar de ler todo o procedimento retoma o deslocamento */
             /* Diminui o nivel lexico por causa do fim do procedimento */
 
             desloc = desempilha_Inteiro ( p_deslocamentos);
             if ( desloc == -99) {
-                printf ( "Pilha p_deslocamentos esta vazia\n");
+                printf ( "Pilha p_deslocamentos esta vazia em proc_func_3\n");
                 exit ( 1);
             }
             nivel_lexico--;
@@ -1932,7 +1948,7 @@ yyreduce:
   case 49:
 
 /* Line 1806 of yacc.c  */
-#line 362 "compilador.y"
+#line 378 "compilador.y"
     {
             num_parametros = 0;
             }
@@ -1941,7 +1957,7 @@ yyreduce:
   case 52:
 
 /* Line 1806 of yacc.c  */
-#line 370 "compilador.y"
+#line 386 "compilador.y"
     {
             sprintf ( parametro_valor_referencia, "var_referencia");
             }
@@ -1950,7 +1966,7 @@ yyreduce:
   case 54:
 
 /* Line 1806 of yacc.c  */
-#line 374 "compilador.y"
+#line 390 "compilador.y"
     {
             sprintf ( parametro_valor_referencia, "var_valor");
             }
@@ -1959,7 +1975,7 @@ yyreduce:
   case 58:
 
 /* Line 1806 of yacc.c  */
-#line 384 "compilador.y"
+#line 400 "compilador.y"
     {
             num_vars_inicial = num_parametros;
             }
@@ -1968,7 +1984,7 @@ yyreduce:
   case 60:
 
 /* Line 1806 of yacc.c  */
-#line 393 "compilador.y"
+#line 409 "compilador.y"
     {
             /* Os parametros obrigatoriamente não podem ter sido declarados anteriormente */
 
@@ -1988,7 +2004,7 @@ yyreduce:
   case 61:
 
 /* Line 1806 of yacc.c  */
-#line 408 "compilador.y"
+#line 424 "compilador.y"
     {
             /* Os parametros obrigatoriamente não podem ter sido declarados anteriormente */
 
@@ -2008,7 +2024,7 @@ yyreduce:
   case 62:
 
 /* Line 1806 of yacc.c  */
-#line 426 "compilador.y"
+#line 442 "compilador.y"
     {
             sprintf ( nome_var_proc_func, "%s", token);
             }
@@ -2017,7 +2033,7 @@ yyreduce:
   case 65:
 
 /* Line 1806 of yacc.c  */
-#line 434 "compilador.y"
+#line 450 "compilador.y"
     {
             /* Caso não seja atribuição então só pde ser procedimento ou função */
             /* Indica que não é parametro formal e indica com 2 */
@@ -2031,7 +2047,7 @@ yyreduce:
   case 66:
 
 /* Line 1806 of yacc.c  */
-#line 442 "compilador.y"
+#line 458 "compilador.y"
     {
             if ( desempilha_Inteiro ( p_eh_parametro_formal) == -99) {
                 printf ( "Pilha p_eh_parametro_formal esta vazia em atribuicao\n");
@@ -2043,7 +2059,7 @@ yyreduce:
   case 67:
 
 /* Line 1806 of yacc.c  */
-#line 451 "compilador.y"
+#line 467 "compilador.y"
     {
             sprintf ( categoria, "var_simples");
             procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
@@ -2062,7 +2078,7 @@ yyreduce:
   case 68:
 
 /* Line 1806 of yacc.c  */
-#line 464 "compilador.y"
+#line 480 "compilador.y"
     {
             /* Indica que não é parametro formal e que está indica com '0' */
             /* que esta indo de atribuição */
@@ -2085,7 +2101,7 @@ yyreduce:
   case 69:
 
 /* Line 1806 of yacc.c  */
-#line 481 "compilador.y"
+#line 497 "compilador.y"
     {
 
             num_termos = desempilha_Inteiro ( p_num_termos);
@@ -2109,7 +2125,7 @@ yyreduce:
             while ( p_tipos->tam > 0) {
                 desempilha_String ( p_tipos, &tipo_expressao);
                 if ( tipo_expressao == NULL ) {
-                    printf ( "Pilha p_tipos esta vazia\n");
+                    printf ( "Pilha p_tipos esta vazia em atribuição\n");
                     exit ( 1);
                 }
 
@@ -2128,7 +2144,7 @@ yyreduce:
   case 70:
 
 /* Line 1806 of yacc.c  */
-#line 521 "compilador.y"
+#line 537 "compilador.y"
     {
             /* 1 - Caso venha de atribuição->expressao cateoria1 = var_simples */
             /* 2 - Caso venha de procedimento ou função cateoria1 = procedimento */
@@ -2170,7 +2186,7 @@ yyreduce:
   case 72:
 
 /* Line 1806 of yacc.c  */
-#line 562 "compilador.y"
+#line 578 "compilador.y"
     {
             /* Salva o nome da função antes de iniciar leitura dos parametros */
             /* Também salva a quantidade de parametros */
@@ -2185,17 +2201,17 @@ yyreduce:
   case 73:
 
 /* Line 1806 of yacc.c  */
-#line 571 "compilador.y"
+#line 587 "compilador.y"
     {
             desempilha_String ( p_nomes, &nome_proc_func);
             if ( nome_proc_func == NULL ) {
-                printf ( "Pilha p_nomes esta vazia\n");
+                printf ( "Pilha p_nomes esta vazia em passagem\n");
                 exit ( 1);
             }
 
             num_parametros = desempilha_Inteiro ( p_num_parametros);
             if ( num_parametros == -99) {
-                printf ( "Pilha p_num_parametros esta vazia\n");
+                printf ( "Pilha p_num_parametros esta vazia em passagem\n");
                 exit ( 1);
             }
 
@@ -2206,7 +2222,7 @@ yyreduce:
   case 76:
 
 /* Line 1806 of yacc.c  */
-#line 590 "compilador.y"
+#line 606 "compilador.y"
     {
 
             eh_parametro_formal = desempilha_Inteiro ( p_eh_parametro_formal);
@@ -2219,12 +2235,11 @@ yyreduce:
             procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 != NULL && (strcmp ( categoria, dados_simbolo1->categoria) == 0 || strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0)) {
 
-printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, categoria, categoria_parametro_formal, dados_simbolo1->categoria);
                 /* Se é parametro de chamada de procedimento ou função */
                 if ( eh_parametro_formal == 1) {
                     desempilha_pilhas_String ( p_p_tipos, &p_tipos);
                     if ( p_tipos == NULL) {
-                        printf ( "Pilha p_eh_parametro_formal esta vazia em parmetro_formal\n");
+                        printf ( "Pilha p_eh_parametro_formal esta vazia em var_chama_proc_func2 parametro_formal\n");
                         exit ( 1);
                     }
 
@@ -2323,7 +2338,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 77:
 
 /* Line 1806 of yacc.c  */
-#line 705 "compilador.y"
+#line 720 "compilador.y"
     {
             empilha_Inteiro ( p_eh_parametro_formal, 1);
 
@@ -2344,17 +2359,17 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 78:
 
 /* Line 1806 of yacc.c  */
-#line 720 "compilador.y"
+#line 735 "compilador.y"
     {
 
             num_termos = desempilha_Inteiro ( p_num_termos);
             if ( num_termos == -99) {
-                printf ( "Pilha p_num_termos esta vazia\n");
+                printf ( "Pilha p_num_termos esta vazia em lista_id_var_parametro\n");
                 exit ( 1);
             }
 
             if ( desempilha_Inteiro ( p_eh_parametro_formal) == -99) {
-                printf ( "Pilha p_eh_parametro_formal esta vazia em lista_id_var_parametro 1\n");
+                printf ( "Pilha p_eh_parametro_formal esta vazia em lista_id_var_parametro\n");
                 exit ( 1);
             }
 
@@ -2366,7 +2381,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
 
             num_parametros_aux = desempilha_Inteiro ( p_num_parametros);
             if ( num_parametros_aux == -99) {
-                printf ( "Pilha p_num_parametros esta vazia\n");
+                printf ( "Pilha p_num_parametros esta vazia em lista_id_var_parametro\n");
                 exit ( 1);
             }
 
@@ -2376,7 +2391,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
             /* Checar se o tipo do resultado da expressão corresponde ao parametro do procedimento ou função */
             desempilha_String ( p_nomes, &nome_proc_func);
             if ( nome_proc_func == NULL ) {
-                printf ( "Pilha p_nomes esta vazia\n");
+                printf ( "Pilha p_nomes esta vazia em lista_id_var_parametro\n");
                 exit ( 1);
             }
 
@@ -2386,7 +2401,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
             while ( p_tipos->tam > 0) {
                 desempilha_String ( p_tipos, &tipo_expressao);
                 if ( tipo_expressao == NULL ) {
-                    printf ( "Pilha p_tipos esta vazia\n");
+                    printf ( "Pilha p_tipos esta vazia em lista_id_var_parametro\n");
                     exit ( 1);
                 }
 
@@ -2405,7 +2420,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 79:
 
 /* Line 1806 of yacc.c  */
-#line 776 "compilador.y"
+#line 791 "compilador.y"
     {
             empilha_Inteiro ( p_eh_parametro_formal, 1);
 
@@ -2426,29 +2441,29 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 80:
 
 /* Line 1806 of yacc.c  */
-#line 791 "compilador.y"
+#line 806 "compilador.y"
     {
 
             num_termos = desempilha_Inteiro ( p_num_termos);
             if ( num_termos == -99) {
-                printf ( "Pilha p_num_termos esta vazia\n");
+                printf ( "Pilha p_num_termos esta vazia em lista_id_var_parametro\n");
                 exit ( 1);
             }
 
             if ( desempilha_Inteiro ( p_eh_parametro_formal) == -99) {
-                printf ( "Pilha p_eh_parametro_formal esta vazia em lista_id_var_parametro 2\n");
+                printf ( "Pilha p_eh_parametro_formal esta vazia em lista_id_var_parametro\n");
                 exit ( 1);
             }
 
             desempilha_pilhas_String ( p_p_tipos, &p_tipos);
             if ( p_tipos == NULL) {
-                printf ( "Pilha p_p_tipos esta vazia em lista_id_parametro 2\n");
+                printf ( "Pilha p_p_tipos esta vazia em lista_id_parametro\n");
                 exit ( 1);
             }
 
             num_parametros_aux = desempilha_Inteiro ( p_num_parametros);
             if ( num_parametros_aux == -99) {
-                printf ( "Pilha p_num_parametros esta vazia\n");
+                printf ( "Pilha p_num_parametros esta vazia em lista_id_var_parametro\n");
                 exit ( 1);
             }
 
@@ -2458,7 +2473,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
             /* Checar se o tipo do resultado da expressão corresponde ao parametro do procedimento ou função */
             desempilha_String ( p_nomes, &nome_proc_func);
             if ( nome_proc_func == NULL ) {
-                printf ( "Pilha p_nomes esta vazia\n");
+                printf ( "Pilha p_nomes esta vazia em lista_id_var_parametro\n");
                 exit ( 1);
             }
 
@@ -2468,7 +2483,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
             while ( p_tipos->tam > 0) {
                 desempilha_String ( p_tipos, &tipo_expressao);
                 if ( tipo_expressao == NULL ) {
-                    printf ( "Pilha p_tipos esta vazia\n");
+                    printf ( "Pilha p_tipos esta vazia em lista_id_var_parametro\n");
                     exit ( 1);
                 }
 
@@ -2487,7 +2502,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 82:
 
 /* Line 1806 of yacc.c  */
-#line 851 "compilador.y"
+#line 866 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_String ( p_rotulos, rotulo1);
@@ -2498,7 +2513,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 84:
 
 /* Line 1806 of yacc.c  */
-#line 859 "compilador.y"
+#line 874 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo2);
             empilha_String ( p_rotulos, rotulo2);
@@ -2510,7 +2525,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 86:
 
 /* Line 1806 of yacc.c  */
-#line 866 "compilador.y"
+#line 881 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo2);
             empilha_String ( p_rotulos, rotulo2);
@@ -2522,17 +2537,17 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 88:
 
 /* Line 1806 of yacc.c  */
-#line 876 "compilador.y"
+#line 891 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo2);
             if ( rotulo2 == NULL ) {
-                printf ( "Pilha p_rotulos esta vazia\n");
+                printf ( "Pilha p_rotulos esta vazia em repeticao_3\n");
                 exit ( 1);
             }
 
             desempilha_String ( p_rotulos, &rotulo1);
             if ( rotulo1 == NULL ) {
-                printf ( "Pilha p_rotulos esta vazia\n");
+                printf ( "Pilha p_rotulos esta vazia em repeticao_3\n");
                 exit ( 1);
             }
 
@@ -2545,17 +2560,17 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 89:
 
 /* Line 1806 of yacc.c  */
-#line 894 "compilador.y"
+#line 909 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo2);
             if ( rotulo2 == NULL ) {
-                printf ( "Pilha p_rotulos esta vazia\n");
+                printf ( "Pilha p_rotulos esta vazia em repeticao_3\n");
                 exit ( 1);
             }
 
             desempilha_String ( p_rotulos, &rotulo1);
             if ( rotulo1 == NULL ) {
-                printf ( "Pilha p_rotulos esta vazia\n");
+                printf ( "Pilha p_rotulos esta vazia em repeticao_3\n");
                 exit ( 1);
             }
 
@@ -2568,11 +2583,11 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 90:
 
 /* Line 1806 of yacc.c  */
-#line 915 "compilador.y"
+#line 930 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo2);
             if ( rotulo2 == NULL ) {
-                printf ( "Pilha p_rotulos esta vazia\n");
+                printf ( "Pilha p_rotulos esta vazia em repeticao_3\n");
                 exit ( 1);
             }
 
@@ -2583,11 +2598,11 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 91:
 
 /* Line 1806 of yacc.c  */
-#line 925 "compilador.y"
+#line 940 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo2);
             if ( rotulo2 == NULL ) {
-                printf ( "Pilha p_rotulos esta vazia\n");
+                printf ( "Pilha p_rotulos esta vazia em repeticao_3\n");
                 exit ( 1);
             }
 
@@ -2598,7 +2613,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 92:
 
 /* Line 1806 of yacc.c  */
-#line 938 "compilador.y"
+#line 953 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_String ( p_rotulos, rotulo1);
@@ -2610,7 +2625,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 94:
 
 /* Line 1806 of yacc.c  */
-#line 945 "compilador.y"
+#line 960 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_String ( p_rotulos, rotulo1);
@@ -2622,11 +2637,11 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 98:
 
 /* Line 1806 of yacc.c  */
-#line 960 "compilador.y"
+#line 975 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo1);
             if ( rotulo1 == NULL ) {
-                printf ( "Pilha p_rotulos esta vazia\n");
+                printf ( "Pilha p_rotulos esta vazia em condicao_senao\n");
                 exit ( 1);
             }
 
@@ -2642,7 +2657,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 107:
 
 /* Line 1806 of yacc.c  */
-#line 994 "compilador.y"
+#line 1009 "compilador.y"
     {
             geraCodigo (NULL, "SOMA");
             }
@@ -2651,7 +2666,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 108:
 
 /* Line 1806 of yacc.c  */
-#line 998 "compilador.y"
+#line 1013 "compilador.y"
     {
             geraCodigo (NULL, "SUBT");
             }
@@ -2660,7 +2675,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 110:
 
 /* Line 1806 of yacc.c  */
-#line 1006 "compilador.y"
+#line 1021 "compilador.y"
     {
             geraCodigo (NULL, "MULT");
             }
@@ -2669,7 +2684,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 111:
 
 /* Line 1806 of yacc.c  */
-#line 1010 "compilador.y"
+#line 1025 "compilador.y"
     {
             geraCodigo (NULL, "DIVI");
             }
@@ -2678,14 +2693,14 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 113:
 
 /* Line 1806 of yacc.c  */
-#line 1018 "compilador.y"
+#line 1033 "compilador.y"
     {
             sprintf ( categoria, "var_simples");
             sprintf ( nome_var_proc_func, "%s", token);
 
             num_termos = desempilha_Inteiro ( p_num_termos);
             if ( num_termos == -99) {
-                printf ( "Pilha p_num_termos esta vazia em fator 1\n");
+                printf ( "Pilha p_num_termos esta vazia em fator\n");
                 exit ( 1);
             }
 
@@ -2697,7 +2712,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 115:
 
 /* Line 1806 of yacc.c  */
-#line 1032 "compilador.y"
+#line 1047 "compilador.y"
     {
             sprintf ( dados, "CRCT %s", token);
             geraCodigo ( NULL, dados);
@@ -2708,7 +2723,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
 
             num_termos = desempilha_Inteiro ( p_num_termos);
             if ( num_termos == -99) {
-                printf ( "Pilha p_num_termos esta vazia em fator 2\n");
+                printf ( "Pilha p_num_termos esta vazia em fator\n");
                 exit ( 1);
             }
 
@@ -2723,7 +2738,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 116:
 
 /* Line 1806 of yacc.c  */
-#line 1053 "compilador.y"
+#line 1068 "compilador.y"
     {
             sprintf ( dados, "integer");
             strcpy ( tipo_fator, dados);
@@ -2734,7 +2749,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 118:
 
 /* Line 1806 of yacc.c  */
-#line 1063 "compilador.y"
+#line 1078 "compilador.y"
     {
             geraCodigo ( NULL, "INVR");
             }
@@ -2743,7 +2758,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 119:
 
 /* Line 1806 of yacc.c  */
-#line 1070 "compilador.y"
+#line 1085 "compilador.y"
     {
             geraCodigo ( NULL, "CMIG");
             }
@@ -2752,7 +2767,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 120:
 
 /* Line 1806 of yacc.c  */
-#line 1074 "compilador.y"
+#line 1089 "compilador.y"
     {
             geraCodigo ( NULL, "CMDG");
             }
@@ -2761,7 +2776,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 121:
 
 /* Line 1806 of yacc.c  */
-#line 1078 "compilador.y"
+#line 1093 "compilador.y"
     {
             geraCodigo ( NULL, "CMMA");
             }
@@ -2770,7 +2785,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 122:
 
 /* Line 1806 of yacc.c  */
-#line 1082 "compilador.y"
+#line 1097 "compilador.y"
     {
             geraCodigo ( NULL, "CMAG");
             }
@@ -2779,7 +2794,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 123:
 
 /* Line 1806 of yacc.c  */
-#line 1086 "compilador.y"
+#line 1101 "compilador.y"
     {
             geraCodigo ( NULL, "CMME");
             }
@@ -2788,7 +2803,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 124:
 
 /* Line 1806 of yacc.c  */
-#line 1090 "compilador.y"
+#line 1105 "compilador.y"
     {
             geraCodigo ( NULL, "CMEG");
             }
@@ -2797,7 +2812,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 125:
 
 /* Line 1806 of yacc.c  */
-#line 1094 "compilador.y"
+#line 1109 "compilador.y"
     {
             geraCodigo ( NULL, "CONJ");
             }
@@ -2806,7 +2821,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 126:
 
 /* Line 1806 of yacc.c  */
-#line 1098 "compilador.y"
+#line 1113 "compilador.y"
     {
             geraCodigo ( NULL, "DISJ");
             }
@@ -2815,7 +2830,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 127:
 
 /* Line 1806 of yacc.c  */
-#line 1102 "compilador.y"
+#line 1117 "compilador.y"
     {
             geraCodigo ( NULL, "INVR");
             geraCodigo ( NULL, "CONJ");
@@ -2825,7 +2840,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 129:
 
 /* Line 1806 of yacc.c  */
-#line 1111 "compilador.y"
+#line 1126 "compilador.y"
     {
             procura_simb ( token, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 == NULL ){ // numero -99 indica que nao encontrou simb na tabela
@@ -2841,7 +2856,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
   case 130:
 
 /* Line 1806 of yacc.c  */
-#line 1122 "compilador.y"
+#line 1137 "compilador.y"
     {
             sprintf ( dados, "CRCT %s", token);
             geraCodigo ( NULL, dados);
@@ -2851,7 +2866,7 @@ printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, cat
 
 
 /* Line 1806 of yacc.c  */
-#line 2855 "compilador.tab.c"
+#line 2870 "compilador.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -3082,7 +3097,7 @@ yyreturn:
 
 
 /* Line 2067 of yacc.c  */
-#line 1130 "compilador.y"
+#line 1145 "compilador.y"
 
 
 void yyerror ( char const *message)
