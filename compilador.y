@@ -220,14 +220,14 @@ comando_composto: {
             /* Recupera o número de variáveis */
             num_vars = desempilha_Inteiro ( p_num_vars);
             if ( num_vars == -99) {
-                printf ( "Pilha p_num_vars esta vazia\n");
+                printf ( "Pilha p_num_vars esta vazia em comando_composto\n");
                 exit ( 1);
             }
 
             /* Retoma com o rótulo */
             desempilha_String ( p_rotulos, &rotulo1);
             if ( rotulo1 == NULL ) {
-                printf ( "Pilha p_rotulos esta vazia\n");
+                printf ( "Pilha p_rotulos esta vazia em comando_coposto\n");
                 exit ( 1);
             }
 
@@ -283,13 +283,21 @@ procedimento_ou_funcao: PROCEDIMENTO IDENT
             {
             desempilha_String ( p_nomes, &nome_proc_func);
             if ( nome_proc_func == NULL ) {
-                printf ( "Pilha p_nomes esta vazia\n");
+                printf ( "Pilha p_nomes esta vazia em proc_func\n");
                 exit ( 1);
             }
 
             procura_simb ( nome_proc_func, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 == NULL){
-                printf ( "O simbolo %s não foi encontrado\n", dados_simbolo1->simbolo);
+                printf ( "O simbolo %s não foi encontrado em procura_simb proc_func\n", dados_simbolo1->simbolo);
+                exit ( 1);
+            }
+
+            /* Deleta itens que não podem mais ser usados na tabela de simbolos */
+            deleta_itens_Tabela_Simbolos ( dados_simbolo1, &dados_simbolo2);
+            if ( dados_simbolo2  == NULL ) {
+                printf ( "O simbolo %s não conseguiu deletar itens em proc_func\n", dados_simbolo1->simbolo);
+                exit ( 1);
             }
 
             sprintf ( dados, "RTPR %d, %d", dados_simbolo1->nivel_lexico, dados_simbolo1->qtd_parametros);
@@ -311,13 +319,21 @@ procedimento_ou_funcao: PROCEDIMENTO IDENT
             {
             desempilha_String ( p_nomes, &nome_proc_func);
             if ( nome_proc_func == NULL ) {
-                printf ( "Pilha p_nomes esta vazia\n");
+                printf ( "Pilha p_nomes esta vazia em proc_func\n");
                 exit ( 1);
             }
 
             procura_simb ( nome_proc_func, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 == NULL){
-                printf ( "O simbolo %s não foi encontrado\n", dados_simbolo1->simbolo);
+                printf ( "O simbolo %s não foi encontrado em procura_simb proc_func\n", dados_simbolo1->simbolo);
+                exit ( 1);
+            }
+
+            /* Deleta itens que não podem mais ser usados na tabela de simbolos */
+            deleta_itens_Tabela_Simbolos ( dados_simbolo1, &dados_simbolo2);
+            if ( dados_simbolo2  == NULL ) {
+                printf ( "O simbolo %s não conseguiu deletar itens em proc_func\n", dados_simbolo1->simbolo);
+                exit ( 1);
             }
 
             sprintf ( dados, "RTPR %d, %d", dados_simbolo1->nivel_lexico, dados_simbolo1->qtd_parametros);
@@ -351,7 +367,7 @@ procedimento_ou_funcao_3:
 
             desloc = desempilha_Inteiro ( p_deslocamentos);
             if ( desloc == -99) {
-                printf ( "Pilha p_deslocamentos esta vazia\n");
+                printf ( "Pilha p_deslocamentos esta vazia em proc_func_3\n");
                 exit ( 1);
             }
             nivel_lexico--;
@@ -501,7 +517,7 @@ atribuicao: {
             while ( p_tipos->tam > 0) {
                 desempilha_String ( p_tipos, &tipo_expressao);
                 if ( tipo_expressao == NULL ) {
-                    printf ( "Pilha p_tipos esta vazia\n");
+                    printf ( "Pilha p_tipos esta vazia em atribuição\n");
                     exit ( 1);
                 }
 
@@ -571,13 +587,13 @@ passagem: ABRE_PARENTESES
             {
             desempilha_String ( p_nomes, &nome_proc_func);
             if ( nome_proc_func == NULL ) {
-                printf ( "Pilha p_nomes esta vazia\n");
+                printf ( "Pilha p_nomes esta vazia em passagem\n");
                 exit ( 1);
             }
 
             num_parametros = desempilha_Inteiro ( p_num_parametros);
             if ( num_parametros == -99) {
-                printf ( "Pilha p_num_parametros esta vazia\n");
+                printf ( "Pilha p_num_parametros esta vazia em passagem\n");
                 exit ( 1);
             }
 
@@ -599,12 +615,11 @@ var_chama_proc_func_2: {
             procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 != NULL && (strcmp ( categoria, dados_simbolo1->categoria) == 0 || strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0)) {
 
-printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, categoria, categoria_parametro_formal, dados_simbolo1->categoria);
                 /* Se é parametro de chamada de procedimento ou função */
                 if ( eh_parametro_formal == 1) {
                     desempilha_pilhas_String ( p_p_tipos, &p_tipos);
                     if ( p_tipos == NULL) {
-                        printf ( "Pilha p_eh_parametro_formal esta vazia em parmetro_formal\n");
+                        printf ( "Pilha p_eh_parametro_formal esta vazia em var_chama_proc_func2 parametro_formal\n");
                         exit ( 1);
                     }
 
@@ -721,12 +736,12 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
 
             num_termos = desempilha_Inteiro ( p_num_termos);
             if ( num_termos == -99) {
-                printf ( "Pilha p_num_termos esta vazia\n");
+                printf ( "Pilha p_num_termos esta vazia em lista_id_var_parametro\n");
                 exit ( 1);
             }
 
             if ( desempilha_Inteiro ( p_eh_parametro_formal) == -99) {
-                printf ( "Pilha p_eh_parametro_formal esta vazia em lista_id_var_parametro 1\n");
+                printf ( "Pilha p_eh_parametro_formal esta vazia em lista_id_var_parametro\n");
                 exit ( 1);
             }
 
@@ -738,7 +753,7 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
 
             num_parametros_aux = desempilha_Inteiro ( p_num_parametros);
             if ( num_parametros_aux == -99) {
-                printf ( "Pilha p_num_parametros esta vazia\n");
+                printf ( "Pilha p_num_parametros esta vazia em lista_id_var_parametro\n");
                 exit ( 1);
             }
 
@@ -748,7 +763,7 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
             /* Checar se o tipo do resultado da expressão corresponde ao parametro do procedimento ou função */
             desempilha_String ( p_nomes, &nome_proc_func);
             if ( nome_proc_func == NULL ) {
-                printf ( "Pilha p_nomes esta vazia\n");
+                printf ( "Pilha p_nomes esta vazia em lista_id_var_parametro\n");
                 exit ( 1);
             }
 
@@ -758,7 +773,7 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
             while ( p_tipos->tam > 0) {
                 desempilha_String ( p_tipos, &tipo_expressao);
                 if ( tipo_expressao == NULL ) {
-                    printf ( "Pilha p_tipos esta vazia\n");
+                    printf ( "Pilha p_tipos esta vazia em lista_id_var_parametro\n");
                     exit ( 1);
                 }
 
@@ -792,24 +807,24 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
 
             num_termos = desempilha_Inteiro ( p_num_termos);
             if ( num_termos == -99) {
-                printf ( "Pilha p_num_termos esta vazia\n");
+                printf ( "Pilha p_num_termos esta vazia em lista_id_var_parametro\n");
                 exit ( 1);
             }
 
             if ( desempilha_Inteiro ( p_eh_parametro_formal) == -99) {
-                printf ( "Pilha p_eh_parametro_formal esta vazia em lista_id_var_parametro 2\n");
+                printf ( "Pilha p_eh_parametro_formal esta vazia em lista_id_var_parametro\n");
                 exit ( 1);
             }
 
             desempilha_pilhas_String ( p_p_tipos, &p_tipos);
             if ( p_tipos == NULL) {
-                printf ( "Pilha p_p_tipos esta vazia em lista_id_parametro 2\n");
+                printf ( "Pilha p_p_tipos esta vazia em lista_id_parametro\n");
                 exit ( 1);
             }
 
             num_parametros_aux = desempilha_Inteiro ( p_num_parametros);
             if ( num_parametros_aux == -99) {
-                printf ( "Pilha p_num_parametros esta vazia\n");
+                printf ( "Pilha p_num_parametros esta vazia em lista_id_var_parametro\n");
                 exit ( 1);
             }
 
@@ -819,7 +834,7 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
             /* Checar se o tipo do resultado da expressão corresponde ao parametro do procedimento ou função */
             desempilha_String ( p_nomes, &nome_proc_func);
             if ( nome_proc_func == NULL ) {
-                printf ( "Pilha p_nomes esta vazia\n");
+                printf ( "Pilha p_nomes esta vazia em lista_id_var_parametro\n");
                 exit ( 1);
             }
 
@@ -829,7 +844,7 @@ lista_id_var_parametro: lista_id_var_parametro VIRGULA
             while ( p_tipos->tam > 0) {
                 desempilha_String ( p_tipos, &tipo_expressao);
                 if ( tipo_expressao == NULL ) {
-                    printf ( "Pilha p_tipos esta vazia\n");
+                    printf ( "Pilha p_tipos esta vazia em lista_id_var_parametro\n");
                     exit ( 1);
                 }
 
@@ -876,13 +891,13 @@ repeticao_3: comando_sem_ponto_e_virgula
             {
             desempilha_String ( p_rotulos, &rotulo2);
             if ( rotulo2 == NULL ) {
-                printf ( "Pilha p_rotulos esta vazia\n");
+                printf ( "Pilha p_rotulos esta vazia em repeticao_3\n");
                 exit ( 1);
             }
 
             desempilha_String ( p_rotulos, &rotulo1);
             if ( rotulo1 == NULL ) {
-                printf ( "Pilha p_rotulos esta vazia\n");
+                printf ( "Pilha p_rotulos esta vazia em repeticao_3\n");
                 exit ( 1);
             }
 
@@ -894,13 +909,13 @@ repeticao_3: comando_sem_ponto_e_virgula
             {
             desempilha_String ( p_rotulos, &rotulo2);
             if ( rotulo2 == NULL ) {
-                printf ( "Pilha p_rotulos esta vazia\n");
+                printf ( "Pilha p_rotulos esta vazia em repeticao_3\n");
                 exit ( 1);
             }
 
             desempilha_String ( p_rotulos, &rotulo1);
             if ( rotulo1 == NULL ) {
-                printf ( "Pilha p_rotulos esta vazia\n");
+                printf ( "Pilha p_rotulos esta vazia em repeticao_3\n");
                 exit ( 1);
             }
 
@@ -915,7 +930,7 @@ condicao: SE condicao_se_entao
             {
             desempilha_String ( p_rotulos, &rotulo2);
             if ( rotulo2 == NULL ) {
-                printf ( "Pilha p_rotulos esta vazia\n");
+                printf ( "Pilha p_rotulos esta vazia em repeticao_3\n");
                 exit ( 1);
             }
 
@@ -925,7 +940,7 @@ condicao: SE condicao_se_entao
             {
             desempilha_String ( p_rotulos, &rotulo2);
             if ( rotulo2 == NULL ) {
-                printf ( "Pilha p_rotulos esta vazia\n");
+                printf ( "Pilha p_rotulos esta vazia em repeticao_3\n");
                 exit ( 1);
             }
 
@@ -960,7 +975,7 @@ condicao_senao: SENAO
             {
             desempilha_String ( p_rotulos, &rotulo1);
             if ( rotulo1 == NULL ) {
-                printf ( "Pilha p_rotulos esta vazia\n");
+                printf ( "Pilha p_rotulos esta vazia em condicao_senao\n");
                 exit ( 1);
             }
 
@@ -1021,7 +1036,7 @@ expressao_fator: IDENT
 
             num_termos = desempilha_Inteiro ( p_num_termos);
             if ( num_termos == -99) {
-                printf ( "Pilha p_num_termos esta vazia em fator 1\n");
+                printf ( "Pilha p_num_termos esta vazia em fator\n");
                 exit ( 1);
             }
 
@@ -1039,7 +1054,7 @@ expressao_fator: IDENT
 
             num_termos = desempilha_Inteiro ( p_num_termos);
             if ( num_termos == -99) {
-                printf ( "Pilha p_num_termos esta vazia em fator 2\n");
+                printf ( "Pilha p_num_termos esta vazia em fator\n");
                 exit ( 1);
             }
 
