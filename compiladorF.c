@@ -91,9 +91,8 @@ void imprime_Simbolo_TB_SIMB () {
     printf ( "|| simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param\n");
 
     tipos_parametros_l *tip_para_aux;
-    no_tabela_simbolos_p *slot_tb_simb_aux;
+    no_tabela_simbolos_p *slot_tb_simb_aux = p_tb_simb->primeiro;
 
-    slot_tb_simb_aux = p_tb_simb->primeiro;
     while ( slot_tb_simb_aux != NULL) {
         printf ( "|| %s | %s | %s | %s | %s | %s | %d | %d | %d ", slot_tb_simb_aux->simbolo, slot_tb_simb_aux->tipo, slot_tb_simb_aux->categoria, slot_tb_simb_aux->rotulo, slot_tb_simb_aux->parametro_valor_referencia, slot_tb_simb_aux->tipo_retorno, slot_tb_simb_aux->nivel_lexico, slot_tb_simb_aux->desloc, slot_tb_simb_aux->qtd_parametros);
 
@@ -518,4 +517,26 @@ int chaca_tipo_parametro ( no_tabela_simbolos_p *slot_tb_simb_aux, char *ti, int
 
         }
     }
+}
+
+/* Função que deleta itens que não podem mais ser usados */
+void deleta_itens_Tabela_Simbolos ( no_tabela_simbolos_p *slot_tb_simb_proc_func, no_tabela_simbolos_p **slot_tb_simb_return) {
+
+    no_tabela_simbolos_p *slot_tb_simb_aux = p_tb_simb->primeiro;
+
+    while ( slot_tb_simb_aux != NULL && slot_tb_simb_aux != slot_tb_simb_proc_func) {
+        slot_tb_simb_aux = slot_tb_simb_aux->prox;
+    }
+
+    if ( slot_tb_simb_aux == NULL)
+
+        *slot_tb_simb_return = NULL;
+
+    else {
+        p_tb_simb->primeiro = slot_tb_simb_aux;
+
+        *slot_tb_simb_return = p_tb_simb->primeiro;
+
+    }
+
 }
