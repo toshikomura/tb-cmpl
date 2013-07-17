@@ -265,22 +265,31 @@ comando_sem_ponto_e_virgula: atrib_proc_func
 procedimento_ou_funcao: PROCEDIMENTO IDENT
             {
             sprintf ( nome_var_proc_func, "%s", token);
+
+            /* Empilha o nome do procedimento para o retorno */
+            nome_proc_func = malloc ( sizeof (char)*TAM_TOKEN);
+            strcpy ( nome_proc_func, nome_var_proc_func);
+            empilha_String ( p_nomes, nome_proc_func);
+
             sprintf ( categoria, "procedimento");
             sprintf ( tipo_retorno, "sem_tipo");
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_Simbolo_TB_SIMB ( nome_var_proc_func, categoria, rotulo1, nivel_lexico, 0);
-            } procedimento_ou_funcao_2 PONTO_E_VIRGULA
+            } procedimento_ou_funcao_2 PONTO_E_VIRGULA procedimento_ou_funcao_3
             {
-            } procedimento_ou_funcao_3
+            desempilha_String ( p_nomes, &nome_proc_func);
+            if ( nome_proc_func == NULL ) {
+                printf ( "Pilha p_nomes esta vazia\n");
+                exit ( 1);
+            }
+            }
             | FUNCAO IDENT
             {
             sprintf ( nome_var_proc_func, "%s", token);
             sprintf ( categoria, "funcao");
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_Simbolo_TB_SIMB ( nome_var_proc_func, categoria, rotulo1, nivel_lexico, 0);
-            } procedimento_ou_funcao_2 DOIS_PONTOS tipo_retorno_func PONTO_E_VIRGULA
-            {
-            } procedimento_ou_funcao_3
+            } procedimento_ou_funcao_2 DOIS_PONTOS tipo_retorno_func PONTO_E_VIRGULA procedimento_ou_funcao_3
 ;
 
 
