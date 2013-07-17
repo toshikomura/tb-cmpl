@@ -48,6 +48,7 @@ typedef struct no_tabela_simbolos {
     char *categoria;
     char *tipo_retorno;
     char *rotulo;
+    char *parametro_valor_referencia;
     int qtd_parametros;
     int nivel_lexico;
     int desloc;
@@ -108,10 +109,13 @@ extern simbolos simbolo, relacao;
 extern char token[TAM_TOKEN];
 extern char *dados;
 extern char *categoria;
+extern char *categoria_procedimento;
 extern char *categoria_funcao;
 extern char *categoria_parametro_formal;
+extern char *categoria_var_simples;
+extern char *categoria_parametro_valor;
 extern char *tipo;
-extern char *tipo_valor_referencia;
+extern char *parametro_valor_referencia;
 extern char *tipo_retorno;
 extern char *nome_var_proc_func;
 
