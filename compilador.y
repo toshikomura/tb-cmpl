@@ -13,10 +13,13 @@
 /* Variáveis globais incluidas */
 char *dados;
 char *categoria;
+char *categoria_procedimento;
 char *categoria_funcao;
 char *categoria_parametro_formal;
+char *categoria_var_simples;
+char *categoria_parametro_valor;
 char *tipo;
-char *tipo_valor_referencia;
+char *parametro_valor_referencia;
 char *tipo_retorno;
 char *nome_var_proc_func;
 char *nome_proc_func;
@@ -80,7 +83,8 @@ sem_tipo: IDENT
             sprintf ( categoria, "nome_programa");
             sprintf ( tipo, "sem_tipo");
             sprintf ( tipo_retorno, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, 0, 0);
+            sprintf ( parametro_valor_referencia, "sem_tipo");
+            empilha_Simbolo_TB_SIMB ( token, categoria, parametro_valor_referencia, NULL, 0, 0);
             insere_tipo_Simbolo_TB_SIMB ( tipo, 1);
             }
 ;
@@ -141,7 +145,7 @@ tipo_parametro: IDENT
             }
 
             percorre_vars = num_parametros - num_vars_inicial;
-            insere_tipo_parametro_Simbolo_TB_SIMB ( nome_var_proc_func, tipo_valor_referencia, token, percorre_vars);
+            insere_tipo_parametro_Simbolo_TB_SIMB ( nome_var_proc_func, parametro_valor_referencia, token, percorre_vars);
             }
 ;
 
@@ -170,9 +174,9 @@ lista_id_var: lista_id_var VIRGULA IDENT
                 exit ( 1);
             }
 
-            sprintf ( categoria, "var_simples");
             sprintf ( tipo_retorno, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
+            sprintf ( parametro_valor_referencia, "sem_tipo");
+            empilha_Simbolo_TB_SIMB ( token, categoria_var_simples, parametro_valor_referencia, NULL, nivel_lexico, desloc);
             desloc++;
             num_vars++;
             }
@@ -185,9 +189,9 @@ lista_id_var: lista_id_var VIRGULA IDENT
                 exit ( 1);
             }
 
-            sprintf ( categoria, "var_simples");
             sprintf ( tipo_retorno, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
+            sprintf ( parametro_valor_referencia, "sem_tipo");
+            empilha_Simbolo_TB_SIMB ( token, categoria_var_simples, parametro_valor_referencia, NULL, nivel_lexico, desloc);
             desloc++;
             num_vars++;
             }
@@ -271,10 +275,10 @@ procedimento_ou_funcao: PROCEDIMENTO IDENT
             strcpy ( nome_proc_func, nome_var_proc_func);
             empilha_String ( p_nomes, nome_proc_func);
 
-            sprintf ( categoria, "procedimento");
             sprintf ( tipo_retorno, "sem_tipo");
+            sprintf ( parametro_valor_referencia, "sem_tipo");
             gera_Proximo_Rotulo ( &rotulo1);
-            empilha_Simbolo_TB_SIMB ( nome_var_proc_func, categoria, rotulo1, nivel_lexico, 0);
+            empilha_Simbolo_TB_SIMB ( nome_var_proc_func, categoria_procedimento, parametro_valor_referencia, rotulo1, nivel_lexico + 1, 0);
             } procedimento_ou_funcao_2 PONTO_E_VIRGULA procedimento_ou_funcao_3
             {
             desempilha_String ( p_nomes, &nome_proc_func);
@@ -282,14 +286,43 @@ procedimento_ou_funcao: PROCEDIMENTO IDENT
                 printf ( "Pilha p_nomes esta vazia\n");
                 exit ( 1);
             }
+
+            procura_simb ( nome_proc_func, &x, &y, &tipo, &dados_simbolo1);
+            if ( dados_simbolo1 == NULL){
+                printf ( "O simbolo %s não foi encontrado\n", dados_simbolo1->simbolo);
+            }
+
+            sprintf ( dados, "RTPR %d, %d", dados_simbolo1->nivel_lexico, dados_simbolo1->qtd_parametros);
+            geraCodigo ( NULL, dados);
             }
             | FUNCAO IDENT
             {
             sprintf ( nome_var_proc_func, "%s", token);
-            sprintf ( categoria, "funcao");
+
+            /* Empilha o nome do procedimento para o retorno */
+            nome_proc_func = malloc ( sizeof (char)*TAM_TOKEN);
+            strcpy ( nome_proc_func, nome_var_proc_func);
+            empilha_String ( p_nomes, nome_proc_func);
+
+            sprintf ( parametro_valor_referencia, "sem_tipo");
             gera_Proximo_Rotulo ( &rotulo1);
-            empilha_Simbolo_TB_SIMB ( nome_var_proc_func, categoria, rotulo1, nivel_lexico, 0);
+            empilha_Simbolo_TB_SIMB ( nome_var_proc_func, categoria_funcao, parametro_valor_referencia, rotulo1, nivel_lexico + 1, 0);
             } procedimento_ou_funcao_2 DOIS_PONTOS tipo_retorno_func PONTO_E_VIRGULA procedimento_ou_funcao_3
+            {
+            desempilha_String ( p_nomes, &nome_proc_func);
+            if ( nome_proc_func == NULL ) {
+                printf ( "Pilha p_nomes esta vazia\n");
+                exit ( 1);
+            }
+
+            procura_simb ( nome_proc_func, &x, &y, &tipo, &dados_simbolo1);
+            if ( dados_simbolo1 == NULL){
+                printf ( "O simbolo %s não foi encontrado\n", dados_simbolo1->simbolo);
+            }
+
+            sprintf ( dados, "RTPR %d, %d", dados_simbolo1->nivel_lexico, dados_simbolo1->qtd_parametros);
+            geraCodigo ( NULL, dados);
+            }
 ;
 
 
@@ -335,11 +368,11 @@ parametros_vars_proc_ou_func:{
 
 vars_proc_ou_func: VAR
             {
-            sprintf ( tipo_valor_referencia, "var_referencia");
+            sprintf ( parametro_valor_referencia, "var_referencia");
             } vars_proc_ou_func_2
             |
             {
-            sprintf ( tipo_valor_referencia, "var_valor");
+            sprintf ( parametro_valor_referencia, "var_valor");
             } vars_proc_ou_func_2
 
 
@@ -367,9 +400,8 @@ lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA IDENT
                 exit ( 1);
             }
 
-            sprintf ( categoria, "parametro_formal");
             sprintf ( tipo_retorno, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
+            empilha_Simbolo_TB_SIMB ( token, categoria_parametro_formal, parametro_valor_referencia, NULL, nivel_lexico, desloc);
             num_parametros++;
             }
             | IDENT
@@ -383,9 +415,8 @@ lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA IDENT
                 exit ( 1);
             }
 
-            sprintf ( categoria, "parametro_formal");
             sprintf ( tipo_retorno, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria, NULL, nivel_lexico, desloc);
+            empilha_Simbolo_TB_SIMB ( token, categoria_parametro_formal, parametro_valor_referencia, NULL, nivel_lexico, desloc);
             num_parametros++;
             }
 ;
@@ -501,11 +532,9 @@ var_chama_proc_func: {
 
             if ( eh_parametro_formal != 1) {
                 procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
-
                 /* Se não encontrar o simbolos como var_simples/procedimento ou funcao e não é parametro_formal */
                 if ( dados_simbolo1 == NULL || ( strcmp ( categoria, dados_simbolo1->categoria) != 0 && strcmp ( categoria_funcao, dados_simbolo1->categoria) != 0)) {
-                    sprintf ( dados, "var_simples");
-                    if ( strcmp ( categoria, dados) == 0){
+                    if ( strcmp ( categoria, categoria_var_simples) == 0){
                         sprintf ( dados, "Variavel ou Funcao '%s' nao foi declarada", nome_var_proc_func);
                         imprimeErro ( dados);
                     }
@@ -570,22 +599,37 @@ var_chama_proc_func_2: {
             procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 != NULL && (strcmp ( categoria, dados_simbolo1->categoria) == 0 || strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0)) {
 
+printf ( "EH PARAMETRO FORMAL %d categoria %s %s %s\n", eh_parametro_formal, categoria, categoria_parametro_formal, dados_simbolo1->categoria);
+                /* Se é parametro de chamada de procedimento ou função */
                 if ( eh_parametro_formal == 1) {
+                    desempilha_pilhas_String ( p_p_tipos, &p_tipos);
+                    if ( p_tipos == NULL) {
+                        printf ( "Pilha p_eh_parametro_formal esta vazia em parmetro_formal\n");
+                        exit ( 1);
+                    }
+
+                    /* Salva o tipo do parametro */
+                    tipo_fator = malloc ( sizeof (char)*TAM_TOKEN);
+                    strcpy (tipo_fator, dados_simbolo1->tipo);
+                    empilha_String ( p_tipos, tipo_fator);
+
+                    empilha_pilhas_String ( p_p_tipos, p_tipos);
+
+                    /* Se é a variável foi passada como parametro */
                     if ( strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0) {
-                        /* é parametro_formal */
-                        desempilha_pilhas_String ( p_p_tipos, &p_tipos);
-                        if ( p_tipos == NULL) {
-                            printf ( "Pilha p_eh_parametro_formal esta vazia em parmetro_formal\n");
-                            exit ( 1);
+                        /* Se a pssagem foi por valor */
+                        if ( strcmp ( categoria_parametro_valor, dados_simbolo1->parametro_valor_referencia) == 0) {
+                            sprintf ( dados, "CRVL %d %d", x, y);
+                            geraCodigo ( NULL, dados);
                         }
-
-                        /* Salva o tipo do parametro */
-                        tipo_fator = malloc ( sizeof (char)*TAM_TOKEN);
-                        strcpy (tipo_fator, dados_simbolo1->tipo);
-                        empilha_String ( p_tipos, tipo_fator);
-
-                        empilha_pilhas_String ( p_p_tipos, p_tipos);
-
+                        else {
+                            /* Senão a passagem foi por referência */
+                            sprintf ( dados, "CREN %d %d", x, y);
+                            geraCodigo ( NULL, dados);
+                        }
+                    }
+                    else {
+                        /* Senão é uma variável */
                         sprintf ( dados, "CRVL %d %d", x, y);
                         geraCodigo ( NULL, dados);
                     }
