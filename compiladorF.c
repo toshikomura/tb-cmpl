@@ -32,10 +32,13 @@ void inicia_variaveis_globais () {
 
     dados = malloc ( sizeof (char)*TAM_TOKEN);
     categoria = malloc ( sizeof (char)*TAM_TOKEN);
+    categoria_procedimento = malloc ( sizeof (char)*TAM_TOKEN);
     categoria_funcao = malloc ( sizeof (char)*TAM_TOKEN);
     categoria_parametro_formal = malloc ( sizeof (char)*TAM_TOKEN);
+    categoria_var_simples = malloc ( sizeof (char)*TAM_TOKEN);
+    categoria_parametro_valor = malloc ( sizeof (char)*TAM_TOKEN);
     tipo = malloc ( sizeof (char)*TAM_TOKEN);
-    tipo_valor_referencia = malloc ( sizeof (char)*TAM_TOKEN);
+    parametro_valor_referencia = malloc ( sizeof (char)*TAM_TOKEN);
     tipo_retorno = malloc ( sizeof (char)*TAM_TOKEN);
     nome_var_proc_func = malloc ( sizeof (char)*TAM_TOKEN);
 
@@ -45,9 +48,11 @@ void inicia_variaveis_globais () {
     nivel_lexico = 0;
     desloc = 0;
 
+    sprintf ( categoria_procedimento, "procedimento");
     sprintf ( categoria_funcao, "funcao");
     sprintf ( categoria_parametro_formal, "parametro_formal");
-
+    sprintf ( categoria_var_simples, "var_simples");
+    sprintf ( categoria_parametro_valor, "var_valor");
 }
 
 /* Função que gera código MEPA */
@@ -90,7 +95,7 @@ void imprime_Simbolo_TB_SIMB () {
 
     slot_tb_simb_aux = p_tb_simb->primeiro;
     while ( slot_tb_simb_aux != NULL) {
-        printf ( "|| %s | %s | %s | %s | %s | %d | %d | %d ", slot_tb_simb_aux->simbolo, slot_tb_simb_aux->tipo, slot_tb_simb_aux->categoria, slot_tb_simb_aux->rotulo, slot_tb_simb_aux->tipo_retorno, slot_tb_simb_aux->nivel_lexico, slot_tb_simb_aux->desloc, slot_tb_simb_aux->qtd_parametros);
+        printf ( "|| %s | %s | %s | %s | %s | %s | %d | %d | %d ", slot_tb_simb_aux->simbolo, slot_tb_simb_aux->tipo, slot_tb_simb_aux->categoria, slot_tb_simb_aux->rotulo, slot_tb_simb_aux->parametro_valor_referencia, slot_tb_simb_aux->tipo_retorno, slot_tb_simb_aux->nivel_lexico, slot_tb_simb_aux->desloc, slot_tb_simb_aux->qtd_parametros);
 
         tip_para_aux = slot_tb_simb_aux->primeiro_tipo_parametro;
 
@@ -107,19 +112,22 @@ void imprime_Simbolo_TB_SIMB () {
 }
 
 /* Função que insere um simbolo na tabela de simbolos */
-void empilha_Simbolo_TB_SIMB ( char *simb, char *ca, char *rot, int nivel_l, int des) {
+void empilha_Simbolo_TB_SIMB ( char *simb, char *ca, char *pa_va_re, char *rot, int nivel_l, int des) {
 
     char *simbol = malloc ( sizeof ( char)*TAM_TOKEN);
     char *cate = malloc ( sizeof ( char)*TAM_TOKEN);
+    char *para_valo_refe = malloc ( sizeof ( char)*TAM_TOKEN);
 
     strcpy( simbol, simb);
     strcpy( cate, ca);
+    strcpy( para_valo_refe, pa_va_re);
 
     no_tabela_simbolos_p *novo_slot_tb_simb = malloc( sizeof ( no_tabela_simbolos_p ));
 
     novo_slot_tb_simb->simbolo = simbol;
     novo_slot_tb_simb->categoria = cate;
     novo_slot_tb_simb->rotulo = rot;
+    novo_slot_tb_simb->parametro_valor_referencia = para_valo_refe;
 
     novo_slot_tb_simb->nivel_lexico = nivel_l;
     novo_slot_tb_simb->desloc = des;
