@@ -6,11 +6,15 @@ R1: NADA
      DSVS R2
 R3: NADA 
      ENPR 2
+     RTPR 2, 3
 R2: NADA 
      AMEN 1
      AMEN 1
      CRVL 1 0
+     CRVL 0 0
+     CRVL 0 1
      CHPR R3, 1
+     RTPR 1, 0
 R0: NADA 
      DSVS R4
 R5: NADA 
@@ -22,9 +26,11 @@ R7: NADA
 R9: NADA 
      ENPR 3
      AMEM 1
+     RTPR 3, 3
 R8: NADA 
      CRCT 88
      ARMZ 0, 1
+     RTPR 2, 3
 R6: NADA 
      CRCT 2
      ARMZ 0, 1
@@ -62,6 +68,7 @@ R16: NADA
 R14: NADA 
      DSVS R10
 R11: NADA 
+     RTPR 1, 0
 R4: NADA 
      AMEM 1
      CRCT 3
