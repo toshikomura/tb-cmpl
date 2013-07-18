@@ -23,6 +23,7 @@ char *parametro_valor_referencia;
 char *tipo_retorno;
 char *nome_var_proc_func;
 char *nome_proc_func;
+char *tipo_inteiro;
 
 char *tipo_fator;
 char *tipo_expressao;
@@ -123,8 +124,7 @@ declara_var: {
 
 tipo: IDENT
             {
-            sprintf ( dados, "integer");
-            if ( strcmp ( dados, token) != 0) {
+            if ( strcmp ( tipo_inteiro, token) != 0) {
                 sprintf ( dados, "Tipo '%s' não suportado, somente 'integer'", token);
                 imprimeErro ( dados);
                 exit ( 1);
@@ -137,8 +137,7 @@ tipo: IDENT
 
 tipo_parametro: IDENT
             {
-            sprintf ( dados, "integer");
-            if ( strcmp ( dados, token) != 0) {
+            if ( strcmp ( tipo_inteiro, token) != 0) {
                 sprintf ( dados, "Tipo '%s' não suportado, somente 'integer'", token);
                 imprimeErro ( dados);
                 exit ( 1);
@@ -152,8 +151,7 @@ tipo_parametro: IDENT
 
 tipo_retorno_func: IDENT
             {
-            sprintf ( dados, "integer");
-            if ( strcmp ( dados, token) != 0) {
+            if ( strcmp ( tipo_inteiro, token) != 0) {
                 sprintf ( dados, "Tipo '%s' não suportado, somente 'integer'", token);
                 imprimeErro ( dados);
                 exit ( 1);
@@ -452,7 +450,6 @@ atrib_proc_func_2: atribuicao
             /* Indica que não é parametro formal e indica com 2 */
             /* dizendo que vem de chamada de procedimento ou função */
 
-            sprintf ( categoria, "procedimento");
             empilha_Inteiro ( p_eh_parametro_formal, 2);
             } var_chama_proc_func
             {
@@ -465,9 +462,8 @@ atrib_proc_func_2: atribuicao
 
 
 atribuicao: {
-            sprintf ( categoria, "var_simples");
             procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
-            if ( dados_simbolo1 == NULL || strcmp ( categoria, dados_simbolo1->categoria) != 0) {
+            if ( dados_simbolo1 == NULL || strcmp ( categoria_var_simples, dados_simbolo1->categoria) != 0) {
                 if ( dados_simbolo1 == NULL)
                     sprintf ( dados, "Variável '%s' não foi declarada", nome_var_proc_func);
                 else
@@ -546,20 +542,18 @@ var_chama_proc_func: {
                 exit ( 1);
             }
 
-            if ( eh_parametro_formal != 1) {
-                procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
-                /* Se não encontrar o simbolos como var_simples/procedimento ou funcao e não é parametro_formal */
-                if ( dados_simbolo1 == NULL || ( strcmp ( categoria, dados_simbolo1->categoria) != 0 && strcmp ( categoria_funcao, dados_simbolo1->categoria) != 0)) {
-                    if ( strcmp ( categoria, categoria_var_simples) == 0){
-                        sprintf ( dados, "Variavel ou Funcao '%s' nao foi declarada", nome_var_proc_func);
-                        imprimeErro ( dados);
-                    }
-                    else {
-                        sprintf ( dados, "Procedimento ou Funcao '%s' nao foi declarada", nome_var_proc_func);
-                        imprimeErro ( dados);
-                    }
-                    exit ( 1);
+            procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
+            /* Se não encontrar o simbolos como var_simples/procedimento ou funcao e não é parametro_formal */
+            if ( dados_simbolo1 == NULL) {
+                if ( eh_parametro_formal == 1 || eh_parametro_formal == 0){
+                    sprintf ( dados, "Variavel ou Funcao '%s' nao foi declarada", nome_var_proc_func);
+                    imprimeErro ( dados);
                 }
+                else {
+                    sprintf ( dados, "Procedimento ou Funcao '%s' nao foi declarada", nome_var_proc_func);
+                    imprimeErro ( dados);
+                }
+                exit ( 1);
             }
             empilha_Inteiro ( p_eh_parametro_formal, eh_parametro_formal);
 
@@ -611,9 +605,9 @@ var_chama_proc_func_2: {
                 exit ( 1);
             }
 
-            /* Se simbolo é procedimento ou var_simples */
+            /* Se simbolo é passagem de parametro, procedimento ou var_simples */
             procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
-            if ( dados_simbolo1 != NULL && (strcmp ( categoria, dados_simbolo1->categoria) == 0 || strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0)) {
+            if ( dados_simbolo1 != NULL && (strcmp ( categoria_procedimento, dados_simbolo1->categoria) == 0 || strcmp ( categoria_var_simples, dados_simbolo1->categoria) == 0 || strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0)) {
 
                 /* Se é parametro de chamada de procedimento ou função */
                 if ( eh_parametro_formal == 1) {
@@ -629,7 +623,6 @@ var_chama_proc_func_2: {
                     empilha_String ( p_tipos, tipo_fator);
 
                     empilha_pilhas_String ( p_p_tipos, p_tipos);
-
                     /* Se é a variável foi passada como parametro */
                     if ( strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0) {
                         /* Se a pssagem foi por valor */
@@ -637,28 +630,28 @@ var_chama_proc_func_2: {
                             sprintf ( dados, "CRVL %d %d", x, y);
                             geraCodigo ( NULL, dados);
                         }
+                        /* Senão a passagem foi por referência */
                         else {
-                            /* Senão a passagem foi por referência */
                             sprintf ( dados, "CREN %d %d", x, y);
                             geraCodigo ( NULL, dados);
                         }
                     }
+                    /* Senão é uma variável */
                     else {
-                        /* Senão é uma variável */
                         sprintf ( dados, "CRVL %d %d", x, y);
                         geraCodigo ( NULL, dados);
                     }
                 }
+                /* Senão passagem por parametro é procedimento, variável ou função */
                 else {
-                    sprintf ( dados, "procedimento");
-
                     /* Se é procedimento */
-                    if ( strcmp( categoria, dados) == 0) {
+                    if ( strcmp( categoria_procedimento, dados_simbolo1->categoria) == 0) {
                         sprintf ( dados, "CHPR %s, %d", dados_simbolo1->rotulo, nivel_lexico);
                         geraCodigo ( NULL, dados );
                     }
+
+                    /* Senão é var_simples */
                     else {
-                        /* Senão é var_simples */
                         desempilha_pilhas_String ( p_p_tipos, &p_tipos);
                         if ( p_tipos == NULL) {
                             printf ( "Pilha p_p_tipos esta vazia em var_chama_proc_func2 var_simples\n");
@@ -672,16 +665,35 @@ var_chama_proc_func_2: {
 
                         empilha_pilhas_String ( p_p_tipos, p_tipos);
 
-                        sprintf ( dados, "CRVL %d %d", x, y);
-                        geraCodigo ( NULL, dados);
+
+                        /* Se é a variável foi passada como parametro */
+                        if ( strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0) {
+                            /* Se a pssagem foi por valor */
+                            if ( strcmp ( categoria_parametro_valor, dados_simbolo1->parametro_valor_referencia) == 0) {
+                                sprintf ( dados, "CRVL %d %d", x, y);
+                                geraCodigo ( NULL, dados);
+                            }
+                            /* Senão a passagem foi por referência */
+                            else {
+                                sprintf ( dados, "CREN %d %d", x, y);
+                                geraCodigo ( NULL, dados);
+                            }
+                        }
+                       /* Senão é uma variável */
+                        else {
+                            sprintf ( dados, "CRVL %d %d", x, y);
+                            geraCodigo ( NULL, dados);
+                        }
                     }
+                    /* Fim do senão é var_simples */
+
                 }
 
             }
+            /* Senão passagem parametro, procedimentou ou var simeples */
+            /* Então é função */
             else {
-
-                /* Senão é funcao */
-                procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
+                //procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
                 if ( dados_simbolo1 != NULL && strcmp ( categoria_funcao, dados_simbolo1->categoria) == 0) {
                     if ( dados_simbolo1->qtd_parametros != num_parametros) {
                         sprintf ( dados, "Para função '%s' numero de parametros incorreto", nome_var_proc_func);
@@ -691,6 +703,7 @@ var_chama_proc_func_2: {
 
                     /* Se a função não faz parte de uma expressão da atribuição */
                     /* No caso ele não faz parte disso ' a := funcao ' */
+                    /* Empilha o tipo do variável de retorno */
                     if ( eh_parametro_formal != 2) {
                         desempilha_pilhas_String ( p_p_tipos, &p_tipos);
                         if ( p_tipos == NULL) {
@@ -708,6 +721,12 @@ var_chama_proc_func_2: {
 
                     sprintf ( dados, "CHPR %s, %d", dados_simbolo1->rotulo, nivel_lexico);
                     geraCodigo ( NULL, dados );
+
+                    /* Se foi chamado uma função sem atribuição */
+                    if ( eh_parametro_formal == 2) {
+                        sprintf ( dados, "DMEN 1");
+                        geraCodigo ( NULL, dados);
+                    }
                 }
             }
 
@@ -1031,7 +1050,6 @@ expressao_termo: expressao_termo MULTIPLICACAO expressao_fator
 
 expressao_fator: IDENT
             {
-            sprintf ( categoria, "var_simples");
             sprintf ( nome_var_proc_func, "%s", token);
 
             num_termos = desempilha_Inteiro ( p_num_termos);
@@ -1048,8 +1066,7 @@ expressao_fator: IDENT
             sprintf ( dados, "CRCT %s", token);
             geraCodigo ( NULL, dados);
 
-            sprintf ( dados, "integer");
-            strcpy ( tipo_fator, dados);
+            strcpy ( tipo_fator, tipo_inteiro);
             empilha_String ( p_tipos, tipo_fator);
 
             num_termos = desempilha_Inteiro ( p_num_termos);
@@ -1066,8 +1083,7 @@ expressao_fator: IDENT
             }
             | ABRE_PARENTESES expressao_aritmetica FECHA_PARENTESES
             {
-            sprintf ( dados, "integer");
-            strcpy ( tipo_fator, dados);
+            strcpy ( tipo_fator, tipo_inteiro);
             empilha_String ( p_tipos, tipo_fator);
             }
 ;
