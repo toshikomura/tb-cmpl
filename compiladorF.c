@@ -41,6 +41,7 @@ void inicia_variaveis_globais () {
     parametro_valor_referencia = malloc ( sizeof (char)*TAM_TOKEN);
     tipo_retorno = malloc ( sizeof (char)*TAM_TOKEN);
     nome_var_proc_func = malloc ( sizeof (char)*TAM_TOKEN);
+    tipo_inteiro = malloc ( sizeof (char)*TAM_TOKEN);
 
     fp = NULL;
     valor_rotulo = 0;
@@ -48,6 +49,7 @@ void inicia_variaveis_globais () {
     nivel_lexico = 0;
     desloc = 0;
 
+    sprintf ( tipo_inteiro, "integer");
     sprintf ( categoria_procedimento, "procedimento");
     sprintf ( categoria_funcao, "funcao");
     sprintf ( categoria_parametro_formal, "parametro_formal");

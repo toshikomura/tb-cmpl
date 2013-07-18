@@ -118,6 +118,7 @@ extern char *tipo;
 extern char *parametro_valor_referencia;
 extern char *tipo_retorno;
 extern char *nome_var_proc_func;
+extern char *tipo_inteiro;
 
 extern int nivel_lexico;
 extern int desloc;
