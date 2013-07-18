@@ -7,7 +7,7 @@ function y():integer;
 
   end;
 begin
-  x ( a, m, n);
+  x ( o, m, n);
 end;
 
 procedure w;
@@ -32,11 +32,11 @@ begin
       begin
         n := 8;
       end
-    else
-    begin
-      n := 9;
-      m := 100;
-    end;
+      else
+      begin
+        n := 9;
+        m := 100;
+      end;
   end;
 end;
 
