@@ -200,7 +200,7 @@ end      # end
 begin     # begin 
  ident      # x 
  abre_parenteses      # ( 
- ident      # a 
+ ident      # o 
  virgula      # , 
  ident      # m 
  virgula      # , 

@@ -9,10 +9,11 @@ R3: NADA
      RTPR 2, 3
 R2: NADA 
      AMEN 1
-     AMEN 1
+     CRVL 0 2
      CRVL 0 0
      CRVL 0 1
      CHPR R3, 1
+     DMEN 1
      RTPR 1, 0
 R0: NADA 
      DSVS R4

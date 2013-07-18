@@ -87,6 +87,7 @@ char *parametro_valor_referencia;
 char *tipo_retorno;
 char *nome_var_proc_func;
 char *nome_proc_func;
+char *tipo_inteiro;
 
 char *tipo_fator;
 char *tipo_expressao;
@@ -114,7 +115,7 @@ void yyerror (char const *);
 
 
 /* Line 268 of yacc.c  */
-#line 118 "compilador.tab.c"
+#line 119 "compilador.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -195,7 +196,7 @@ typedef int YYSTYPE;
 
 
 /* Line 343 of yacc.c  */
-#line 199 "compilador.tab.c"
+#line 200 "compilador.tab.c"
 
 #ifdef short
 # undef short
@@ -534,20 +535,20 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    68,    68,    68,    81,    93,    97,   101,   102,   106,
-     107,   111,   116,   111,   124,   138,   153,   167,   183,   201,
-     202,   206,   219,   206,   237,   241,   245,   249,   250,   251,
-     252,   253,   254,   255,   256,   257,   258,   259,   263,   264,
-     265,   270,   269,   307,   306,   345,   346,   351,   351,   378,
-     378,   381,   386,   385,   390,   390,   395,   396,   400,   400,
-     408,   423,   442,   441,   448,   450,   450,   467,   480,   467,
-     537,   537,   578,   587,   577,   602,   606,   720,   719,   791,
-     791,   861,   866,   865,   874,   873,   881,   880,   890,   908,
-     929,   939,   953,   952,   960,   959,   969,   970,   975,   974,
-     989,   993,   994,   998,   999,  1003,  1004,  1008,  1012,  1016,
-    1020,  1024,  1028,  1033,  1032,  1046,  1067,  1076,  1077,  1084,
-    1088,  1092,  1096,  1100,  1104,  1108,  1112,  1116,  1121,  1125,
-    1136,  1141
+       0,    69,    69,    69,    82,    94,    98,   102,   103,   107,
+     108,   112,   117,   112,   125,   138,   152,   165,   181,   199,
+     200,   204,   217,   204,   235,   239,   243,   247,   248,   249,
+     250,   251,   252,   253,   254,   255,   256,   257,   261,   262,
+     263,   268,   267,   305,   304,   343,   344,   349,   349,   376,
+     376,   379,   384,   383,   388,   388,   393,   394,   398,   398,
+     406,   421,   440,   439,   446,   448,   448,   464,   476,   464,
+     533,   533,   572,   581,   571,   596,   600,   739,   738,   810,
+     810,   880,   885,   884,   893,   892,   900,   899,   909,   927,
+     948,   958,   972,   971,   979,   978,   988,   989,   994,   993,
+    1008,  1012,  1013,  1017,  1018,  1022,  1023,  1027,  1031,  1035,
+    1039,  1043,  1047,  1052,  1051,  1064,  1084,  1092,  1093,  1100,
+    1104,  1108,  1112,  1116,  1120,  1124,  1128,  1132,  1137,  1141,
+    1152,  1157
 };
 #endif
 
@@ -1632,7 +1633,7 @@ yyreduce:
         case 2:
 
 /* Line 1806 of yacc.c  */
-#line 68 "compilador.y"
+#line 69 "compilador.y"
     {
              geraCodigo (NULL, "INPP");
              }
@@ -1641,7 +1642,7 @@ yyreduce:
   case 3:
 
 /* Line 1806 of yacc.c  */
-#line 73 "compilador.y"
+#line 74 "compilador.y"
     {
              sprintf ( dados, "DMEM %d", num_vars);
              geraCodigo ( NULL, dados);
@@ -1652,7 +1653,7 @@ yyreduce:
   case 4:
 
 /* Line 1806 of yacc.c  */
-#line 82 "compilador.y"
+#line 83 "compilador.y"
     {
             sprintf ( categoria, "nome_programa");
             sprintf ( tipo, "sem_tipo");
@@ -1666,7 +1667,7 @@ yyreduce:
   case 11:
 
 /* Line 1806 of yacc.c  */
-#line 111 "compilador.y"
+#line 112 "compilador.y"
     {
             num_vars_inicial = num_vars;
             }
@@ -1675,7 +1676,7 @@ yyreduce:
   case 12:
 
 /* Line 1806 of yacc.c  */
-#line 116 "compilador.y"
+#line 117 "compilador.y"
     { /* AMEM */
             sprintf ( dados, "AMEM %d", percorre_vars);
             geraCodigo ( NULL, dados);
@@ -1685,10 +1686,9 @@ yyreduce:
   case 14:
 
 /* Line 1806 of yacc.c  */
-#line 125 "compilador.y"
+#line 126 "compilador.y"
     {
-            sprintf ( dados, "integer");
-            if ( strcmp ( dados, token) != 0) {
+            if ( strcmp ( tipo_inteiro, token) != 0) {
                 sprintf ( dados, "Tipo '%s' não suportado, somente 'integer'", token);
                 imprimeErro ( dados);
                 exit ( 1);
@@ -1704,8 +1704,7 @@ yyreduce:
 /* Line 1806 of yacc.c  */
 #line 139 "compilador.y"
     {
-            sprintf ( dados, "integer");
-            if ( strcmp ( dados, token) != 0) {
+            if ( strcmp ( tipo_inteiro, token) != 0) {
                 sprintf ( dados, "Tipo '%s' não suportado, somente 'integer'", token);
                 imprimeErro ( dados);
                 exit ( 1);
@@ -1719,10 +1718,9 @@ yyreduce:
   case 16:
 
 /* Line 1806 of yacc.c  */
-#line 154 "compilador.y"
+#line 153 "compilador.y"
     {
-            sprintf ( dados, "integer");
-            if ( strcmp ( dados, token) != 0) {
+            if ( strcmp ( tipo_inteiro, token) != 0) {
                 sprintf ( dados, "Tipo '%s' não suportado, somente 'integer'", token);
                 imprimeErro ( dados);
                 exit ( 1);
@@ -1735,7 +1733,7 @@ yyreduce:
   case 17:
 
 /* Line 1806 of yacc.c  */
-#line 168 "compilador.y"
+#line 166 "compilador.y"
     {
             /* insere última variável na tabela de símbolos */
             procura_simb ( token, &x, &y, &tipo, &dados_simbolo1);
@@ -1756,7 +1754,7 @@ yyreduce:
   case 18:
 
 /* Line 1806 of yacc.c  */
-#line 184 "compilador.y"
+#line 182 "compilador.y"
     { /* insere variáveis na tabela de símbolos */
             procura_simb ( token, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 != NULL){
@@ -1776,7 +1774,7 @@ yyreduce:
   case 21:
 
 /* Line 1806 of yacc.c  */
-#line 206 "compilador.y"
+#line 204 "compilador.y"
     {
             /* Caso encontre um procedimento */
             /* Empilha número de variávei para não perder */
@@ -1794,7 +1792,7 @@ yyreduce:
   case 22:
 
 /* Line 1806 of yacc.c  */
-#line 219 "compilador.y"
+#line 217 "compilador.y"
     {
             /* Recupera o número de variáveis */
             num_vars = desempilha_Inteiro ( p_num_vars);
@@ -1817,7 +1815,7 @@ yyreduce:
   case 41:
 
 /* Line 1806 of yacc.c  */
-#line 270 "compilador.y"
+#line 268 "compilador.y"
     {
             sprintf ( nome_var_proc_func, "%s", token);
 
@@ -1836,7 +1834,7 @@ yyreduce:
   case 42:
 
 /* Line 1806 of yacc.c  */
-#line 283 "compilador.y"
+#line 281 "compilador.y"
     {
             desempilha_String ( p_nomes, &nome_proc_func);
             if ( nome_proc_func == NULL ) {
@@ -1865,7 +1863,7 @@ yyreduce:
   case 43:
 
 /* Line 1806 of yacc.c  */
-#line 307 "compilador.y"
+#line 305 "compilador.y"
     {
             sprintf ( nome_var_proc_func, "%s", token);
 
@@ -1883,7 +1881,7 @@ yyreduce:
   case 44:
 
 /* Line 1806 of yacc.c  */
-#line 319 "compilador.y"
+#line 317 "compilador.y"
     {
             desempilha_String ( p_nomes, &nome_proc_func);
             if ( nome_proc_func == NULL ) {
@@ -1912,7 +1910,7 @@ yyreduce:
   case 47:
 
 /* Line 1806 of yacc.c  */
-#line 351 "compilador.y"
+#line 349 "compilador.y"
     {
             /* Depois de ler todo a declaração do procedimento */
             /* Empilha deslocamento para não perder ele depois */
@@ -1931,7 +1929,7 @@ yyreduce:
   case 48:
 
 /* Line 1806 of yacc.c  */
-#line 364 "compilador.y"
+#line 362 "compilador.y"
     {
             /* Ao terminar de ler todo o procedimento retoma o deslocamento */
             /* Diminui o nivel lexico por causa do fim do procedimento */
@@ -1948,7 +1946,7 @@ yyreduce:
   case 49:
 
 /* Line 1806 of yacc.c  */
-#line 378 "compilador.y"
+#line 376 "compilador.y"
     {
             num_parametros = 0;
             }
@@ -1957,7 +1955,7 @@ yyreduce:
   case 52:
 
 /* Line 1806 of yacc.c  */
-#line 386 "compilador.y"
+#line 384 "compilador.y"
     {
             sprintf ( parametro_valor_referencia, "var_referencia");
             }
@@ -1966,7 +1964,7 @@ yyreduce:
   case 54:
 
 /* Line 1806 of yacc.c  */
-#line 390 "compilador.y"
+#line 388 "compilador.y"
     {
             sprintf ( parametro_valor_referencia, "var_valor");
             }
@@ -1975,7 +1973,7 @@ yyreduce:
   case 58:
 
 /* Line 1806 of yacc.c  */
-#line 400 "compilador.y"
+#line 398 "compilador.y"
     {
             num_vars_inicial = num_parametros;
             }
@@ -1984,7 +1982,7 @@ yyreduce:
   case 60:
 
 /* Line 1806 of yacc.c  */
-#line 409 "compilador.y"
+#line 407 "compilador.y"
     {
             /* Os parametros obrigatoriamente não podem ter sido declarados anteriormente */
 
@@ -2004,7 +2002,7 @@ yyreduce:
   case 61:
 
 /* Line 1806 of yacc.c  */
-#line 424 "compilador.y"
+#line 422 "compilador.y"
     {
             /* Os parametros obrigatoriamente não podem ter sido declarados anteriormente */
 
@@ -2024,7 +2022,7 @@ yyreduce:
   case 62:
 
 /* Line 1806 of yacc.c  */
-#line 442 "compilador.y"
+#line 440 "compilador.y"
     {
             sprintf ( nome_var_proc_func, "%s", token);
             }
@@ -2033,13 +2031,12 @@ yyreduce:
   case 65:
 
 /* Line 1806 of yacc.c  */
-#line 450 "compilador.y"
+#line 448 "compilador.y"
     {
             /* Caso não seja atribuição então só pde ser procedimento ou função */
             /* Indica que não é parametro formal e indica com 2 */
             /* dizendo que vem de chamada de procedimento ou função */
 
-            sprintf ( categoria, "procedimento");
             empilha_Inteiro ( p_eh_parametro_formal, 2);
             }
     break;
@@ -2047,7 +2044,7 @@ yyreduce:
   case 66:
 
 /* Line 1806 of yacc.c  */
-#line 458 "compilador.y"
+#line 455 "compilador.y"
     {
             if ( desempilha_Inteiro ( p_eh_parametro_formal) == -99) {
                 printf ( "Pilha p_eh_parametro_formal esta vazia em atribuicao\n");
@@ -2059,11 +2056,10 @@ yyreduce:
   case 67:
 
 /* Line 1806 of yacc.c  */
-#line 467 "compilador.y"
+#line 464 "compilador.y"
     {
-            sprintf ( categoria, "var_simples");
             procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
-            if ( dados_simbolo1 == NULL || strcmp ( categoria, dados_simbolo1->categoria) != 0) {
+            if ( dados_simbolo1 == NULL || strcmp ( categoria_var_simples, dados_simbolo1->categoria) != 0) {
                 if ( dados_simbolo1 == NULL)
                     sprintf ( dados, "Variável '%s' não foi declarada", nome_var_proc_func);
                 else
@@ -2078,7 +2074,7 @@ yyreduce:
   case 68:
 
 /* Line 1806 of yacc.c  */
-#line 480 "compilador.y"
+#line 476 "compilador.y"
     {
             /* Indica que não é parametro formal e que está indica com '0' */
             /* que esta indo de atribuição */
@@ -2101,7 +2097,7 @@ yyreduce:
   case 69:
 
 /* Line 1806 of yacc.c  */
-#line 497 "compilador.y"
+#line 493 "compilador.y"
     {
 
             num_termos = desempilha_Inteiro ( p_num_termos);
@@ -2144,7 +2140,7 @@ yyreduce:
   case 70:
 
 /* Line 1806 of yacc.c  */
-#line 537 "compilador.y"
+#line 533 "compilador.y"
     {
             /* 1 - Caso venha de atribuição->expressao cateoria1 = var_simples */
             /* 2 - Caso venha de procedimento ou função cateoria1 = procedimento */
@@ -2157,20 +2153,18 @@ yyreduce:
                 exit ( 1);
             }
 
-            if ( eh_parametro_formal != 1) {
-                procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
-                /* Se não encontrar o simbolos como var_simples/procedimento ou funcao e não é parametro_formal */
-                if ( dados_simbolo1 == NULL || ( strcmp ( categoria, dados_simbolo1->categoria) != 0 && strcmp ( categoria_funcao, dados_simbolo1->categoria) != 0)) {
-                    if ( strcmp ( categoria, categoria_var_simples) == 0){
-                        sprintf ( dados, "Variavel ou Funcao '%s' nao foi declarada", nome_var_proc_func);
-                        imprimeErro ( dados);
-                    }
-                    else {
-                        sprintf ( dados, "Procedimento ou Funcao '%s' nao foi declarada", nome_var_proc_func);
-                        imprimeErro ( dados);
-                    }
-                    exit ( 1);
+            procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
+            /* Se não encontrar o simbolos como var_simples/procedimento ou funcao e não é parametro_formal */
+            if ( dados_simbolo1 == NULL) {
+                if ( eh_parametro_formal == 1 || eh_parametro_formal == 0){
+                    sprintf ( dados, "Variavel ou Funcao '%s' nao foi declarada", nome_var_proc_func);
+                    imprimeErro ( dados);
                 }
+                else {
+                    sprintf ( dados, "Procedimento ou Funcao '%s' nao foi declarada", nome_var_proc_func);
+                    imprimeErro ( dados);
+                }
+                exit ( 1);
             }
             empilha_Inteiro ( p_eh_parametro_formal, eh_parametro_formal);
 
@@ -2186,7 +2180,7 @@ yyreduce:
   case 72:
 
 /* Line 1806 of yacc.c  */
-#line 578 "compilador.y"
+#line 572 "compilador.y"
     {
             /* Salva o nome da função antes de iniciar leitura dos parametros */
             /* Também salva a quantidade de parametros */
@@ -2201,7 +2195,7 @@ yyreduce:
   case 73:
 
 /* Line 1806 of yacc.c  */
-#line 587 "compilador.y"
+#line 581 "compilador.y"
     {
             desempilha_String ( p_nomes, &nome_proc_func);
             if ( nome_proc_func == NULL ) {
@@ -2222,7 +2216,7 @@ yyreduce:
   case 76:
 
 /* Line 1806 of yacc.c  */
-#line 606 "compilador.y"
+#line 600 "compilador.y"
     {
 
             eh_parametro_formal = desempilha_Inteiro ( p_eh_parametro_formal);
@@ -2231,9 +2225,9 @@ yyreduce:
                 exit ( 1);
             }
 
-            /* Se simbolo é procedimento ou var_simples */
+            /* Se simbolo é passagem de parametro, procedimento ou var_simples */
             procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
-            if ( dados_simbolo1 != NULL && (strcmp ( categoria, dados_simbolo1->categoria) == 0 || strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0)) {
+            if ( dados_simbolo1 != NULL && (strcmp ( categoria_procedimento, dados_simbolo1->categoria) == 0 || strcmp ( categoria_var_simples, dados_simbolo1->categoria) == 0 || strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0)) {
 
                 /* Se é parametro de chamada de procedimento ou função */
                 if ( eh_parametro_formal == 1) {
@@ -2249,7 +2243,6 @@ yyreduce:
                     empilha_String ( p_tipos, tipo_fator);
 
                     empilha_pilhas_String ( p_p_tipos, p_tipos);
-
                     /* Se é a variável foi passada como parametro */
                     if ( strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0) {
                         /* Se a pssagem foi por valor */
@@ -2257,28 +2250,28 @@ yyreduce:
                             sprintf ( dados, "CRVL %d %d", x, y);
                             geraCodigo ( NULL, dados);
                         }
+                        /* Senão a passagem foi por referência */
                         else {
-                            /* Senão a passagem foi por referência */
                             sprintf ( dados, "CREN %d %d", x, y);
                             geraCodigo ( NULL, dados);
                         }
                     }
+                    /* Senão é uma variável */
                     else {
-                        /* Senão é uma variável */
                         sprintf ( dados, "CRVL %d %d", x, y);
                         geraCodigo ( NULL, dados);
                     }
                 }
+                /* Senão passagem por parametro é procedimento, variável ou função */
                 else {
-                    sprintf ( dados, "procedimento");
-
                     /* Se é procedimento */
-                    if ( strcmp( categoria, dados) == 0) {
+                    if ( strcmp( categoria_procedimento, dados_simbolo1->categoria) == 0) {
                         sprintf ( dados, "CHPR %s, %d", dados_simbolo1->rotulo, nivel_lexico);
                         geraCodigo ( NULL, dados );
                     }
+
+                    /* Senão é var_simples */
                     else {
-                        /* Senão é var_simples */
                         desempilha_pilhas_String ( p_p_tipos, &p_tipos);
                         if ( p_tipos == NULL) {
                             printf ( "Pilha p_p_tipos esta vazia em var_chama_proc_func2 var_simples\n");
@@ -2292,16 +2285,35 @@ yyreduce:
 
                         empilha_pilhas_String ( p_p_tipos, p_tipos);
 
-                        sprintf ( dados, "CRVL %d %d", x, y);
-                        geraCodigo ( NULL, dados);
+
+                        /* Se é a variável foi passada como parametro */
+                        if ( strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0) {
+                            /* Se a pssagem foi por valor */
+                            if ( strcmp ( categoria_parametro_valor, dados_simbolo1->parametro_valor_referencia) == 0) {
+                                sprintf ( dados, "CRVL %d %d", x, y);
+                                geraCodigo ( NULL, dados);
+                            }
+                            /* Senão a passagem foi por referência */
+                            else {
+                                sprintf ( dados, "CREN %d %d", x, y);
+                                geraCodigo ( NULL, dados);
+                            }
+                        }
+                       /* Senão é uma variável */
+                        else {
+                            sprintf ( dados, "CRVL %d %d", x, y);
+                            geraCodigo ( NULL, dados);
+                        }
                     }
+                    /* Fim do senão é var_simples */
+
                 }
 
             }
+            /* Senão passagem parametro, procedimentou ou var simeples */
+            /* Então é função */
             else {
-
-                /* Senão é funcao */
-                procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
+                //procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
                 if ( dados_simbolo1 != NULL && strcmp ( categoria_funcao, dados_simbolo1->categoria) == 0) {
                     if ( dados_simbolo1->qtd_parametros != num_parametros) {
                         sprintf ( dados, "Para função '%s' numero de parametros incorreto", nome_var_proc_func);
@@ -2311,6 +2323,7 @@ yyreduce:
 
                     /* Se a função não faz parte de uma expressão da atribuição */
                     /* No caso ele não faz parte disso ' a := funcao ' */
+                    /* Empilha o tipo do variável de retorno */
                     if ( eh_parametro_formal != 2) {
                         desempilha_pilhas_String ( p_p_tipos, &p_tipos);
                         if ( p_tipos == NULL) {
@@ -2328,6 +2341,12 @@ yyreduce:
 
                     sprintf ( dados, "CHPR %s, %d", dados_simbolo1->rotulo, nivel_lexico);
                     geraCodigo ( NULL, dados );
+
+                    /* Se foi chamado uma função sem atribuição */
+                    if ( eh_parametro_formal == 2) {
+                        sprintf ( dados, "DMEN 1");
+                        geraCodigo ( NULL, dados);
+                    }
                 }
             }
 
@@ -2338,7 +2357,7 @@ yyreduce:
   case 77:
 
 /* Line 1806 of yacc.c  */
-#line 720 "compilador.y"
+#line 739 "compilador.y"
     {
             empilha_Inteiro ( p_eh_parametro_formal, 1);
 
@@ -2359,7 +2378,7 @@ yyreduce:
   case 78:
 
 /* Line 1806 of yacc.c  */
-#line 735 "compilador.y"
+#line 754 "compilador.y"
     {
 
             num_termos = desempilha_Inteiro ( p_num_termos);
@@ -2420,7 +2439,7 @@ yyreduce:
   case 79:
 
 /* Line 1806 of yacc.c  */
-#line 791 "compilador.y"
+#line 810 "compilador.y"
     {
             empilha_Inteiro ( p_eh_parametro_formal, 1);
 
@@ -2441,7 +2460,7 @@ yyreduce:
   case 80:
 
 /* Line 1806 of yacc.c  */
-#line 806 "compilador.y"
+#line 825 "compilador.y"
     {
 
             num_termos = desempilha_Inteiro ( p_num_termos);
@@ -2502,7 +2521,7 @@ yyreduce:
   case 82:
 
 /* Line 1806 of yacc.c  */
-#line 866 "compilador.y"
+#line 885 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_String ( p_rotulos, rotulo1);
@@ -2513,7 +2532,7 @@ yyreduce:
   case 84:
 
 /* Line 1806 of yacc.c  */
-#line 874 "compilador.y"
+#line 893 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo2);
             empilha_String ( p_rotulos, rotulo2);
@@ -2525,7 +2544,7 @@ yyreduce:
   case 86:
 
 /* Line 1806 of yacc.c  */
-#line 881 "compilador.y"
+#line 900 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo2);
             empilha_String ( p_rotulos, rotulo2);
@@ -2537,7 +2556,7 @@ yyreduce:
   case 88:
 
 /* Line 1806 of yacc.c  */
-#line 891 "compilador.y"
+#line 910 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo2);
             if ( rotulo2 == NULL ) {
@@ -2560,7 +2579,7 @@ yyreduce:
   case 89:
 
 /* Line 1806 of yacc.c  */
-#line 909 "compilador.y"
+#line 928 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo2);
             if ( rotulo2 == NULL ) {
@@ -2583,7 +2602,7 @@ yyreduce:
   case 90:
 
 /* Line 1806 of yacc.c  */
-#line 930 "compilador.y"
+#line 949 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo2);
             if ( rotulo2 == NULL ) {
@@ -2598,7 +2617,7 @@ yyreduce:
   case 91:
 
 /* Line 1806 of yacc.c  */
-#line 940 "compilador.y"
+#line 959 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo2);
             if ( rotulo2 == NULL ) {
@@ -2613,7 +2632,7 @@ yyreduce:
   case 92:
 
 /* Line 1806 of yacc.c  */
-#line 953 "compilador.y"
+#line 972 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_String ( p_rotulos, rotulo1);
@@ -2625,7 +2644,7 @@ yyreduce:
   case 94:
 
 /* Line 1806 of yacc.c  */
-#line 960 "compilador.y"
+#line 979 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_String ( p_rotulos, rotulo1);
@@ -2637,7 +2656,7 @@ yyreduce:
   case 98:
 
 /* Line 1806 of yacc.c  */
-#line 975 "compilador.y"
+#line 994 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo1);
             if ( rotulo1 == NULL ) {
@@ -2657,7 +2676,7 @@ yyreduce:
   case 107:
 
 /* Line 1806 of yacc.c  */
-#line 1009 "compilador.y"
+#line 1028 "compilador.y"
     {
             geraCodigo (NULL, "SOMA");
             }
@@ -2666,7 +2685,7 @@ yyreduce:
   case 108:
 
 /* Line 1806 of yacc.c  */
-#line 1013 "compilador.y"
+#line 1032 "compilador.y"
     {
             geraCodigo (NULL, "SUBT");
             }
@@ -2675,7 +2694,7 @@ yyreduce:
   case 110:
 
 /* Line 1806 of yacc.c  */
-#line 1021 "compilador.y"
+#line 1040 "compilador.y"
     {
             geraCodigo (NULL, "MULT");
             }
@@ -2684,7 +2703,7 @@ yyreduce:
   case 111:
 
 /* Line 1806 of yacc.c  */
-#line 1025 "compilador.y"
+#line 1044 "compilador.y"
     {
             geraCodigo (NULL, "DIVI");
             }
@@ -2693,9 +2712,8 @@ yyreduce:
   case 113:
 
 /* Line 1806 of yacc.c  */
-#line 1033 "compilador.y"
+#line 1052 "compilador.y"
     {
-            sprintf ( categoria, "var_simples");
             sprintf ( nome_var_proc_func, "%s", token);
 
             num_termos = desempilha_Inteiro ( p_num_termos);
@@ -2712,13 +2730,12 @@ yyreduce:
   case 115:
 
 /* Line 1806 of yacc.c  */
-#line 1047 "compilador.y"
+#line 1065 "compilador.y"
     {
             sprintf ( dados, "CRCT %s", token);
             geraCodigo ( NULL, dados);
 
-            sprintf ( dados, "integer");
-            strcpy ( tipo_fator, dados);
+            strcpy ( tipo_fator, tipo_inteiro);
             empilha_String ( p_tipos, tipo_fator);
 
             num_termos = desempilha_Inteiro ( p_num_termos);
@@ -2738,10 +2755,9 @@ yyreduce:
   case 116:
 
 /* Line 1806 of yacc.c  */
-#line 1068 "compilador.y"
+#line 1085 "compilador.y"
     {
-            sprintf ( dados, "integer");
-            strcpy ( tipo_fator, dados);
+            strcpy ( tipo_fator, tipo_inteiro);
             empilha_String ( p_tipos, tipo_fator);
             }
     break;
@@ -2749,7 +2765,7 @@ yyreduce:
   case 118:
 
 /* Line 1806 of yacc.c  */
-#line 1078 "compilador.y"
+#line 1094 "compilador.y"
     {
             geraCodigo ( NULL, "INVR");
             }
@@ -2758,7 +2774,7 @@ yyreduce:
   case 119:
 
 /* Line 1806 of yacc.c  */
-#line 1085 "compilador.y"
+#line 1101 "compilador.y"
     {
             geraCodigo ( NULL, "CMIG");
             }
@@ -2767,7 +2783,7 @@ yyreduce:
   case 120:
 
 /* Line 1806 of yacc.c  */
-#line 1089 "compilador.y"
+#line 1105 "compilador.y"
     {
             geraCodigo ( NULL, "CMDG");
             }
@@ -2776,7 +2792,7 @@ yyreduce:
   case 121:
 
 /* Line 1806 of yacc.c  */
-#line 1093 "compilador.y"
+#line 1109 "compilador.y"
     {
             geraCodigo ( NULL, "CMMA");
             }
@@ -2785,7 +2801,7 @@ yyreduce:
   case 122:
 
 /* Line 1806 of yacc.c  */
-#line 1097 "compilador.y"
+#line 1113 "compilador.y"
     {
             geraCodigo ( NULL, "CMAG");
             }
@@ -2794,7 +2810,7 @@ yyreduce:
   case 123:
 
 /* Line 1806 of yacc.c  */
-#line 1101 "compilador.y"
+#line 1117 "compilador.y"
     {
             geraCodigo ( NULL, "CMME");
             }
@@ -2803,7 +2819,7 @@ yyreduce:
   case 124:
 
 /* Line 1806 of yacc.c  */
-#line 1105 "compilador.y"
+#line 1121 "compilador.y"
     {
             geraCodigo ( NULL, "CMEG");
             }
@@ -2812,7 +2828,7 @@ yyreduce:
   case 125:
 
 /* Line 1806 of yacc.c  */
-#line 1109 "compilador.y"
+#line 1125 "compilador.y"
     {
             geraCodigo ( NULL, "CONJ");
             }
@@ -2821,7 +2837,7 @@ yyreduce:
   case 126:
 
 /* Line 1806 of yacc.c  */
-#line 1113 "compilador.y"
+#line 1129 "compilador.y"
     {
             geraCodigo ( NULL, "DISJ");
             }
@@ -2830,7 +2846,7 @@ yyreduce:
   case 127:
 
 /* Line 1806 of yacc.c  */
-#line 1117 "compilador.y"
+#line 1133 "compilador.y"
     {
             geraCodigo ( NULL, "INVR");
             geraCodigo ( NULL, "CONJ");
@@ -2840,7 +2856,7 @@ yyreduce:
   case 129:
 
 /* Line 1806 of yacc.c  */
-#line 1126 "compilador.y"
+#line 1142 "compilador.y"
     {
             procura_simb ( token, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 == NULL ){ // numero -99 indica que nao encontrou simb na tabela
@@ -2856,7 +2872,7 @@ yyreduce:
   case 130:
 
 /* Line 1806 of yacc.c  */
-#line 1137 "compilador.y"
+#line 1153 "compilador.y"
     {
             sprintf ( dados, "CRCT %s", token);
             geraCodigo ( NULL, dados);
@@ -2866,7 +2882,7 @@ yyreduce:
 
 
 /* Line 1806 of yacc.c  */
-#line 2870 "compilador.tab.c"
+#line 2886 "compilador.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -3097,7 +3113,7 @@ yyreturn:
 
 
 /* Line 2067 of yacc.c  */
-#line 1145 "compilador.y"
+#line 1161 "compilador.y"
 
 
 void yyerror ( char const *message)
