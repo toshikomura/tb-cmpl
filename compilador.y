@@ -604,7 +604,7 @@ var_chama_proc_func_2: {
 
                     num_parametros_aux = desempilha_Inteiro ( p_num_parametros);
 
-                    /* Precisa somar 1 pois a variável ainda não foi incluida procedimento/função */
+                    /* Precisa somar +1 pois a variável ainda não foi incluida procedimento/função */
                     procura_Tipo_Passagem ( dados_simbolo2, &parametro_valor_referencia, num_parametros_aux + 1);
 
                     empilha_Inteiro ( p_num_parametros, num_parametros_aux);
@@ -659,8 +659,15 @@ var_chama_proc_func_2: {
                 else {
                     /* Se é procedimento */
                     if ( strcmp( categoria_procedimento, dados_simbolo1->categoria) == 0) {
-                        sprintf ( dados, "CHPR %s, %d", dados_simbolo1->rotulo, nivel_lexico);
-                        geraCodigo ( NULL, dados );
+                        if ( eh_parametro_formal == 2) {
+                            sprintf ( dados, "CHPR %s, %d", dados_simbolo1->rotulo, nivel_lexico);
+                            geraCodigo ( NULL, dados );
+                        }
+                        else {
+                            sprintf ( dados, "O %s é um procedimento e procedimentos não podem ser passado em atrbuiçoes", dados_simbolo1->simbolo);
+                            imprimeErro ( dados);
+                            exit ( 1);
+                        }
                     }
 
                     /* Senão é var_simples */
