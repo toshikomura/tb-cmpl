@@ -6,12 +6,16 @@ R1: NADA
      DSVS R2
 R3: NADA 
      ENPR 2
+     CRVL 1 -6
+     CRVI 1 -4
+     SOMA
+     ARMZ 0, 0
      RTPR 2, 3
 R2: NADA 
      AMEN 1
      CRVL 0 2
-     CRVL 0 0
-     CRVL 0 1
+     CREN 0 0
+     CREN 0 1
      CHPR R3, 1
      DMEN 1
      RTPR 1, 0
@@ -87,6 +91,7 @@ R4: NADA
      SOMA
      CRCT 3
      SOMA
-     ARMZ 0, 0
+     ARMZ 0, 1
+     CHPR R5, 0
      DMEM 4
      PARA
