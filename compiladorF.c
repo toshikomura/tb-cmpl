@@ -47,7 +47,7 @@ void inicia_variaveis_globais () {
     valor_rotulo = 0;
     num_vars = 0;
     nivel_lexico = 0;
-    desloc = 0;
+    deslocamento = 0;
 
     sprintf ( tipo_inteiro, "integer");
     sprintf ( categoria_procedimento, "procedimento");
@@ -96,7 +96,7 @@ void imprime_Simbolo_TB_SIMB () {
     no_tabela_simbolos_p *slot_tb_simb_aux = p_tb_simb->primeiro;
 
     while ( slot_tb_simb_aux != NULL) {
-        printf ( "|| %s | %s | %s | %s | %s | %s | %d | %d | %d ", slot_tb_simb_aux->simbolo, slot_tb_simb_aux->tipo, slot_tb_simb_aux->categoria, slot_tb_simb_aux->rotulo, slot_tb_simb_aux->parametro_valor_referencia, slot_tb_simb_aux->tipo_retorno, slot_tb_simb_aux->nivel_lexico, slot_tb_simb_aux->desloc, slot_tb_simb_aux->qtd_parametros);
+        printf ( "|| %s | %s | %s | %s | %s | %s | %d | %d | %d ", slot_tb_simb_aux->simbolo, slot_tb_simb_aux->tipo, slot_tb_simb_aux->categoria, slot_tb_simb_aux->rotulo, slot_tb_simb_aux->parametro_valor_referencia, slot_tb_simb_aux->tipo_retorno, slot_tb_simb_aux->nivel_lexico, slot_tb_simb_aux->deslocamento, slot_tb_simb_aux->qtd_parametros);
 
         tip_para_aux = slot_tb_simb_aux->primeiro_tipo_parametro;
 
@@ -131,7 +131,7 @@ void empilha_Simbolo_TB_SIMB ( char *simb, char *ca, char *pa_va_re, char *rot, 
     novo_slot_tb_simb->parametro_valor_referencia = para_valo_refe;
 
     novo_slot_tb_simb->nivel_lexico = nivel_l;
-    novo_slot_tb_simb->desloc = des;
+    novo_slot_tb_simb->deslocamento = des;
     novo_slot_tb_simb->qtd_parametros = 0;
 
     novo_slot_tb_simb->prox = p_tb_simb->primeiro;
@@ -269,7 +269,7 @@ void procura_simb ( char *simb, int *nivel_lexico, int *desloc, char **tip, no_t
 
     if ( slot_tb_simb_aux != NULL){
         *nivel_lexico = slot_tb_simb_aux->nivel_lexico;
-        *desloc = slot_tb_simb_aux->desloc;
+        *desloc = slot_tb_simb_aux->deslocamento;
         *tip = slot_tb_simb_aux->tipo;
 
         *slot_tb_simb_retorno =  slot_tb_simb_aux;
@@ -516,4 +516,25 @@ void procura_Tipo_Passagem ( no_tabela_simbolos_p *slot_tb_simb_proc_func, char 
     }
     else
         *tip_val_ref = tip_para_aux->valor_referencia;
+}
+
+/* Função que insere os enderços de deslocamento dos parametros procedimentou ou função */
+void insere_Endereco_parametro ( no_tabela_simbolos_p *slot_tb_simb_proc_func) {
+
+    int j = -4;
+    int i = 0;
+    no_tabela_simbolos_p *slot_tb_simb_aux = p_tb_simb->primeiro;
+
+    while ( i < slot_tb_simb_proc_func->qtd_parametros) {
+        slot_tb_simb_aux->deslocamento = j;
+        j--;
+        slot_tb_simb_aux = slot_tb_simb_aux->prox;
+        i++;
+    }
+
+    if ( slot_tb_simb_aux == NULL) {
+        printf ( "Não encontrou procedimento ou função em insere_Endereco_parametro\n");
+        exit ( 1);
+    }
+
 }

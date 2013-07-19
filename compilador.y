@@ -24,6 +24,7 @@ char *parametro_valor_referencia;
 char *tipo_retorno;
 char *nome_var_proc_func;
 char *nome_proc_func;
+char *nome_var;
 char *tipo_inteiro;
 
 char *tipo_fator;
@@ -37,7 +38,7 @@ int eh_parametro_formal;
 int num_termos;
 
 int nivel_lexico;
-int desloc;
+int deslocamento;
 
 int x, y;
 int x_proc_func, y_proc_func;
@@ -176,8 +177,8 @@ lista_id_var: lista_id_var VIRGULA IDENT
 
             sprintf ( tipo_retorno, "sem_tipo");
             sprintf ( parametro_valor_referencia, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria_var_simples, parametro_valor_referencia, NULL, nivel_lexico, desloc);
-            desloc++;
+            empilha_Simbolo_TB_SIMB ( token, categoria_var_simples, parametro_valor_referencia, NULL, nivel_lexico, deslocamento);
+            deslocamento++;
             num_vars++;
             }
             | IDENT
@@ -191,8 +192,8 @@ lista_id_var: lista_id_var VIRGULA IDENT
 
             sprintf ( tipo_retorno, "sem_tipo");
             sprintf ( parametro_valor_referencia, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria_var_simples, parametro_valor_referencia, NULL, nivel_lexico, desloc);
-            desloc++;
+            empilha_Simbolo_TB_SIMB ( token, categoria_var_simples, parametro_valor_referencia, NULL, nivel_lexico, deslocamento);
+            deslocamento++;
             num_vars++;
             }
 ;
@@ -276,7 +277,7 @@ procedimento_ou_funcao: PROCEDIMENTO IDENT
 
             procura_simb ( nome_proc_func, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 == NULL){
-                printf ( "O simbolo %s não foi encontrado em procura_simb proc_func\n", dados_simbolo1->simbolo);
+                printf ( "O simbolo %s não foi encontrado em procura_simb procedimento_ou_funcao\n", dados_simbolo1->simbolo);
                 exit ( 1);
             }
 
@@ -304,14 +305,14 @@ procedimento_ou_funcao: PROCEDIMENTO IDENT
 
             procura_simb ( nome_proc_func, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 == NULL){
-                printf ( "O simbolo %s não foi encontrado em procura_simb proc_func\n", dados_simbolo1->simbolo);
+                printf ( "O simbolo %s não foi encontrado em procura_simb procedimento_ou_funcao\n", dados_simbolo1->simbolo);
                 exit ( 1);
             }
 
             /* Deleta itens que não podem mais ser usados na tabela de simbolos */
             deleta_itens_Tabela_Simbolos ( dados_simbolo1, &dados_simbolo2);
             if ( dados_simbolo2  == NULL ) {
-                printf ( "O simbolo %s não conseguiu deletar itens em proc_func\n", dados_simbolo1->simbolo);
+                printf ( "O simbolo %s não conseguiu deletar itens em procedimento_ou_funcao\n", dados_simbolo1->simbolo);
                 exit ( 1);
             }
 
@@ -322,6 +323,20 @@ procedimento_ou_funcao: PROCEDIMENTO IDENT
 
 
 procedimento_ou_funcao_2: ABRE_PARENTESES parametros_vars_proc_ou_func FECHA_PARENTESES
+            {
+            /* Insere endereços dos parametros formais procedimentou ou função */
+            desempilha_String ( p_nomes, &nome_proc_func);
+
+            procura_simb ( nome_proc_func, &x, &y, &tipo, &dados_simbolo1);
+            if ( dados_simbolo1 == NULL){
+                printf ( "O simbolo %s não foi encontrado em procura_simb procedimento_ou_funcao_2\n", dados_simbolo1->simbolo);
+                exit ( 1);
+            }
+
+            insere_Endereco_parametro ( dados_simbolo1);
+
+            empilha_String ( p_nomes, nome_proc_func);
+            }
             |
 ;
 
@@ -332,8 +347,8 @@ procedimento_ou_funcao_3:
             /* Empilha deslocamento para não perder ele depois */
             /* que sair do procedimento e inicia um novo */
             /* Aumento nivel léxico por causa da entrada no procedimento */
-            empilha_Inteiro ( p_deslocamentos, desloc);
-            desloc = 0;
+            empilha_Inteiro ( p_deslocamentos, deslocamento);
+            deslocamento = 0;
             nivel_lexico++;
 
             geraCodigo ( rotulo1, "NADA");
@@ -344,7 +359,7 @@ procedimento_ou_funcao_3:
             /* Ao terminar de ler todo o procedimento retoma o deslocamento */
             /* Diminui o nivel lexico por causa do fim do procedimento */
 
-            desloc = desempilha_Inteiro ( p_deslocamentos);
+            deslocamento = desempilha_Inteiro ( p_deslocamentos);
 
             nivel_lexico--;
             }
@@ -393,7 +408,7 @@ lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA IDENT
             }
 
             sprintf ( tipo_retorno, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria_parametro_formal, parametro_valor_referencia, NULL, nivel_lexico, desloc);
+            empilha_Simbolo_TB_SIMB ( token, categoria_parametro_formal, parametro_valor_referencia, NULL, nivel_lexico, deslocamento);
             num_parametros++;
             }
             | IDENT
@@ -408,7 +423,7 @@ lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA IDENT
             }
 
             sprintf ( tipo_retorno, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria_parametro_formal, parametro_valor_referencia, NULL, nivel_lexico, desloc);
+            empilha_Simbolo_TB_SIMB ( token, categoria_parametro_formal, parametro_valor_referencia, NULL, nivel_lexico, deslocamento);
             num_parametros++;
             }
 ;
@@ -437,6 +452,7 @@ atrib_proc_func_2: atribuicao
 
 
 atribuicao: {
+            /* Verifica se a variável foi declarada */
             procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 == NULL || strcmp ( categoria_var_simples, dados_simbolo1->categoria) != 0) {
                 if ( dados_simbolo1 == NULL)
@@ -464,8 +480,22 @@ atribuicao: {
 
             empilha_Inteiro ( p_num_termos, 0);
 
+            /* Guarda o nome da variável */
+            nome_var = malloc ( sizeof (char)*TAM_TOKEN);
+            strcpy ( nome_var, nome_var_proc_func);
+            empilha_String ( p_nomes, nome_var);
+
             } expressao_aritmetica
             {
+            /* Reccupera variável de atribuição */
+            desempilha_String ( p_nomes, &nome_var);
+            strcpy ( nome_var_proc_func, nome_var);
+
+            procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
+            if ( dados_simbolo1 == NULL){
+                printf ( "Problema o tentar encontrar a variavel de atribuição em atribuição\n");
+                exit ( 1);
+            }
 
             num_termos = desempilha_Inteiro ( p_num_termos);
 
@@ -548,7 +578,6 @@ passagem: ABRE_PARENTESES
 var_chama_proc_func_2: {
 
             eh_parametro_formal = desempilha_Inteiro ( p_eh_parametro_formal);
-
             /* Se simbolo é passagem de parametro, procedimento ou var_simples */
             procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 != NULL && (strcmp ( categoria_procedimento, dados_simbolo1->categoria) == 0 || strcmp ( categoria_var_simples, dados_simbolo1->categoria) == 0 || strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0)) {
@@ -573,11 +602,12 @@ var_chama_proc_func_2: {
                         exit ( 1);
                     }
 
-                    num_termos = desempilha_Inteiro ( p_num_termos);
+                    num_parametros_aux = desempilha_Inteiro ( p_num_parametros);
 
-                    procura_Tipo_Passagem ( dados_simbolo2, &parametro_valor_referencia, num_termos);
+                    /* Precisa somar 1 pois a variável ainda não foi incluida procedimento/função */
+                    procura_Tipo_Passagem ( dados_simbolo2, &parametro_valor_referencia, num_parametros_aux + 1);
 
-                    empilha_Inteiro ( p_num_termos, num_termos);
+                    empilha_Inteiro ( p_num_parametros, num_parametros_aux);
                     empilha_String ( p_nomes, nome_proc_func);
                     /* Fim da Bsuca a função para checar os parametros */
 
@@ -613,8 +643,16 @@ var_chama_proc_func_2: {
                     }
                     /* Senão é uma variável */
                     else {
-                        sprintf ( dados, "CRVL %d %d", x, y);
-                        geraCodigo ( NULL, dados);
+                        /* Se procedimento/função chamada recebe valor */
+                        if ( strcmp ( categoria_parametro_valor, parametro_valor_referencia) == 0) {
+                            sprintf ( dados, "CRVL %d %d", x, y);
+                            geraCodigo ( NULL, dados);
+                        }
+                        /* Senão chamada recebe referencia */
+                        else {
+                            sprintf ( dados, "CREN %d %d", x, y);
+                            geraCodigo ( NULL, dados);
+                        }
                     }
                 }
                 /* Senão passagem por parametro é procedimento, variável ou função */

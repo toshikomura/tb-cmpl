@@ -51,7 +51,7 @@ typedef struct no_tabela_simbolos {
     char *parametro_valor_referencia;
     int qtd_parametros;
     int nivel_lexico;
-    int desloc;
+    int deslocamento;
     struct no_tabela_simbolos *prox;
     tipos_parametros_l *primeiro_tipo_parametro;
 } no_tabela_simbolos_p;
@@ -121,7 +121,7 @@ extern char *nome_var_proc_func;
 extern char *tipo_inteiro;
 
 extern int nivel_lexico;
-extern int desloc;
+extern int deslocamento;
 
 extern int nl;
 extern int num_vars;
