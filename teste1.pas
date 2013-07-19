@@ -4,7 +4,7 @@ var m,n,o :  integer;
 function y():integer;
   function x ( a : integer; var b,c:integer):integer;
   begin
-
+    m := a + c;
   end;
 begin
   x ( o, m, n);
@@ -46,4 +46,5 @@ begin
   z := 3;
   w;
   n := y + y + z + n * m + 3;
+  w;
 end.
