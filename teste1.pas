@@ -45,6 +45,5 @@ var z :integer;
 begin
   z := 3;
   w;
-  n := y + y + z + n * m + 3;
-  w;
+  n := y + y + z + n * m + 3 + w;
 end.
