@@ -280,35 +280,6 @@ void procura_simb ( char *simb, int *nivel_lexico, int *desloc, char **tip, no_t
 
 }
 
-/* Função que procura um simbolo de uma certa categoria na tabela de simbolos */
-/* Se encontra retorna 1 */
-/* Se não encontra retorna -99 */
-/*
-no_tabela_simbolos_p *procura_cat ( char *simb, char *cat, char **rot, char **tip, int *nivel_lexico, int *desloc) {
-
-    no_tabela_simbolos_p *slot_tb_simb_aux = p_tb_simb->primeiro;
-
-    while ( slot_tb_simb_aux != NULL && ( strcmp( slot_tb_simb_aux->simbolo, simb ) || strcmp( slot_tb_simb_aux->categoria, cat )) )
-        slot_tb_simb_aux = slot_tb_simb_aux->prox;
-
-    if ( slot_tb_simb_aux != NULL) {
-        *rot = slot_tb_simb_aux->rotulo;
-        *nivel_lexico = slot_tb_simb_aux->nivel_lexico;
-        *desloc = slot_tb_simb_aux->desloc;
-        *tip = slot_tb_simb_aux->tipo;
-
-        return slot_tb_simb_aux;
-
-    }
-    else {
-
-        return NULL;
-
-    }
-
-}
-*/
-
 /* Função que gera próximo rotulo */
 void gera_Proximo_Rotulo ( char **new_rotulo) {
 
@@ -352,7 +323,8 @@ void desempilha_String ( pilha_s *p, char **str) {
 
     if ( p->tam == 0){
 
-        *str = NULL;
+        printf ( "Pilha de strings esta vazia\n");
+        exit ( 1);
     }
     else
     {
@@ -393,7 +365,8 @@ void desempilha_pilhas_String ( pilha_pilhas_s *p, pilha_s **str) {
 
     if ( p->tam == 0){
 
-        *str = NULL;
+        printf ( "Pilha de pilhas de strings esta vazia\n");
+        exit ( 1);
     }
     else
     {
@@ -448,7 +421,9 @@ int desempilha_Inteiro ( pilha_i *p) {
     inteiros_p *inteiro_retirado;
 
     if ( p->tam == 0){
-        return -99;
+
+        printf ( "Pilha de Inteiros esta vazia\n");
+        exit ( 1);
     }
     else
     {
@@ -461,33 +436,12 @@ int desempilha_Inteiro ( pilha_i *p) {
     }
 }
 
-/* Função que verifica se os parametros conferem com o que esta na tabela de simbolos */
-/*
-int compara_parametros_proc_func ( char *simb, int qtd_param) {
-
-    int x, y;
-    no_tabela_simbolos_p *slot_tb_simb_aux;
-
-    slot_tb_simb_aux = procura_simb ( simb, &x, &y, &tipo);
-
-    if ( slot_tb_simb_aux != NULL)
-        if ( slot_tb_simb_aux->qtd_parametros == qtd_param)
-            return 1;
-
-    return -99;
-
-}
-*/
-
 /* Função que verifica se tipo do parametro declarado na chamada corresponde ao tipo do parametro */
 /* da função que está na tabela de simbolos */
 int chaca_tipo_parametro ( no_tabela_simbolos_p *slot_tb_simb_aux, char *ti, int parametro_n, int qtd_term) {
 
-    char *v_vl = malloc ( sizeof (char)*TAM_TOKEN);
     int j = 1;
     tipos_parametros_l *tip_para_aux = slot_tb_simb_aux->primeiro_tipo_parametro;
-
-    sprintf ( v_vl, "var_valor");
 
     while ( tip_para_aux != NULL && j < parametro_n) {
         tip_para_aux = tip_para_aux->prox;
@@ -509,7 +463,7 @@ int chaca_tipo_parametro ( no_tabela_simbolos_p *slot_tb_simb_aux, char *ti, int
         else {
 
             /* Caso o parametro seja um valor mas na declaração recebe um endereço */
-            if ( strcmp ( tip_para_aux->valor_referencia, v_vl) != 0 && qtd_term > 1)
+            if ( strcmp ( tip_para_aux->valor_referencia, categoria_parametro_valor) != 0 && qtd_term > 1)
 
                 return 99;
 
@@ -530,10 +484,11 @@ void deleta_itens_Tabela_Simbolos ( no_tabela_simbolos_p *slot_tb_simb_proc_func
         slot_tb_simb_aux = slot_tb_simb_aux->prox;
     }
 
-    if ( slot_tb_simb_aux == NULL)
+    if ( slot_tb_simb_aux == NULL) {
 
-        *slot_tb_simb_return = NULL;
-
+        printf ( "Não encontrou procedimento ou função para deleta_Itens_Tabela_Simbolos\n");
+        exit ( 1);
+    }
     else {
         p_tb_simb->primeiro = slot_tb_simb_aux;
 
@@ -541,4 +496,24 @@ void deleta_itens_Tabela_Simbolos ( no_tabela_simbolos_p *slot_tb_simb_proc_func
 
     }
 
+}
+
+/* Função que procura o tipo (valor/referencia) de passagem do parametro */
+void procura_Tipo_Passagem ( no_tabela_simbolos_p *slot_tb_simb_proc_func, char **tip_val_ref, int parametro_n) {
+
+    int j = 1;
+    tipos_parametros_l *tip_para_aux = slot_tb_simb_proc_func->primeiro_tipo_parametro;
+
+    while ( tip_para_aux != NULL && j < parametro_n) {
+        tip_para_aux = tip_para_aux->prox;
+        j++;
+    }
+
+    if ( tip_para_aux == NULL) {
+
+        printf ( "Não encontrou o tipo de passagem (valor/referencia) em procura_tipo_passagem\n");
+        exit ( 1);
+    }
+    else
+        *tip_val_ref = tip_para_aux->valor_referencia;
 }
