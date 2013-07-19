@@ -91,7 +91,3 @@ R4: NADA
      SOMA
      CRCT 3
      SOMA
-     ARMZ 0, 1
-     CHPR R5, 0
-     DMEM 4
-     PARA

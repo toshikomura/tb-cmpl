@@ -545,13 +545,13 @@ static const yytype_uint16 yyrline[] =
      257,   262,   261,   291,   290,   325,   340,   345,   345,   369,
      369,   372,   377,   376,   381,   381,   386,   387,   391,   391,
      399,   414,   433,   432,   439,   441,   441,   454,   467,   454,
-     523,   523,   558,   567,   557,   574,   578,   744,   743,   792,
-     792,   839,   844,   843,   852,   851,   859,   858,   868,   877,
-     889,   894,   903,   902,   910,   909,   919,   920,   925,   924,
-     935,   939,   940,   944,   945,   949,   950,   954,   958,   962,
-     966,   970,   974,   979,   978,   987,  1003,  1011,  1012,  1019,
-    1023,  1027,  1031,  1035,  1039,  1043,  1047,  1051,  1056,  1060,
-    1071,  1076
+     523,   523,   558,   567,   557,   574,   578,   751,   750,   799,
+     799,   846,   851,   850,   859,   858,   866,   865,   875,   884,
+     896,   901,   910,   909,   917,   916,   926,   927,   932,   931,
+     942,   946,   947,   951,   952,   956,   957,   961,   965,   969,
+     973,   977,   981,   986,   985,   994,  1010,  1018,  1019,  1026,
+    1030,  1034,  1038,  1042,  1046,  1050,  1054,  1058,  1063,  1067,
+    1078,  1083
 };
 #endif
 
@@ -2230,7 +2230,7 @@ yyreduce:
 
                     num_parametros_aux = desempilha_Inteiro ( p_num_parametros);
 
-                    /* Precisa somar 1 pois a variável ainda não foi incluida procedimento/função */
+                    /* Precisa somar +1 pois a variável ainda não foi incluida procedimento/função */
                     procura_Tipo_Passagem ( dados_simbolo2, &parametro_valor_referencia, num_parametros_aux + 1);
 
                     empilha_Inteiro ( p_num_parametros, num_parametros_aux);
@@ -2285,8 +2285,15 @@ yyreduce:
                 else {
                     /* Se é procedimento */
                     if ( strcmp( categoria_procedimento, dados_simbolo1->categoria) == 0) {
-                        sprintf ( dados, "CHPR %s, %d", dados_simbolo1->rotulo, nivel_lexico);
-                        geraCodigo ( NULL, dados );
+                        if ( eh_parametro_formal == 2) {
+                            sprintf ( dados, "CHPR %s, %d", dados_simbolo1->rotulo, nivel_lexico);
+                            geraCodigo ( NULL, dados );
+                        }
+                        else {
+                            sprintf ( dados, "O %s é um procedimento e procedimentos não podem ser passado em atrbuiçoes", dados_simbolo1->simbolo);
+                            imprimeErro ( dados);
+                            exit ( 1);
+                        }
                     }
 
                     /* Senão é var_simples */
@@ -2368,7 +2375,7 @@ yyreduce:
   case 77:
 
 /* Line 1806 of yacc.c  */
-#line 744 "compilador.y"
+#line 751 "compilador.y"
     {
             empilha_Inteiro ( p_eh_parametro_formal, 1);
 
@@ -2389,7 +2396,7 @@ yyreduce:
   case 78:
 
 /* Line 1806 of yacc.c  */
-#line 759 "compilador.y"
+#line 766 "compilador.y"
     {
 
             num_termos = desempilha_Inteiro ( p_num_termos);
@@ -2427,7 +2434,7 @@ yyreduce:
   case 79:
 
 /* Line 1806 of yacc.c  */
-#line 792 "compilador.y"
+#line 799 "compilador.y"
     {
             empilha_Inteiro ( p_eh_parametro_formal, 1);
 
@@ -2448,7 +2455,7 @@ yyreduce:
   case 80:
 
 /* Line 1806 of yacc.c  */
-#line 807 "compilador.y"
+#line 814 "compilador.y"
     {
 
             num_termos = desempilha_Inteiro ( p_num_termos);
@@ -2486,7 +2493,7 @@ yyreduce:
   case 82:
 
 /* Line 1806 of yacc.c  */
-#line 844 "compilador.y"
+#line 851 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_String ( p_rotulos, rotulo1);
@@ -2495,18 +2502,6 @@ yyreduce:
     break;
 
   case 84:
-
-/* Line 1806 of yacc.c  */
-#line 852 "compilador.y"
-    {
-            gera_Proximo_Rotulo ( &rotulo2);
-            empilha_String ( p_rotulos, rotulo2);
-            sprintf ( dados, "DSVF %s", rotulo2);
-            geraCodigo ( NULL, dados);
-            }
-    break;
-
-  case 86:
 
 /* Line 1806 of yacc.c  */
 #line 859 "compilador.y"
@@ -2518,10 +2513,22 @@ yyreduce:
             }
     break;
 
+  case 86:
+
+/* Line 1806 of yacc.c  */
+#line 866 "compilador.y"
+    {
+            gera_Proximo_Rotulo ( &rotulo2);
+            empilha_String ( p_rotulos, rotulo2);
+            sprintf ( dados, "DSVF %s", rotulo2);
+            geraCodigo ( NULL, dados);
+            }
+    break;
+
   case 88:
 
 /* Line 1806 of yacc.c  */
-#line 869 "compilador.y"
+#line 876 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo2);
             desempilha_String ( p_rotulos, &rotulo1);
@@ -2535,7 +2542,7 @@ yyreduce:
   case 89:
 
 /* Line 1806 of yacc.c  */
-#line 878 "compilador.y"
+#line 885 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo2);
             desempilha_String ( p_rotulos, &rotulo1);
@@ -2549,7 +2556,7 @@ yyreduce:
   case 90:
 
 /* Line 1806 of yacc.c  */
-#line 890 "compilador.y"
+#line 897 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo2);
             geraCodigo ( rotulo2, "NADA");
@@ -2559,7 +2566,7 @@ yyreduce:
   case 91:
 
 /* Line 1806 of yacc.c  */
-#line 895 "compilador.y"
+#line 902 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo2);
             geraCodigo ( rotulo2, "NADA");
@@ -2569,7 +2576,7 @@ yyreduce:
   case 92:
 
 /* Line 1806 of yacc.c  */
-#line 903 "compilador.y"
+#line 910 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_String ( p_rotulos, rotulo1);
@@ -2581,7 +2588,7 @@ yyreduce:
   case 94:
 
 /* Line 1806 of yacc.c  */
-#line 910 "compilador.y"
+#line 917 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_String ( p_rotulos, rotulo1);
@@ -2593,7 +2600,7 @@ yyreduce:
   case 98:
 
 /* Line 1806 of yacc.c  */
-#line 925 "compilador.y"
+#line 932 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo1);
 
@@ -2609,7 +2616,7 @@ yyreduce:
   case 107:
 
 /* Line 1806 of yacc.c  */
-#line 955 "compilador.y"
+#line 962 "compilador.y"
     {
             geraCodigo (NULL, "SOMA");
             }
@@ -2618,7 +2625,7 @@ yyreduce:
   case 108:
 
 /* Line 1806 of yacc.c  */
-#line 959 "compilador.y"
+#line 966 "compilador.y"
     {
             geraCodigo (NULL, "SUBT");
             }
@@ -2627,7 +2634,7 @@ yyreduce:
   case 110:
 
 /* Line 1806 of yacc.c  */
-#line 967 "compilador.y"
+#line 974 "compilador.y"
     {
             geraCodigo (NULL, "MULT");
             }
@@ -2636,7 +2643,7 @@ yyreduce:
   case 111:
 
 /* Line 1806 of yacc.c  */
-#line 971 "compilador.y"
+#line 978 "compilador.y"
     {
             geraCodigo (NULL, "DIVI");
             }
@@ -2645,7 +2652,7 @@ yyreduce:
   case 113:
 
 /* Line 1806 of yacc.c  */
-#line 979 "compilador.y"
+#line 986 "compilador.y"
     {
             sprintf ( nome_var_proc_func, "%s", token);
 
@@ -2659,7 +2666,7 @@ yyreduce:
   case 115:
 
 /* Line 1806 of yacc.c  */
-#line 988 "compilador.y"
+#line 995 "compilador.y"
     {
             sprintf ( dados, "CRCT %s", token);
             geraCodigo ( NULL, dados);
@@ -2680,7 +2687,7 @@ yyreduce:
   case 116:
 
 /* Line 1806 of yacc.c  */
-#line 1004 "compilador.y"
+#line 1011 "compilador.y"
     {
             strcpy ( tipo_fator, tipo_inteiro);
             empilha_String ( p_tipos, tipo_fator);
@@ -2690,7 +2697,7 @@ yyreduce:
   case 118:
 
 /* Line 1806 of yacc.c  */
-#line 1013 "compilador.y"
+#line 1020 "compilador.y"
     {
             geraCodigo ( NULL, "INVR");
             }
@@ -2699,7 +2706,7 @@ yyreduce:
   case 119:
 
 /* Line 1806 of yacc.c  */
-#line 1020 "compilador.y"
+#line 1027 "compilador.y"
     {
             geraCodigo ( NULL, "CMIG");
             }
@@ -2708,7 +2715,7 @@ yyreduce:
   case 120:
 
 /* Line 1806 of yacc.c  */
-#line 1024 "compilador.y"
+#line 1031 "compilador.y"
     {
             geraCodigo ( NULL, "CMDG");
             }
@@ -2717,7 +2724,7 @@ yyreduce:
   case 121:
 
 /* Line 1806 of yacc.c  */
-#line 1028 "compilador.y"
+#line 1035 "compilador.y"
     {
             geraCodigo ( NULL, "CMMA");
             }
@@ -2726,7 +2733,7 @@ yyreduce:
   case 122:
 
 /* Line 1806 of yacc.c  */
-#line 1032 "compilador.y"
+#line 1039 "compilador.y"
     {
             geraCodigo ( NULL, "CMAG");
             }
@@ -2735,7 +2742,7 @@ yyreduce:
   case 123:
 
 /* Line 1806 of yacc.c  */
-#line 1036 "compilador.y"
+#line 1043 "compilador.y"
     {
             geraCodigo ( NULL, "CMME");
             }
@@ -2744,7 +2751,7 @@ yyreduce:
   case 124:
 
 /* Line 1806 of yacc.c  */
-#line 1040 "compilador.y"
+#line 1047 "compilador.y"
     {
             geraCodigo ( NULL, "CMEG");
             }
@@ -2753,7 +2760,7 @@ yyreduce:
   case 125:
 
 /* Line 1806 of yacc.c  */
-#line 1044 "compilador.y"
+#line 1051 "compilador.y"
     {
             geraCodigo ( NULL, "CONJ");
             }
@@ -2762,7 +2769,7 @@ yyreduce:
   case 126:
 
 /* Line 1806 of yacc.c  */
-#line 1048 "compilador.y"
+#line 1055 "compilador.y"
     {
             geraCodigo ( NULL, "DISJ");
             }
@@ -2771,7 +2778,7 @@ yyreduce:
   case 127:
 
 /* Line 1806 of yacc.c  */
-#line 1052 "compilador.y"
+#line 1059 "compilador.y"
     {
             geraCodigo ( NULL, "INVR");
             geraCodigo ( NULL, "CONJ");
@@ -2781,7 +2788,7 @@ yyreduce:
   case 129:
 
 /* Line 1806 of yacc.c  */
-#line 1061 "compilador.y"
+#line 1068 "compilador.y"
     {
             procura_simb ( token, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 == NULL ){ // numero -99 indica que nao encontrou simb na tabela
@@ -2797,7 +2804,7 @@ yyreduce:
   case 130:
 
 /* Line 1806 of yacc.c  */
-#line 1072 "compilador.y"
+#line 1079 "compilador.y"
     {
             sprintf ( dados, "CRCT %s", token);
             geraCodigo ( NULL, dados);
@@ -2807,7 +2814,7 @@ yyreduce:
 
 
 /* Line 1806 of yacc.c  */
-#line 2811 "compilador.tab.c"
+#line 2818 "compilador.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -3038,7 +3045,7 @@ yyreturn:
 
 
 /* Line 2067 of yacc.c  */
-#line 1080 "compilador.y"
+#line 1087 "compilador.y"
 
 
 void yyerror ( char const *message)

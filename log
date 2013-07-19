@@ -608,8 +608,6 @@ begin     # begin
  ident      # m 
  soma     # + 
  numero      # 3 
- pt_virgula      # ; 
+ soma     # + 
  ident      # w 
  pt_virgula      # ; 
-end      # end 
- ponto      # . 
