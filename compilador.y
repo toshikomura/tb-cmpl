@@ -454,7 +454,7 @@ atrib_proc_func_2: atribuicao
 atribuicao: {
             /* Verifica se a variável foi declarada */
             procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
-            if ( dados_simbolo1 == NULL || strcmp ( categoria_var_simples, dados_simbolo1->categoria) != 0) {
+            if ( dados_simbolo1 == NULL || ( strcmp ( categoria_var_simples, dados_simbolo1->categoria) != 0 &&  strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) != 0 )) {
                 if ( dados_simbolo1 == NULL)
                     sprintf ( dados, "Variável '%s' não foi declarada", nome_var_proc_func);
                 else
@@ -514,7 +514,10 @@ atribuicao: {
                 }
             }
 
-            sprintf ( dados, "ARMZ %d, %d", x, y);
+            if ( strcmp ( categoria_var_simples, dados_simbolo1->categoria) != 0 && strcmp ( categoria_parametro_valor, dados_simbolo1->categoria) != 0 )
+                sprintf ( dados, "ARMI %d, %d", x, y);
+            else
+                sprintf ( dados, "ARMZ %d, %d", x, y);
             geraCodigo ( NULL, dados );
             }
 ;
