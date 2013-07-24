@@ -257,6 +257,18 @@ write { simbolo = simb_impressao;
           return IMPRESSAO;
  }
 
+label { simbolo = simb_rotulo;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" rotulo ");
+          return ROTULO;
+ }
+
+goto { simbolo = simb_vai_para;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" vai_para ");
+          return VAI_PARA;
+ }
+
 {ident} { simbolo = simb_identificador;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" ident  ");

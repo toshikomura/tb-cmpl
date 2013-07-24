@@ -62,6 +62,7 @@ void yyerror (char const *);
 %token ENQUANTO PARA FACA REPITA ATE SE ENTAO SENAO
 %token PROCEDIMENTO FUNCAO
 %token LEITURA IMPRESSAO
+%token ROTULO VAI_PARA
 
 %nonassoc LOWER_THEN_ELSE
 %nonassoc SENAO
