@@ -18,6 +18,7 @@ char *categoria_funcao;
 char *categoria_parametro_formal;
 char *categoria_var_simples;
 char *categoria_parametro_valor;
+char *categoria_rotulo;
 char *tipo;
 char *tipo_proc_func;
 char *parametro_valor_referencia;
@@ -103,7 +104,16 @@ parte_declara_vars: var
 ;
 
 
-var: VAR declara_vars
+var: VAR
+            {
+            /* Se for uma declaração de variável */
+            sprintf ( categoria, "%s", categoria_var_simples);
+            } declara_vars parte_declara_vars
+            | ROTULO
+            {
+            /* Se for uma declaração de rotulo */
+            sprintf ( categoria, "%s", categoria_rotulo);
+            } lista_id_var PONTO_E_VIRGULA parte_declara_vars
             |
 ;
 
@@ -178,7 +188,7 @@ lista_id_var: lista_id_var VIRGULA IDENT
 
             sprintf ( tipo_retorno, "sem_tipo");
             sprintf ( parametro_valor_referencia, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria_var_simples, parametro_valor_referencia, NULL, nivel_lexico, deslocamento);
+            empilha_Simbolo_TB_SIMB ( token, categoria, parametro_valor_referencia, NULL, nivel_lexico, deslocamento);
             deslocamento++;
             num_vars++;
             }
@@ -193,7 +203,7 @@ lista_id_var: lista_id_var VIRGULA IDENT
 
             sprintf ( tipo_retorno, "sem_tipo");
             sprintf ( parametro_valor_referencia, "sem_tipo");
-            empilha_Simbolo_TB_SIMB ( token, categoria_var_simples, parametro_valor_referencia, NULL, nivel_lexico, deslocamento);
+            empilha_Simbolo_TB_SIMB ( token, categoria, parametro_valor_referencia, NULL, nivel_lexico, deslocamento);
             deslocamento++;
             num_vars++;
             }

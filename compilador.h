@@ -115,6 +115,7 @@ extern char *categoria_funcao;
 extern char *categoria_parametro_formal;
 extern char *categoria_var_simples;
 extern char *categoria_parametro_valor;
+extern char *categoria_rotulo;
 extern char *tipo;
 extern char *parametro_valor_referencia;
 extern char *tipo_retorno;

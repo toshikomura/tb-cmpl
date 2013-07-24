@@ -37,6 +37,7 @@ void inicia_variaveis_globais () {
     categoria_parametro_formal = malloc ( sizeof (char)*TAM_TOKEN);
     categoria_var_simples = malloc ( sizeof (char)*TAM_TOKEN);
     categoria_parametro_valor = malloc ( sizeof (char)*TAM_TOKEN);
+    categoria_rotulo = malloc ( sizeof (char)*TAM_TOKEN);
     tipo = malloc ( sizeof (char)*TAM_TOKEN);
     parametro_valor_referencia = malloc ( sizeof (char)*TAM_TOKEN);
     tipo_retorno = malloc ( sizeof (char)*TAM_TOKEN);
@@ -55,6 +56,7 @@ void inicia_variaveis_globais () {
     sprintf ( categoria_parametro_formal, "parametro_formal");
     sprintf ( categoria_var_simples, "var_simples");
     sprintf ( categoria_parametro_valor, "var_valor");
+    sprintf ( categoria_rotulo, "rotulo");
 }
 
 /* Função que gera código MEPA */
