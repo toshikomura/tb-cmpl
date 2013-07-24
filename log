@@ -201,6 +201,10 @@ begin     # begin
  soma     # + 
  ident      # c 
  pt_virgula      # ; 
+ ident      # c 
+ atribuicao      # := 
+ numero      # 1 
+ pt_virgula      # ; 
 end      # end 
  pt_virgula      # ; 
 begin     # begin 
@@ -608,6 +612,6 @@ begin     # begin
  ident      # m 
  soma     # + 
  numero      # 3 
- soma     # + 
- ident      # w 
  pt_virgula      # ; 
+end      # end 
+ ponto      # . 

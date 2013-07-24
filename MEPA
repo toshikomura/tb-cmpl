@@ -10,6 +10,8 @@ R3: NADA
      CRVI 1 -4
      SOMA
      ARMZ 0, 0
+     CRCT 1
+     ARMI 1, -4
      RTPR 2, 3
 R2: NADA 
      AMEN 1
@@ -91,3 +93,6 @@ R4: NADA
      SOMA
      CRCT 3
      SOMA
+     ARMZ 0, 1
+     DMEM 4
+     PARA
