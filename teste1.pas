@@ -5,6 +5,7 @@ function y():integer;
   function x ( a : integer; var b,c:integer):integer;
   begin
     m := a + c;
+    c := 1;
   end;
 begin
   x ( o, m, n);
@@ -45,5 +46,5 @@ var z :integer;
 begin
   z := 3;
   w;
-  n := y + y + z + n * m + 3 + w;
+  n := y + y + z + n * m + 3;
 end.
