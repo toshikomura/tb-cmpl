@@ -73,7 +73,9 @@
      FUNCAO = 291,
      LEITURA = 292,
      IMPRESSAO = 293,
-     LOWER_THEN_ELSE = 294
+     ROTULO = 294,
+     VAI_PARA = 295,
+     LOWER_THEN_ELSE = 296
    };
 #endif
 
