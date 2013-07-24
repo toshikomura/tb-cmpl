@@ -1,16 +1,19 @@
 program exemplo75 (input, output);
 var m,n,o :  integer;
-label la;
+label la, al;
 var eu : integer;
 
 function y():integer;
   function x ( a : integer; var b,c:integer):integer;
+  var caqui :integer;
   begin
-    m := a + c;
+    la: m := a + c;
+    goto la;
+    goto al;
     c := 1;
   end;
 begin
-  x ( o, m, n);
+  al: x ( o, m, n);
 end;
 
 procedure w;
