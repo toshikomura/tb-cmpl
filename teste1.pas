@@ -1,5 +1,7 @@
 program exemplo75 (input, output);
 var m,n,o :  integer;
+label la;
+var eu : integer;
 
 function y():integer;
   function x ( a : integer; var b,c:integer):integer;
