@@ -1,92 +1,97 @@
      INPP
      AMEM 3
      AMEM 1
-     DSVS R0
-R1: NADA 
-     ENPR 1
      DSVS R2
 R3: NADA 
+     ENPR 1
+     DSVS R4
+R5: NADA 
      ENPR 2
+     AMEM 1
+R0: ENRT 2, 1 
      CRVL 1 -6
      CRVI 1 -4
      SOMA
      ARMZ 0, 0
+     DSVR R0, 2, 2
+     DSVR R1, 0, 2
      CRCT 1
      ARMI 1, -4
      RTPR 2, 3
-R2: NADA 
+R4: NADA 
+R1: ENRT 1, 0 
      AMEN 1
      CRVL 0 2
      CREN 0 0
      CREN 0 1
-     CHPR R3, 1
+     CHPR R5, 1
      DMEN 1
      RTPR 1, 0
-R0: NADA 
-     DSVS R4
-R5: NADA 
-     ENPR 1
+R2: NADA 
      DSVS R6
 R7: NADA 
-     ENPR 2
+     ENPR 1
      DSVS R8
 R9: NADA 
+     ENPR 2
+     DSVS R10
+R11: NADA 
      ENPR 3
      AMEM 1
      RTPR 3, 3
-R8: NADA 
+R10: NADA 
      CRCT 88
      ARMZ 0, 1
      RTPR 2, 3
-R6: NADA 
+R8: NADA 
      CRCT 2
      ARMZ 0, 1
-R10: NADA 
+R12: NADA 
      CRCT 2
      CRVL 0, 1
      CMEG
-     DSVF R11
-R12: NADA 
+     DSVF R13
+R14: NADA 
      CRCT 3
      CRCT 2
      CMIG
-     DSVF R13
+     DSVF R15
      CRCT 2
      ARMZ 0, 0
-     DSVS R12
-R13: NADA 
+     DSVS R14
+R15: NADA 
      CRVL 0, 1
      CRCT 3
      CMIG
-     DSVF R14
+     DSVF R16
      CRVL 0, 0
      CRVL 0, 1
      CMMA
-     DSVF R15
+     DSVF R17
      CRCT 8
      ARMZ 0, 1
-     DSVS R16
-R15: NADA 
+     DSVS R18
+R17: NADA 
      CRCT 9
      ARMZ 0, 1
      CRCT 100
      ARMZ 0, 0
+R18: NADA 
 R16: NADA 
-R14: NADA 
-     DSVS R10
-R11: NADA 
+     DSVS R12
+R13: NADA 
      RTPR 1, 0
-R4: NADA 
+R6: NADA 
      AMEM 1
      CRCT 3
-     ARMZ 0, 5
-     CHPR R5, 0
+     ARMZ 0, 4
+     CHPR R7, 0
      AMEN 1
-     CHPR R1, 0
+     CHPR R3, 0
      AMEN 1
-     CHPR R1, 0
+     CHPR R3, 0
      SOMA
-     CRVL 0 5
+     CRVL 0 4
      SOMA
      CRVL 0 1
      CRVL 0 0
@@ -95,5 +100,5 @@ R4: NADA
      CRCT 3
      SOMA
      ARMZ 0, 1
-     DMEM 6
+     DMEM 5
      PARA
