@@ -7,6 +7,10 @@ function y():integer;
   function x ( a : integer; var b,c:integer):integer;
   var caqui :integer;
   begin
+    read (b, a);
+    write (c, a);
+    read c;
+    write (a, a + c / 1);
     la: m := a + c;
     goto la;
     goto al;
@@ -52,4 +56,5 @@ begin
   z := 3;
   w;
   n := y + y + z + n * m + 3;
+  read z;
 end.
