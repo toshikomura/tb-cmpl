@@ -522,7 +522,7 @@ atribuicao: ATRIBUICAO
                 exit ( 1);
             }
 
-            /* Indica que não é parametro formal e que está indica com '0' */
+            /* Indica que não é passagem de parametro e que está indica com '0' */
             /* que esta indo de atribuição */
             empilha_Inteiro ( p_eh_parametro_formal, 0);
 
@@ -681,13 +681,112 @@ condicao_senao_2: comando_sem_ponto_e_virgula
 ;
 
 
-leitura: LEITURA IDENT
-            | LEITURA passagem
+leitura: LEITURA
+            {
+            /* Cria pilha de tipos */
+            p_tipos = malloc( sizeof (pilha_s));
+            p_tipos->primeiro = NULL;
+            p_tipos->tam = 0;
+
+            /* Empilha a pilha de tipos para não perder na recursão */
+            /* A pilha de tipos pode mudar caso haja uma chamada de função com parametros */
+            empilha_pilhas_String ( p_p_tipos, p_tipos);
+
+            empilha_Inteiro ( p_eh_parametro_formal, 3);
+            empilha_Inteiro ( p_num_termos, 0);
+            } passagem_leitura_impressao
+            {
+            desempilha_Inteiro ( p_eh_parametro_formal);
+            desempilha_Inteiro ( p_num_termos);
+            desempilha_pilhas_String ( p_p_tipos, &p_tipos);
+            }
 ;
 
 
-impressao: IMPRESSAO IDENT
-            | IMPRESSAO passagem
+impressao: IMPRESSAO
+            {
+            /* Cria pilha de tipos */
+            p_tipos = malloc( sizeof (pilha_s));
+            p_tipos->primeiro = NULL;
+            p_tipos->tam = 0;
+
+            /* Empilha a pilha de tipos para não perder na recursão */
+            /* A pilha de tipos pode mudar caso haja uma chamada de função com parametros */
+            empilha_pilhas_String ( p_p_tipos, p_tipos);
+
+            empilha_Inteiro ( p_eh_parametro_formal, 4);
+            empilha_Inteiro ( p_num_termos, 0);
+            } passagem_leitura_impressao
+            {
+            desempilha_Inteiro ( p_eh_parametro_formal);
+            desempilha_Inteiro ( p_num_termos);
+
+            desempilha_pilhas_String ( p_p_tipos, &p_tipos);
+            }
+;
+
+
+passagem_leitura_impressao: lista_var_leitura_impressao
+            | ABRE_PARENTESES lista_var_leitura_impressao FECHA_PARENTESES
+;
+
+
+lista_var_leitura_impressao: lista_var_leitura_impressao VIRGULA
+            {
+            eh_parametro_formal = desempilha_Inteiro ( p_eh_parametro_formal);
+            if ( eh_parametro_formal == 3) {
+                sprintf ( dados, "LEIT");
+                geraCodigo ( NULL, dados);
+            }
+            empilha_Inteiro ( p_eh_parametro_formal, eh_parametro_formal);
+            } expressao_aritmetica
+            {
+            eh_parametro_formal = desempilha_Inteiro ( p_eh_parametro_formal);
+            if ( eh_parametro_formal == 3) {
+                num_termos = desempilha_Inteiro ( p_num_termos);
+
+                /* Se a expressao tem mais de um elemento na leitura */
+                if ( num_termos > 1) {
+                    sprintf ( dados, "Leitura não pode possuir uma expressao com mais de um elemento");
+                    imprimeErro ( dados);
+                    exit ( 1);
+                }
+            }
+            else {
+                sprintf ( dados, "IMPR");
+                geraCodigo ( NULL, dados);
+            }
+            empilha_Inteiro ( p_num_termos, 0);
+            empilha_Inteiro ( p_eh_parametro_formal, eh_parametro_formal);
+            }
+            |
+            {
+            eh_parametro_formal = desempilha_Inteiro ( p_eh_parametro_formal);
+            if ( eh_parametro_formal == 3) {
+                sprintf ( dados, "LEIT");
+                geraCodigo ( NULL, dados);
+            }
+            empilha_Inteiro ( p_eh_parametro_formal, eh_parametro_formal);
+            } expressao_aritmetica
+            {
+            eh_parametro_formal = desempilha_Inteiro ( p_eh_parametro_formal);
+            if ( eh_parametro_formal == 3) {
+                num_termos = desempilha_Inteiro ( p_num_termos);
+
+                /* Se a expressao tem mais de um elemento na leitura */
+                if ( num_termos > 1) {
+                    sprintf ( dados, "Leitura não pode possuir uma expressao com mais de um elemento");
+                    imprimeErro ( dados);
+                    exit ( 1);
+                }
+            }
+            else {
+                sprintf ( dados, "IMPR");
+                geraCodigo ( NULL, dados);
+            }
+            empilha_Inteiro ( p_num_termos, 0);
+            empilha_Inteiro ( p_eh_parametro_formal, eh_parametro_formal);
+            }
 ;
 
 
@@ -848,7 +947,7 @@ var_chama_proc_func: {
             procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
             /* Se não encontrar o simbolos como var_simples/procedimento ou funcao e não é parametro_formal */
             if ( dados_simbolo1 == NULL) {
-                if ( eh_parametro_formal == 1 || eh_parametro_formal == 0){
+                if ( eh_parametro_formal == 0 || eh_parametro_formal == 1 || eh_parametro_formal == 3 || eh_parametro_formal == 4){
                     sprintf ( dados, "Variavel ou Funcao '%s' nao foi declarada", nome_var_proc_func);
                     imprimeErro ( dados);
                 }
@@ -899,7 +998,7 @@ var_chama_proc_func_2: {
             procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 != NULL && (strcmp ( categoria_procedimento, dados_simbolo1->categoria) == 0 || strcmp ( categoria_var_simples, dados_simbolo1->categoria) == 0 || strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0)) {
 
-                /* Se é parametro de chamada de procedimento ou função */
+                /* Se é passagem de parametro de chamada de procedimento ou função */
                 if ( eh_parametro_formal == 1) {
                     desempilha_pilhas_String ( p_p_tipos, &p_tipos);
 
@@ -934,29 +1033,22 @@ var_chama_proc_func_2: {
                         /* Se a pssagem foi por valor */
                         if ( strcmp ( categoria_parametro_valor, dados_simbolo1->parametro_valor_referencia) == 0) {
                             /* Se procedimento/função chamada recebe valor */
-                            if ( strcmp ( categoria_parametro_valor, parametro_valor_referencia) == 0) {
+                            if ( strcmp ( categoria_parametro_valor, parametro_valor_referencia) == 0)
                                 sprintf ( dados, "CRVL %d %d", x, y);
-                                geraCodigo ( NULL, dados);
-                            }
                             /* Senão chamada recebe referencia */
-                            else {
+                            else
                                 sprintf ( dados, "CREN %d %d", x, y);
-                                geraCodigo ( NULL, dados);
-                            }
                         }
                         /* Senão a passagem foi por referência */
                         else {
                             /* Se procedimento/função chamada recebe valor */
-                            if ( strcmp ( categoria_parametro_valor, parametro_valor_referencia) == 0) {
+                            if ( strcmp ( categoria_parametro_valor, parametro_valor_referencia) == 0)
                                 sprintf ( dados, "CRVI %d %d", x, y);
-                                geraCodigo ( NULL, dados);
-                            }
                             /* Senão chamada recebe referencia */
-                            else {
+                            else
                                 sprintf ( dados, "CRVL %d %d", x, y);
-                                geraCodigo ( NULL, dados);
-                            }
                         }
+                        geraCodigo ( NULL, dados);
                     }
                     /* Senão é uma variável */
                     else {
@@ -1003,20 +1095,27 @@ var_chama_proc_func_2: {
                         if ( strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0) {
                             /* Se a pssagem foi por valor */
                             if ( strcmp ( categoria_parametro_valor, dados_simbolo1->parametro_valor_referencia) == 0) {
-                                sprintf ( dados, "CRVL %d %d", x, y);
-                                geraCodigo ( NULL, dados);
+                                if ( eh_parametro_formal == 3)
+                                    sprintf ( dados, "ARMZ %d %d", x, y);
+                                else
+                                    sprintf ( dados, "CRVL %d %d", x, y);
                             }
                             /* Senão a passagem foi por referência */
                             else {
-                                sprintf ( dados, "CRVI %d %d", x, y);
-                                geraCodigo ( NULL, dados);
+                                if ( eh_parametro_formal == 3)
+                                    sprintf ( dados, "ARMI %d %d", x, y);
+                                else
+                                    sprintf ( dados, "CRVI %d %d", x, y);
                             }
                         }
-                       /* Senão é uma variável */
+                        /* Senão é uma variável */
                         else {
-                            sprintf ( dados, "CRVL %d %d", x, y);
-                            geraCodigo ( NULL, dados);
+                            if ( eh_parametro_formal == 3)
+                                sprintf ( dados, "ARMZ %d %d", x, y);
+                            else
+                                sprintf ( dados, "CRVL %d %d", x, y);
                         }
+                        geraCodigo ( NULL, dados);
                     }
                     /* Fim do senão é var_simples */
 
