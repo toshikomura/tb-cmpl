@@ -318,6 +318,34 @@ TABELA DE SIMBOLOS
 || exemplo75 | sem_tipo | nome_programa | (null) | sem_tipo | (null) | 0 | 0 | 0 ||
  pt_virgula      # ; 
 begin     # begin 
+ leitura     # read 
+ abre_parenteses      # ( 
+ ident      # b 
+ virgula      # , 
+ ident      # a 
+ fecha_parenteses     # ) 
+ pt_virgula      # ; 
+ impressao     # write 
+ abre_parenteses      # ( 
+ ident      # c 
+ virgula      # , 
+ ident      # a 
+ fecha_parenteses     # ) 
+ pt_virgula      # ; 
+ leitura     # read 
+ ident      # c 
+ pt_virgula      # ; 
+ impressao     # write 
+ abre_parenteses      # ( 
+ ident      # a 
+ virgula      # , 
+ ident      # a 
+ soma     # + 
+ ident      # c 
+ divisao     # / 
+ numero      # 1 
+ fecha_parenteses     # ) 
+ pt_virgula      # ; 
  ident      # la 
  dois pontos     # : 
  ident      # m 
@@ -796,6 +824,9 @@ begin     # begin
  ident      # m 
  soma     # + 
  numero      # 3 
+ pt_virgula      # ; 
+ leitura     # read 
+ ident      # z 
  pt_virgula      # ; 
 end      # end 
  ponto      # . 

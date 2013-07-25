@@ -8,6 +8,24 @@ R3: NADA
 R5: NADA 
      ENPR 2
      AMEM 1
+     LEIT
+     ARMI 1 -5
+     LEIT
+     ARMZ 1 -6
+     CRVI 1 -4
+     IMPR
+     CRVL 1 -6
+     IMPR
+     LEIT
+     ARMI 1 -4
+     CRVL 1 -6
+     IMPR
+     CRVL 1 -6
+     CRVI 1 -4
+     CRCT 1
+     DIVI
+     SOMA
+     IMPR
 R0: ENRT 2, 1 
      CRVL 1 -6
      CRVI 1 -4
@@ -100,5 +118,7 @@ R6: NADA
      CRCT 3
      SOMA
      ARMZ 0, 1
+     LEIT
+     ARMZ 0 4
      DMEM 5
      PARA
