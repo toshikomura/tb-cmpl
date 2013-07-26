@@ -246,9 +246,23 @@ comando_composto: {
             empilha_String ( p_rotulos, rotulo1);
             sprintf ( dados, "DSVS %s", rotulo1);
             geraCodigo ( NULL, dados);
+
+            /* Empilha deslocamento para não perder ele depois */
+            /* que sair do procedimento e inicia um novo */
+            /* Aumento nivel léxico por causa da entrada no procedimento */
+            empilha_Inteiro ( p_deslocamentos, deslocamento);
+            deslocamento = 0;
+            nivel_lexico++;
             }
             procedimento_ou_funcao
             {
+            /* Ao terminar de ler todo o procedimento retoma o deslocamento */
+            /* Diminui o nivel lexico por causa do fim do procedimento */
+
+            deslocamento = desempilha_Inteiro ( p_deslocamentos);
+
+            nivel_lexico--;
+
             /* Recupera o número de variáveis */
             num_vars = desempilha_Inteiro ( p_num_vars);
 
@@ -273,7 +287,7 @@ procedimento_ou_funcao: PROCEDIMENTO IDENT
             sprintf ( tipo_retorno, "sem_tipo");
             sprintf ( parametro_valor_referencia, "sem_tipo");
             gera_Proximo_Rotulo ( &rotulo1);
-            empilha_Simbolo_TB_SIMB ( nome_var_proc_func, categoria_procedimento, parametro_valor_referencia, rotulo1, nivel_lexico + 1, 0);
+            empilha_Simbolo_TB_SIMB ( nome_var_proc_func, categoria_procedimento, parametro_valor_referencia, rotulo1, nivel_lexico, 0);
             } procedimento_ou_funcao_2 PONTO_E_VIRGULA procedimento_ou_funcao_3
             {
             desempilha_String ( p_nomes, &nome_proc_func);
@@ -294,14 +308,14 @@ procedimento_ou_funcao: PROCEDIMENTO IDENT
             {
             sprintf ( nome_var_proc_func, "%s", token);
 
-            /* Empilha o nome do procedimento para o retorno */
+            /* Empilha o nome da função para o retorno */
             nome_proc_func = malloc ( sizeof (char)*TAM_TOKEN);
             strcpy ( nome_proc_func, nome_var_proc_func);
             empilha_String ( p_nomes, nome_proc_func);
 
             sprintf ( parametro_valor_referencia, "sem_tipo");
             gera_Proximo_Rotulo ( &rotulo1);
-            empilha_Simbolo_TB_SIMB ( nome_var_proc_func, categoria_funcao, parametro_valor_referencia, rotulo1, nivel_lexico + 1, 0);
+            empilha_Simbolo_TB_SIMB ( nome_var_proc_func, categoria_funcao, parametro_valor_referencia, rotulo1, nivel_lexico, 0);
             } procedimento_ou_funcao_2 DOIS_PONTOS tipo_retorno_func PONTO_E_VIRGULA procedimento_ou_funcao_3
             {
             desempilha_String ( p_nomes, &nome_proc_func);
@@ -327,7 +341,7 @@ procedimento_ou_funcao: PROCEDIMENTO IDENT
 
 procedimento_ou_funcao_2: ABRE_PARENTESES parametros_vars_proc_ou_func FECHA_PARENTESES
             {
-            /* Insere endereços dos parametros formais procedimentou ou função */
+            /* Insere endereços dos parametros formais procedimentou/função */
             desempilha_String ( p_nomes, &nome_proc_func);
 
             procura_simb ( nome_proc_func, &x, &y, &tipo, &dados_simbolo1);
@@ -346,26 +360,11 @@ procedimento_ou_funcao_2: ABRE_PARENTESES parametros_vars_proc_ou_func FECHA_PAR
 
 procedimento_ou_funcao_3:
             {
-            /* Depois de ler todo a declaração do procedimento */
-            /* Empilha deslocamento para não perder ele depois */
-            /* que sair do procedimento e inicia um novo */
-            /* Aumento nivel léxico por causa da entrada no procedimento */
-            empilha_Inteiro ( p_deslocamentos, deslocamento);
-            deslocamento = 0;
-            nivel_lexico++;
-
+            /* Depois de ler todo a declaração do procedimento/função */
             geraCodigo ( rotulo1, "NADA");
             sprintf ( dados, "ENPR %d", nivel_lexico);
             geraCodigo ( NULL, dados );
             } bloco PONTO_E_VIRGULA
-            {
-            /* Ao terminar de ler todo o procedimento retoma o deslocamento */
-            /* Diminui o nivel lexico por causa do fim do procedimento */
-
-            deslocamento = desempilha_Inteiro ( p_deslocamentos);
-
-            nivel_lexico--;
-            }
 ;
 
 
@@ -409,7 +408,6 @@ lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA IDENT
                 imprimeErro ( dados);
                 exit ( 1);
             }
-printf ( "PARAMETRO ============== %d\n", nivel_lexico);
             sprintf ( tipo_retorno, "sem_tipo");
             empilha_Simbolo_TB_SIMB ( token, categoria_parametro_formal, parametro_valor_referencia, NULL, nivel_lexico, deslocamento);
             num_parametros++;
@@ -424,7 +422,6 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
                 imprimeErro ( dados);
                 exit ( 1);
             }
-
             sprintf ( tipo_retorno, "sem_tipo");
             empilha_Simbolo_TB_SIMB ( token, categoria_parametro_formal, parametro_valor_referencia, NULL, nivel_lexico, deslocamento);
             num_parametros++;
