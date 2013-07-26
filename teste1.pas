@@ -6,6 +6,10 @@ var eu : integer;
 function y():integer;
   function x ( a : integer; var b,c:integer):integer;
   var caqui :integer;
+    procedure hello ( var aux :integer);
+    begin
+      aux := c;
+    end;
   begin
     read (b, a);
     write (c, a);
@@ -15,6 +19,7 @@ function y():integer;
     goto la;
     goto al;
     c := 1;
+    hello ( a);
   end;
 begin
   al: x ( o, m, n);
