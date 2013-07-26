@@ -540,3 +540,20 @@ void insere_Endereco_parametro ( no_tabela_simbolos_p *slot_tb_simb_proc_func) {
     }
 
 }
+
+/* Função que retorno o o simbolo empilhado sobre o outro */
+void procura_prox_simb ( no_tabela_simbolos_p *slot_tb_simb_func, no_tabela_simbolos_p **slot_tb_simb_prox) {
+
+    no_tabela_simbolos_p *slot_tb_simb_aux = p_tb_simb->primeiro;
+    *slot_tb_simb_prox = NULL;
+
+    while ( slot_tb_simb_aux != NULL && strcmp ( slot_tb_simb_func->simbolo, slot_tb_simb_aux->simbolo) != 0) {
+        *slot_tb_simb_prox = slot_tb_simb_aux;
+        slot_tb_simb_aux = slot_tb_simb_aux->prox;
+    }
+
+    if ( slot_tb_simb_aux == NULL) {
+        printf ( "Não encontrou próximo parametro na função em procura_prox_simb\n");
+        exit ( 1);
+    }
+}
