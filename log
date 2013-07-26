@@ -390,6 +390,28 @@ begin     # begin
  atribuicao      # := 
  ident      # c 
  pt_virgula      # ; 
+ ident      # caqui 
+ atribuicao      # := 
+ ident      # c 
+ soma     # + 
+ ident      # aux 
+ pt_virgula      # ; 
+ se     # if 
+ ident      # aux 
+ igual     # = 
+ ident      # b 
+ entao     # then 
+ enquanto     # while 
+ ident      # a 
+ igual     # = 
+ ident      # b 
+ faca     # do 
+ ident      # b 
+ atribuicao      # := 
+ ident      # a 
+ soma     # + 
+ numero      # 1 
+ pt_virgula      # ; 
 end      # end 
  pt_virgula      # ; 
 begin     # begin 
@@ -397,7 +419,7 @@ begin     # begin
  abre_parenteses      # ( 
  ident      # b 
  virgula      # , 
- ident      # a 
+ ident      # c 
  fecha_parenteses     # ) 
  pt_virgula      # ; 
  impressao     # write 
@@ -444,12 +466,22 @@ begin     # begin
  ident      # c 
  fecha_parenteses     # ) 
  pt_virgula      # ; 
+ ident      # b 
+ atribuicao      # := 
+ numero      # 3 
+ pt_virgula      # ; 
+ ident      # x 
+ atribuicao      # := 
+ ident      # a 
+ pt_virgula      # ; 
 end      # end 
  pt_virgula      # ; 
 begin     # begin 
  ident      # x 
  abre_parenteses      # ( 
- ident      # o 
+ numero      # 1 
+ soma     # + 
+ ident      # n 
  virgula      # , 
  ident      # m 
  virgula      # , 
@@ -465,7 +497,7 @@ end      # end
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| w | (null) | procedimento | R9 | sem_tipo | (null) | 1 | 0 | 0 ||
+|| w | (null) | procedimento | R12 | sem_tipo | (null) | 1 | 0 | 0 ||
 || y | (null) | funcao | R3 | sem_tipo | integer | 1 | 0 | 0 ||
 || eu | integer | var_simples | (null) | sem_tipo | (null) | 0 | 3 | 0 ||
 || al | (null) | rotulo | R1 | sem_tipo | (null) | 0 | 3 | 0 ||
@@ -482,8 +514,8 @@ TABELA DE SIMBOLOS
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| v | (null) | procedimento | R11 | sem_tipo | (null) | 2 | 0 | 0 ||
-|| w | (null) | procedimento | R9 | sem_tipo | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R14 | sem_tipo | (null) | 2 | 0 | 0 ||
+|| w | (null) | procedimento | R12 | sem_tipo | (null) | 1 | 0 | 0 ||
 || y | (null) | funcao | R3 | sem_tipo | integer | 1 | 0 | 0 ||
 || eu | integer | var_simples | (null) | sem_tipo | (null) | 0 | 3 | 0 ||
 || al | (null) | rotulo | R1 | sem_tipo | (null) | 0 | 3 | 0 ||
@@ -501,8 +533,8 @@ TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
 || d | (null) | parametro_formal | (null) | var_referencia | (null) | 2 | 0 | 0 ||
-|| v | (null) | procedimento | R11 | sem_tipo | (null) | 2 | 0 | 0 ||
-|| w | (null) | procedimento | R9 | sem_tipo | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R14 | sem_tipo | (null) | 2 | 0 | 0 ||
+|| w | (null) | procedimento | R12 | sem_tipo | (null) | 1 | 0 | 0 ||
 || y | (null) | funcao | R3 | sem_tipo | integer | 1 | 0 | 0 ||
 || eu | integer | var_simples | (null) | sem_tipo | (null) | 0 | 3 | 0 ||
 || al | (null) | rotulo | R1 | sem_tipo | (null) | 0 | 3 | 0 ||
@@ -520,8 +552,8 @@ TABELA DE SIMBOLOS
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
 || e | (null) | parametro_formal | (null) | var_referencia | (null) | 2 | 0 | 0 ||
 || d | (null) | parametro_formal | (null) | var_referencia | (null) | 2 | 0 | 0 ||
-|| v | (null) | procedimento | R11 | sem_tipo | (null) | 2 | 0 | 0 ||
-|| w | (null) | procedimento | R9 | sem_tipo | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R14 | sem_tipo | (null) | 2 | 0 | 0 ||
+|| w | (null) | procedimento | R12 | sem_tipo | (null) | 1 | 0 | 0 ||
 || y | (null) | funcao | R3 | sem_tipo | integer | 1 | 0 | 0 ||
 || eu | integer | var_simples | (null) | sem_tipo | (null) | 0 | 3 | 0 ||
 || al | (null) | rotulo | R1 | sem_tipo | (null) | 0 | 3 | 0 ||
@@ -539,8 +571,8 @@ TABELA DE SIMBOLOS
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
 || e | integer | parametro_formal | (null) | var_referencia | (null) | 2 | 0 | 0 ||
 || d | integer | parametro_formal | (null) | var_referencia | (null) | 2 | 0 | 0 ||
-|| v | (null) | procedimento | R11 | sem_tipo | (null) | 2 | 0 | 2 |- var_referencia | integer |- var_referencia | integer ||
-|| w | (null) | procedimento | R9 | sem_tipo | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R14 | sem_tipo | (null) | 2 | 0 | 2 |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R12 | sem_tipo | (null) | 1 | 0 | 0 ||
 || y | (null) | funcao | R3 | sem_tipo | integer | 1 | 0 | 0 ||
 || eu | integer | var_simples | (null) | sem_tipo | (null) | 0 | 3 | 0 ||
 || al | (null) | rotulo | R1 | sem_tipo | (null) | 0 | 3 | 0 ||
@@ -560,8 +592,8 @@ TABELA DE SIMBOLOS
 || f | (null) | parametro_formal | (null) | var_referencia | (null) | 2 | 0 | 0 ||
 || e | integer | parametro_formal | (null) | var_referencia | (null) | 2 | 0 | 0 ||
 || d | integer | parametro_formal | (null) | var_referencia | (null) | 2 | 0 | 0 ||
-|| v | (null) | procedimento | R11 | sem_tipo | (null) | 2 | 0 | 2 |- var_referencia | integer |- var_referencia | integer ||
-|| w | (null) | procedimento | R9 | sem_tipo | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R14 | sem_tipo | (null) | 2 | 0 | 2 |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R12 | sem_tipo | (null) | 1 | 0 | 0 ||
 || y | (null) | funcao | R3 | sem_tipo | integer | 1 | 0 | 0 ||
 || eu | integer | var_simples | (null) | sem_tipo | (null) | 0 | 3 | 0 ||
 || al | (null) | rotulo | R1 | sem_tipo | (null) | 0 | 3 | 0 ||
@@ -580,8 +612,8 @@ TABELA DE SIMBOLOS
 || f | integer | parametro_formal | (null) | var_referencia | (null) | 2 | 0 | 0 ||
 || e | integer | parametro_formal | (null) | var_referencia | (null) | 2 | 0 | 0 ||
 || d | integer | parametro_formal | (null) | var_referencia | (null) | 2 | 0 | 0 ||
-|| v | (null) | procedimento | R11 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| w | (null) | procedimento | R9 | sem_tipo | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R14 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R12 | sem_tipo | (null) | 1 | 0 | 0 ||
 || y | (null) | funcao | R3 | sem_tipo | integer | 1 | 0 | 0 ||
 || eu | integer | var_simples | (null) | sem_tipo | (null) | 0 | 3 | 0 ||
 || al | (null) | rotulo | R1 | sem_tipo | (null) | 0 | 3 | 0 ||
@@ -599,12 +631,12 @@ TABELA DE SIMBOLOS
 TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
-|| u | (null) | procedimento | R13 | sem_tipo | (null) | 3 | 0 | 0 ||
+|| u | (null) | procedimento | R16 | sem_tipo | (null) | 3 | 0 | 0 ||
 || f | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -4 | 0 ||
 || e | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -5 | 0 ||
 || d | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -6 | 0 ||
-|| v | (null) | procedimento | R11 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| w | (null) | procedimento | R9 | sem_tipo | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R14 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R12 | sem_tipo | (null) | 1 | 0 | 0 ||
 || y | (null) | funcao | R3 | sem_tipo | integer | 1 | 0 | 0 ||
 || eu | integer | var_simples | (null) | sem_tipo | (null) | 0 | 3 | 0 ||
 || al | (null) | rotulo | R1 | sem_tipo | (null) | 0 | 3 | 0 ||
@@ -621,12 +653,12 @@ TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
 || g | (null) | parametro_formal | (null) | var_valor | (null) | 3 | 0 | 0 ||
-|| u | (null) | procedimento | R13 | sem_tipo | (null) | 3 | 0 | 0 ||
+|| u | (null) | procedimento | R16 | sem_tipo | (null) | 3 | 0 | 0 ||
 || f | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -4 | 0 ||
 || e | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -5 | 0 ||
 || d | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -6 | 0 ||
-|| v | (null) | procedimento | R11 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| w | (null) | procedimento | R9 | sem_tipo | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R14 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R12 | sem_tipo | (null) | 1 | 0 | 0 ||
 || y | (null) | funcao | R3 | sem_tipo | integer | 1 | 0 | 0 ||
 || eu | integer | var_simples | (null) | sem_tipo | (null) | 0 | 3 | 0 ||
 || al | (null) | rotulo | R1 | sem_tipo | (null) | 0 | 3 | 0 ||
@@ -644,12 +676,12 @@ TABELA DE SIMBOLOS
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
 || h | (null) | parametro_formal | (null) | var_valor | (null) | 3 | 0 | 0 ||
 || g | (null) | parametro_formal | (null) | var_valor | (null) | 3 | 0 | 0 ||
-|| u | (null) | procedimento | R13 | sem_tipo | (null) | 3 | 0 | 0 ||
+|| u | (null) | procedimento | R16 | sem_tipo | (null) | 3 | 0 | 0 ||
 || f | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -4 | 0 ||
 || e | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -5 | 0 ||
 || d | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -6 | 0 ||
-|| v | (null) | procedimento | R11 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| w | (null) | procedimento | R9 | sem_tipo | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R14 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R12 | sem_tipo | (null) | 1 | 0 | 0 ||
 || y | (null) | funcao | R3 | sem_tipo | integer | 1 | 0 | 0 ||
 || eu | integer | var_simples | (null) | sem_tipo | (null) | 0 | 3 | 0 ||
 || al | (null) | rotulo | R1 | sem_tipo | (null) | 0 | 3 | 0 ||
@@ -667,12 +699,12 @@ TABELA DE SIMBOLOS
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
 || h | integer | parametro_formal | (null) | var_valor | (null) | 3 | 0 | 0 ||
 || g | integer | parametro_formal | (null) | var_valor | (null) | 3 | 0 | 0 ||
-|| u | (null) | procedimento | R13 | sem_tipo | (null) | 3 | 0 | 2 |- var_valor | integer |- var_valor | integer ||
+|| u | (null) | procedimento | R16 | sem_tipo | (null) | 3 | 0 | 2 |- var_valor | integer |- var_valor | integer ||
 || f | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -4 | 0 ||
 || e | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -5 | 0 ||
 || d | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -6 | 0 ||
-|| v | (null) | procedimento | R11 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| w | (null) | procedimento | R9 | sem_tipo | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R14 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R12 | sem_tipo | (null) | 1 | 0 | 0 ||
 || y | (null) | funcao | R3 | sem_tipo | integer | 1 | 0 | 0 ||
 || eu | integer | var_simples | (null) | sem_tipo | (null) | 0 | 3 | 0 ||
 || al | (null) | rotulo | R1 | sem_tipo | (null) | 0 | 3 | 0 ||
@@ -691,12 +723,12 @@ TABELA DE SIMBOLOS
 || i | (null) | parametro_formal | (null) | var_valor | (null) | 3 | 0 | 0 ||
 || h | integer | parametro_formal | (null) | var_valor | (null) | 3 | 0 | 0 ||
 || g | integer | parametro_formal | (null) | var_valor | (null) | 3 | 0 | 0 ||
-|| u | (null) | procedimento | R13 | sem_tipo | (null) | 3 | 0 | 2 |- var_valor | integer |- var_valor | integer ||
+|| u | (null) | procedimento | R16 | sem_tipo | (null) | 3 | 0 | 2 |- var_valor | integer |- var_valor | integer ||
 || f | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -4 | 0 ||
 || e | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -5 | 0 ||
 || d | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -6 | 0 ||
-|| v | (null) | procedimento | R11 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| w | (null) | procedimento | R9 | sem_tipo | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R14 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R12 | sem_tipo | (null) | 1 | 0 | 0 ||
 || y | (null) | funcao | R3 | sem_tipo | integer | 1 | 0 | 0 ||
 || eu | integer | var_simples | (null) | sem_tipo | (null) | 0 | 3 | 0 ||
 || al | (null) | rotulo | R1 | sem_tipo | (null) | 0 | 3 | 0 ||
@@ -715,12 +747,12 @@ TABELA DE SIMBOLOS
 || i | integer | parametro_formal | (null) | var_valor | (null) | 3 | 0 | 0 ||
 || h | integer | parametro_formal | (null) | var_valor | (null) | 3 | 0 | 0 ||
 || g | integer | parametro_formal | (null) | var_valor | (null) | 3 | 0 | 0 ||
-|| u | (null) | procedimento | R13 | sem_tipo | (null) | 3 | 0 | 3 |- var_valor | integer |- var_valor | integer |- var_valor | integer ||
+|| u | (null) | procedimento | R16 | sem_tipo | (null) | 3 | 0 | 3 |- var_valor | integer |- var_valor | integer |- var_valor | integer ||
 || f | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -4 | 0 ||
 || e | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -5 | 0 ||
 || d | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -6 | 0 ||
-|| v | (null) | procedimento | R11 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| w | (null) | procedimento | R9 | sem_tipo | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R14 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R12 | sem_tipo | (null) | 1 | 0 | 0 ||
 || y | (null) | funcao | R3 | sem_tipo | integer | 1 | 0 | 0 ||
 || eu | integer | var_simples | (null) | sem_tipo | (null) | 0 | 3 | 0 ||
 || al | (null) | rotulo | R1 | sem_tipo | (null) | 0 | 3 | 0 ||
@@ -742,12 +774,12 @@ TABELA DE SIMBOLOS
 || i | integer | parametro_formal | (null) | var_valor | (null) | 3 | -4 | 0 ||
 || h | integer | parametro_formal | (null) | var_valor | (null) | 3 | -5 | 0 ||
 || g | integer | parametro_formal | (null) | var_valor | (null) | 3 | -6 | 0 ||
-|| u | (null) | procedimento | R13 | sem_tipo | (null) | 3 | 0 | 3 |- var_valor | integer |- var_valor | integer |- var_valor | integer ||
+|| u | (null) | procedimento | R16 | sem_tipo | (null) | 3 | 0 | 3 |- var_valor | integer |- var_valor | integer |- var_valor | integer ||
 || f | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -4 | 0 ||
 || e | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -5 | 0 ||
 || d | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -6 | 0 ||
-|| v | (null) | procedimento | R11 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| w | (null) | procedimento | R9 | sem_tipo | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R14 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R12 | sem_tipo | (null) | 1 | 0 | 0 ||
 || y | (null) | funcao | R3 | sem_tipo | integer | 1 | 0 | 0 ||
 || eu | integer | var_simples | (null) | sem_tipo | (null) | 0 | 3 | 0 ||
 || al | (null) | rotulo | R1 | sem_tipo | (null) | 0 | 3 | 0 ||
@@ -767,12 +799,12 @@ TABELA DE SIMBOLOS
 || i | integer | parametro_formal | (null) | var_valor | (null) | 3 | -4 | 0 ||
 || h | integer | parametro_formal | (null) | var_valor | (null) | 3 | -5 | 0 ||
 || g | integer | parametro_formal | (null) | var_valor | (null) | 3 | -6 | 0 ||
-|| u | (null) | procedimento | R13 | sem_tipo | (null) | 3 | 0 | 3 |- var_valor | integer |- var_valor | integer |- var_valor | integer ||
+|| u | (null) | procedimento | R16 | sem_tipo | (null) | 3 | 0 | 3 |- var_valor | integer |- var_valor | integer |- var_valor | integer ||
 || f | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -4 | 0 ||
 || e | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -5 | 0 ||
 || d | integer | parametro_formal | (null) | var_referencia | (null) | 2 | -6 | 0 ||
-|| v | (null) | procedimento | R11 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
-|| w | (null) | procedimento | R9 | sem_tipo | (null) | 1 | 0 | 0 ||
+|| v | (null) | procedimento | R14 | sem_tipo | (null) | 2 | 0 | 3 |- var_referencia | integer |- var_referencia | integer |- var_referencia | integer ||
+|| w | (null) | procedimento | R12 | sem_tipo | (null) | 1 | 0 | 0 ||
 || y | (null) | funcao | R3 | sem_tipo | integer | 1 | 0 | 0 ||
 || eu | integer | var_simples | (null) | sem_tipo | (null) | 0 | 3 | 0 ||
 || al | (null) | rotulo | R1 | sem_tipo | (null) | 0 | 3 | 0 ||
@@ -855,7 +887,7 @@ TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
 || z | (null) | var_simples | (null) | sem_tipo | (null) | 0 | 4 | 0 ||
-|| w | (null) | procedimento | R9 | sem_tipo | (null) | 1 | 0 | 0 ||
+|| w | (null) | procedimento | R12 | sem_tipo | (null) | 1 | 0 | 0 ||
 || y | (null) | funcao | R3 | sem_tipo | integer | 1 | 0 | 0 ||
 || eu | integer | var_simples | (null) | sem_tipo | (null) | 0 | 3 | 0 ||
 || al | (null) | rotulo | R1 | sem_tipo | (null) | 0 | 3 | 0 ||
@@ -872,7 +904,7 @@ TABELA DE SIMBOLOS
 
 || simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
 || z | integer | var_simples | (null) | sem_tipo | (null) | 0 | 4 | 0 ||
-|| w | (null) | procedimento | R9 | sem_tipo | (null) | 1 | 0 | 0 ||
+|| w | (null) | procedimento | R12 | sem_tipo | (null) | 1 | 0 | 0 ||
 || y | (null) | funcao | R3 | sem_tipo | integer | 1 | 0 | 0 ||
 || eu | integer | var_simples | (null) | sem_tipo | (null) | 0 | 3 | 0 ||
 || al | (null) | rotulo | R1 | sem_tipo | (null) | 0 | 3 | 0 ||
@@ -907,6 +939,24 @@ begin     # begin
  dois pontos     # : 
  leitura     # read 
  ident      # z 
+ pt_virgula      # ; 
+ se     # if 
+ numero      # 2 
+ igual     # = 
+ numero      # 2 
+ entao     # then 
+ se     # if 
+ numero      # 3 
+ igual     # = 
+ numero      # 3 
+ entao     # then 
+ ident      # n 
+ atribuicao      # := 
+ numero      # 1 
+ senao     # else 
+ ident      # n 
+ atribuicao      # := 
+ numero      # 0 
  pt_virgula      # ; 
 end      # end 
  ponto      # . 
