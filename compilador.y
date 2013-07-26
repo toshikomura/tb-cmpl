@@ -409,7 +409,7 @@ lista_id_var_proc_ou_func: lista_id_var_proc_ou_func VIRGULA IDENT
                 imprimeErro ( dados);
                 exit ( 1);
             }
-
+printf ( "PARAMETRO ============== %d\n", nivel_lexico);
             sprintf ( tipo_retorno, "sem_tipo");
             empilha_Simbolo_TB_SIMB ( token, categoria_parametro_formal, parametro_valor_referencia, NULL, nivel_lexico, deslocamento);
             num_parametros++;
@@ -1033,11 +1033,15 @@ var_chama_proc_func_2: {
                         /* Se a pssagem foi por valor */
                         if ( strcmp ( categoria_parametro_valor, dados_simbolo1->parametro_valor_referencia) == 0) {
                             /* Se procedimento/função chamada recebe valor */
-                            if ( strcmp ( categoria_parametro_valor, parametro_valor_referencia) == 0)
+                            if ( strcmp ( categoria_parametro_valor, parametro_valor_referencia) == 0) {
                                 sprintf ( dados, "CRVL %d %d", x, y);
+                            }
                             /* Senão chamada recebe referencia */
-                            else
-                                sprintf ( dados, "CREN %d %d", x, y);
+                            else {
+                                sprintf ( dados, "Variável '%s' que possui valor não pode ser passada para uma procedimento/função como referência", dados_simbolo1->simbolo);
+                                imprimeErro ( dados);
+                                exit ( 1);
+                            }
                         }
                         /* Senão a passagem foi por referência */
                         else {
