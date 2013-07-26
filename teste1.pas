@@ -9,9 +9,13 @@ function y():integer;
     procedure hello ( var aux :integer);
     begin
       aux := c;
+      caqui := c + aux;
+      if aux = b then
+        while a = b do
+          b := a + 1;
     end;
   begin
-    read (b, a);
+    read (b, c);
     write (c, a);
     read c;
     write (a, a + c / 1);
@@ -20,9 +24,11 @@ function y():integer;
     goto al;
     c := 1;
     hello ( c);
+    b := 3;
+    x := a;
   end;
 begin
-  x ( o, m, n);
+  x ( 1 + n, m, n);
 end;
 
 procedure w;
@@ -62,4 +68,9 @@ begin
   w;
   n := y + y + z + n * m + 3;
   al: read z;
+  if 2 = 2 then
+    if 3 = 3 then
+      n := 1
+    else
+      n := 0;
 end.
