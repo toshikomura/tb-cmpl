@@ -19,10 +19,10 @@ function y():integer;
     goto la;
     goto al;
     c := 1;
-    hello ( a);
+    hello ( c);
   end;
 begin
-  al: x ( o, m, n);
+  x ( o, m, n);
 end;
 
 procedure w;
@@ -61,5 +61,5 @@ begin
   z := 3;
   w;
   n := y + y + z + n * m + 3;
-  read z;
+  al: read z;
 end.

@@ -549,19 +549,19 @@ static const yytype_uint16 yyrline[] =
 {
        0,    75,    75,    75,    88,   100,   104,   109,   108,   114,
      113,   118,   122,   123,   127,   132,   127,   140,   153,   167,
-     180,   205,   232,   233,   237,   251,   237,   260,   265,   264,
-     294,   293,   328,   343,   348,   348,   372,   372,   375,   380,
-     379,   384,   384,   389,   390,   394,   394,   402,   417,   435,
-     439,   440,   441,   442,   443,   444,   445,   446,   447,   448,
-     449,   450,   451,   455,   456,   457,   458,   459,   460,   465,
-     464,   471,   472,   474,   474,   488,   487,   512,   511,   584,
-     583,   592,   591,   599,   598,   608,   617,   629,   634,   643,
-     642,   650,   649,   659,   660,   665,   664,   675,   679,   680,
-     685,   684,   707,   706,   729,   730,   735,   734,   763,   763,
-     793,   813,   817,   821,   825,   829,   833,   838,   837,   846,
-     862,   870,   871,   878,   882,   886,   890,   894,   898,   902,
-     906,   910,   915,   919,   930,   935,   939,   939,   974,   983,
-     973,   990,   994,  1171,  1170,  1219,  1219,  1266
+     180,   205,   232,   233,   237,   258,   237,   274,   279,   278,
+     308,   307,   342,   357,   362,   362,   371,   371,   374,   379,
+     378,   383,   383,   388,   389,   393,   393,   401,   415,   432,
+     436,   437,   438,   439,   440,   441,   442,   443,   444,   445,
+     446,   447,   448,   452,   453,   454,   455,   456,   457,   462,
+     461,   468,   469,   471,   471,   485,   484,   509,   508,   581,
+     580,   589,   588,   596,   595,   605,   614,   626,   631,   640,
+     639,   647,   646,   656,   657,   662,   661,   672,   676,   677,
+     682,   681,   704,   703,   726,   727,   732,   731,   760,   760,
+     790,   810,   814,   818,   822,   826,   830,   835,   834,   843,
+     859,   867,   868,   875,   879,   883,   887,   891,   895,   899,
+     903,   907,   912,   916,   927,   932,   936,   936,   971,   980,
+     970,   987,   991,  1168,  1167,  1216,  1216,  1263
 };
 #endif
 
@@ -1860,14 +1860,28 @@ yyreduce:
             empilha_String ( p_rotulos, rotulo1);
             sprintf ( dados, "DSVS %s", rotulo1);
             geraCodigo ( NULL, dados);
+
+            /* Empilha deslocamento para não perder ele depois */
+            /* que sair do procedimento e inicia um novo */
+            /* Aumento nivel léxico por causa da entrada no procedimento */
+            empilha_Inteiro ( p_deslocamentos, deslocamento);
+            deslocamento = 0;
+            nivel_lexico++;
             }
     break;
 
   case 25:
 
 /* Line 1806 of yacc.c  */
-#line 251 "compilador.y"
+#line 258 "compilador.y"
     {
+            /* Ao terminar de ler todo o procedimento retoma o deslocamento */
+            /* Diminui o nivel lexico por causa do fim do procedimento */
+
+            deslocamento = desempilha_Inteiro ( p_deslocamentos);
+
+            nivel_lexico--;
+
             /* Recupera o número de variáveis */
             num_vars = desempilha_Inteiro ( p_num_vars);
 
@@ -1880,7 +1894,7 @@ yyreduce:
   case 28:
 
 /* Line 1806 of yacc.c  */
-#line 265 "compilador.y"
+#line 279 "compilador.y"
     {
             sprintf ( nome_var_proc_func, "%s", token);
 
@@ -1892,14 +1906,14 @@ yyreduce:
             sprintf ( tipo_retorno, "sem_tipo");
             sprintf ( parametro_valor_referencia, "sem_tipo");
             gera_Proximo_Rotulo ( &rotulo1);
-            empilha_Simbolo_TB_SIMB ( nome_var_proc_func, categoria_procedimento, parametro_valor_referencia, rotulo1, nivel_lexico + 1, 0);
+            empilha_Simbolo_TB_SIMB ( nome_var_proc_func, categoria_procedimento, parametro_valor_referencia, rotulo1, nivel_lexico, 0);
             }
     break;
 
   case 29:
 
 /* Line 1806 of yacc.c  */
-#line 278 "compilador.y"
+#line 292 "compilador.y"
     {
             desempilha_String ( p_nomes, &nome_proc_func);
 
@@ -1920,25 +1934,25 @@ yyreduce:
   case 30:
 
 /* Line 1806 of yacc.c  */
-#line 294 "compilador.y"
+#line 308 "compilador.y"
     {
             sprintf ( nome_var_proc_func, "%s", token);
 
-            /* Empilha o nome do procedimento para o retorno */
+            /* Empilha o nome da função para o retorno */
             nome_proc_func = malloc ( sizeof (char)*TAM_TOKEN);
             strcpy ( nome_proc_func, nome_var_proc_func);
             empilha_String ( p_nomes, nome_proc_func);
 
             sprintf ( parametro_valor_referencia, "sem_tipo");
             gera_Proximo_Rotulo ( &rotulo1);
-            empilha_Simbolo_TB_SIMB ( nome_var_proc_func, categoria_funcao, parametro_valor_referencia, rotulo1, nivel_lexico + 1, 0);
+            empilha_Simbolo_TB_SIMB ( nome_var_proc_func, categoria_funcao, parametro_valor_referencia, rotulo1, nivel_lexico, 0);
             }
     break;
 
   case 31:
 
 /* Line 1806 of yacc.c  */
-#line 306 "compilador.y"
+#line 320 "compilador.y"
     {
             desempilha_String ( p_nomes, &nome_proc_func);
 
@@ -1963,9 +1977,9 @@ yyreduce:
   case 32:
 
 /* Line 1806 of yacc.c  */
-#line 329 "compilador.y"
+#line 343 "compilador.y"
     {
-            /* Insere endereços dos parametros formais procedimentou ou função */
+            /* Insere endereços dos parametros formais procedimentou/função */
             desempilha_String ( p_nomes, &nome_proc_func);
 
             procura_simb ( nome_proc_func, &x, &y, &tipo, &dados_simbolo1);
@@ -1983,40 +1997,19 @@ yyreduce:
   case 34:
 
 /* Line 1806 of yacc.c  */
-#line 348 "compilador.y"
+#line 362 "compilador.y"
     {
-            /* Depois de ler todo a declaração do procedimento */
-            /* Empilha deslocamento para não perder ele depois */
-            /* que sair do procedimento e inicia um novo */
-            /* Aumento nivel léxico por causa da entrada no procedimento */
-            empilha_Inteiro ( p_deslocamentos, deslocamento);
-            deslocamento = 0;
-            nivel_lexico++;
-
+            /* Depois de ler todo a declaração do procedimento/função */
             geraCodigo ( rotulo1, "NADA");
             sprintf ( dados, "ENPR %d", nivel_lexico);
             geraCodigo ( NULL, dados );
             }
     break;
 
-  case 35:
-
-/* Line 1806 of yacc.c  */
-#line 361 "compilador.y"
-    {
-            /* Ao terminar de ler todo o procedimento retoma o deslocamento */
-            /* Diminui o nivel lexico por causa do fim do procedimento */
-
-            deslocamento = desempilha_Inteiro ( p_deslocamentos);
-
-            nivel_lexico--;
-            }
-    break;
-
   case 36:
 
 /* Line 1806 of yacc.c  */
-#line 372 "compilador.y"
+#line 371 "compilador.y"
     {
             num_parametros = 0;
             }
@@ -2025,7 +2018,7 @@ yyreduce:
   case 39:
 
 /* Line 1806 of yacc.c  */
-#line 380 "compilador.y"
+#line 379 "compilador.y"
     {
             sprintf ( parametro_valor_referencia, "var_referencia");
             }
@@ -2034,7 +2027,7 @@ yyreduce:
   case 41:
 
 /* Line 1806 of yacc.c  */
-#line 384 "compilador.y"
+#line 383 "compilador.y"
     {
             sprintf ( parametro_valor_referencia, "var_valor");
             }
@@ -2043,7 +2036,7 @@ yyreduce:
   case 45:
 
 /* Line 1806 of yacc.c  */
-#line 394 "compilador.y"
+#line 393 "compilador.y"
     {
             num_vars_inicial = num_parametros;
             }
@@ -2052,7 +2045,7 @@ yyreduce:
   case 47:
 
 /* Line 1806 of yacc.c  */
-#line 403 "compilador.y"
+#line 402 "compilador.y"
     {
             /* Os parametros obrigatoriamente não podem ter sido declarados anteriormente */
 
@@ -2062,7 +2055,6 @@ yyreduce:
                 imprimeErro ( dados);
                 exit ( 1);
             }
-printf ( "PARAMETRO ============== %d\n", nivel_lexico);
             sprintf ( tipo_retorno, "sem_tipo");
             empilha_Simbolo_TB_SIMB ( token, categoria_parametro_formal, parametro_valor_referencia, NULL, nivel_lexico, deslocamento);
             num_parametros++;
@@ -2072,7 +2064,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 48:
 
 /* Line 1806 of yacc.c  */
-#line 418 "compilador.y"
+#line 416 "compilador.y"
     {
             /* Os parametros obrigatoriamente não podem ter sido declarados anteriormente */
 
@@ -2082,7 +2074,6 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
                 imprimeErro ( dados);
                 exit ( 1);
             }
-
             sprintf ( tipo_retorno, "sem_tipo");
             empilha_Simbolo_TB_SIMB ( token, categoria_parametro_formal, parametro_valor_referencia, NULL, nivel_lexico, deslocamento);
             num_parametros++;
@@ -2092,7 +2083,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 69:
 
 /* Line 1806 of yacc.c  */
-#line 465 "compilador.y"
+#line 462 "compilador.y"
     {
             sprintf ( nome_var_proc_func, "%s", token);
             }
@@ -2101,7 +2092,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 73:
 
 /* Line 1806 of yacc.c  */
-#line 474 "compilador.y"
+#line 471 "compilador.y"
     {
             /* Caso não seja atribuição então só pde ser procedimento ou função */
             /* Indica que não é parametro formal e indica com 2 */
@@ -2114,7 +2105,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 74:
 
 /* Line 1806 of yacc.c  */
-#line 481 "compilador.y"
+#line 478 "compilador.y"
     {
             desempilha_Inteiro ( p_eh_parametro_formal);
             }
@@ -2123,7 +2114,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 75:
 
 /* Line 1806 of yacc.c  */
-#line 488 "compilador.y"
+#line 485 "compilador.y"
     {
             /* Verifica se o label foi declarado */
             procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
@@ -2149,7 +2140,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 77:
 
 /* Line 1806 of yacc.c  */
-#line 512 "compilador.y"
+#line 509 "compilador.y"
     {
             /* Verifica se a variável foi declarada */
             procura_simb ( nome_var_proc_func, &x, &y, &tipo, &dados_simbolo1);
@@ -2189,7 +2180,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 78:
 
 /* Line 1806 of yacc.c  */
-#line 546 "compilador.y"
+#line 543 "compilador.y"
     {
             /* Reccupera variável de atribuição */
             desempilha_String ( p_nomes, &nome_var);
@@ -2229,7 +2220,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 79:
 
 /* Line 1806 of yacc.c  */
-#line 584 "compilador.y"
+#line 581 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_String ( p_rotulos, rotulo1);
@@ -2240,7 +2231,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 81:
 
 /* Line 1806 of yacc.c  */
-#line 592 "compilador.y"
+#line 589 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo2);
             empilha_String ( p_rotulos, rotulo2);
@@ -2252,7 +2243,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 83:
 
 /* Line 1806 of yacc.c  */
-#line 599 "compilador.y"
+#line 596 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo2);
             empilha_String ( p_rotulos, rotulo2);
@@ -2264,7 +2255,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 85:
 
 /* Line 1806 of yacc.c  */
-#line 609 "compilador.y"
+#line 606 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo2);
             desempilha_String ( p_rotulos, &rotulo1);
@@ -2278,7 +2269,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 86:
 
 /* Line 1806 of yacc.c  */
-#line 618 "compilador.y"
+#line 615 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo2);
             desempilha_String ( p_rotulos, &rotulo1);
@@ -2292,7 +2283,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 87:
 
 /* Line 1806 of yacc.c  */
-#line 630 "compilador.y"
+#line 627 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo2);
             geraCodigo ( rotulo2, "NADA");
@@ -2302,7 +2293,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 88:
 
 /* Line 1806 of yacc.c  */
-#line 635 "compilador.y"
+#line 632 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo2);
             geraCodigo ( rotulo2, "NADA");
@@ -2312,7 +2303,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 89:
 
 /* Line 1806 of yacc.c  */
-#line 643 "compilador.y"
+#line 640 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_String ( p_rotulos, rotulo1);
@@ -2324,7 +2315,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 91:
 
 /* Line 1806 of yacc.c  */
-#line 650 "compilador.y"
+#line 647 "compilador.y"
     {
             gera_Proximo_Rotulo ( &rotulo1);
             empilha_String ( p_rotulos, rotulo1);
@@ -2336,7 +2327,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 95:
 
 /* Line 1806 of yacc.c  */
-#line 665 "compilador.y"
+#line 662 "compilador.y"
     {
             desempilha_String ( p_rotulos, &rotulo1);
 
@@ -2352,7 +2343,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 100:
 
 /* Line 1806 of yacc.c  */
-#line 685 "compilador.y"
+#line 682 "compilador.y"
     {
             /* Cria pilha de tipos */
             p_tipos = malloc( sizeof (pilha_s));
@@ -2371,7 +2362,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 101:
 
 /* Line 1806 of yacc.c  */
-#line 698 "compilador.y"
+#line 695 "compilador.y"
     {
             desempilha_Inteiro ( p_eh_parametro_formal);
             desempilha_Inteiro ( p_num_termos);
@@ -2382,7 +2373,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 102:
 
 /* Line 1806 of yacc.c  */
-#line 707 "compilador.y"
+#line 704 "compilador.y"
     {
             /* Cria pilha de tipos */
             p_tipos = malloc( sizeof (pilha_s));
@@ -2401,7 +2392,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 103:
 
 /* Line 1806 of yacc.c  */
-#line 720 "compilador.y"
+#line 717 "compilador.y"
     {
             desempilha_Inteiro ( p_eh_parametro_formal);
             desempilha_Inteiro ( p_num_termos);
@@ -2413,7 +2404,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 106:
 
 /* Line 1806 of yacc.c  */
-#line 735 "compilador.y"
+#line 732 "compilador.y"
     {
             eh_parametro_formal = desempilha_Inteiro ( p_eh_parametro_formal);
             if ( eh_parametro_formal == 3) {
@@ -2427,7 +2418,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 107:
 
 /* Line 1806 of yacc.c  */
-#line 743 "compilador.y"
+#line 740 "compilador.y"
     {
             eh_parametro_formal = desempilha_Inteiro ( p_eh_parametro_formal);
             if ( eh_parametro_formal == 3) {
@@ -2452,7 +2443,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 108:
 
 /* Line 1806 of yacc.c  */
-#line 763 "compilador.y"
+#line 760 "compilador.y"
     {
             eh_parametro_formal = desempilha_Inteiro ( p_eh_parametro_formal);
             if ( eh_parametro_formal == 3) {
@@ -2466,7 +2457,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 109:
 
 /* Line 1806 of yacc.c  */
-#line 771 "compilador.y"
+#line 768 "compilador.y"
     {
             eh_parametro_formal = desempilha_Inteiro ( p_eh_parametro_formal);
             if ( eh_parametro_formal == 3) {
@@ -2491,7 +2482,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 110:
 
 /* Line 1806 of yacc.c  */
-#line 794 "compilador.y"
+#line 791 "compilador.y"
     {
             /* Verifica se o label foi declarado */
             procura_simb ( token, &x, &y, &tipo, &dados_simbolo1);
@@ -2513,7 +2504,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 111:
 
 /* Line 1806 of yacc.c  */
-#line 814 "compilador.y"
+#line 811 "compilador.y"
     {
             geraCodigo (NULL, "SOMA");
             }
@@ -2522,7 +2513,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 112:
 
 /* Line 1806 of yacc.c  */
-#line 818 "compilador.y"
+#line 815 "compilador.y"
     {
             geraCodigo (NULL, "SUBT");
             }
@@ -2531,7 +2522,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 114:
 
 /* Line 1806 of yacc.c  */
-#line 826 "compilador.y"
+#line 823 "compilador.y"
     {
             geraCodigo (NULL, "MULT");
             }
@@ -2540,7 +2531,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 115:
 
 /* Line 1806 of yacc.c  */
-#line 830 "compilador.y"
+#line 827 "compilador.y"
     {
             geraCodigo (NULL, "DIVI");
             }
@@ -2549,7 +2540,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 117:
 
 /* Line 1806 of yacc.c  */
-#line 838 "compilador.y"
+#line 835 "compilador.y"
     {
             sprintf ( nome_var_proc_func, "%s", token);
 
@@ -2563,7 +2554,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 119:
 
 /* Line 1806 of yacc.c  */
-#line 847 "compilador.y"
+#line 844 "compilador.y"
     {
             sprintf ( dados, "CRCT %s", token);
             geraCodigo ( NULL, dados);
@@ -2584,7 +2575,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 120:
 
 /* Line 1806 of yacc.c  */
-#line 863 "compilador.y"
+#line 860 "compilador.y"
     {
             strcpy ( tipo_fator, tipo_inteiro);
             empilha_String ( p_tipos, tipo_fator);
@@ -2594,7 +2585,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 122:
 
 /* Line 1806 of yacc.c  */
-#line 872 "compilador.y"
+#line 869 "compilador.y"
     {
             geraCodigo ( NULL, "INVR");
             }
@@ -2603,7 +2594,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 123:
 
 /* Line 1806 of yacc.c  */
-#line 879 "compilador.y"
+#line 876 "compilador.y"
     {
             geraCodigo ( NULL, "CMIG");
             }
@@ -2612,7 +2603,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 124:
 
 /* Line 1806 of yacc.c  */
-#line 883 "compilador.y"
+#line 880 "compilador.y"
     {
             geraCodigo ( NULL, "CMDG");
             }
@@ -2621,7 +2612,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 125:
 
 /* Line 1806 of yacc.c  */
-#line 887 "compilador.y"
+#line 884 "compilador.y"
     {
             geraCodigo ( NULL, "CMMA");
             }
@@ -2630,7 +2621,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 126:
 
 /* Line 1806 of yacc.c  */
-#line 891 "compilador.y"
+#line 888 "compilador.y"
     {
             geraCodigo ( NULL, "CMAG");
             }
@@ -2639,7 +2630,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 127:
 
 /* Line 1806 of yacc.c  */
-#line 895 "compilador.y"
+#line 892 "compilador.y"
     {
             geraCodigo ( NULL, "CMME");
             }
@@ -2648,7 +2639,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 128:
 
 /* Line 1806 of yacc.c  */
-#line 899 "compilador.y"
+#line 896 "compilador.y"
     {
             geraCodigo ( NULL, "CMEG");
             }
@@ -2657,7 +2648,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 129:
 
 /* Line 1806 of yacc.c  */
-#line 903 "compilador.y"
+#line 900 "compilador.y"
     {
             geraCodigo ( NULL, "CONJ");
             }
@@ -2666,7 +2657,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 130:
 
 /* Line 1806 of yacc.c  */
-#line 907 "compilador.y"
+#line 904 "compilador.y"
     {
             geraCodigo ( NULL, "DISJ");
             }
@@ -2675,7 +2666,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 131:
 
 /* Line 1806 of yacc.c  */
-#line 911 "compilador.y"
+#line 908 "compilador.y"
     {
             geraCodigo ( NULL, "INVR");
             geraCodigo ( NULL, "CONJ");
@@ -2685,7 +2676,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 133:
 
 /* Line 1806 of yacc.c  */
-#line 920 "compilador.y"
+#line 917 "compilador.y"
     {
             procura_simb ( token, &x, &y, &tipo, &dados_simbolo1);
             if ( dados_simbolo1 == NULL ){ // numero -99 indica que nao encontrou simb na tabela
@@ -2701,7 +2692,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 134:
 
 /* Line 1806 of yacc.c  */
-#line 931 "compilador.y"
+#line 928 "compilador.y"
     {
             sprintf ( dados, "CRCT %s", token);
             geraCodigo ( NULL, dados);
@@ -2711,7 +2702,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 136:
 
 /* Line 1806 of yacc.c  */
-#line 939 "compilador.y"
+#line 936 "compilador.y"
     {
             /* 1 - Caso venha de atribuição->expressao cateoria1 = var_simples */
             /* 2 - Caso venha de procedimento ou função cateoria1 = procedimento */
@@ -2747,7 +2738,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 138:
 
 /* Line 1806 of yacc.c  */
-#line 974 "compilador.y"
+#line 971 "compilador.y"
     {
             /* Salva o nome da função antes de iniciar leitura dos parametros */
             /* Também salva a quantidade de parametros */
@@ -2762,7 +2753,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 139:
 
 /* Line 1806 of yacc.c  */
-#line 983 "compilador.y"
+#line 980 "compilador.y"
     {
             desempilha_String ( p_nomes, &nome_proc_func);
 
@@ -2775,7 +2766,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 142:
 
 /* Line 1806 of yacc.c  */
-#line 994 "compilador.y"
+#line 991 "compilador.y"
     {
 
             eh_parametro_formal = desempilha_Inteiro ( p_eh_parametro_formal);
@@ -2954,7 +2945,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 143:
 
 /* Line 1806 of yacc.c  */
-#line 1171 "compilador.y"
+#line 1168 "compilador.y"
     {
             empilha_Inteiro ( p_eh_parametro_formal, 1);
 
@@ -2975,7 +2966,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 144:
 
 /* Line 1806 of yacc.c  */
-#line 1186 "compilador.y"
+#line 1183 "compilador.y"
     {
 
             num_termos = desempilha_Inteiro ( p_num_termos);
@@ -3013,7 +3004,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 145:
 
 /* Line 1806 of yacc.c  */
-#line 1219 "compilador.y"
+#line 1216 "compilador.y"
     {
             empilha_Inteiro ( p_eh_parametro_formal, 1);
 
@@ -3034,7 +3025,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
   case 146:
 
 /* Line 1806 of yacc.c  */
-#line 1234 "compilador.y"
+#line 1231 "compilador.y"
     {
 
             num_termos = desempilha_Inteiro ( p_num_termos);
@@ -3072,7 +3063,7 @@ printf ( "PARAMETRO ============== %d\n", nivel_lexico);
 
 
 /* Line 1806 of yacc.c  */
-#line 3076 "compilador.tab.c"
+#line 3067 "compilador.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -3303,7 +3294,7 @@ yyreturn:
 
 
 /* Line 2067 of yacc.c  */
-#line 1270 "compilador.y"
+#line 1267 "compilador.y"
 
 
 void yyerror ( char const *message)
