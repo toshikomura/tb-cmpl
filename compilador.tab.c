@@ -561,7 +561,7 @@ static const yytype_uint16 yyrline[] =
      793,   813,   817,   821,   825,   829,   833,   838,   837,   846,
      862,   870,   871,   878,   882,   886,   890,   894,   898,   902,
      906,   910,   915,   919,   930,   935,   939,   939,   974,   983,
-     973,   990,   994,  1167,  1166,  1215,  1215,  1262
+     973,   990,   994,  1171,  1170,  1219,  1219,  1266
 };
 #endif
 
@@ -2062,7 +2062,7 @@ yyreduce:
                 imprimeErro ( dados);
                 exit ( 1);
             }
-
+printf ( "PARAMETRO ============== %d\n", nivel_lexico);
             sprintf ( tipo_retorno, "sem_tipo");
             empilha_Simbolo_TB_SIMB ( token, categoria_parametro_formal, parametro_valor_referencia, NULL, nivel_lexico, deslocamento);
             num_parametros++;
@@ -2818,11 +2818,15 @@ yyreduce:
                         /* Se a pssagem foi por valor */
                         if ( strcmp ( categoria_parametro_valor, dados_simbolo1->parametro_valor_referencia) == 0) {
                             /* Se procedimento/função chamada recebe valor */
-                            if ( strcmp ( categoria_parametro_valor, parametro_valor_referencia) == 0)
+                            if ( strcmp ( categoria_parametro_valor, parametro_valor_referencia) == 0) {
                                 sprintf ( dados, "CRVL %d %d", x, y);
+                            }
                             /* Senão chamada recebe referencia */
-                            else
-                                sprintf ( dados, "CREN %d %d", x, y);
+                            else {
+                                sprintf ( dados, "Variável '%s' que possui valor não pode ser passada para uma procedimento/função como referência", dados_simbolo1->simbolo);
+                                imprimeErro ( dados);
+                                exit ( 1);
+                            }
                         }
                         /* Senão a passagem foi por referência */
                         else {
@@ -2950,7 +2954,7 @@ yyreduce:
   case 143:
 
 /* Line 1806 of yacc.c  */
-#line 1167 "compilador.y"
+#line 1171 "compilador.y"
     {
             empilha_Inteiro ( p_eh_parametro_formal, 1);
 
@@ -2971,7 +2975,7 @@ yyreduce:
   case 144:
 
 /* Line 1806 of yacc.c  */
-#line 1182 "compilador.y"
+#line 1186 "compilador.y"
     {
 
             num_termos = desempilha_Inteiro ( p_num_termos);
@@ -3009,7 +3013,7 @@ yyreduce:
   case 145:
 
 /* Line 1806 of yacc.c  */
-#line 1215 "compilador.y"
+#line 1219 "compilador.y"
     {
             empilha_Inteiro ( p_eh_parametro_formal, 1);
 
@@ -3030,7 +3034,7 @@ yyreduce:
   case 146:
 
 /* Line 1806 of yacc.c  */
-#line 1230 "compilador.y"
+#line 1234 "compilador.y"
     {
 
             num_termos = desempilha_Inteiro ( p_num_termos);
@@ -3068,7 +3072,7 @@ yyreduce:
 
 
 /* Line 1806 of yacc.c  */
-#line 3072 "compilador.tab.c"
+#line 3076 "compilador.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -3299,7 +3303,7 @@ yyreturn:
 
 
 /* Line 2067 of yacc.c  */
-#line 1266 "compilador.y"
+#line 1270 "compilador.y"
 
 
 void yyerror ( char const *message)
