@@ -1088,7 +1088,7 @@ var_chama_proc_func_2: {
                     if ( strcmp ( categoria_parametro_valor, dados_simbolo1->parametro_valor_referencia) == 0) {
                         /* Se procedimento/função chamada recebe valor */
                         if ( strcmp ( categoria_parametro_valor, parametro_valor_referencia) == 0) {
-                            sprintf ( dados, "CRVL %d %d", x, y);
+                            sprintf ( dados, "CRVL %d, %d", x, y);
                         }
                         /* Senão chamada recebe referencia */
                         else {
@@ -1101,10 +1101,10 @@ var_chama_proc_func_2: {
                     else {
                         /* Se procedimento/função chamada recebe valor */
                         if ( strcmp ( categoria_parametro_valor, parametro_valor_referencia) == 0)
-                            sprintf ( dados, "CRVI %d %d", x, y);
+                            sprintf ( dados, "CRVI %d, %d", x, y);
                         /* Senão chamada recebe referencia */
                         else
-                            sprintf ( dados, "CRVL %d %d", x, y);
+                            sprintf ( dados, "CRVL %d, %d", x, y);
                     }
                     geraCodigo ( NULL, dados);
                 }
@@ -1112,7 +1112,7 @@ var_chama_proc_func_2: {
                 else {
                     /* Se procedimento/função chamada recebe valor */
                     if ( strcmp ( categoria_parametro_valor, parametro_valor_referencia) == 0) {
-                        sprintf ( dados, "CRVL %d %d", x, y);
+                        sprintf ( dados, "CRVL %d, %d", x, y);
                         geraCodigo ( NULL, dados);
                     }
                     /* Senão chamada recebe referencia */
@@ -1193,24 +1193,24 @@ var_chama_proc_func_2: {
                                     exit ( 1);
                                 }
                                 else {
-                                    sprintf ( dados, "CRVL %d %d", x, y);
+                                    sprintf ( dados, "CRVL %d, %d", x, y);
                                 }
                             }
                             /* Senão a passagem foi por referência */
                             else {
                                 /* Se é parametro de leitura */
                                 if ( eh_parametro_formal == 3)
-                                    sprintf ( dados, "ARMI %d %d", x, y);
+                                    sprintf ( dados, "ARMI %d, %d", x, y);
                                 else
-                                    sprintf ( dados, "CRVI %d %d", x, y);
+                                    sprintf ( dados, "CRVI %d, %d", x, y);
                             }
                         }
                         /* Senão é uma variável */
                         else {
                             if ( eh_parametro_formal == 3)
-                                sprintf ( dados, "ARMZ %d %d", x, y);
+                                sprintf ( dados, "ARMZ %d, %d", x, y);
                             else
-                                sprintf ( dados, "CRVL %d %d", x, y);
+                                sprintf ( dados, "CRVL %d, %d", x, y);
                         }
                         geraCodigo ( NULL, dados);
                     }
