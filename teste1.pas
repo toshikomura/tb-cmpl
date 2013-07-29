@@ -26,6 +26,7 @@ function y():integer;
     hello ( c);
     b := 3;
     x := a;
+    read ( x);
   end;
 begin
   x ( 1 + n, m, n);
