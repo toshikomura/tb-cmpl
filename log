@@ -474,6 +474,11 @@ begin     # begin
  atribuicao      # := 
  ident      # a 
  pt_virgula      # ; 
+ leitura     # read 
+ abre_parenteses      # ( 
+ ident      # x 
+ fecha_parenteses     # ) 
+ pt_virgula      # ; 
 end      # end 
  pt_virgula      # ; 
 begin     # begin 

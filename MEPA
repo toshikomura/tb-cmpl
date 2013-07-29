@@ -11,10 +11,10 @@ R5: NADA
      DSVS R6
 R7: NADA 
      ENPR 3
-     CRVI 2 -4
+     CRVI 2, -4
      ARMI 3, -4
-     CRVI 2 -4
-     CRVI 3 -4
+     CRVI 2, -4
+     CRVI 3, -4
      SOMA
      ARMZ 2, 0
      CRVL 3, -4
@@ -26,7 +26,7 @@ R9: NADA
      CRVL 2, -5
      CMIG
      DSVF R10
-     CRVL 2 -6
+     CRVL 2, -6
      CRCT 1
      SOMA
      ARMI 2, -5
@@ -36,43 +36,45 @@ R8: NADA
      RTPR 3, 1
 R6: NADA 
      LEIT
-     ARMI 2 -5
+     ARMI 2, -5
      LEIT
-     ARMI 2 -4
-     CRVI 2 -4
+     ARMI 2, -4
+     CRVI 2, -4
      IMPR
-     CRVL 2 -6
+     CRVL 2, -6
      IMPR
      LEIT
-     ARMI 2 -4
-     CRVL 2 -6
+     ARMI 2, -4
+     CRVL 2, -6
      IMPR
-     CRVL 2 -6
-     CRVI 2 -4
+     CRVL 2, -6
+     CRVI 2, -4
      CRCT 1
      DIVI
      SOMA
      IMPR
 R0: ENRT 2, 1 
-     CRVL 2 -6
-     CRVI 2 -4
+     CRVL 2, -6
+     CRVI 2, -4
      SOMA
      ARMZ 0, 0
      DSVR R0, 2, 2
      DSVR R1, 0, 2
      CRCT 1
      ARMI 2, -4
-     CRVL 2 -4
+     CRVL 2, -4
      CHPR R7, 2
      CRCT 3
      ARMI 2, -5
-     CRVL 2 -6
+     CRVL 2, -6
+     ARMI 2, -7
+     LEIT
      ARMI 2, -7
      RTPR 2, 3
 R4: NADA 
      AMEN 1
      CRCT 1
-     CRVL 0 1
+     CRVL 0, 1
      SOMA
      CREN 0 0
      CREN 0 1
@@ -143,10 +145,10 @@ R11: NADA
      AMEN 1
      CHPR R3, 0
      SOMA
-     CRVL 0 4
+     CRVL 0, 4
      SOMA
-     CRVL 0 1
-     CRVL 0 0
+     CRVL 0, 1
+     CRVL 0, 0
      MULT
      SOMA
      CRCT 3
@@ -154,7 +156,7 @@ R11: NADA
      ARMZ 0, 1
 R1: ENRT 0, 5 
      LEIT
-     ARMZ 0 4
+     ARMZ 0, 4
      CRCT 2
      CRCT 2
      CMIG
