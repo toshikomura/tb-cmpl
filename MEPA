@@ -67,9 +67,9 @@ R0: ENRT 2, 1
      CRCT 3
      ARMI 2, -5
      CRVL 2, -6
-     ARMI 2, -7
+     ARMZ 2, -7
      LEIT
-     ARMI 2, -7
+     ARMZ 2, -7
      RTPR 2, 3
 R4: NADA 
      AMEN 1

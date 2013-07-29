@@ -2236,18 +2236,18 @@ yyreduce:
 
                         /* Se a função não tem parametros */
                         if ( dados_simbolo2 == NULL ) {
-                            sprintf ( dados, "ARMI %d, -4", dados_simbolo1->nivel_lexico);
+                            sprintf ( dados, "ARMZ %d, -4", dados_simbolo1->nivel_lexico);
                         }
                         else {
 
                             if ( strcmp ( categoria_parametro_formal, dados_simbolo2->categoria) != 0) {
 
-                                sprintf ( dados, "ARMI %d, -4", dados_simbolo1->nivel_lexico);
+                                sprintf ( dados, "ARMZ %d, -4", dados_simbolo1->nivel_lexico);
                             }
                             /* Senão se tem parametros */
                             else {
 
-                                sprintf ( dados, "ARMI %d, %d", dados_simbolo1->nivel_lexico, dados_simbolo2->deslocamento - 1);
+                                sprintf ( dados, "ARMZ %d, %d", dados_simbolo1->nivel_lexico, dados_simbolo2->deslocamento - 1);
                             }
                         }
                     }
@@ -2981,18 +2981,18 @@ yyreduce:
 
                             /* Se a função não tem parametros */
                             if ( dados_simbolo2 == NULL ) {
-                                sprintf ( dados, "ARMI %d, -4", dados_simbolo1->nivel_lexico);
+                                sprintf ( dados, "ARMZ %d, -4", dados_simbolo1->nivel_lexico);
                             }
                             else {
 
                                 if ( strcmp ( categoria_parametro_formal, dados_simbolo2->categoria) != 0) {
 
-                                    sprintf ( dados, "ARMI %d, -4", dados_simbolo1->nivel_lexico);
+                                    sprintf ( dados, "ARMZ %d, -4", dados_simbolo1->nivel_lexico);
                                 }
                                 /* Senão se tem parametros */
                                 else {
 
-                                    sprintf ( dados, "ARMI %d, %d", dados_simbolo1->nivel_lexico, dados_simbolo2->deslocamento - 1);
+                                    sprintf ( dados, "ARMZ %d, %d", dados_simbolo1->nivel_lexico, dados_simbolo2->deslocamento - 1);
                                 }
                             }
                         }
