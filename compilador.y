@@ -796,7 +796,7 @@ lista_var_leitura_impressao: lista_var_leitura_impressao VIRGULA
 
                 /* Se a expressao tem mais de um elemento na leitura */
                 if ( num_termos > 1) {
-                    sprintf ( dados, "Leitura não pode possuir uma expressao com mais de um elemento");
+                    sprintf ( dados, "Leitura não pode possuir uma expressão com mais de um elemento");
                     imprimeErro ( dados);
                     exit ( 1);
                 }
@@ -829,7 +829,7 @@ lista_var_leitura_impressao: lista_var_leitura_impressao VIRGULA
 
                 /* Se a expressao tem mais de um elemento na leitura */
                 if ( num_termos > 1) {
-                    sprintf ( dados, "Leitura não pode possuir uma expressao com mais de um elemento");
+                    sprintf ( dados, "Leitura não pode possuir uma expressão com mais de um elemento");
                     imprimeErro ( dados);
                     exit ( 1);
                 }
@@ -903,7 +903,10 @@ expressao_fator: IDENT
             sprintf ( dados, "CRCT %s", token);
             geraCodigo ( NULL, dados);
 
+            /* Salva o tipo do termo */
+            tipo_fator = malloc ( sizeof (char)*TAM_TOKEN);
             strcpy ( tipo_fator, tipo_inteiro);
+
             empilha_String ( p_tipos, tipo_fator);
 
             num_termos = desempilha_Inteiro ( p_num_termos);
@@ -916,8 +919,10 @@ expressao_fator: IDENT
             }
             | ABRE_PARENTESES expressao_aritmetica FECHA_PARENTESES
             {
-            strcpy ( tipo_fator, tipo_inteiro);
-            empilha_String ( p_tipos, tipo_fator);
+            /* Salva o tipo do termo */
+//            tipo_fator = malloc ( sizeof (char)*TAM_TOKEN);
+//            strcpy ( tipo_fator, tipo_inteiro);
+//            empilha_String ( p_tipos, tipo_fator);
             }
 ;
 
@@ -1014,8 +1019,8 @@ var_chama_proc_func: {
             }
             empilha_Inteiro ( p_eh_parametro_formal, eh_parametro_formal);
 
-            /* Se o simbolo é uma função gera o código de retorno antes de empilhar os parametros */
-            if ( dados_simbolo1 != NULL && strcmp ( categoria_funcao, dados_simbolo1->categoria) == 0) {
+            /* Se o simbolo é uma função mas não é na leitura gera o código de retorno antes de empilhar os parametros */
+            if ( dados_simbolo1 != NULL && strcmp ( categoria_funcao, dados_simbolo1->categoria) == 0 && eh_parametro_formal != 3) {
                 sprintf ( dados, "AMEN 1");
                 geraCodigo ( NULL, dados );
             }
@@ -1140,8 +1145,10 @@ var_chama_proc_func_2: {
                 }
                 /* Senão é procedimento é função ou atribuição */
                 else {
-                    /* Se é função */
-                    if ( strcmp( categoria_funcao, dados_simbolo1->categoria) == 0) {
+
+                    /* Se é função e não é da leitura */
+                    if ( strcmp( categoria_funcao, dados_simbolo1->categoria) == 0 && eh_parametro_formal != 3) {
+
                         if ( dados_simbolo1->qtd_parametros != num_parametros) {
                             sprintf ( dados, "Para função '%s' numero de parametros incorreto", nome_var_proc_func);
                             imprimeErro ( dados);
@@ -1169,55 +1176,88 @@ var_chama_proc_func_2: {
                             sprintf ( dados, "DMEN 1");
                             geraCodigo ( NULL, dados);
                         }
-
                     }
-                    /* Senão é atribuição */
+                    /* Senão é uma expressão de atribuição */
                     else {
+
                         desempilha_pilhas_String ( p_p_tipos, &p_tipos);
 
                         /* Salva o tipo variável */
                         tipo_fator = malloc ( sizeof (char)*TAM_TOKEN);
-                        strcpy (tipo_fator, dados_simbolo1->tipo);
+
+                        /* Se é função */
+                        if ( dados_simbolo1->tipo_retorno != NULL)
+                            strcpy (tipo_fator, dados_simbolo1->tipo_retorno);
+                        /* Senão é variável */
+                        else
+                            strcpy (tipo_fator, dados_simbolo1->tipo);
+
                         empilha_String ( p_tipos, tipo_fator);
 
                         empilha_pilhas_String ( p_p_tipos, p_tipos);
 
-                        /* Se é a variável foi passada como parametro */
-                        if ( strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0) {
-                            /* Se a pssagem foi por valor */
-                            if ( strcmp ( categoria_parametro_valor, dados_simbolo1->parametro_valor_referencia) == 0) {
-                                /* Se é parametro de leitura */
-                                if ( eh_parametro_formal == 3) {
-                                    sprintf ( dados, "Variável '%s' foi passada como valor e não pode receber atribuição", dados_simbolo1->simbolo);
-                                    imprimeErro ( dados);
-                                    exit ( 1);
-                                }
-                                else {
-                                    sprintf ( dados, "CRVL %d, %d", x, y);
-                                }
+                        /* Se é retorno de função */
+                        if ( strcmp ( categoria_funcao, dados_simbolo1->categoria) == 0 ) {
+                            procura_prox_simb ( dados_simbolo1, &dados_simbolo2);
+
+                            /* Se a função não tem parametros */
+                            if ( dados_simbolo2 == NULL ) {
+                                sprintf ( dados, "ARMI %d, -4", dados_simbolo1->nivel_lexico);
                             }
-                            /* Senão a passagem foi por referência */
                             else {
-                                /* Se é parametro de leitura */
-                                if ( eh_parametro_formal == 3)
-                                    sprintf ( dados, "ARMI %d, %d", x, y);
-                                else
-                                    sprintf ( dados, "CRVI %d, %d", x, y);
+
+                                if ( strcmp ( categoria_parametro_formal, dados_simbolo2->categoria) != 0) {
+
+                                    sprintf ( dados, "ARMI %d, -4", dados_simbolo1->nivel_lexico);
+                                }
+                                /* Senão se tem parametros */
+                                else {
+
+                                    sprintf ( dados, "ARMI %d, %d", dados_simbolo1->nivel_lexico, dados_simbolo2->deslocamento - 1);
+                                }
                             }
                         }
                         /* Senão é uma variável */
                         else {
-                            if ( eh_parametro_formal == 3)
-                                sprintf ( dados, "ARMZ %d, %d", x, y);
-                            else
-                                sprintf ( dados, "CRVL %d, %d", x, y);
+                            /* Se é a variável foi passada como parametro */
+                            if ( strcmp ( categoria_parametro_formal, dados_simbolo1->categoria) == 0) {
+                                /* Se a pssagem foi por valor */
+                                if ( strcmp ( categoria_parametro_valor, dados_simbolo1->parametro_valor_referencia) == 0) {
+                                /* Se é parametro de leitura */
+                                    if ( eh_parametro_formal == 3) {
+                                        sprintf ( dados, "Variável '%s' foi passada como valor e não pode receber atribuição", dados_simbolo1->simbolo);
+                                        imprimeErro ( dados);
+                                        exit ( 1);
+                                    }
+                                    else {
+                                        sprintf ( dados, "CRVL %d, %d", x, y);
+                                    }
+                                }
+                                /* Senão a passagem foi por referência */
+                                else {
+                                    /* Se é parametro de leitura */
+                                    if ( eh_parametro_formal == 3)
+                                        sprintf ( dados, "ARMI %d, %d", x, y);
+                                    else
+                                        sprintf ( dados, "CRVI %d, %d", x, y);
+                                }
+                            }
+                            /* Senão é uma variável */
+                            else {
+                                if ( eh_parametro_formal == 3)
+                                    sprintf ( dados, "ARMZ %d, %d", x, y);
+                                else
+                                    sprintf ( dados, "CRVL %d, %d", x, y);
+                            }
                         }
+                        /* Fim do if Se retorno de função */
                         geraCodigo ( NULL, dados);
                     }
-                    /* Fim do senão é atribuição */
-
+                    /* Fim do if Se é função e não é da leitura */
                 }
+                /* Fim do if Se é procedimento */
             }
+            /* Fim do if Se é passagem parametro */
             empilha_Inteiro ( p_eh_parametro_formal, eh_parametro_formal);
             }
 ;
