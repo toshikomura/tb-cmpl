@@ -75,7 +75,8 @@
      IMPRESSAO = 293,
      ROTULO = 294,
      VAI_PARA = 295,
-     LOWER_THEN_ELSE = 296
+     DIVISAO_INTEIRA = 296,
+     LOWER_THEN_ELSE = 297
    };
 #endif
 

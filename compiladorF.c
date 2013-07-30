@@ -43,6 +43,7 @@ void inicia_variaveis_globais () {
     tipo_retorno = malloc ( sizeof (char)*TAM_TOKEN);
     nome_var_proc_func = malloc ( sizeof (char)*TAM_TOKEN);
     tipo_inteiro = malloc ( sizeof (char)*TAM_TOKEN);
+    tipo_booleano = malloc ( sizeof (char)*TAM_TOKEN);
 
     fp = NULL;
     valor_rotulo = 0;
@@ -51,6 +52,7 @@ void inicia_variaveis_globais () {
     deslocamento = 0;
 
     sprintf ( tipo_inteiro, "integer");
+    sprintf ( tipo_booleano, "boolean");
     sprintf ( categoria_procedimento, "procedimento");
     sprintf ( categoria_funcao, "funcao");
     sprintf ( categoria_parametro_formal, "parametro_formal");
@@ -556,4 +558,68 @@ void procura_prox_simb ( no_tabela_simbolos_p *slot_tb_simb_func, no_tabela_simb
         printf ( "Não encontrou próximo parametro na função em procura_prox_simb\n");
         exit ( 1);
     }
+}
+
+/* Função que compara fatores na expressão booleana */
+compara_Fatores_Booleanos () {
+
+    char *tipo_fator1, *tipo_fator2;
+    pilha_s *p_tipos1, *p_tipos2;
+
+    desempilha_pilhas_String ( p_p_tipos, &p_tipos1);
+    desempilha_String ( p_tipos1, &tipo_fator1);
+    desempilha_pilhas_String ( p_p_tipos, &p_tipos2);
+    desempilha_String ( p_tipos2, &tipo_fator2);
+
+    /* Se não existir um tipo incompativel */
+    if ( strcmp ( tipo_fator1, tipo_fator2) != 0) {
+        sprintf ( dados, "Tipo incopativel das expressoes na comparacacao %s != %s", tipo_fator1, tipo_fator2);
+        imprimeErro ( dados);
+        exit ( 1);
+    }
+
+    /* Compoem o tipo para processar em outro nivel */
+    empilha_String ( p_tipos1, tipo_booleano);
+    empilha_pilhas_String ( p_p_tipos, p_tipos1);
+
+}
+
+compara_Fatores_Booleanos_Especificos () {
+
+    char *tipo_fator1, *tipo_fator2;
+    pilha_s *p_tipos1, *p_tipos2;
+
+    desempilha_pilhas_String ( p_p_tipos, &p_tipos1);
+    desempilha_String ( p_tipos1, &tipo_fator1);
+    desempilha_pilhas_String ( p_p_tipos, &p_tipos2);
+    desempilha_String ( p_tipos2, &tipo_fator2);
+
+    /* Se não existir um tipo incompativel */
+    if ( strcmp ( tipo_fator1, tipo_fator2) != 0 || strcmp ( tipo_fator1, tipo_inteiro) == 0 || strcmp ( tipo_fator2, tipo_inteiro) == 0 ) {
+        sprintf ( dados, "Tipo incopativel na expressao %s %s != boolean", tipo_fator1, tipo_fator2);
+        imprimeErro ( dados );
+        exit ( 1);
+    }
+
+    /* Compoem o tipo para processar em outro nivel */
+    empilha_String ( p_tipos1, tipo_booleano);
+    empilha_pilhas_String ( p_p_tipos, p_tipos1);
+
+}
+
+/* Função que checa se o tipo é booleano */
+checa_Booleano () {
+
+    char *tipo_aux;
+    pilha_s *p_tipos1;
+
+    desempilha_pilhas_String ( p_p_tipos, &p_tipos1);
+    desempilha_String ( p_tipos1, &tipo_aux);
+
+    if ( strcmp ( tipo_booleano, tipo_aux) != 0) {
+        sprintf ( dados, "Tipo deve ser booleano e não %s", tipo_aux);
+        imprimeErro ( dados );
+        exit ( 1);
+    }
+
 }

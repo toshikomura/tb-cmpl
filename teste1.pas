@@ -1,13 +1,21 @@
 program exemplo75 (input, output);
 var m,n,o :  integer;
+var ali, ila : boolean;
 label la, al;
 var eu : integer;
+
+function aleluia ( eu:integer; ali:boolean):boolean;
+begin
+end;
 
 function y():integer;
   function x ( a : integer; var b,c:integer):integer;
   var caqui :integer;
     procedure hello ( var aux :integer);
     begin
+      if (ali and ila) or ila then
+        ali := ila and ali;
+      ali := ( ila + ali) and ila;
       aux := c;
       caqui := c + aux;
       if aux = b then
@@ -45,7 +53,7 @@ procedure w;
 
 begin
   n := 2;
-  while ( 2 <= n ) do
+  while (2 <= n)  do
   begin
     while 3 = 2 do
       m := 2;

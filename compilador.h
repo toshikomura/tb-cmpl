@@ -25,7 +25,8 @@ typedef enum simbolos {
   simb_enquanto, simb_para, simb_faca, simb_repita, simb_ate, simb_se, simb_entao, simb_senao,
   simb_procedimento, simb_funcao,
   simb_leitura, simb_impressao,
-  simb_rotulo, simb_vai_para
+  simb_rotulo, simb_vai_para,
+  simb_div_int
 } simbolos;
 
 
@@ -121,6 +122,7 @@ extern char *parametro_valor_referencia;
 extern char *tipo_retorno;
 extern char *nome_var_proc_func;
 extern char *tipo_inteiro;
+extern char *tipo_booleano;
 
 extern int nivel_lexico;
 extern int deslocamento;

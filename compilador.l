@@ -1,6 +1,7 @@
 %{
 
 
+
 #include<stdio.h>
 #include<string.h>
 
@@ -23,12 +24,6 @@ diferente [!=]
 maior [>]
 
 menor [<]
-
-nao [NOT]
-
-e [AND]
-
-ou [OR]
 
 descarte [\t ]+
 
@@ -137,19 +132,19 @@ end { simbolo = simb_end;
           return MENOR;
  }
 
-{nao} { simbolo = simb_nao;
+not { simbolo = simb_nao;
           strncpy ( token , yytext, TAM_TOKEN);
           IMPRIME(" nao ");
           return NAO;
  }
 
-{e} { simbolo = simb_e;
+and { simbolo = simb_e;
           strncpy ( token , yytext, TAM_TOKEN);
           IMPRIME(" e ");
           return E;
  }
 
-{ou} { simbolo = simb_ou;
+or { simbolo = simb_ou;
           strncpy ( token , yytext, TAM_TOKEN);
           IMPRIME(" ou ");
           return OU;
@@ -267,6 +262,12 @@ goto { simbolo = simb_vai_para;
           strncpy (token, yytext, TAM_TOKEN);
           IMPRIME(" vai_para ");
           return VAI_PARA;
+ }
+
+div { simbolo = simb_div_int;
+          strncpy (token, yytext, TAM_TOKEN);
+          IMPRIME(" divisao_inteira ");
+          return DIVISAO_INTEIRA;
  }
 
 {ident} { simbolo = simb_identificador;
