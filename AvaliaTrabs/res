@@ -1,0 +1,68 @@
+program     # program 
+ ident      # exemplo5 
+
+
+TABELA DE SIMBOLOS
+
+|| simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
+|| exemplo5 | (null) | nome_programa | (null) | sem_tipo | (null) | 0 | 0 | 0 ||
+
+
+TABELA DE SIMBOLOS
+
+|| simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
+|| exemplo5 | sem_tipo | nome_programa | (null) | sem_tipo | (null) | 0 | 0 | 0 ||
+ abre_parenteses      # ( 
+ ident      # input 
+ virgula      # , 
+ ident      # output 
+ fecha_parenteses     # ) 
+ pt_virgula      # ; 
+var      # var 
+ ident      # n 
+
+
+TABELA DE SIMBOLOS
+
+|| simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
+|| n | (null) | var_simples | (null) | sem_tipo | (null) | 0 | 0 | 0 ||
+|| exemplo5 | sem_tipo | nome_programa | (null) | sem_tipo | (null) | 0 | 0 | 0 ||
+ virgula      # , 
+ ident      # k 
+
+
+TABELA DE SIMBOLOS
+
+|| simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
+|| k | (null) | var_simples | (null) | sem_tipo | (null) | 0 | 1 | 0 ||
+|| n | (null) | var_simples | (null) | sem_tipo | (null) | 0 | 0 | 0 ||
+|| exemplo5 | sem_tipo | nome_programa | (null) | sem_tipo | (null) | 0 | 0 | 0 ||
+ dois pontos     # : 
+ ident      # integer 
+
+
+TABELA DE SIMBOLOS
+
+|| simb | tipo | categ | rotu | tip_param | tip_retor | niv lex | desloc | qtd_param
+|| k | integer | var_simples | (null) | sem_tipo | (null) | 0 | 1 | 0 ||
+|| n | integer | var_simples | (null) | sem_tipo | (null) | 0 | 0 | 0 ||
+|| exemplo5 | sem_tipo | nome_programa | (null) | sem_tipo | (null) | 0 | 0 | 0 ||
+ pt_virgula      # ; 
+begin     # begin 
+ leitura     # read 
+ abre_parenteses      # ( 
+ ident      # n 
+ fecha_parenteses     # ) 
+ pt_virgula      # ; 
+ leitura     # read 
+ abre_parenteses      # ( 
+ ident      # k 
+ fecha_parenteses     # ) 
+ pt_virgula      # ; 
+ se     # if 
+ abre_parenteses      # ( 
+ ident      # n 
+ soma     # + 
+ numero      # 1 
+ fecha_parenteses     # ) 
+ entao     # then 
