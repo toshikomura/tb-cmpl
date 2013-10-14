@@ -1,0 +1,622 @@
+Usage: avaliaTrab.sh <arquivo executavel compilador
+Avaliação: Para os primeiros quatro erros, meio ponto por erro.
+Avaliação: Para os demais, um ponto por erro.
+Exemplo5 ... 3a4,5
+>      DSVS R00
+> R00: NADA 
+12c14
+< R0: NADA 
+---
+> R01: NADA 
+16c18
+<      DSVF R1
+---
+>      DSVF R02
+29,30c31,32
+<      DSVS R0
+< R1: NADA 
+---
+>      DSVS R01
+> R02: NADA 
+Exemplo7.1 ... 2a3,4
+>      DSVS R00
+> R00: NADA 
+9c11
+< R0: NADA 
+---
+> R01: NADA 
+13c15
+<      DSVF R1
+---
+>      DSVF R02
+28,29c30,31
+<      DSVS R0
+< R1: NADA 
+---
+>      DSVS R01
+> R02: NADA 
+Exemplo7.2 ... 3,5c3,4
+<      DSVS R0
+< R1: NADA 
+<      ENPR 1
+---
+>      DSVS R00
+> R01: ENPR 1 
+6a6,7
+>      DSVS R02
+> R02: NADA 
+13a15,55
+>      CRCT 2
+>      MULT
+>      CRVL 0, 2
+>      CMIG
+>      DSVF R04
+>      CRVL 0, 1
+>      CRVL 1, 0
+>      SOMA
+>      ARMZ 0, 1
+>      DSVS R03
+> R04: NADA 
+>      CRVL 0, 1
+>      CRVL 1, 0
+>      SUBT
+>      ARMZ 0, 1
+> R03: NADA 
+>      DMEM 1
+>      RTPR 1, 0
+> R00: NADA 
+>      LEIT
+>      ARMZ 0, 0
+>      CRCT 0
+>      ARMZ 0, 1
+>      CRCT 0
+>      ARMZ 0, 2
+> R05: NADA 
+>      CRVL 0, 2
+>      CRVL 0, 0
+>      CMEG
+>      DSVF R06
+>      CHPR R01, 0
+>      CRVL 0, 1
+>      IMPR
+>      CRVL 0, 2
+>      CRCT 1
+>      SOMA
+>      ARMZ 0, 2
+>      DSVS R05
+> R06: NADA 
+>      DMEM 3
+>      PARA
+Exemplo7.3 ... 3,5c3,4
+<      DSVS R0
+< R1: NADA 
+<      ENPR 1
+---
+>      DSVS R00
+> R01: ENPR 1 
+6a6,7
+>      DSVS R02
+> R02: NADA 
+18a20
+>      DMEM 1
+20c22
+< R0: NADA 
+---
+> R00: NADA 
+26c28
+<      CHPR R1, 0
+---
+>      CHPR R01, 0
+32c34
+<      CHPR R1, 0
+---
+>      CHPR R01, 0
+40c42
+<      CHPR R1, 0
+---
+>      CHPR R01, 0
+46c48
+<      CHPR R1, 0
+---
+>      CHPR R01, 0
+Exemplo7.4 ... 3,5c3,4
+<      DSVS R0
+< R1: NADA 
+<      ENPR 1
+---
+>      DSVS R00
+> R01: ENPR 1 
+6a6,7
+>      DSVS R02
+> R02: NADA 
+18a20
+>      DMEM 1
+20,23c22
+< R0: NADA 
+<      DSVS R2
+< R3: NADA 
+<      ENPR 1
+---
+> R03: ENPR 1 
+25,27c24,25
+<      DSVS R4
+< R5: NADA 
+<      ENPR 2
+---
+>      DSVS R04
+> R05: ENPR 2 
+28a27,28
+>      DSVS R06
+> R06: NADA 
+36c36
+<      CHPR R1, 2
+---
+>      CHPR R01, 2
+38a39
+>      DMEM 1
+40c41
+< R4: NADA 
+---
+> R04: NADA 
+46c47
+<      CHPR R5, 1
+---
+>      CHPR R05, 1
+50c51,52
+<      CHPR R1, 1
+---
+>      CHPR R01, 1
+>      DMEM 1
+52c54
+< R2: NADA 
+---
+> R00: NADA 
+58c60
+<      CHPR R3, 0
+---
+>      CHPR R03, 0
+60c62
+<      CHPR R1, 0
+---
+>      CHPR R01, 0
+Exemplo7.5 ... 3,5c3,4
+<      DSVS R0
+< R1: NADA 
+<      ENPR 1
+---
+>      DSVS R00
+> R01: ENPR 1 
+6a6,7
+>      DSVS R02
+> R02: NADA 
+10c11
+<      DSVF R2
+---
+>      DSVF R04
+15,17c16,18
+<      DSVS R3
+< R2: NADA 
+<      AMEN 1
+---
+>      DSVS R03
+> R04: NADA 
+>      AMEM 1
+21,23c22,24
+<      CREN 1 0
+<      CHPR R1, 1
+<      AMEN 1
+---
+>      CREN 1, 0
+>      CHPR R01, 1
+>      AMEM 1
+27,28c28,29
+<      CREN 1 1
+<      CHPR R1, 1
+---
+>      CREN 1, 1
+>      CHPR R01, 1
+37c38
+< R3: NADA 
+---
+> R03: NADA 
+41a43
+>      DMEM 2
+43,44c45,46
+< R0: NADA 
+<      AMEN 1
+---
+> R00: NADA 
+>      AMEM 1
+46,47c48,49
+<      CREN 0 0
+<      CHPR R1, 0
+---
+>      CREN 0, 0
+>      CHPR R01, 0
+Exemplo8.10 ... 3,5c3,4
+<      DSVS R0
+< R1: NADA 
+<      ENPR 1
+---
+>      DSVS R00
+> R01: ENPR 1 
+6a6,7
+>      DSVS R02
+> R02: NADA 
+10c11
+<      DSVF R2
+---
+>      DSVF R04
+15,16c16,17
+<      DSVS R3
+< R2: NADA 
+---
+>      DSVS R03
+> R04: NADA 
+22,23c23,24
+<      CREN 1 0
+<      CHPR R1, 1
+---
+>      CREN 1, 0
+>      CHPR R01, 1
+30,31c31,32
+<      CHPR R1, 1
+< R3: NADA 
+---
+>      CHPR R01, 1
+> R03: NADA 
+35a37
+>      DMEM 1
+37c39
+< R0: NADA 
+---
+> R00: NADA 
+41,42c43,44
+<      CREN 0 0
+<      CHPR R1, 0
+---
+>      CREN 0, 0
+>      CHPR R01, 0
+Exemplo8.12 ... 3,5c3,4
+<      DSVS R0
+< R1: NADA 
+<      ENPR 1
+---
+>      DSVS R00
+> R01: ENPR 1 
+7,9c6,9
+<      DSVS R4
+< R5: NADA 
+<      ENPR 2
+---
+>      DSVS R04
+> R05: ENPR 2 
+>      DSVS R06
+> R06: NADA 
+13,16c13,16
+<      DSVF R6
+<      DSVR R3, 1, 2
+<      DSVS R7
+< R6: NADA 
+---
+>      DSVF R08
+>      DSVR R03, 1, 2
+>      DSVS R07
+> R08: NADA 
+20c20
+<      DSVF R8
+---
+>      DSVF R10
+23,25c23,25
+<      DSVS R9
+< R8: NADA 
+<      AMEN 1
+---
+>      DSVS R09
+> R10: NADA 
+>      AMEM 1
+29c29
+<      CHPR R5, 2
+---
+>      CHPR R05, 2
+35,36c35,36
+< R9: NADA 
+< R7: NADA 
+---
+> R09: NADA 
+> R07: NADA 
+38,40c38,40
+< R4: NADA 
+< R2: ENRT 1, 1 
+<      AMEN 1
+---
+> R04: NADA 
+> R02: ENRT 1 1 
+>      AMEM 1
+42c42
+<      CHPR R5, 1
+---
+>      CHPR R05, 1
+49,52c49,54
+<      DSVF R10
+<      DSVR R2, 1, 1
+< R10: NADA 
+< R3: ENRT 1, 1 
+---
+>      DSVF R12
+>      DSVR R02, 1, 1
+>      DSVS R11
+> R12: NADA 
+> R11: NADA 
+> R03: ENRT 1 1 
+56a59
+>      DMEM 1
+58,64c61,63
+< R0: NADA 
+<      DSVS R11
+< R12: NADA 
+<      ENPR 1
+<      DSVS R13
+< R14: NADA 
+<      ENPR 2
+---
+> R13: ENPR 1 
+>      DSVS R14
+> R15: ENPR 2 
+65a65,66
+>      DSVS R16
+> R16: NADA 
+68,69c69,70
+<      CREN 2 0
+<      CHPR R1, 2
+---
+>      CREN 2, 0
+>      CHPR R01, 2
+71a73
+>      DMEM 1
+73,74c75,76
+< R13: NADA 
+<      CHPR R14, 1
+---
+> R14: NADA 
+>      CHPR R15, 1
+76c78
+< R11: NADA 
+---
+> R00: NADA 
+79c81
+<      CHPR R12, 0
+---
+>      CHPR R13, 0
+Exemplo8.5 ... 3a4,5
+>      DSVS R00
+> R00: NADA 
+12c14
+< R0: NADA 
+---
+> R01: NADA 
+16c18
+<      DSVF R1
+---
+>      DSVF R02
+29,30c31,32
+<      DSVS R0
+< R1: NADA 
+---
+>      DSVS R01
+> R02: NADA 
+Exemplo8.6 ... 3,5c3,4
+<      DSVS R0
+< R1: NADA 
+<      ENPR 1
+---
+>      DSVS R00
+> R01: ENPR 1 
+6a6,7
+>      DSVS R02
+> R02: NADA 
+16,19c17,20
+<      DSVF R2
+<      CHPR R1, 1
+<      DSVS R3
+< R2: NADA 
+---
+>      DSVF R04
+>      CHPR R01, 1
+>      DSVS R03
+> R04: NADA 
+22c23
+< R3: NADA 
+---
+> R03: NADA 
+26a28
+>      DMEM 1
+28c30
+< R0: NADA 
+---
+> R00: NADA 
+31c33
+<      CHPR R1, 0
+---
+>      CHPR R01, 0
+Exemplo8.7 ... 3,5c3,4
+<      DSVS R0
+< R1: NADA 
+<      ENPR 1
+---
+>      DSVS R00
+> R01: ENPR 1 
+6a6,7
+>      DSVS R02
+> R02: NADA 
+16,19c17,20
+<      DSVF R2
+<      CHPR R1, 1
+<      DSVS R3
+< R2: NADA 
+---
+>      DSVF R04
+>      CHPR R01, 1
+>      DSVS R03
+> R04: NADA 
+22c23
+< R3: NADA 
+---
+> R03: NADA 
+26a28
+>      DMEM 1
+28,31c30
+< R0: NADA 
+<      DSVS R4
+< R5: NADA 
+<      ENPR 1
+---
+> R05: ENPR 1 
+32a32,33
+>      DSVS R06
+> R06: NADA 
+44c45
+<      DSVF R6
+---
+>      DSVF R08
+47,48c48,49
+<      DSVS R7
+< R6: NADA 
+---
+>      DSVS R07
+> R08: NADA 
+51a53,77
+>      CRCT 2
+>      MULT
+>      CRVL 1, 0
+>      CMIG
+>      DSVF R10
+>      CHPR R05, 1
+>      DSVS R09
+> R10: NADA 
+>      CHPR R01, 1
+> R09: NADA 
+> R07: NADA 
+>      CRVL 0, 1
+>      CRVL 1, 0
+>      MULT
+>      ARMZ 0, 1
+>      DMEM 2
+>      RTPR 1, 0
+> R00: NADA 
+>      LEIT
+>      ARMZ 0, 0
+>      CHPR R05, 0
+>      CRVL 0, 1
+>      IMPR
+>      DMEM 2
+>      PARA
+Exemplo8.8 ... 3,5c3,4
+<      DSVS R0
+< R1: NADA 
+<      ENPR 1
+---
+>      DSVS R00
+> R01: ENPR 1 
+7,9c6,7
+<      DSVS R2
+< R3: NADA 
+<      ENPR 2
+---
+>      DSVS R02
+> R03: ENPR 2 
+10a9,10
+>      DSVS R04
+> R04: NADA 
+22,25c22,25
+<      DSVF R4
+<      CHPR R1, 2
+<      DSVS R5
+< R4: NADA 
+---
+>      DSVF R06
+>      CHPR R01, 2
+>      DSVS R05
+> R06: NADA 
+28c28
+< R5: NADA 
+---
+> R05: NADA 
+32a33
+>      DMEM 1
+34c35
+< R2: NADA 
+---
+> R02: NADA 
+44,47c45,48
+<      DSVF R6
+<      CHPR R1, 1
+<      DSVS R7
+< R6: NADA 
+---
+>      DSVF R08
+>      CHPR R01, 1
+>      DSVS R07
+> R08: NADA 
+50c51
+< R7: NADA 
+---
+> R07: NADA 
+54a56
+>      DMEM 1
+56c58
+< R0: NADA 
+---
+> R00: NADA 
+59c61
+<      CHPR R1, 0
+---
+>      CHPR R01, 0
+Exemplo8.9 ... 3,5c3,4
+<      DSVS R0
+< R1: NADA 
+<      ENPR 1
+---
+>      DSVS R00
+> R01: ENPR 1 
+6a6,7
+>      DSVS R02
+> R02: NADA 
+10c11
+<      DSVF R2
+---
+>      DSVF R04
+14,16c15,17
+<      CHPR R1, 1
+<      DSVS R3
+< R2: NADA 
+---
+>      CHPR R01, 1
+>      DSVS R03
+> R04: NADA 
+19c20
+< R3: NADA 
+---
+> R03: NADA 
+25a27
+>      DMEM 1
+27c29
+< R0: NADA 
+---
+> R00: NADA 
+31c33
+<      CHPR R1, 0
+---
+>      CHPR R01, 0
+ExemploErro1 ... 2a3,4
+>      DSVS R00
+> R00: NADA 
+ExemploErro2 ... 2a3,4
+>      DSVS R00
+> R00: NADA 
+8,9c10,11
+<      CRCT 1
+<      SOMA
+---
+>      CRVL 0, 1
+>      CMMA
